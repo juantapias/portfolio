@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts */
+
+/* Rum Raisin - Normal */
+@font-face {
+  font-family: 'Rum Raisin';
+  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Yanone Kaffeesatz - Light */
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Yanone Kaffeesatz - Regular */
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Yanone Kaffeesatz - SemiBold */
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Yanone Kaffeesatz - Bold */
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Fira Sans - Light */
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../styles/fonts/fira-sans/FiraSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Fira Sans - Regular */
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../styles/fonts/fira-sans/FiraSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Fira Sans - Italic */
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../styles/fonts/fira-sans/FiraSans-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Fira Sans - Bold */
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../styles/fonts/fira-sans/FiraSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Fira Sans - Bold Italic */
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Colors */
+
+:root {
+  --primary: #DAD3BE;
+  --secondary: #254336;
+  --accent-primary: #B7B597;
+  --accent-secondary: #6B8A7A;
+  --white: #FFF;
+  --black: #000;
+  --zinc: #d4d4d8;
+}
+
+/* Resets */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Class */
+
+body {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+/* Loader */
+
+.loader {
+  align-items: center;
+  background-color: var(--primary);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.loader .text {
+  display: flex;
+  color: var(--secondary);
+  font-family: "Yanone Kaffeesatz";
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+/* header */
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: .5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.navigation {
+  position: relative;
+}
+
+.btn-nav {
+  background-color: var(--secondary);
+  border-radius: 1rem;
+  color: var(--white);
+  height: 2.5rem;
+  transition: all .3s ease-in-out;
+  position: relative;
+  padding: 0 .5rem;
+  transform: rotate(-10deg);
+  z-index: 100;
+}
+
+.btn-nav:hover {
+  transform: rotate(0deg);
+}
+
+.nav-list {
+  background-color: var(--accent-primary);
+  box-shadow: 5px 0 25px rgba(0, 0, 0, .2);
+  display: flex;
+  height: 100dvh;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5rem;
+  position: absolute;
+  transform: translateX(1000px);
+  right: 0;
+  top: 0;
+  width: 35%;
+}
+
+.nav-items {
+  font-size: 2rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item::after {
+  background-color: black;
+  bottom: 0;
+  content: "";
+  height: .125rem;
+  left: 0;
+  position: absolute;
+  transition: all .3s ease-in-out;
+  width: 0;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.main-banner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  position: relative;
+}
+
+.banner-container {
+  align-items: center;
+  background-color: var(--secondary);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 0%;
+  justify-content: center;
+  width: 0%;
+  opacity: 0;
+}
+
+.main-banner h1 {
+  color: var(--primary);
+
+  font-family: "Rum Raisin";
+  font-size: 15rem;
+  line-height: normal;
+}
+
+.main-banner p {
+  color: var(--accent-primary);
+  font-family: 'Fira Sans';
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: .5rem;
+}
+
+.about-container {
+  background-color: var(--secondary);
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.about-wrap {
+  align-items: center;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  margin: auto;
+  position: relative;
+}
