@@ -2,92 +2,110 @@
 
 import { useRef } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+import Bubble from '../figures/Bubble'
 
 export default function MainBanner() {
-  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(useGSAP, ScrollTrigger)
 
-  const banner = useRef<HTMLDivElement>(null)
-  const wrap = useRef<HTMLDivElement>(null)
-  const title = useRef<HTMLHeadingElement>(null)
-  const description = useRef<HTMLParagraphElement>(null)
-  const letters = useRef<HTMLSpanElement[]>([])
+  const bannerRef = useRef<HTMLDivElement>(null)
+
+  const bubbleBigRef = useRef<HTMLDivElement>(null)
+  const bubbleSmallRef = useRef<HTMLDivElement>(null)
+
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descriptionRef = useRef<HTMLDivElement>(null)
+
+  const title = ['J', 'u', 'a', 'n', 'T', 'a', 'p', 'i', 'a', 's']
 
   useGSAP(() => {
-    const tlContent = gsap.timeline()
+    gsap.to(bubbleBigRef.current, {
+      y: -20,
+      duration: 12,
+      repeat: -1,
+      yoyoEase: 'back.out(1.7)',
+      rotate: 360,
+    })
+    gsap.to(bubbleSmallRef.current, {
+      y: -20,
+      duration: 3,
+      repeat: -1,
+      yoyoEase: 'back.out(1.7)',
+    })
+  })
 
-    tlContent.fromTo(
-      wrap.current,
-      { scale: 0 },
-      {
-        borderRadius: '2rem',
-        height: '80%',
-        width: '90%',
-        scale: 1,
-        opacity: 1,
-      }
-    )
+  useGSAP(() => {
+    let contentTL = gsap.timeline()
 
-    letters.current?.forEach((letter, index) => {
-      tlContent.from(
-        letter,
+    contentTL
+      .from(
+        '.letter',
         {
           opacity: 0,
-          delay: 0.5 + index * 0.2,
+          stagger: 0.2,
         },
         'a'
       )
-    })
-    tlContent.from(description.current, { opacity: 0 })
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: banner.current,
-        markers: false,
-        start: '55% 50%',
-        pin: true,
-        end: '+=500',
-        scrub: true,
-      },
-    })
-
-    tl.to([description.current, title.current], {
-      opacity: 0,
-      delay: 0.5,
-      stagger: 0.5,
-    })
       .fromTo(
-        wrap.current,
-        {
-          height: '80%',
-          width: '90%',
-        },
-        {
-          scale: 0,
-          scrub: true,
-          opacity: 0,
-        }
+        descriptionRef.current,
+        { color: '#1A1A1D' },
+        { color: '#a3a3a3' },
+        '<1'
       )
-      .fromTo(wrap.current, { opacity: 1 }, { opacity: 0 })
   })
 
+  useGSAP(
+    () => {
+      let test = gsap.timeline({
+        scrollTrigger: {
+          trigger: bannerRef.current,
+          start: '50% 50%',
+          pin: true,
+          end: '+=900',
+          scrub: true,
+        },
+      })
+      test.to(titleRef.current, { y: -200, opacity: 0 })
+      test.fromTo(descriptionRef.current, { opacity: 1 }, { opacity: 0 })
+      test.to(bubbleSmallRef.current, { top: '0', x: window.innerWidth + 500 })
+      test.to(
+        bubbleBigRef.current,
+        {
+          top: '120%',
+          height: '50%',
+          width: '30%',
+          x: window.innerWidth + 500,
+          opacity: 0,
+        },
+        '<2'
+      )
+    },
+    { scope: bannerRef }
+  )
+
   return (
-    <div ref={banner} className='main-banner space-y-4'>
-      <div ref={wrap} className='banner-container'>
-        <h1 ref={title}>
-          {['J', 'u', 'a', 'n', 'T', 'a', 'p', 'i', 'a', 's'].map((char, i) => (
-            <span
-              key={i}
-              ref={el => {
-                if (el) letters.current[i] = el
-              }}
-              className='letter'>
+    <div ref={bannerRef} className='main-banner'>
+      <Bubble ref={bubbleBigRef} top={0} height='90%' width='50%' left={-40} />
+      <Bubble
+        ref={bubbleSmallRef}
+        bottom={5}
+        height='100px'
+        width='100px'
+        left={5}
+      />
+      <div>
+        <h1 ref={titleRef}>
+          {title.map((char, i) => (
+            <span key={i} className='letter'>
               {char}
             </span>
           ))}
         </h1>
-        <p ref={description}>Creative Developer</p>
+        <div ref={descriptionRef} className='description'>
+          Creative Developer
+        </div>
       </div>
     </div>
   )
