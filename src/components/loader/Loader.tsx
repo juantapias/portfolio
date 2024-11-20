@@ -16,30 +16,32 @@ export default function Loader({ isLoading }: IProps) {
 
   const loadingArr = ['C', 'a', 'r', 'g', 'a', 'n', 'd', 'o']
 
-  useGSAP(() => {
-    if (isLoading && textRef.current) {
-      gsap.fromTo(
-        textRef.current?.children,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.5,
-          repeat: -1,
-          stagger: 0.2,
-          ease: 'power1.inOut',
-        }
-      )
-      gsap.to(loaderRef.current, {
-        y: -1000,
-        duration: 5,
-        ease: 'power2.inOut',
-        delay: 3,
-      }),
-        {
-          scope: loaderRef,
-        }
+  useGSAP(
+    () => {
+      if (isLoading && textRef.current) {
+        gsap.fromTo(
+          textRef.current?.children,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.5,
+            repeat: -1,
+            stagger: 0.2,
+            ease: 'power1.inOut',
+          }
+        )
+        gsap.to(loaderRef.current, {
+          y: -1000,
+          duration: 5,
+          ease: 'power2.inOut',
+          delay: 3,
+        })
+      }
+    },
+    {
+      scope: loaderRef,
     }
-  })
+  )
 
   return (
     <div ref={loaderRef} className='loader'>
