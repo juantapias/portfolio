@@ -1,18 +1,24 @@
 'use client'
 
+import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useRef } from 'react'
 
-export default function Loader() {
+type IProps = {
+  isLoading: boolean
+}
+
+export default function Loader({ isLoading }: IProps) {
+  gsap.registerPlugin(useGSAP)
+
   const loaderRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
 
-  const loadingArr = ['L', 'o', 'a', 'd', 'i', 'n', 'g']
+  const loadingArr = ['C', 'a', 'r', 'g', 'a', 'n', 'd', 'o']
 
   useGSAP(
     () => {
-      if (textRef.current) {
+      if (isLoading && textRef.current) {
         gsap.fromTo(
           textRef.current?.children,
           { opacity: 0 },
@@ -24,15 +30,17 @@ export default function Loader() {
             ease: 'power1.inOut',
           }
         )
-
         gsap.to(loaderRef.current, {
           y: -1000,
-          duration: 1,
+          duration: 5,
           ease: 'power2.inOut',
+          delay: 3,
         })
       }
     },
-    { scope: loaderRef }
+    {
+      scope: loaderRef,
+    }
   )
 
   return (

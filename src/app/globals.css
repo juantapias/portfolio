@@ -87,13 +87,11 @@
 /* Colors */
 
 :root {
-  --primary: #DAD3BE;
-  --secondary: #254336;
-  --accent-primary: #B7B597;
-  --accent-secondary: #6B8A7A;
+  --primary: #1A1A1D;
+  --secondary: #a3a3a3;
   --white: #FFF;
   --black: #000;
-  --zinc: #d4d4d8;
+  
 }
 
 /* Resets */
@@ -107,7 +105,7 @@
 /* Class */
 
 body {
-  background-color: var(--primary);
+  background-color: #1A1A1D;
 }
 
 .bg-secondary {
@@ -135,6 +133,30 @@ body {
   text-transform: uppercase;
 }
 
+/* Figures */
+
+.bubble {
+  width: 50%;
+  height: 90%;
+  background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 
+              0 0 20px rgba(255, 255, 255, 0.3);
+  position: absolute;
+  right: -40%;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  border-radius: 50%;
+}
+
 /* header */
 
 .header {
@@ -152,9 +174,9 @@ body {
 }
 
 .btn-nav {
-  background-color: var(--secondary);
+  /* background-color: var(--secondary); */
   border-radius: 1rem;
-  color: var(--white);
+  color: #a3a3a3;
   height: 2.5rem;
   transition: all .3s ease-in-out;
   position: relative;
@@ -168,7 +190,9 @@ body {
 }
 
 .nav-list {
-  background-color: var(--accent-primary);
+  backdrop-filter: blur(5px) saturate(180%);
+  -webkit-backdrop-filter: blur(5px) saturate(180%);
+  background-color: rgba(163, 163, 163, 0.5);
   box-shadow: 5px 0 25px rgba(0, 0, 0, .2);
   display: flex;
   height: 100dvh;
@@ -205,6 +229,8 @@ body {
   width: 100%;
 }
 
+/* Main banner */
+
 .main-banner {
   align-items: center;
   display: flex;
@@ -212,50 +238,179 @@ body {
   height: 100vh;
   justify-content: center;
   position: relative;
-}
-
-.banner-container {
-  align-items: center;
-  background-color: var(--secondary);
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 0%;
-  justify-content: center;
-  width: 0%;
-  opacity: 0;
+  overflow: hidden;
 }
 
 .main-banner h1 {
-  color: var(--primary);
-
+  color: #a3a3a3;
   font-family: "Rum Raisin";
   font-size: 15rem;
   line-height: normal;
+  position: relative;
 }
 
-.main-banner p {
-  color: var(--accent-primary);
+.main-banner .description {
+  color: white;
   font-family: 'Fira Sans';
   font-weight: 600;
   text-transform: uppercase;
   font-size: 1.5rem;
   letter-spacing: .5rem;
+  text-align: center;
 }
 
-.about-container {
-  background-color: var(--secondary);
+/* about */
+
+.about {
+  display: flex;
   height: 100vh;
-  padding: 0;
-  margin: 0;
+  position: relative;
+  overflow: hidden;
 }
 
-.about-wrap {
+.about .section h2 {
+  color: var(--secondary);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.about .section p {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* ads */
+
+.work h3 {
+  color: #a3a3a3;
+  font-size: 3rem;
+  font-weight: 100;
+  line-height: normal;
+  text-align: center;
+}
+
+.let-talk {
+  background-color: var(--secondary);
+}
+
+.let-talk .orbit-letter {
   align-items: center;
-  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  height: 8rem;
+  justify-content: center;
+  padding: 2.5rem;
+  width: 8rem;
+  background-color: var(--primary);
+}
+.let-talk .letter {
+  font-size: 4rem;
+  color: var(--secondary);
+}
+
+.contact {
+  padding: 4rem 0;
+}
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  color: var(--primary);
+  outline: none;
+}
+
+.form-text-area {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 6rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  color: var(--primary);
+  outline: none;
+}
+
+.form-label {
+  position: absolute;
+  top: 22px;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--primary);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.form-input:focus + .form-label, .form-text-area:focus + .form-label {
+  top: -0.5rem;
+  font-size: 0.875rem;
+  color: var(--primary);
+  background-color: var(--secondary);
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+  transform: translateY(-20%);
+}
+
+.form-submit {
   display: flex;
   justify-content: center;
-  height: 100%;
-  margin: auto;
+}
+
+.form-submit button {
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 1rem;
+}
+
+
+.footer a {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+
+.ads{ 
+  background-color: var(--primary);
   position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.circle {
+  align-items: center;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: var(--secondary);
+  border-radius: 100%;
+  color: var(--primary);
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  margin: auto;
+  padding: 0  0 4rem 0;
+  width: 300px;
+}
+
+.circle h2 {
+  font-size: 12.5rem;
+  line-height: 10rem;
+  text-align: center;
+  opacity: 0;
+}
+
+.circle h2 span {
+  display: block;
 }
