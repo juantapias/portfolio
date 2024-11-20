@@ -9,7 +9,6 @@ export default function About() {
   gsap.registerPlugin(useGSAP, ScrollTrigger)
 
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const card = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
     const container = containerRef.current

@@ -37,7 +37,7 @@ export default function MainBanner() {
   })
 
   useGSAP(() => {
-    let contentTL = gsap.timeline()
+    const contentTL = gsap.timeline()
 
     contentTL
       .from(
@@ -58,7 +58,7 @@ export default function MainBanner() {
 
   useGSAP(
     () => {
-      let test = gsap.timeline({
+      const bannerTL = gsap.timeline({
         scrollTrigger: {
           trigger: bannerRef.current,
           start: '50% 50%',
@@ -67,10 +67,13 @@ export default function MainBanner() {
           scrub: true,
         },
       })
-      test.to(titleRef.current, { y: -200, opacity: 0 })
-      test.fromTo(descriptionRef.current, { opacity: 1 }, { opacity: 0 })
-      test.to(bubbleSmallRef.current, { top: '0', x: window.innerWidth + 500 })
-      test.to(
+      bannerTL.to(titleRef.current, { y: -200, opacity: 0 })
+      bannerTL.fromTo(descriptionRef.current, { opacity: 1 }, { opacity: 0 })
+      bannerTL.to(bubbleSmallRef.current, {
+        top: '0',
+        x: window.innerWidth + 500,
+      })
+      bannerTL.to(
         bubbleBigRef.current,
         {
           top: '120%',
