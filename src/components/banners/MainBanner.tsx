@@ -39,6 +39,8 @@ export default function MainBanner() {
   useGSAP(() => {
     const contentTL = gsap.timeline()
 
+    contentTL.from(bubbleBigRef.current, { opacity: 0 })
+    contentTL.from(bubbleSmallRef.current, { opacity: 0 })
     contentTL
       .from(
         '.letter',
