@@ -6,13 +6,17 @@ export default function Footer() {
       <div className='container mx-auto px-8'>
         <div className='grid grid-rows-1'>
           <div className='grid grid-cols-3 py-2'>
-            <Link href={'/'} className='text-center'>
+            <Link
+              href={'https://www.instagram.com/tapias.dev/'}
+              className='text-center'>
               Instagram
             </Link>
-            <Link href={'/'} className='text-center'>
+            <a href={'mailto:dev.juantapias@gmail.com'} className='text-center'>
               dev.juantapias@gmail.com
-            </Link>
-            <Link href={'/'} className='text-center'>
+            </a>
+            <Link
+              href={'https://github.com/juantapias'}
+              className='text-center'>
               GitHub
             </Link>
           </div>

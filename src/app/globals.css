@@ -7,7 +7,8 @@
 /* Rum Raisin - Normal */
 @font-face {
   font-family: 'Rum Raisin';
-  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf') format('truetype');
+  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf')
+    format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +16,8 @@
 /* Yanone Kaffeesatz - Light */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf')
+    format('truetype');
   font-weight: 300;
   font-style: normal;
 }
@@ -23,7 +25,8 @@
 /* Yanone Kaffeesatz - Regular */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf')
+    format('truetype');
   font-weight: 400;
   font-style: normal;
 }
@@ -31,7 +34,8 @@
 /* Yanone Kaffeesatz - SemiBold */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf')
+    format('truetype');
   font-weight: 600;
   font-style: normal;
 }
@@ -39,7 +43,8 @@
 /* Yanone Kaffeesatz - Bold */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf')
+    format('truetype');
   font-weight: 700;
   font-style: normal;
 }
@@ -79,7 +84,8 @@
 /* Fira Sans - Bold Italic */
 @font-face {
   font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf') format('truetype');
+  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf')
+    format('truetype');
   font-weight: 700;
   font-style: italic;
 }
@@ -87,11 +93,10 @@
 /* Colors */
 
 :root {
-  --primary: #1A1A1D;
-  --secondary: #a3a3a3;
-  --white: #FFF;
+  --primary: #1a1a1d;
+  --secondary: #edf2ef;
+  --white: #fff;
   --black: #000;
-  
 }
 
 /* Resets */
@@ -105,7 +110,7 @@
 /* Class */
 
 body {
-  background-color: #1A1A1D;
+  background-color: var(--primary);
 }
 
 .bg-secondary {
@@ -128,7 +133,7 @@ body {
 .loader .text {
   display: flex;
   color: var(--secondary);
-  font-family: "Yanone Kaffeesatz";
+  font-family: 'Yanone Kaffeesatz';
   font-size: 3rem;
   text-transform: uppercase;
 }
@@ -138,22 +143,31 @@ body {
 .bubble {
   width: 50%;
   height: 90%;
-  background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2),
+    rgba(0, 0, 0, 0.1)
+  );
   border-radius: 50%;
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 
-              0 0 20px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.3);
   position: absolute;
   right: -40%;
 }
 
 .bubble::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 15%;
   left: 15%;
   width: 50%;
   height: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
   border-radius: 50%;
 }
 
@@ -162,7 +176,7 @@ body {
 .header {
   display: flex;
   justify-content: flex-end;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -174,15 +188,21 @@ body {
 }
 
 .btn-nav {
-  /* background-color: var(--secondary); */
   border-radius: 1rem;
-  color: #a3a3a3;
   height: 2.5rem;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   position: relative;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   transform: rotate(-10deg);
   z-index: 100;
+}
+
+.btn-light {
+  color: var(--secondary);
+}
+
+.btn-dark {
+  color: var(--primary);
 }
 
 .btn-nav:hover {
@@ -193,7 +213,7 @@ body {
   backdrop-filter: blur(5px) saturate(180%);
   -webkit-backdrop-filter: blur(5px) saturate(180%);
   background-color: rgba(163, 163, 163, 0.5);
-  box-shadow: 5px 0 25px rgba(0, 0, 0, .2);
+  box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
   display: flex;
   height: 100dvh;
   flex-direction: column;
@@ -215,13 +235,13 @@ body {
 }
 
 .nav-item::after {
-  background-color: black;
+  background-color: var(--primary);
   bottom: 0;
-  content: "";
-  height: .125rem;
+  content: '';
+  height: 0.125rem;
   left: 0;
   position: absolute;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   width: 0;
 }
 
@@ -242,20 +262,20 @@ body {
 }
 
 .main-banner h1 {
-  color: #a3a3a3;
-  font-family: "Rum Raisin";
+  color: var(--secondary);
+  font-family: 'Rum Raisin';
   font-size: 15rem;
   line-height: normal;
   position: relative;
 }
 
 .main-banner .description {
-  color: white;
+  color: var(--secondary);
   font-family: 'Fira Sans';
   font-weight: 600;
   text-transform: uppercase;
   font-size: 1.5rem;
-  letter-spacing: .5rem;
+  letter-spacing: 0.5rem;
   text-align: center;
 }
 
@@ -284,7 +304,7 @@ body {
 /* ads */
 
 .work h3 {
-  color: #a3a3a3;
+  color: var(--secondary);
   font-size: 3rem;
   font-weight: 100;
   line-height: normal;
@@ -293,6 +313,7 @@ body {
 
 .let-talk {
   background-color: var(--secondary);
+  overflow: hidden;
 }
 
 .let-talk .orbit-letter {
@@ -353,7 +374,8 @@ body {
   pointer-events: none;
 }
 
-.form-input:focus + .form-label, .form-text-area:focus + .form-label {
+.form-input:focus + .form-label,
+.form-text-area:focus + .form-label {
   top: -0.5rem;
   font-size: 0.875rem;
   color: var(--primary);
@@ -370,20 +392,34 @@ body {
 
 .form-submit button {
   background-color: var(--primary);
+  border: 0.0625rem solid var(--primary);
   color: var(--secondary);
   padding: 1rem;
+  transition: all 150ms ease-in-out;
 }
 
+.form-submit button:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+/* footer */
 
 .footer a {
   color: var(--secondary);
   font-size: 1rem;
   font-weight: 100;
   text-transform: uppercase;
+  transition: all 150ms ease-in-out;
 }
 
+.footer a:hover {
+  color: var(--white);
+  letter-spacing: 0.15rem;
+}
 
-.ads{ 
+/* ads */
+.ads {
   background-color: var(--primary);
   position: relative;
   height: 100vh;
@@ -400,7 +436,7 @@ body {
   height: 300px;
   justify-content: center;
   margin: auto;
-  padding: 0  0 4rem 0;
+  padding: 0 0 4rem 0;
   width: 300px;
 }
 

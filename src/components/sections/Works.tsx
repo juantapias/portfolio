@@ -1,6 +1,6 @@
 export default function Works() {
   return (
-    <div className='work'>
+    <div id='work' className='work'>
       <div className='container mx-auto p-8'>
         <div className='grid grid-rows-1'>
           <div className='grid grid-cols-1'>

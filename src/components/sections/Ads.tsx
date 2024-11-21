@@ -33,7 +33,7 @@ export default function Ads() {
         circleRef.current,
         { y: '-50%', opacity: 0 },
         {
-          backgroundColor: '#a3a3a3',
+          backgroundColor: '#EDF2EF',
           opacity: 1,
           y: 50,
         },
@@ -58,7 +58,7 @@ export default function Ads() {
   })
 
   return (
-    <div ref={adsRef} className='ads'>
+    <section ref={adsRef} className='ads' data-bg='light'>
       <div ref={circleRef} className='circle'>
         <h2 ref={textWrapRef} className='space-x-2'>
           <span ref={textRef1}>Tu sitio web,</span>
@@ -66,6 +66,6 @@ export default function Ads() {
           <span ref={textRef3}>tu negocio</span>
         </h2>
       </div>
-    </div>
+    </section>
   )
 }
