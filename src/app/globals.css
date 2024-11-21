@@ -176,13 +176,21 @@ body {
 .btn-nav {
   /* background-color: var(--secondary); */
   border-radius: 1rem;
-  color: #a3a3a3;
+  
   height: 2.5rem;
   transition: all .3s ease-in-out;
   position: relative;
   padding: 0 .5rem;
   transform: rotate(-10deg);
   z-index: 100;
+}
+
+.btn-light {
+  color: var(--secondary);
+}
+
+.btn-dark {
+  color: var(--primary);
 }
 
 .btn-nav:hover {
@@ -293,6 +301,8 @@ body {
 
 .let-talk {
   background-color: var(--secondary);
+  overflow: hidden;
+  
 }
 
 .let-talk .orbit-letter {

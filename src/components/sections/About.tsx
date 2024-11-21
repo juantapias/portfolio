@@ -30,7 +30,7 @@ export default function About() {
   })
 
   return (
-    <div ref={containerRef} className='about'>
+    <div ref={containerRef} className='about' data-bg='dark'>
       <div
         className='section'
         style={{

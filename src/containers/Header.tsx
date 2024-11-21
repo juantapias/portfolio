@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 export default function Header() {
-  const [navOpen, setNavOpen] = useState<boolean>(false)
   const container = useRef<HTMLDivElement>(null)
+
+  const [navOpen, setNavOpen] = useState<boolean>(false)
+  const [isDarkBackground, setIsDarkBackground] = useState<boolean>(true)
 
   const { contextSafe } = useGSAP({ scope: container })
 
@@ -39,9 +41,37 @@ export default function Header() {
     setNavOpen(!navOpen)
   })
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('[data-bg]')
+      let darkBackground = true
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        if (
+          rect.top <= window.innerHeight / 2 &&
+          rect.bottom >= window.innerHeight / 2
+        ) {
+          darkBackground = section.getAttribute('data-bg') === 'dark'
+        }
+      })
+
+      setIsDarkBackground(darkBackground)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Run on mount
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div ref={container} className='header'>
-      <button onClick={onClickMenu} className='btn-nav'>
+      <button
+        onClick={onClickMenu}
+        className={`btn-nav ${isDarkBackground ? 'btn-light' : 'btn-dark'}`}>
         {navOpen ? 'Cerrar' : 'Menú'}
       </button>
 
