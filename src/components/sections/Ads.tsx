@@ -33,7 +33,7 @@ export default function Ads() {
         circleRef.current,
         { y: '-50%', opacity: 0 },
         {
-          backgroundColor: '#a3a3a3',
+          backgroundColor: '#EDF2EF',
           opacity: 1,
           y: 50,
         },

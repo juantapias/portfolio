@@ -38,7 +38,7 @@ export default function Contact() {
     { scope: containerRef }
   )
   return (
-    <div className='space-y-8' data-bg='light'>
+    <div id='contact' className='space-y-8' data-bg='light'>
       <div className='let-talk p-10'>
         <div ref={containerRef} className='container mx-auto space-y-8'>
           <div className='text-center flex items-center justify-center space-x-4'>

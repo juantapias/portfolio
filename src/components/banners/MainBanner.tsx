@@ -53,7 +53,7 @@ export default function MainBanner() {
       .fromTo(
         descriptionRef.current,
         { color: '#1A1A1D' },
-        { color: '#a3a3a3' },
+        { color: '#EDF2EF' },
         '<1'
       )
   })
@@ -91,7 +91,7 @@ export default function MainBanner() {
   )
 
   return (
-    <div ref={bannerRef} className='main-banner' data-bg='dark'>
+    <div id='home' ref={bannerRef} className='main-banner' data-bg='dark'>
       <Bubble ref={bubbleBigRef} top={0} height='90%' width='50%' left={-40} />
       <Bubble
         ref={bubbleSmallRef}

@@ -6,14 +6,15 @@ import { useGSAP } from '@gsap/react'
 
 export default function Header() {
   const container = useRef<HTMLDivElement>(null)
-
   const [navOpen, setNavOpen] = useState<boolean>(false)
   const [isDarkBackground, setIsDarkBackground] = useState<boolean>(true)
 
   const { contextSafe } = useGSAP({ scope: container })
 
-  const onClickMenu = contextSafe(() => {
-    const tl = gsap.timeline()
+  const toggleMenu = contextSafe((callback?: () => void) => {
+    const tl = gsap.timeline({
+      onComplete: callback,
+    })
 
     if (navOpen) {
       tl.to('li', {
@@ -41,6 +42,23 @@ export default function Header() {
     setNavOpen(!navOpen)
   })
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId)
+
+    if (sectionId === 'home') {
+      toggleMenu(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      })
+    } else if (section) {
+      toggleMenu(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('[data-bg]')
@@ -60,7 +78,7 @@ export default function Header() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    handleScroll() // Run on mount
+    handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -70,7 +88,7 @@ export default function Header() {
   return (
     <div ref={container} className='header'>
       <button
-        onClick={onClickMenu}
+        onClick={() => toggleMenu()}
         className={`btn-nav ${isDarkBackground ? 'btn-light' : 'btn-dark'}`}>
         {navOpen ? 'Cerrar' : 'Menú'}
       </button>
@@ -78,10 +96,20 @@ export default function Header() {
       <div className='nav-list'>
         <nav className='nav-items'>
           <ul className='space-y-4'>
-            <li className='nav-item'>Home</li>
-            <li className='nav-item'>About</li>
-            <li className='nav-item'>Work</li>
-            <li className='nav-item'>Contact</li>
+            <li className='nav-item'>
+              <button onClick={() => scrollToSection('home')}>Inicio</button>
+            </li>
+            <li className='nav-item'>
+              <button onClick={() => scrollToSection('about')}>Acerca</button>
+            </li>
+            <li className='nav-item'>
+              <button onClick={() => scrollToSection('work')}>Proyectos</button>
+            </li>
+            <li className='nav-item'>
+              <button onClick={() => scrollToSection('contact')}>
+                Contacto
+              </button>
+            </li>
           </ul>
         </nav>
 
