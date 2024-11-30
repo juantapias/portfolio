@@ -5,7 +5,7 @@ export default function Footer() {
     <div className='footer'>
       <div className='container mx-auto px-8'>
         <div className='grid grid-rows-1'>
-          <div className='grid grid-cols-3 py-2'>
+          <div className='grid grid-cols-1 md:grid-cols-3 py-2'>
             <Link
               href={'https://www.instagram.com/tapias.dev/'}
               className='text-center'>

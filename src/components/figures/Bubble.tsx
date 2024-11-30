@@ -4,7 +4,7 @@ import React, { CSSProperties, forwardRef } from 'react'
 
 type IProps = {
   bottom?: number
-  height: string
+  height?: string
   left?: number
   right?: number
   top?: number
