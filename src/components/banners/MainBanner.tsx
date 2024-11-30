@@ -72,14 +72,13 @@ export default function MainBanner() {
       bannerTL.to(titleRef.current, { y: -200, opacity: 0 })
       bannerTL.fromTo(descriptionRef.current, { opacity: 1 }, { opacity: 0 })
       bannerTL.to(bubbleSmallRef.current, {
-        top: '0',
+        top: '-10%',
         x: window.innerWidth + 500,
       })
       bannerTL.to(
         bubbleBigRef.current,
         {
           top: '120%',
-          height: '50%',
           width: '30%',
           x: window.innerWidth + 500,
           opacity: 0,
@@ -92,7 +91,7 @@ export default function MainBanner() {
 
   return (
     <div id='home' ref={bannerRef} className='main-banner' data-bg='dark'>
-      <Bubble ref={bubbleBigRef} top={0} height='90%' width='50%' left={-40} />
+      <Bubble ref={bubbleBigRef} top={0} width='50%' left={-40} />
       <Bubble
         ref={bubbleSmallRef}
         bottom={5}

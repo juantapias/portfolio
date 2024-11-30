@@ -274,6 +274,7 @@ body {
   font-size: 15rem;
   line-height: normal;
   position: relative;
+  text-align: center;
 }
 
 .main-banner .description {
@@ -462,4 +463,107 @@ body {
 
 .circle h2 span {
   display: block;
+}
+
+/* Responsive */
+
+@media (max-width: 576px) {
+  .bubble {
+    height: 30%;
+  }
+
+  .main-banner h1 {
+    font-size: 5rem;
+  }
+
+  .main-banner .description {
+    font-size: 1rem;
+  }
+
+  .circle h2 {
+    font-size: 5rem;
+  }
+
+  .let-talk .orbit-letter {
+    height: 2rem;
+    padding: 1.25rem;
+    width: 2rem;
+  }
+
+  .let-talk .letter {
+    font-size: 2rem;
+  }
+}
+
+/* Tablets verticales y móviles grandes */
+@media (min-width: 577px) and (max-width: 768px) {
+  .bubble {
+    height: 40%;
+    width: 40%;
+  }
+
+  .main-banner h1 {
+    font-size: 7rem;
+  }
+
+  .circle h2 {
+    font-size: 6.5rem;
+  }
+
+  .let-talk .orbit-letter {
+    height: 3rem;
+    padding: 1.25rem;
+    width: 3rem;
+  }
+
+  .let-talk .letter {
+    font-size: 2rem;
+  }
+}
+
+/* Tablets horizontales y pequeños desktops */
+@media (min-width: 769px) and (max-width: 992px) {
+  .bubble {
+    height: 50%;
+    width: 50%;
+  }
+
+  .main-banner h1 {
+    font-size: 9rem;
+  }
+
+  .circle h2 {
+    font-size: 8rem;
+  }
+  .let-talk .orbit-letter {
+    height: 4rem;
+    padding: 1.25rem;
+    width: 4rem;
+  }
+
+  .let-talk .letter {
+    font-size: 2.5rem;
+  }
+}
+
+/* Laptops y desktops */
+@media (min-width: 993px) and (max-width: 1200px) {
+  .circle h2 {
+    font-size: 10rem;
+  }
+
+  .let-talk .orbit-letter {
+    height: 5rem;
+    padding: 2rem;
+    width: 5rem;
+  }
+
+  .let-talk .letter {
+    font-size: 3rem;
+  }
+}
+
+/* Pantallas grandes (4K y más) */
+@media (min-width: 1201px) {
+  /* Estilos para pantallas gigantes */
 }

@@ -37,8 +37,8 @@ export default function About() {
           minWidth: '100vw',
           height: '100%',
         }}>
-        <div className='container mx-auto h-full'>
-          <div className='flex items-start flex-col justify-center h-full w-1/2 space-y-4'>
+        <div className='container mx-auto h-full px-8'>
+          <div className='flex items-start flex-col justify-center h-full w-full md:w-1/2 space-y-4'>
             <h2 className='underline'>Sobre mí</h2>
             <div className='space-y-4'>
               <p>
@@ -74,8 +74,8 @@ export default function About() {
           minWidth: '100vw',
           height: '100%',
         }}>
-        <div className='container mx-auto h-full'>
-          <div className='flex items-start flex-col justify-center h-full w-1/2 space-y-4'>
+        <div className='container mx-auto h-full px-8'>
+          <div className='flex items-start flex-col justify-center h-full w-full md:w-1/2 space-y-4'>
             <h2>Servicios</h2>
             <div className='space-y-4'>
               <p>
@@ -121,8 +121,8 @@ export default function About() {
           minWidth: '100vw',
           height: '100%',
         }}>
-        <div className='container mx-auto h-full'>
-          <div className='flex items-start flex-col justify-center h-full w-1/2 space-y-4'>
+        <div className='container mx-auto h-full px-8'>
+          <div className='flex items-start flex-col justify-center h-full w-full md:w-1/2 space-y-4'>
             <h2>¿Por qué elegirme?</h2>
             <div className='space-y-4'>
               <p>
