@@ -41,7 +41,7 @@ export default function Contact() {
     <div id='contact' className='space-y-8' data-bg='light'>
       <div className='let-talk p-10'>
         <div ref={containerRef} className='container mx-auto space-y-8'>
-          <div className='text-center flex items-center justify-center space-x-4'>
+          <div className='text-center flex items-center justify-center space-x-1 md:space-x-4'>
             {letsTalk.map((letter, key) => (
               <div key={key} className='orbit-letter'>
                 <span className='letter'>{letter}</span>
@@ -51,7 +51,7 @@ export default function Contact() {
 
           <div className='contact'>
             <div className='container mx-auto px-8'>
-              <div className='container mx-auto px-8'>
+              <div className='container mx-auto'>
                 <div className='form-group'>
                   <input
                     type='text'
