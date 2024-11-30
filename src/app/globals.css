@@ -93,8 +93,10 @@
 /* Colors */
 
 :root {
-  --primary: #1a1a1d;
-  --secondary: #edf2ef;
+  --primary: #222222;
+  --secondary: #cccccc;
+  --accent-secondary: #bbbbbb;
+  --text: #aaaaaa;
   --white: #fff;
   --black: #000;
 }
@@ -105,6 +107,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+strong,
+b {
+  font-weight: 700;
 }
 
 /* Class */
@@ -270,7 +277,7 @@ body {
 }
 
 .main-banner .description {
-  color: var(--secondary);
+  color: var(--accent-secondary);
   font-family: 'Fira Sans';
   font-weight: 600;
   text-transform: uppercase;
@@ -290,15 +297,20 @@ body {
 
 .about .section h2 {
   color: var(--secondary);
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 600;
   line-height: normal;
 }
 
 .about .section p {
-  color: var(--secondary);
+  color: var(--text);
   font-size: 1rem;
   font-weight: 300;
+}
+
+.about .section ul li {
+  color: var(--text);
+  list-style: circle;
 }
 
 /* ads */
@@ -393,8 +405,9 @@ body {
 .form-submit button {
   background-color: var(--primary);
   border: 0.0625rem solid var(--primary);
+  border-radius: 5rem;
   color: var(--secondary);
-  padding: 1rem;
+  padding: 1rem 2rem;
   transition: all 150ms ease-in-out;
 }
 

@@ -52,8 +52,8 @@ export default function MainBanner() {
       )
       .fromTo(
         descriptionRef.current,
-        { color: '#1A1A1D' },
-        { color: '#EDF2EF' },
+        { color: '#222222' },
+        { color: '#bbbbbb' },
         '<1'
       )
   })
