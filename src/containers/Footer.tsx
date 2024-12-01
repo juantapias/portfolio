@@ -8,7 +8,8 @@ export default function Footer() {
           <div className='grid grid-cols-1 md:grid-cols-3 py-2'>
             <Link
               href={'https://www.instagram.com/tapias.dev/'}
-              className='text-center'>
+              className='text-center'
+              target='_blank'>
               Instagram
             </Link>
             <a href={'mailto:dev.juantapias@gmail.com'} className='text-center'>
@@ -16,7 +17,8 @@ export default function Footer() {
             </a>
             <Link
               href={'https://github.com/juantapias'}
-              className='text-center'>
+              className='text-center'
+              target='_blank'>
               GitHub
             </Link>
           </div>

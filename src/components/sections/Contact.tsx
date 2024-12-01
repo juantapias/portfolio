@@ -1,14 +1,31 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useRef } from 'react'
+
+type Inputs = {
+  name?: string
+  subject?: string
+  email?: string
+  message?: string
+}
 
 export default function Contact() {
   gsap.registerPlugin(useGSAP, ScrollTrigger)
   const containerRef = useRef<HTMLDivElement>(null)
   const letsTalk = ['H', 'A', 'B', 'L', 'A', 'M', 'O', 'S', '?']
+
+  const [inputs, setInputs] = useState<Inputs>({
+    name: '',
+    subject: '',
+    email: '',
+    message: '',
+  })
+  const [isLoading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
+  const [success, setSuccess] = useState<boolean>(false)
 
   useGSAP(
     () => {
@@ -37,6 +54,56 @@ export default function Contact() {
     },
     { scope: containerRef }
   )
+
+  useEffect(() => {
+    if (error || success) {
+      const timer = setTimeout(() => {
+        setError('')
+        setSuccess(false)
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [error, success])
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+    setSuccess(false)
+
+    if (!inputs.name || !inputs.email || !inputs.subject || !inputs.message) {
+      setError('Por favor, completa todos los campos del formulario.')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/send-mail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      })
+
+      if (response.ok) {
+        setSuccess(true)
+        setInputs({ name: '', subject: '', email: '', message: '' })
+        setLoading(false)
+      } else {
+        setError('Hubo un problema al enviar el mensaje. Intenta nuevamente.')
+        setLoading(false)
+      }
+    } catch (err) {
+      console.error(err)
+      setError('Error de red. Intenta más tarde.')
+      setLoading(false)
+    }
+  }
+
+  const handleInputChange = (field: keyof Inputs, value: string) => {
+    setInputs(prev => ({ ...prev, [field]: value }))
+  }
+
   return (
     <div id='contact' className='space-y-8' data-bg='light'>
       <div className='let-talk p-10'>
@@ -51,54 +118,60 @@ export default function Contact() {
 
           <div className='contact'>
             <div className='container mx-auto px-8'>
-              <div className='container mx-auto'>
-                <div className='form-group'>
-                  <input
-                    type='text'
-                    id='name'
-                    className='form-input'
-                    required
-                  />
-                  <label htmlFor='name' className='form-label'>
-                    Nombre:
-                  </label>
-                </div>
+              <form onSubmit={onSubmit} className='container mx-auto'>
+                {['name', 'email', 'subject', 'message'].map((field, index) => (
+                  <div key={index} className='form-group'>
+                    {field !== 'message' ? (
+                      <input
+                        type={field === 'email' ? 'email' : 'text'}
+                        id={field}
+                        value={inputs[field as keyof Inputs]}
+                        className='form-input'
+                        required
+                        onChange={e =>
+                          handleInputChange(
+                            field as keyof Inputs,
+                            e.target.value
+                          )
+                        }
+                      />
+                    ) : (
+                      <textarea
+                        id={field}
+                        value={inputs[field as keyof Inputs]}
+                        className='form-text-area'
+                        required
+                        onChange={e =>
+                          handleInputChange(
+                            field as keyof Inputs,
+                            e.target.value
+                          )
+                        }
+                      />
+                    )}
+                    <label htmlFor={field} className='form-label'>
+                      {field.charAt(0).toUpperCase() + field.slice(1)}:
+                    </label>
+                  </div>
+                ))}
 
-                <div className='form-group'>
-                  <input
-                    type='mail'
-                    id='mail'
-                    className='form-input'
-                    required
-                  />
-                  <label htmlFor='mail' className='form-label'>
-                    E-mail:
-                  </label>
+                <div className='form-submit flex flex-col text-center items-center space-y-2'>
+                  <button
+                    type='submit'
+                    className={`${isLoading ? 'is-disabled' : ''}`}
+                    disabled={isLoading}>
+                    {!isLoading ? (
+                      'Enviar'
+                    ) : (
+                      <i className='icon icon-spinner animate-spin' />
+                    )}
+                  </button>
+                  {error && <p className='error-text'>{error}</p>}
+                  {success && (
+                    <p className='success-text'>Mensaje enviado con éxito.</p>
+                  )}
                 </div>
-
-                <div className='form-group'>
-                  <input
-                    type='text'
-                    id='subject'
-                    className='form-input'
-                    required
-                  />
-                  <label htmlFor='subject' className='form-label'>
-                    Asunto:
-                  </label>
-                </div>
-
-                <div className='form-group'>
-                  <textarea id='message' className='form-text-area' required />
-                  <label htmlFor='message' className='form-label'>
-                    Mensaje:
-                  </label>
-                </div>
-
-                <div className='form-submit'>
-                  <button type='submit'>Enviar</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
