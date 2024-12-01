@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -115,8 +116,22 @@ export default function Header() {
 
         <div>
           <ul className='flex items-center justify-center space-x-4'>
-            <li>G</li>
-            <li>I</li>
+            <li>
+              <Link
+                href={'https://github.com/juantapias'}
+                className='text-center transition-all duration-150 ease-in-out hover:text-[#CCCCCC]'
+                target='_blank'>
+                <i className='icon icon-github text-3xl' />
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={'https://www.instagram.com/tapias.dev/'}
+                className='text-center transition-all duration-150 ease-in-out hover:text-[#CCCCCC]'
+                target='_blank'>
+                <i className='icon icon-instagram text-3xl' />
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
