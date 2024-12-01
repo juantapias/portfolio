@@ -7,8 +7,7 @@
 /* Rum Raisin - Normal */
 @font-face {
   font-family: 'Rum Raisin';
-  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf')
-    format('truetype');
+  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,8 +15,7 @@
 /* Yanone Kaffeesatz - Light */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf')
-    format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
@@ -25,8 +23,7 @@
 /* Yanone Kaffeesatz - Regular */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf')
-    format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
@@ -34,8 +31,7 @@
 /* Yanone Kaffeesatz - SemiBold */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf')
-    format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
@@ -43,8 +39,7 @@
 /* Yanone Kaffeesatz - Bold */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf')
-    format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
@@ -84,8 +79,7 @@
 /* Fira Sans - Bold Italic */
 @font-face {
   font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf')
-    format('truetype');
+  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
 }
@@ -112,6 +106,10 @@
 strong,
 b {
   font-weight: 700;
+}
+
+i {
+  display: inline-flex;
 }
 
 /* Class */
@@ -150,12 +148,10 @@ body {
 .bubble {
   width: 50%;
   height: 90%;
-  background: radial-gradient(
-    circle at 40% 40%,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0.2),
-    rgba(0, 0, 0, 0.1)
-  );
+  background: radial-gradient(circle at 40% 40%,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.2),
+      rgba(0, 0, 0, 0.1));
   border-radius: 50%;
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5),
     0 0 20px rgba(255, 255, 255, 0.3);
@@ -170,11 +166,9 @@ body {
   left: 15%;
   width: 50%;
   height: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0)
-  );
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0));
   border-radius: 50%;
 }
 
@@ -348,6 +342,7 @@ body {
   width: 8rem;
   background-color: var(--primary);
 }
+
 .let-talk .letter {
   font-size: 4rem;
   color: var(--secondary);
@@ -356,33 +351,30 @@ body {
 .contact {
   padding: 4rem 0;
 }
+
 .form-group {
   position: relative;
   margin-bottom: 1.5rem;
 }
 
-.form-input {
+.form-input,
+.form-text-area {
   background-color: transparent;
   border: 1px solid var(--primary);
   border-radius: 0.25rem;
   width: 100%;
-  height: 3rem;
   padding: 0 1rem;
   font-size: 1rem;
   color: var(--primary);
   outline: none;
 }
 
+.form-input {
+  height: 3rem;
+}
+
 .form-text-area {
-  background-color: transparent;
-  border: 1px solid var(--primary);
-  border-radius: 0.25rem;
-  width: 100%;
   height: 6rem;
-  padding: 0 1rem;
-  font-size: 1rem;
-  color: var(--primary);
-  outline: none;
 }
 
 .form-label {
@@ -396,8 +388,21 @@ body {
   pointer-events: none;
 }
 
-.form-input:focus + .form-label,
-.form-text-area:focus + .form-label {
+
+.form-input:focus+.form-label,
+.form-text-area:focus+.form-label {
+  top: -0.5rem;
+  font-size: 0.875rem;
+  color: var(--primary);
+  background-color: var(--secondary);
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+  transform: translateY(-20%);
+}
+
+
+.form-input:not(:placeholder-shown)+.form-label,
+.form-text-area:not(:placeholder-shown)+.form-label {
   top: -0.5rem;
   font-size: 0.875rem;
   color: var(--primary);
@@ -418,13 +423,24 @@ body {
   border-radius: 5rem;
   color: var(--secondary);
   padding: 1rem 2rem;
-  transition: all 150ms ease-in-out;
+  /* transition: all 150ms ease-in-out; */
+}
+
+.form-submit button.is-disabled {
+  opacity: .5;
+}
+
+.form-submit button.is-disabled:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+  cursor: not-allowed;
 }
 
 .form-submit button:hover {
   background-color: var(--secondary);
   color: var(--primary);
 }
+
 
 /* footer */
 
@@ -448,6 +464,7 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
 .circle {
   align-items: center;
   backdrop-filter: blur(16px) saturate(180%);
@@ -545,6 +562,7 @@ body {
   .circle h2 {
     font-size: 8rem;
   }
+
   .let-talk .orbit-letter {
     height: 4rem;
     padding: 1.25rem;
