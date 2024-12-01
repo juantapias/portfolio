@@ -12,6 +12,13 @@ type Inputs = {
   message?: string
 }
 
+const fieldLabels: { [key: string]: string } = {
+  name: 'Nombre',
+  email: 'Correo Electrónico',
+  subject: 'Asunto',
+  message: 'Mensaje',
+}
+
 export default function Contact() {
   gsap.registerPlugin(useGSAP, ScrollTrigger)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -150,7 +157,7 @@ export default function Contact() {
                       />
                     )}
                     <label htmlFor={field} className='form-label'>
-                      {field.charAt(0).toUpperCase() + field.slice(1)}:
+                      {fieldLabels[field]}:
                     </label>
                   </div>
                 ))}
