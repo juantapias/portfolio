@@ -1,16 +1,17 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?h0p4g');
-  src:  url('fonts/icomoon.eot?h0p4g#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?h0p4g') format('truetype'),
-    url('fonts/icomoon.woff?h0p4g') format('woff'),
-    url('fonts/icomoon.svg?h0p4g#icomoon') format('svg');
+  src: url('fonts/icomoon.eot?1bq52x');
+  src: url('fonts/icomoon.eot?1bq52x#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?1bq52x') format('truetype'),
+    url('fonts/icomoon.woff?1bq52x') format('woff'),
+    url('fonts/icomoon.svg?1bq52x#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: never;
@@ -25,18 +26,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-spinner:before {
+  content: "\e902";
+}
+
 .icon-instagram:before {
   content: "\e901";
 }
+
 .icon-github:before {
   content: "\e900";
 }
+
 .icon-brand:before {
   content: "\e900";
 }
+
 .icon-octacat:before {
   content: "\e900";
 }
+
 .icon-social:before {
   content: "\e900";
 }
