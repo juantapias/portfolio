@@ -256,6 +256,15 @@ body {
   width: 100%;
 }
 
+.nav-item:hover {
+  color: var(--secondary);
+}
+
+.nav-item button {
+  text-align: left;
+  width: 100%;
+}
+
 /* Main banner */
 
 .main-banner {
@@ -482,6 +491,7 @@ body {
 
   .circle h2 {
     font-size: 5rem;
+    line-height: normal;
   }
 
   .let-talk .orbit-letter {
