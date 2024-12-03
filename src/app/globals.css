@@ -7,7 +7,8 @@
 /* Rum Raisin - Normal */
 @font-face {
   font-family: 'Rum Raisin';
-  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf') format('truetype');
+  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf')
+    format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +16,8 @@
 /* Yanone Kaffeesatz - Light */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf')
+    format('truetype');
   font-weight: 300;
   font-style: normal;
 }
@@ -23,7 +25,8 @@
 /* Yanone Kaffeesatz - Regular */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf')
+    format('truetype');
   font-weight: 400;
   font-style: normal;
 }
@@ -31,7 +34,8 @@
 /* Yanone Kaffeesatz - SemiBold */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf')
+    format('truetype');
   font-weight: 600;
   font-style: normal;
 }
@@ -39,7 +43,8 @@
 /* Yanone Kaffeesatz - Bold */
 @font-face {
   font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf') format('truetype');
+  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf')
+    format('truetype');
   font-weight: 700;
   font-style: normal;
 }
@@ -79,7 +84,8 @@
 /* Fira Sans - Bold Italic */
 @font-face {
   font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf') format('truetype');
+  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf')
+    format('truetype');
   font-weight: 700;
   font-style: italic;
 }
@@ -122,6 +128,27 @@ body {
   background-color: var(--secondary);
 }
 
+.text-secondary {
+  color: var(--secondary);
+}
+
+.card {
+  border: 0.0625rem solid var(--secondary);
+  border-radius: 0.625rem;
+  padding: 0.5rem;
+}
+
+.card h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.card p {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
 /* Loader */
 
 .loader {
@@ -148,10 +175,12 @@ body {
 .bubble {
   width: 50%;
   height: 90%;
-  background: radial-gradient(circle at 40% 40%,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.2),
-      rgba(0, 0, 0, 0.1));
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2),
+    rgba(0, 0, 0, 0.1)
+  );
   border-radius: 50%;
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5),
     0 0 20px rgba(255, 255, 255, 0.3);
@@ -166,9 +195,11 @@ body {
   left: 15%;
   width: 50%;
   height: 50%;
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0));
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
   border-radius: 50%;
 }
 
@@ -317,6 +348,21 @@ body {
   list-style: circle;
 }
 
+/* services */
+
+.services {
+  color: var(--secondary);
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.services h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: normal;
+}
+
 /* ads */
 
 .work h3 {
@@ -388,9 +434,8 @@ body {
   pointer-events: none;
 }
 
-
-.form-input:focus+.form-label,
-.form-text-area:focus+.form-label {
+.form-input:focus + .form-label,
+.form-text-area:focus + .form-label {
   top: -0.5rem;
   font-size: 0.875rem;
   color: var(--primary);
@@ -400,9 +445,8 @@ body {
   transform: translateY(-20%);
 }
 
-
-.form-input:not(:placeholder-shown)+.form-label,
-.form-text-area:not(:placeholder-shown)+.form-label {
+.form-input:not(:placeholder-shown) + .form-label,
+.form-text-area:not(:placeholder-shown) + .form-label {
   top: -0.5rem;
   font-size: 0.875rem;
   color: var(--primary);
@@ -427,7 +471,7 @@ body {
 }
 
 .form-submit button.is-disabled {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .form-submit button.is-disabled:hover {
@@ -440,7 +484,6 @@ body {
   background-color: var(--secondary);
   color: var(--primary);
 }
-
 
 /* footer */
 
@@ -494,6 +537,10 @@ body {
 /* Responsive */
 
 @media (max-width: 576px) {
+  .nav-list {
+    width: 100%;
+  }
+
   .bubble {
     height: 30%;
   }

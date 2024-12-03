@@ -108,7 +108,7 @@ export default function MainBanner() {
           ))}
         </h1>
         <div ref={descriptionRef} className='description'>
-          Creative Developer
+          Desarrollo Creativo
         </div>
       </div>
     </div>
