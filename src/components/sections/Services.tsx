@@ -48,6 +48,7 @@ export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const paragraphRef = useRef<HTMLParagraphElement>(null)
+  const containerCardRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -55,27 +56,37 @@ export default function Services() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          markers: false,
-          start: '40% 50%',
-          pin: true,
-          end: '+=1200',
+          markers: true,
+          start: '-50px center',
+          // end: 'bottom bottom',
           scrub: true,
         },
       })
-
-      tl.from(headingRef.current, { y: -20, opacity: 0 }, 'a')
-      tl.from('.services-descrip', { y: 20, opacity: 0, stagger: 0.2 }, 'a')
-      tl.from('.card', { x: 300, opacity: 0, stagger: 0.5 })
-      tl.from(paragraphRef.current, { scale: 2, opacity: 0 })
-    },
-    { scope: containerRef }
+      tl.from(headingRef.current, { y: -30, opacity: 0 }, 'a')
+      tl.from('.services-descrip', { y: 30, opacity: 0 }, 'a')
+    }
+    // { scope: containerRef }
   )
 
+  useGSAP(() => {
+    const tlServices = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerCardRef.current,
+        markers: true,
+        start: '-5% center',
+        end: 'bottom 50%+=150px',
+        scrub: true,
+      },
+    })
+    tlServices.from('.card', { x: 300, opacity: 0, stagger: 0.5 }, 'a')
+    tlServices.from(paragraphRef.current, { scale: 2, opacity: 0 })
+  })
+
   return (
-    <div ref={containerRef} id='services' className='services'>
+    <div id='services' className='services'>
       <div className='container mx-auto px-8'>
         <div className='grid grid-rows-1 gap-10'>
-          <div className='grid grid-cols-1 gap-4'>
+          <div ref={containerRef} className='grid grid-cols-1 gap-4'>
             <h2 ref={headingRef}>Diseño y desarrollo web hecho a la medida</h2>
 
             <p className='services-descrip'>
@@ -84,7 +95,9 @@ export default function Services() {
             </p>
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
+          <div
+            ref={containerCardRef}
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
             {servicesItems.map((service, key) => (
               <div key={key} ref={cardRef} className='card space-y-4'>
                 <figure className='flex justify-center'>
