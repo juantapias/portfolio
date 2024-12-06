@@ -56,9 +56,8 @@ export default function Services() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          markers: true,
+          markers: false,
           start: '-50px center',
-          // end: 'bottom bottom',
           scrub: true,
         },
       })
@@ -72,7 +71,7 @@ export default function Services() {
     const tlServices = gsap.timeline({
       scrollTrigger: {
         trigger: containerCardRef.current,
-        markers: true,
+        markers: false,
         start: '-5% center',
         end: 'bottom 50%+=150px',
         scrub: true,
