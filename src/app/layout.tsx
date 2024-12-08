@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import type { Metadata } from 'next'
 
 import './globals.css'
@@ -15,6 +14,9 @@ export const metadata: Metadata = {
     'Descubre mi portafolio de desarrollo y diseño web: proyectos innovadores, soluciones personalizadas y diseño creativo para potenciar tu presencia en línea. ¡Explora mi trabajo ahora!',
   keywords: ['desarrollo web', 'diseño creativo', 'portafolio'],
   authors: [{ url: 'https://www.juantapias.dev/', name: 'Juan Tapias' }],
+  verification: {
+    google: '7mChXJQWgjNhHpEDBYtQka7uA2dJN3FsNtowrOzmdJc',
+  },
 }
 
 export default function RootLayout({
@@ -24,13 +26,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <Head>
-        {/* Google Site Verification */}
-        <meta
-          name='google-site-verification'
-          content='7mChXJQWgjNhHpEDBYtQka7uA2dJN3FsNtowrOzmdJc'
-        />
-      </Head>
       <body>
         {/* Google Tag Manager (noscript) */}
         <noscript>
