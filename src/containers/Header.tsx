@@ -6,6 +6,13 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 export default function Header() {
+  const [location, setLocation] = useState<string>('')
+
+  useEffect(() => {
+    const path = window.location.pathname.split('/')
+    setLocation(path[1])
+  }, [])
+
   const container = useRef<HTMLDivElement>(null)
   const [navOpen, setNavOpen] = useState<boolean>(false)
   const [isDarkBackground, setIsDarkBackground] = useState<boolean>(true)
@@ -86,7 +93,7 @@ export default function Header() {
     }
   }, [])
 
-  return (
+  return location !== 'linktree' ? (
     <div ref={container} className='header'>
       <button
         onClick={() => toggleMenu()}
@@ -138,5 +145,5 @@ export default function Header() {
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
