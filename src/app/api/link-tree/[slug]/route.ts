@@ -6,11 +6,11 @@ export const revalidate = 0
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  try {
-    const { slug } = params
+  const slug = (await params).slug
 
+  try {
     if (!slug) {
       return NextResponse.json(
         {
