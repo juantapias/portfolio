@@ -132,6 +132,20 @@ body {
   color: var(--secondary);
 }
 
+.btn-secondary {
+  background-color: var(--secondary);
+  border: 0.0625rem solid var(--secondary);
+  border-radius: 3rem;
+  color: var(--primary);
+  padding: 1rem 2rem;
+  transition: all 150ms ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
 .card {
   border: 0.0625rem solid var(--secondary);
   border-radius: 0.625rem;
@@ -535,6 +549,23 @@ body {
   display: block;
 }
 
+/* not found */
+
+.not-found {
+  align-items: center;
+  color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 72px);
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.not-found h2 {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
 /* Responsive */
 
 @media (max-width: 576px) {
@@ -558,6 +589,10 @@ body {
     line-height: normal;
   }
 
+  .about .section h2 {
+    font-size: 2rem;
+  }
+
   .let-talk .orbit-letter {
     height: 2rem;
     padding: 1.25rem;
@@ -566,6 +601,14 @@ body {
 
   .let-talk .letter {
     font-size: 2rem;
+  }
+
+  .not-found {
+    height: calc(100vh - 120px);
+  }
+
+  .not-found h2 {
+    font-size: 3rem;
   }
 }
 
