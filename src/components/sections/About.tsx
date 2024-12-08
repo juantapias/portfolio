@@ -90,13 +90,6 @@ export default function About() {
                 <h2>¿Por qué elegirme?</h2>
                 <div className='space-y-4'>
                   <p>
-                    <strong>
-                      Porque tu proyecto merece algo más que un sitio web;
-                      merece una experiencia única.
-                    </strong>
-                  </p>
-
-                  <p>
                     En un mercado lleno de opciones, destacarse no es una tarea
                     fácil. Esto es lo que me diferencia y por qué soy el aliado
                     ideal para tu proyecto:
