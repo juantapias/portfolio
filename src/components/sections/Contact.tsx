@@ -22,7 +22,27 @@ const fieldLabels: { [key: string]: string } = {
 export default function Contact() {
   gsap.registerPlugin(useGSAP, ScrollTrigger)
   const containerRef = useRef<HTMLDivElement>(null)
-  const letsTalk = ['H', 'A', 'B', 'L', 'A', 'M', 'O', 'S', '?']
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          markers: false,
+          start: '-20% center',
+          end: '55% center',
+          scrub: true,
+        },
+      })
+      tl.from(['.contact-title', '.contact-subtitle'], {
+        y: 100,
+        opacity: 0,
+        stagger: 0.25,
+      })
+      tl.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.2 })
+    },
+    { scope: containerRef }
+  )
 
   const [inputs, setInputs] = useState<Inputs>({
     name: '',
@@ -33,34 +53,6 @@ export default function Contact() {
   const [isLoading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
   const [success, setSuccess] = useState<boolean>(false)
-
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          markers: false,
-          start: '40% 50%',
-          pin: true,
-          end: '+=800',
-          scrub: true,
-        },
-      })
-
-      tl.fromTo(
-        '.orbit-letter',
-        { y: -300 },
-        {
-          y: 0,
-          duration: 2.5,
-          ease: 'bounce.out',
-          stagger: 0.2,
-        }
-      )
-      tl.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.2 })
-    },
-    { scope: containerRef }
-  )
 
   useEffect(() => {
     if (error || success) {
@@ -115,25 +107,30 @@ export default function Contact() {
     <div id='contact' className='space-y-8' data-bg='light'>
       <div className='let-talk p-10'>
         <div ref={containerRef} className='container mx-auto space-y-8'>
-          <div className='text-center flex items-center justify-center space-x-1 md:space-x-4'>
-            {letsTalk.map((letter, key) => (
-              <div key={key} className='orbit-letter'>
-                <span className='letter'>{letter}</span>
-              </div>
-            ))}
+          <div className='text-center'>
+            <h2 className='font-primary text-3xl md:text-6xl uppercase contact-title'>
+              Las ideas cobran vida cuando se comparten
+            </h2>
+            <span className='font-secondary text-lg md:text-2xl inline-flex contact-subtitle'>
+              Hablemos y creemos una experiencia digital única.
+            </span>
           </div>
 
           <div className='contact'>
             <div className='container mx-auto px-8'>
-              <form onSubmit={onSubmit} className='container mx-auto'>
+              <form onSubmit={onSubmit}>
                 {['name', 'email', 'subject', 'message'].map((field, index) => (
                   <div key={index} className='form-group'>
+                    <label htmlFor={field} className='form-label'>
+                      {fieldLabels[field]}:
+                    </label>
                     {field !== 'message' ? (
                       <input
                         type={field === 'email' ? 'email' : 'text'}
                         id={field}
                         value={inputs[field as keyof Inputs]}
                         className='form-input'
+                        placeholder={`Escribe tu ${fieldLabels[field]}`}
                         required
                         onChange={e =>
                           handleInputChange(
@@ -147,6 +144,7 @@ export default function Contact() {
                         id={field}
                         value={inputs[field as keyof Inputs]}
                         className='form-text-area'
+                        placeholder='Escribe tu mensaje'
                         required
                         onChange={e =>
                           handleInputChange(
@@ -156,9 +154,6 @@ export default function Contact() {
                         }
                       />
                     )}
-                    <label htmlFor={field} className='form-label'>
-                      {fieldLabels[field]}:
-                    </label>
                   </div>
                 ))}
 

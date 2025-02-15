@@ -1,12 +1,11 @@
 'use client'
 
-import { use, useEffect, useRef, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 import { IFetchData } from '@/types'
-import Bubble from '@/components/figures/Bubble'
 
 export default function Page({
   params,
@@ -16,9 +15,6 @@ export default function Page({
   const { slug } = use(params) as { slug: string }
 
   gsap.registerPlugin(useGSAP)
-
-  const bubbleBigRef = useRef<HTMLDivElement>(null)
-  const bubbleSmallRef = useRef<HTMLDivElement>(null)
 
   const [data, setData] = useState<IFetchData>()
 
@@ -42,32 +38,8 @@ export default function Page({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, slug])
 
-  useGSAP(() => {
-    gsap.to(bubbleBigRef.current, {
-      y: -20,
-      duration: 12,
-      repeat: -1,
-      yoyoEase: 'back.out(1.7)',
-      rotate: 360,
-    })
-    gsap.to(bubbleSmallRef.current, {
-      y: -20,
-      duration: 3,
-      repeat: -1,
-      yoyoEase: 'back.out(1.7)',
-    })
-  })
-
   return (
     <div className='link-tree'>
-      <Bubble ref={bubbleBigRef} top={0} width='50%' left={-40} />
-      <Bubble
-        ref={bubbleSmallRef}
-        bottom={5}
-        height='100px'
-        width='100px'
-        left={5}
-      />
       <div className='tree-buttons space-y-4'>
         {data?.data?.social?.map((item, key) => (
           <Link

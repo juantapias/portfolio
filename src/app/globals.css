@@ -4,101 +4,43 @@
 
 /* Fonts */
 
-/* Rum Raisin - Normal */
+/* Anton - Normal */
 @font-face {
-  font-family: 'Rum Raisin';
-  src: url('../styles/fonts/rum-raisin/RumRaisin-Regular.ttf')
-    format('truetype');
+  font-family: 'Anton';
+  src: url('../styles/fonts/Anton/Anton-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-/* Yanone Kaffeesatz - Light */
+/* Montserrat - Light */
 @font-face {
-  font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Light.ttf')
-    format('truetype');
+  font-family: 'Montserrat Alt';
+  src: url('../styles/fonts/Montserrat-Alternates/MontserratAlternates-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
-/* Yanone Kaffeesatz - Regular */
+/* Montserrat - Regular */
 @font-face {
-  font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Regular.ttf')
-    format('truetype');
+  font-family: 'Montserrat Alt';
+  src: url('../styles/fonts/Montserrat-Alternates/MontserratAlternates-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}
-
-/* Yanone Kaffeesatz - SemiBold */
-@font-face {
-  font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-SemiBold.ttf')
-    format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-/* Yanone Kaffeesatz - Bold */
-@font-face {
-  font-family: 'Yanone Kaffeesatz';
-  src: url('../styles/fonts/yanone-kaffeesatz/YanoneKaffeesatz-Bold.ttf')
-    format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-/* Fira Sans - Light */
-@font-face {
-  font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-/* Fira Sans - Regular */
-@font-face {
-  font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* Fira Sans - Italic */
-@font-face {
-  font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
 }
 
 /* Fira Sans - Bold */
 @font-face {
-  font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-Bold.ttf') format('truetype');
+  font-family: 'Montserrat Alt';
+  src: url('../styles/fonts/Montserrat-Alternates/MontserratAlternates-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-}
-
-/* Fira Sans - Bold Italic */
-@font-face {
-  font-family: 'Fira Sans';
-  src: url('../styles/fonts/fira-sans/FiraSans-BoldItalic.ttf')
-    format('truetype');
-  font-weight: 700;
-  font-style: italic;
 }
 
 /* Colors */
 
 :root {
-  --primary: #222222;
-  --secondary: #cccccc;
-  --accent-secondary: #bbbbbb;
-  --text: #aaaaaa;
-  --white: #fff;
-  --black: #000;
+  --primary: #CDC6BE;
+  --secondary: #222222;
 }
 
 /* Resets */
@@ -121,7 +63,22 @@ i {
 /* Class */
 
 body {
+  background: url('../../public/images/background.webp');
   background-color: var(--primary);
+  font-family: 'Montserrat Alt';
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.font-primary {
+  font-family: 'Anton';
+}
+
+.font-secondary {
+  font-family: 'Montserrat Alt';
+  font-weight: 400;
 }
 
 .bg-secondary {
@@ -133,17 +90,19 @@ body {
 }
 
 .btn-secondary {
-  background-color: var(--secondary);
-  border: 0.0625rem solid var(--secondary);
-  border-radius: 3rem;
-  color: var(--primary);
-  padding: 1rem 2rem;
+  background-color: var(--primary);
+  border: .0625rem solid transparent;
+  color: var(--secondary);
+  font-family: 'Anton';
+  padding: .5rem;
+  text-transform: uppercase;
   transition: all 150ms ease-in-out;
 }
 
 .btn-secondary:hover {
-  background-color: var(--primary);
-  color: var(--secondary);
+  background-color: var(--secondary);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .btn-secondary-outline {
@@ -181,6 +140,7 @@ body {
 
 .loader {
   align-items: center;
+  background: url('../../public/images/background.webp');
   background-color: var(--primary);
   display: flex;
   height: 100vh;
@@ -193,50 +153,21 @@ body {
 .loader .text {
   display: flex;
   color: var(--secondary);
-  font-family: 'Yanone Kaffeesatz';
-  font-size: 3rem;
+  font-family: 'Anton';
+  font-size: 4rem;
   text-transform: uppercase;
-}
-
-/* Figures */
-
-.bubble {
-  width: 50%;
-  height: 90%;
-  background: radial-gradient(
-    circle at 40% 40%,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0.2),
-    rgba(0, 0, 0, 0.1)
-  );
-  border-radius: 50%;
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5),
-    0 0 20px rgba(255, 255, 255, 0.3);
-  position: absolute;
-  right: -40%;
-}
-
-.bubble::after {
-  content: '';
-  position: absolute;
-  top: 15%;
-  left: 15%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0)
-  );
-  border-radius: 50%;
 }
 
 /* header */
 
 .header {
+  align-items: center;
+  background: url('../../public/images/background.webp');
+  background-color: var(--primary);
+  border-bottom: .0625rem solid var(--secondary);
   display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 1rem;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -247,13 +178,17 @@ body {
   position: relative;
 }
 
+.logo {
+  font-family: 'Anton';
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
 .btn-nav {
-  border-radius: 1rem;
-  height: 2.5rem;
-  transition: all 0.3s ease-in-out;
+  font-family: 'Anton';
+  font-size: 1rem;
   position: relative;
-  padding: 0 0.5rem;
-  transform: rotate(-10deg);
+  text-transform: uppercase;
   z-index: 100;
 }
 
@@ -287,35 +222,25 @@ body {
 }
 
 .nav-items {
+  color: var(--secondary);
+  font-family: 'Anton';
   font-size: 2rem;
 }
 
 .nav-item {
   position: relative;
-}
-
-.nav-item::after {
-  background-color: var(--primary);
-  bottom: 0;
-  content: '';
-  height: 0.125rem;
-  left: 0;
-  position: absolute;
-  transition: all 0.3s ease-in-out;
-  width: 0;
-}
-
-.nav-item:hover::after {
-  width: 100%;
+  transition: all 150ms ease-in-out;
 }
 
 .nav-item:hover {
   color: var(--secondary);
+  margin-left: 1rem;
 }
 
 .nav-item button {
   text-align: left;
   width: 100%;
+  text-transform: uppercase;
 }
 
 /* Main banner */
@@ -324,20 +249,69 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
   justify-content: center;
   position: relative;
   overflow: hidden;
 }
 
-.main-banner h1 {
+.banner-item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: calc(40vh);
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+.banner-item:nth-child(2) {
+  border-left: .0625rem solid var(--secondary);
+  border-right: .0625rem solid var(--secondary);
+}
+
+.banner-item h2 {
+  font-family: 'Anton';
+  font-size: 1.5rem;
   color: var(--secondary);
-  font-family: 'Rum Raisin';
-  font-size: 15rem;
-  line-height: normal;
-  position: relative;
+  letter-spacing: 0.25rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.banner-item p {
+  font-family: 'Montserrat Alt';
+  font-size: 1rem;
   text-align: center;
 }
+
+.banner-title {
+  align-items: center;
+  display: flex;
+  background-color: var(--secondary);
+  height: 60vh;
+  justify-content: center;
+}
+
+.banner-title h1 {
+  color: var(--primary);
+  font-family: 'Anton';
+  font-size: 31rem;
+  line-height: 1;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.banner-title h1::after {
+  content: '';
+  background-image: url('../../public/images/background.webp');
+  left: 0;
+  height: 90%;
+  position: absolute;
+  top: 5%;
+  width: 100%;
+}
+
 
 .main-banner .description {
   color: var(--accent-secondary);
@@ -353,28 +327,23 @@ body {
 
 .about {
   display: flex;
-  height: 100vh;
   position: relative;
   overflow: hidden;
 }
 
-.about .section h2 {
+.about-container {
+  border-bottom: .0625rem solid var(--secondary);
+  padding: 2.5rem 0;
+}
+
+.about-title h2 {
   color: var(--secondary);
-  font-size: 3rem;
-  font-weight: 600;
-  line-height: normal;
+  font-family: 'Anton';
+  font-size: 5rem;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.about .section p {
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 300;
-}
-
-.about .section ul li {
-  color: var(--text);
-  list-style: circle;
-}
 
 /* services */
 
@@ -382,49 +351,134 @@ body {
   color: var(--secondary);
   text-align: center;
   overflow: hidden;
-  padding: 4rem 0;
+  padding: 2.5rem 0;
   position: relative;
 }
 
-.services h2 {
-  font-size: 3rem;
-  font-weight: 600;
-  line-height: normal;
+.services .services-title {
+  background-color: var(--secondary);
+  padding: 4rem 1rem 1rem;
 }
 
-/* ads */
-
-.work h3 {
-  color: var(--secondary);
-  font-size: 3rem;
-  font-weight: 100;
-  line-height: normal;
-  text-align: center;
+.services .services-title h2 {
+  font-family: 'Anton';
+  font-size: 17rem;
+  color: var(--primary);
+  line-height: 1;
+  text-transform: uppercase;
+  position: relative;
 }
 
-.let-talk {
+.services .services-title h2::after {
+  content: '';
+  background-image: url('../../public/images/background.webp');
+  left: 0;
+  height: 120%;
+  position: absolute;
+  top: -20%;
+  width: 100%;
+}
+
+.services-wrap .service-item:first-child {
+  border-right: .0625rem solid var(--secondary);
+}
+
+.services-wrap .service-item:last-child {
+  border-top: .0625rem solid var(--secondary);
+  padding-bottom: 0;
+}
+
+.service-item {
+  padding: 2.5rem 1rem;
+}
+
+.service-item h3 {
+  font-family: 'Anton';
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.service-item p {
+  font-family: 'Montserrat Alt';
+  font-size: 1rem;
+  max-width: 20rem;
+  margin: auto;
+}
+
+
+/* Projects */
+
+.work-container {
   background-color: var(--secondary);
   overflow: hidden;
 }
 
-.let-talk .orbit-letter {
-  align-items: center;
-  border-radius: 50%;
-  display: flex;
-  height: 8rem;
-  justify-content: center;
-  padding: 2.5rem;
-  width: 8rem;
-  background-color: var(--primary);
+.work-head {
+  border-right: .0625rem solid var(--primary);
+  padding: 2rem;
 }
 
-.let-talk .letter {
-  font-size: 4rem;
+.work-head h3 {
+  color: var(--primary);
+  font-size: 3rem;
+  font-family: 'Anton';
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.work-head h3::after {
+  content: '';
+  background-image: url('../../public/images/background.webp');
+  left: 0;
+  height: 100%;
+  position: absolute;
+  top: 0%;
+  width: 100%;
+}
+
+.work-head h3 span {
+  background-color: var(--primary);
+  color: var(--secondary);
+  display: inline-flex;
+  line-height: 1;
+  margin-top: .25rem;
+  padding: .75rem .5rem;
+}
+
+.work-head p {
+  color: var(--primary);
+  font-family: 'Montserrat Alt';
+  font-size: 1rem;
+  text-align: center;
+}
+
+.work-contain {
+  align-items: center;
+  color: var(--primary);
+  display: flex;
+  font-family: 'Anton';
+  font-size: 2rem;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 2rem;
+}
+
+/* Contact */
+
+.let-talk {
+  overflow: hidden;
+}
+
+.let-talk h2 {
   color: var(--secondary);
 }
 
 .contact {
-  padding: 4rem 0;
+  max-width: 40rem;
+  margin: auto;
 }
 
 .form-group {
@@ -435,13 +489,19 @@ body {
 .form-input,
 .form-text-area {
   background-color: transparent;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--secondary);
   border-radius: 0.25rem;
   width: 100%;
   padding: 0 1rem;
   font-size: 1rem;
-  color: var(--primary);
+  color: var(--secondary);
   outline: none;
+}
+
+.form-input::placeholder,
+.form-text-area::placeholder {
+  color: var(--secondary);
+  opacity: .75;
 }
 
 .form-input {
@@ -453,36 +513,10 @@ body {
 }
 
 .form-label {
-  position: absolute;
-  top: 22px;
-  left: 1rem;
-  transform: translateY(-50%);
+  font-family: 'Anton';
   font-size: 1rem;
-  color: var(--primary);
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.form-input:focus + .form-label,
-.form-text-area:focus + .form-label {
-  top: -0.5rem;
-  font-size: 0.875rem;
-  color: var(--primary);
-  background-color: var(--secondary);
-  padding: 0 0.25rem;
-  border-radius: 0.25rem;
-  transform: translateY(-20%);
-}
-
-.form-input:not(:placeholder-shown) + .form-label,
-.form-text-area:not(:placeholder-shown) + .form-label {
-  top: -0.5rem;
-  font-size: 0.875rem;
-  color: var(--primary);
-  background-color: var(--secondary);
-  padding: 0 0.25rem;
-  border-radius: 0.25rem;
-  transform: translateY(-20%);
+  color: var(--secondary);
+  text-transform: uppercase;
 }
 
 .form-submit {
@@ -492,11 +526,18 @@ body {
 
 .form-submit button {
   background-color: var(--primary);
-  border: 0.0625rem solid var(--primary);
-  border-radius: 5rem;
+  border: 0.0625rem solid var(--secondary);
   color: var(--secondary);
+  font-family: 'Anton';
+  font-size: 1rem;
   padding: 1rem 2rem;
-  /* transition: all 150ms ease-in-out; */
+  text-transform: uppercase;
+  transition: all 150ms ease-in-out;
+}
+
+.form-submit button:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
 }
 
 .form-submit button.is-disabled {
@@ -516,6 +557,10 @@ body {
 
 /* footer */
 
+.footer {
+  border-top: .0625rem solid var(--secondary);
+}
+
 .footer a {
   color: var(--secondary);
   font-size: 1rem;
@@ -525,43 +570,44 @@ body {
 }
 
 .footer a:hover {
-  color: var(--white);
-  letter-spacing: 0.15rem;
+  text-decoration: underline;
 }
 
 /* ads */
 .ads {
-  background-color: var(--primary);
-  position: relative;
   height: 100vh;
+  position: relative;
   overflow: hidden;
 }
 
-.circle {
+.ads-container {
   align-items: center;
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   background-color: var(--secondary);
-  border-radius: 100%;
-  color: var(--primary);
   display: flex;
-  height: 300px;
   justify-content: center;
-  margin: auto;
-  padding: 0 0 4rem 0;
-  width: 300px;
 }
 
-.circle h2 {
+.ads-container h2 {
+  color: var(--primary);
+  font-family: 'Anton';
   font-size: 12.5rem;
-  line-height: 10rem;
+  line-height: 15rem;
+  position: relative;
   text-align: center;
+  text-transform: uppercase;
   opacity: 0;
 }
 
-.circle h2 span {
-  display: block;
+.ads-container h2::after {
+  content: '';
+  background-image: url('../../public/images/background.webp');
+  left: 0;
+  height: 100%;
+  position: absolute;
+  top: 0%;
+  width: 100%;
 }
+
 
 /* not found */
 
@@ -602,34 +648,44 @@ body {
     width: 100%;
   }
 
-  .bubble {
-    height: 30%;
+  .banner-item:nth-child(2) {
+    border: 0;
+    border-bottom: .0625rem solid var(--secondary);
+    border-top: .0625rem solid var(--secondary);
+  }
+
+  .banner-title {
+    height: 25vh;
   }
 
   .main-banner h1 {
+    font-size: 8rem;
+  }
+
+  .about-title h2 {
+    font-size: 3rem;
+  }
+
+  .work-head {
+    border: 0;
+  }
+
+  .services .services-title {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .services .services-title h2 {
+    font-size: 3.5rem;
+  }
+
+  .services-wrap .service-item:first-child {
+    border-bottom: .0625rem solid var(--secondary);
+    border-right: 0;
+  }
+
+  .ads-container h2 {
     font-size: 5rem;
-  }
-
-  .main-banner .description {
-    font-size: 1rem;
-  }
-  .circle h2 {
-    font-size: 5rem;
-    line-height: normal;
-  }
-
-  .about .section h2 {
-    font-size: 2rem;
-  }
-
-  .let-talk .orbit-letter {
-    height: 2rem;
-    padding: 1.25rem;
-    width: 2rem;
-  }
-
-  .let-talk .letter {
-    font-size: 2rem;
+    line-height: 8rem;
   }
 
   .not-found {
@@ -643,70 +699,40 @@ body {
 
 /* Tablets verticales y móviles grandes */
 @media (min-width: 577px) and (max-width: 768px) {
-  .bubble {
-    height: 40%;
-    width: 40%;
+  .main-banner {
+    margin-top: 53px;
+  }
+
+  .banner-title {
+    height: 30vh;
   }
 
   .main-banner h1 {
-    font-size: 7rem;
+    font-size: 17rem;
   }
 
-  .circle h2 {
-    font-size: 6.5rem;
-  }
-
-  .let-talk .orbit-letter {
-    height: 3rem;
-    padding: 1.25rem;
-    width: 3rem;
-  }
-
-  .let-talk .letter {
+  .work-head h3 {
     font-size: 2rem;
+  }
+
+  .services .services-title {
+    padding: 3rem 1rem 1rem
+  }
+
+  .services .services-title h2 {
+    font-size: 8rem;
+  }
+
+  .ads-container h2 {
+    font-size: 8rem;
+    line-height: 10rem;
   }
 }
 
 /* Tablets horizontales y pequeños desktops */
 @media (min-width: 769px) and (max-width: 992px) {
-  .bubble {
-    height: 50%;
-    width: 50%;
-  }
-
   .main-banner h1 {
     font-size: 9rem;
-  }
-
-  .circle h2 {
-    font-size: 8rem;
-  }
-
-  .let-talk .orbit-letter {
-    height: 4rem;
-    padding: 1.25rem;
-    width: 4rem;
-  }
-
-  .let-talk .letter {
-    font-size: 2.5rem;
-  }
-}
-
-/* Laptops y desktops */
-@media (min-width: 993px) and (max-width: 1200px) {
-  .circle h2 {
-    font-size: 10rem;
-  }
-
-  .let-talk .orbit-letter {
-    height: 5rem;
-    padding: 2rem;
-    width: 5rem;
-  }
-
-  .let-talk .letter {
-    font-size: 3rem;
   }
 }
 

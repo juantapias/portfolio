@@ -31,10 +31,10 @@ export default function Loader({ isLoading }: IProps) {
           }
         )
         gsap.to(loaderRef.current, {
-          y: -1000,
+          delay: 3,
           duration: 5,
           ease: 'power2.inOut',
-          delay: 3,
+          opacity: 0,
         })
       }
     },

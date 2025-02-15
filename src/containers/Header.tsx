@@ -15,7 +15,6 @@ export default function Header() {
 
   const container = useRef<HTMLDivElement>(null)
   const [navOpen, setNavOpen] = useState<boolean>(false)
-  const [isDarkBackground, setIsDarkBackground] = useState<boolean>(true)
 
   const { contextSafe } = useGSAP({ scope: container })
 
@@ -67,37 +66,11 @@ export default function Header() {
     }
   }
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('[data-bg]')
-      let darkBackground = true
-
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect()
-        if (
-          rect.top <= window.innerHeight / 2 &&
-          rect.bottom >= window.innerHeight / 2
-        ) {
-          darkBackground = section.getAttribute('data-bg') === 'dark'
-        }
-      })
-
-      setIsDarkBackground(darkBackground)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
   return location !== 'linktree' ? (
     <div ref={container} className='header'>
-      <button
-        onClick={() => toggleMenu()}
-        className={`btn-nav ${isDarkBackground ? 'btn-light' : 'btn-dark'}`}>
+      <span className='logo'>Tapias</span>
+
+      <button onClick={() => toggleMenu()} className='btn-nav'>
         {navOpen ? 'Cerrar' : 'Menú'}
       </button>
 
@@ -109,6 +82,9 @@ export default function Header() {
             </li>
             <li className='nav-item'>
               <button onClick={() => scrollToSection('about')}>Acerca</button>
+            </li>
+            <li className='nav-item'>
+              <button onClick={() => scrollToSection('work')}>Trabajos</button>
             </li>
             <li className='nav-item'>
               <button onClick={() => scrollToSection('services')}>
