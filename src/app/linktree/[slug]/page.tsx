@@ -40,13 +40,13 @@ export default function Page({
 
   return (
     <div className='link-tree'>
-      <div className='tree-buttons space-y-4'>
+      <div className='link-tree-buttons space-y-4'>
         {data?.data?.social?.map((item, key) => (
           <Link
             key={key}
             href={item.url}
             target='_blank'
-            className='space-x-2 btn-secondary-outline'>
+            className='space-x-2 btn is-secondary tracking-widest text-center'>
             <i className={`icon ${item.icon}`} />
             <span>{item.name}</span>
           </Link>

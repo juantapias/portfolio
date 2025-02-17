@@ -31,6 +31,16 @@ export default function Services() {
 
   const containerRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const IconRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    gsap.to(IconRef.current, {
+      rotation: 360,
+      duration: 4,
+      repeat: -1,
+      ease: 'linear',
+    })
+  })
 
   useGSAP(
     () => {
@@ -47,9 +57,10 @@ export default function Services() {
       })
       tl.from(headingRef.current, { opacity: 0 }, 'a')
       tl.from(letters, { x: -100, opacity: 0, stagger: 0.1 }, 'a')
-      tl.from('.service-item', { y: 100, opacity: 0, stagger: 0.25 })
+      tl.from('.services-wrap-item', { y: 100, opacity: 0, stagger: 0.25 })
+      tl.from(IconRef.current, { scale: 0, opacity: 0 }, 'a')
       tl.from(
-        '.service-item:first-child',
+        '.services-wrap-item:first-child',
         {
           borderRightColor: 'transparent',
           borderBottomColor: 'transparent',
@@ -58,7 +69,7 @@ export default function Services() {
         'a'
       )
       tl.from(
-        '.service-item:last-child',
+        '.services-wrap-item:last-child',
         { borderTopColor: 'transparent', delay: 2 },
         'a'
       )
@@ -80,6 +91,9 @@ export default function Services() {
                 ))}
               </h2>
             </div>
+            <div className='flex items-center justify-center'>
+              <i ref={IconRef} className='icon icon-star-solid text-[15rem]' />
+            </div>
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 services-wrap'>
@@ -89,7 +103,7 @@ export default function Services() {
                 className={`
                   ${
                     index === servicesItems.length - 1 ? 'md:col-span-2' : ''
-                  } service-item space-y-4`}>
+                  } services-wrap-item space-y-4`}>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </div>

@@ -68,30 +68,30 @@ export default function Header() {
 
   return location !== 'linktree' ? (
     <div ref={container} className='header'>
-      <span className='logo'>Tapias</span>
+      <span className='header-logo'>Tapias</span>
 
-      <button onClick={() => toggleMenu()} className='btn-nav'>
+      <button onClick={() => toggleMenu()} className='header-btn-nav'>
         {navOpen ? 'Cerrar' : 'Menú'}
       </button>
 
       <div className='nav-list'>
-        <nav className='nav-items'>
+        <nav className='nav-list-items'>
           <ul className='space-y-4'>
-            <li className='nav-item'>
+            <li className='nav-list-items-link'>
               <button onClick={() => scrollToSection('home')}>Inicio</button>
             </li>
-            <li className='nav-item'>
+            <li className='nav-list-items-link'>
               <button onClick={() => scrollToSection('about')}>Acerca</button>
             </li>
-            <li className='nav-item'>
+            <li className='nav-list-items-link'>
               <button onClick={() => scrollToSection('work')}>Trabajos</button>
             </li>
-            <li className='nav-item'>
+            <li className='nav-list-items-link'>
               <button onClick={() => scrollToSection('services')}>
                 Servicios
               </button>
             </li>
-            <li className='nav-item'>
+            <li className='nav-list-items-link'>
               <button onClick={() => scrollToSection('contact')}>
                 Contacto
               </button>
@@ -100,11 +100,11 @@ export default function Header() {
         </nav>
 
         <div>
-          <ul className='flex items-center justify-center space-x-4'>
+          <ul className='flex items-center justify-center space-x-4 text-secondary'>
             <li>
               <Link
                 href={'https://github.com/juantapias'}
-                className='text-center transition-all duration-150 ease-in-out hover:text-[#CCCCCC]'
+                className='text-center transition-all duration-150 ease-in-out hover:text-primary'
                 target='_blank'>
                 <i className='icon icon-github text-3xl' />
               </Link>
@@ -112,10 +112,18 @@ export default function Header() {
             <li>
               <Link
                 href={'https://www.instagram.com/tapias.dev/'}
-                className='text-center transition-all duration-150 ease-in-out hover:text-[#CCCCCC]'
+                className='text-center transition-all duration-150 ease-in-out hover:text-primary'
                 target='_blank'>
                 <i className='icon icon-instagram text-3xl' />
               </Link>
+            </li>
+            <li>
+              <a
+                href={'mailto:dev.juantapias@gmail.com'}
+                className='text-center transition-all duration-150 ease-in-out hover:text-primary'
+                target='_blank'>
+                <i className='icon icon-mail-solid text-3xl' />
+              </a>
             </li>
           </ul>
         </div>

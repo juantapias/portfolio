@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
-import './globals.css'
-import '@/styles/icons.css'
+import './globals.scss'
 
 import Header from '@/containers/Header'
 //import Loader from '@/components/loader/Loader'

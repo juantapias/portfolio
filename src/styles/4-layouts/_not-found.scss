@@ -1,0 +1,22 @@
+.not-found {
+  align-items: center;
+  color: $secondary;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 53px);
+  justify-content: center;
+  padding: 0 2rem;
+
+  @include media (sm) {
+    height: calc(100vh - 53px);
+  }
+
+  &>h2 {
+    font-size: 4rem;
+    font-weight: 600;
+
+    @include media (sm) {
+      font-size: 3rem;
+    }
+  }
+}

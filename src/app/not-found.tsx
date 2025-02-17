@@ -8,7 +8,7 @@ export default function NotFound() {
         Esta página está fuera de servicio o nunca existió (¡ups, nuestro
         error!). Pero no te preocupes, sigue explorando
       </p>
-      <Link href='/' className='btn-secondary'>
+      <Link href='/' className='btn is-secondary'>
         Volver al inicio
       </Link>
     </div>

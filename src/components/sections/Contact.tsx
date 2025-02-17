@@ -107,7 +107,7 @@ export default function Contact() {
     <div id='contact' className='space-y-8' data-bg='light'>
       <div className='let-talk p-10'>
         <div ref={containerRef} className='container mx-auto space-y-8'>
-          <div className='text-center'>
+          <div className='text-secondary text-center'>
             <h2 className='font-primary text-3xl md:text-6xl uppercase contact-title'>
               Las ideas cobran vida cuando se comparten
             </h2>
@@ -116,12 +116,12 @@ export default function Contact() {
             </span>
           </div>
 
-          <div className='contact'>
+          <div className='contact mx-auto max-w-[40rem]'>
             <div className='container mx-auto px-8'>
               <form onSubmit={onSubmit}>
                 {['name', 'email', 'subject', 'message'].map((field, index) => (
                   <div key={index} className='form-group'>
-                    <label htmlFor={field} className='form-label'>
+                    <label htmlFor={field} className='form-group-label'>
                       {fieldLabels[field]}:
                     </label>
                     {field !== 'message' ? (
@@ -129,7 +129,7 @@ export default function Contact() {
                         type={field === 'email' ? 'email' : 'text'}
                         id={field}
                         value={inputs[field as keyof Inputs]}
-                        className='form-input'
+                        className='form-group-input'
                         placeholder={`Escribe tu ${fieldLabels[field]}`}
                         required
                         onChange={e =>
@@ -143,7 +143,7 @@ export default function Contact() {
                       <textarea
                         id={field}
                         value={inputs[field as keyof Inputs]}
-                        className='form-text-area'
+                        className='form-group-text-area'
                         placeholder='Escribe tu mensaje'
                         required
                         onChange={e =>
@@ -157,10 +157,12 @@ export default function Contact() {
                   </div>
                 ))}
 
-                <div className='form-submit flex flex-col text-center items-center space-y-2'>
+                <div className='flex flex-col justify-center text-center items-center space-y-2'>
                   <button
                     type='submit'
-                    className={`${isLoading ? 'is-disabled' : ''}`}
+                    className={`${
+                      isLoading ? 'is-disabled' : ''
+                    } btn is-secondary`}
                     disabled={isLoading}>
                     {!isLoading ? (
                       'Enviar'

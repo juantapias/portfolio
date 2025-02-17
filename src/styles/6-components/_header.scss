@@ -1,0 +1,76 @@
+.header {
+  align-items: center;
+  background: url('../../../public/images/background.webp');
+  background-color: $primary;
+  border-bottom: .0625rem solid $secondary;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+
+  &-logo {
+    color: $secondary;
+    font-family: 'Anton';
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  &-btn-nav {
+    color: $secondary;
+    font-family: 'Anton';
+    font-size: 1rem;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 100;
+
+    &:hover {
+      transform: rotate(0deg);
+    }
+  }
+
+  .nav-list {
+    backdrop-filter: blur(5px) saturate(180%);
+    -webkit-backdrop-filter: blur(5px) saturate(180%);
+    background-color: rgba(163, 163, 163, 0.5);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    height: 100dvh;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5rem;
+    position: absolute;
+    transform: translateX(1000px);
+    right: 0;
+    top: 0;
+    width: 35%;
+
+    @include media (sm) {
+      width: 100%;
+    }
+
+    &-items {
+      color: $secondary;
+      font-family: 'Anton';
+      font-size: 2rem;
+
+      &-link {
+        position: relative;
+        transition: all 150ms ease-in-out;
+
+        &:hover {
+          color: $secondary;
+          margin-left: 1rem;
+        }
+
+        &>button {
+          text-align: left;
+          width: 100%;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

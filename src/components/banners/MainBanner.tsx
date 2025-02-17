@@ -37,7 +37,6 @@ export default function MainBanner() {
   useGSAP(() => {
     gsap.from('.banner-item', {
       opacity: 0,
-      y: 50,
       duration: 1,
       stagger: 0.3,
       ease: 'power2.out',
@@ -81,7 +80,7 @@ export default function MainBanner() {
           markers: false,
         },
       })
-      tl.to('.banner-item', { opacity: 0, stagger: 0.1 })
+      tl.to('.main-banner-item', { opacity: 0, stagger: 0.1 })
       tl.to(
         bannerBackgroundRef.current,
         {
@@ -101,13 +100,13 @@ export default function MainBanner() {
       <div className='grid grid-rows-1'>
         <div className='grid grid-cols-1 md:grid-cols-3'>
           {bannerItem.map((item, index) => (
-            <div key={index} className='banner-item space-y-4'>
+            <div key={index} className='main-banner-item space-y-4'>
               <h2>{item.title}</h2>
               <p>{item.description}</p>
             </div>
           ))}
         </div>
-        <div ref={bannerBackgroundRef} className='banner-title'>
+        <div ref={bannerBackgroundRef} className='main-banner-title'>
           <h1 ref={bannerTitleRef}>
             {'Tapias'.split('').map((letter, index) => (
               <span key={index} style={{ display: 'inline-block' }}>

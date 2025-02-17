@@ -1,0 +1,75 @@
+.work {
+  &-container {
+    background-color: $secondary;
+    overflow: hidden;
+
+    &-head {
+      border-right: .0625rem solid $primary;
+      padding: 2rem;
+
+      @include media (sm) {
+        border: 0;
+      }
+
+      &>h3 {
+        color: $primary;
+        font-size: 3rem;
+        font-family: 'Anton';
+        line-height: 1;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+
+        @include media (lg) {
+          font-size: 2rem;
+        }
+
+        @include media(md) {
+          font-size: 2rem;
+        }
+
+        @include media(sm) {
+          font-size: 2rem;
+        }
+
+        &::after {
+          content: '';
+          background-image: url('../../../public/images/background.webp');
+          left: 0;
+          height: 100%;
+          position: absolute;
+          top: 0%;
+          width: 100%;
+        }
+
+        &>span {
+          background-color: $primary;
+          color: $secondary;
+          display: inline-flex;
+          line-height: 1;
+          margin-top: .25rem;
+          padding: .75rem .5rem;
+        }
+      }
+
+      &>p {
+        color: $primary;
+        font-family: 'Montserrat Alt';
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+
+    &-contain {
+      align-items: center;
+      color: $primary;
+      display: flex;
+      font-family: 'Anton';
+      font-size: 2rem;
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+      padding: 2rem;
+    }
+  }
+}

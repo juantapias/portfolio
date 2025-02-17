@@ -45,7 +45,7 @@ export default function Loader({ isLoading }: IProps) {
 
   return (
     <div ref={loaderRef} className='loader'>
-      <div ref={textRef} className='text space-x-2'>
+      <div ref={textRef} className='loader-text space-x-2'>
         {loadingArr.map((letter, key) => (
           <span key={key}>{letter}</span>
         ))}

@@ -1,3 +1,5 @@
+@import '../2-tools/icons';
+
 @font-face {
   font-family: 'icomoon';
   src: url('fonts/icomoon.eot?4fsg7n');
@@ -26,27 +28,62 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-x:before {
-  content: '\e907';
+.icon-spinner {
+  &:before {
+    content: $icon-spinner;
+  }
 }
-.icon-tiktok:before {
-  content: '\e903';
+
+.icon-instagram {
+  &:before {
+    content: $icon-instagram;
+  }
 }
-.icon-twitch:before {
-  content: '\e905';
+
+.icon-mail-solid {
+  &:before {
+    content: $icon-mail-solid;
+  }
 }
-.icon-twitter:before {
-  content: '\e906';
+
+.icon-star-solid {
+  &:before {
+    content: $icon-star-solid;
+  }
 }
-.icon-internet:before {
-  content: '\e904';
+
+.icon-mail-outline {
+  &:before {
+    content: $icon-mail-outline;
+  }
 }
-.icon-spinner:before {
-  content: '\e902';
+
+.icon-internet {
+  &:before {
+    content: $icon-internet;
+  }
 }
-.icon-instagram:before {
-  content: '\e901';
+
+.icon-tiktok {
+  &:before {
+    content: $icon-tiktok;
+  }
 }
-.icon-github:before {
-  content: '\e900';
+
+.icon-twitter-x {
+  &:before {
+    content: $icon-twitter-x;
+  }
+}
+
+.icon-close {
+  &:before {
+    content: $icon-close;
+  }
+}
+
+.icon-github {
+  &:before {
+    content: $icon-github;
+  }
 }
