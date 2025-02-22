@@ -6,12 +6,19 @@ import Header from '@/containers/Header'
 //import Loader from '@/components/loader/Loader'
 import Footer from '@/containers/Footer'
 import Script from 'next/script'
+import PageTransition from '@/containers/PageTransition'
 
 export const metadata: Metadata = {
-  title: 'Juan Tapias - Desarrollador creativo',
+  title: 'Juan Tapias - Creando experiencias visuales',
   description:
-    'Descubre mi portafolio de desarrollo y diseño web: proyectos innovadores, soluciones personalizadas y diseño creativo para potenciar tu presencia en línea. ¡Explora mi trabajo ahora!',
-  keywords: ['desarrollo web', 'diseño creativo', 'portafolio'],
+    'Transformo ideas en realidades visuales: identidad, diseño web y creatividad al servicio de tu esencia.',
+  keywords: [
+    'diseño web',
+    'identidad visual',
+    'experiencia digital',
+    'creatividad',
+    'portafolio artístico',
+  ],
   authors: [{ url: 'https://www.juantapias.dev/', name: 'Juan Tapias' }],
   verification: {
     google: '7mChXJQWgjNhHpEDBYtQka7uA2dJN3FsNtowrOzmdJc',
@@ -53,7 +60,7 @@ export default function RootLayout({
         {/* <Loader /> */}
 
         <Header />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <Footer />
       </body>
     </html>

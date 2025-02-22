@@ -13,3 +13,8 @@ type Social = {
   url: string
   icon: string
 }
+
+export type ITech = {
+  icon: string
+  location: string
+}

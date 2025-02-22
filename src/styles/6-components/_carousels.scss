@@ -1,0 +1,18 @@
+.carousel {
+  &-scroll {
+    color: $primary;
+    background-color: $secondary;
+
+    .icon {
+      font-size: 10rem;
+
+      @include media(md) {
+        font-size: 7rem;
+      }
+
+      @include media(sm) {
+        font-size: 5rem;
+      }
+    }
+  }
+}

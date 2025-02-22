@@ -65,7 +65,8 @@
           margin-left: 1rem;
         }
 
-        &>button {
+        &>button,
+        &>a {
           text-align: left;
           width: 100%;
           text-transform: uppercase;

@@ -51,9 +51,9 @@ export default function Works() {
                 para crear algo único. Diseño con intención, fusionando estética
                 y funcionalidad para contar historias visuales que impactan.
               </p>
-              <div className='view-more flex items-center justify-center'>
+              {/* <div className='view-more flex items-center justify-center'>
                 <button className='btn is-primary'>Ver más</button>
-              </div>
+              </div> */}
             </div>
             <div className='work-container-contain col-span-3 md:col-span-4 lg:col-span-3'>
               <span>En construcción creativa...</span>

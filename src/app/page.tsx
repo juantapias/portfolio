@@ -11,7 +11,7 @@ import Ads from '@/components/sections/Ads'
 import Contact from '@/components/sections/Contact'
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 5000)

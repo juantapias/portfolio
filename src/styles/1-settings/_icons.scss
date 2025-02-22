@@ -28,6 +28,139 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-woocommerce {
+  &:before {
+    content: $icon-woocommerce;
+  }
+}
+
+.icon-nodejs {
+  &:before {
+    content: $icon-nodejs;
+  }
+}
+
+.icon-aws {
+  &:before {
+    content: $icon-aws;
+  }
+}
+
+.icon-vue-fill {
+  &:before {
+    content: $icon-vue-fill;
+  }
+}
+
+.icon-laravel {
+  &:before {
+    content: $icon-laravel;
+  }
+}
+
+.icon-mysql {
+  &:before {
+    content: $icon-mysql;
+  }
+}
+
+.icon-php {
+  &:before {
+    content: $icon-php;
+  }
+}
+
+.icon-graphql {
+  &:before {
+    content: $icon-graphql;
+  }
+}
+
+.icon-wordpress {
+  &:before {
+    content: $icon-wordpress;
+  }
+}
+
+.icon-git {
+  &:before {
+    content: $icon-git;
+  }
+}
+
+.icon-figma .path1 {
+  &:before {
+    content: $icon-figma-path1;
+    color: rgb(68, 68, 68);
+    opacity: 0.6;
+  }
+}
+
+.icon-figma .path2 {
+  &:before {
+    content: $icon-figma-path2;
+    margin-left: -1em;
+    color: rgb(68, 68, 68);
+    opacity: 0.4;
+  }
+}
+
+.icon-figma .path3 {
+  &:before {
+    content: $icon-figma-path3;
+    margin-left: -1em;
+    color: rgb(68, 68, 68);
+  }
+}
+
+.icon-figma .path4 {
+  &:before {
+    content: $icon-figma-path4;
+    margin-left: -1em;
+    color: rgb(68, 68, 68);
+    opacity: 0.2;
+  }
+}
+
+.icon-figma .path5 {
+  &:before {
+    content: $icon-figma-path5;
+    margin-left: -1em;
+    color: rgb(68, 68, 68);
+    opacity: 0.8;
+  }
+}
+
+.icon-gsap {
+  &:before {
+    content: $icon-gsap;
+  }
+}
+
+.icon-sass {
+  &:before {
+    content: $icon-sass;
+  }
+}
+
+.icon-typescript {
+  &:before {
+    content: $icon-typescript;
+  }
+}
+
+.icon-nextjs {
+  &:before {
+    content: $icon-nextjs;
+  }
+}
+
+.icon-react {
+  &:before {
+    content: $icon-react;
+  }
+}
+
 .icon-spinner {
   &:before {
     content: $icon-spinner;
