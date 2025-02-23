@@ -4,6 +4,10 @@
     font-size: 5rem;
     text-transform: uppercase;
     color: $secondary;
+
+    @include media(sm) {
+      font-size: 3rem;
+    }
   }
 
   &-badge {
@@ -22,5 +26,6 @@
       background-color: $secondary;
       color: $primary;
     }
+
   }
 }

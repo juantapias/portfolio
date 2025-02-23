@@ -32,27 +32,6 @@ export default function Contact() {
     gsap.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.5 })
   })
 
-  // useGSAP(
-  //   () => {
-  //     const tl = gsap.timeline({
-  //       scrollTrigger: {
-  //         trigger: containerRef.current,
-  //         markers: false,
-  //         start: '-20% center',
-  //         end: '55% center',
-  //         scrub: true,
-  //       },
-  //     })
-  //     tl.from(['.contact-title', '.contact-subtitle'], {
-  //       y: 100,
-  //       opacity: 0,
-  //       stagger: 0.25,
-  //     })
-  //     tl.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.2 })
-  //   },
-  //   { scope: containerRef }
-  // )
-
   const [inputs, setInputs] = useState<Inputs>({
     name: '',
     subject: '',
@@ -113,7 +92,7 @@ export default function Contact() {
   }
 
   return (
-    <div id='contact' className='space-y-8 py-8 mt-14' data-bg='light'>
+    <div id='contact' className='space-y-8 p-8 mt-14' data-bg='light'>
       <div className='let-talk'>
         <div ref={containerRef} className='container mx-auto space-y-8'>
           <div className='text-secondary text-center'>

@@ -11,6 +11,10 @@
     margin-top: 53px;
   }
 
+  @include media (sm) {
+    height: initial;
+  }
+
   &-item {
     align-items: center;
     display: flex;
