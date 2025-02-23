@@ -1,0 +1,28 @@
+.about {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+
+  &-container {
+    border-bottom: .0625rem solid $secondary;
+    padding: 2.5rem 0;
+  }
+
+  &-title {
+    &>h2 {
+      color: $secondary;
+      font-family: 'Anton';
+      font-size: 5rem;
+      text-align: center;
+      text-transform: uppercase;
+
+      @include media(md) {
+        font-size: 4rem;
+      }
+
+      @include media(sm) {
+        font-size: 3rem
+      }
+    }
+  }
+}

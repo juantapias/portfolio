@@ -1,0 +1,42 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Resets */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+a,
+i {
+  display: inline-flex;
+}
+
+/* Class */
+
+body {
+  background: url('../../public/images/background.webp');
+  background-color: $primary;
+  font-family: 'Montserrat Alt';
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.font-primary {
+  font-family: 'Anton';
+}
+
+.font-secondary {
+  font-family: 'Montserrat Alt';
+  font-weight: 400;
+}

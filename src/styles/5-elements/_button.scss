@@ -1,0 +1,41 @@
+.btn {
+  font-family: 'Anton';
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  transition: all 150ms ease-in-out;
+
+  &.is-primary {
+    background-color: $primary;
+    border: 0.0625rem solid $secondary;
+    color: $secondary;
+
+
+    &:hover {
+      background-color: $secondary;
+      color: $primary;
+    }
+  }
+
+  &.is-secondary {
+    background-color: $secondary;
+    border: 0.0625rem solid transparent;
+    color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      border: 0.0625rem solid $secondary;
+      color: $secondary;
+    }
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+
+    &:hover {
+      background-color: $primary;
+      color: $secondary;
+      cursor: not-allowed;
+    }
+  }
+}

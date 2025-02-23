@@ -1,0 +1,12 @@
+.link-tree {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - 72px);
+
+  &-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+}

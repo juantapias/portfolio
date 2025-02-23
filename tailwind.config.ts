@@ -10,7 +10,12 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#CDC6BE',
+        secondary: '#222222',
+      },
+    },
   },
   plugins: [],
 }

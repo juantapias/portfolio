@@ -1,44 +1,28 @@
 import { useRef } from 'react'
-import Image, { StaticImageData } from 'next/image'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import WebCustom from '@images/web-custom.webp'
-import WebEcommerce from '@images/e-commerce.webp'
-import WebDesign from '@images/web-design.webp'
-import WebManaged from '@images/web-self-managed.webp'
-
 type IServices = {
-  image: StaticImageData
   title: string
   description: string
 }
 
 const servicesItems: IServices[] = [
   {
-    image: WebCustom,
-    title: 'Desarrollo personalizado',
+    title: 'Branding & Identidad Visual',
     description:
-      'Creamos sitios únicos y alineados con la identidad de tu marca, pensados para atraer clientes y aumentar el reconocimiento en el mercado.',
+      'Las marcas son más que logotipos: son historias, emociones y personalidad. Creamos identidades visuales que dejan huella.',
   },
   {
-    image: WebEcommerce,
-    title: 'E-Commerce',
+    title: 'Diseño Web & Experiencia Digital',
     description:
-      'Diseñamos tiendas online que optimizan la experiencia del usuario y están orientadas a maximizar tus ventas con soluciones escalables.',
+      'Tu sitio es más que una página, es un universo visual y funcional. Diseñamos espacios digitales que cautivan y comunican tu esencia.',
   },
   {
-    image: WebManaged,
-    title: 'Desarrollo autogestionable',
+    title: 'Desarrollo Web: eCommerce & Soluciones Personalizadas',
     description:
-      'Implementamos plataformas fáciles de gestionar, que permiten a tu equipo mantener y actualizar contenidos sin complicaciones técnicas.',
-  },
-  {
-    image: WebDesign,
-    title: 'Diseño web',
-    description:
-      'Creamos interfaces modernas y atractivas que ofrecen una experiencia de usuario optimizada en cualquier dispositivo, mejorando el impacto visual.',
+      'Desde tiendas online hasta plataformas únicas, construimos experiencias digitales que no solo se ven bien, sino que funcionan a la perfección.',
   },
 ]
 
@@ -47,79 +31,83 @@ export default function Services() {
 
   const containerRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
-  const paragraphRef = useRef<HTMLParagraphElement>(null)
-  const containerCardRef = useRef<HTMLDivElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
+  const IconRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    gsap.to(IconRef.current, {
+      rotation: 360,
+      duration: 4,
+      repeat: -1,
+      ease: 'linear',
+    })
+  })
 
   useGSAP(
     () => {
+      const letters =
+        headingRef.current && headingRef.current.querySelectorAll('span')
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          markers: false,
-          start: '-50px center',
+          start: '-20% center',
+          end: '80% center',
           scrub: true,
+          markers: false,
         },
       })
-      tl.from(headingRef.current, { y: -30, opacity: 0 }, 'a')
-      tl.from('.services-descrip', { y: 30, opacity: 0 }, 'a')
-    }
-    // { scope: containerRef }
+      tl.from(headingRef.current, { opacity: 0 }, 'a')
+      tl.from(letters, { x: -100, opacity: 0, stagger: 0.1 }, 'a')
+      tl.from('.services-wrap-item', { y: 100, opacity: 0, stagger: 0.25 })
+      tl.from(IconRef.current, { scale: 0, opacity: 0 }, 'a')
+      tl.from(
+        '.services-wrap-item:first-child',
+        {
+          borderRightColor: 'transparent',
+          borderBottomColor: 'transparent',
+          delay: 1.5,
+        },
+        'a'
+      )
+      tl.from(
+        '.services-wrap-item:last-child',
+        { borderTopColor: 'transparent', delay: 2 },
+        'a'
+      )
+    },
+    { scope: containerRef }
   )
 
-  useGSAP(() => {
-    const tlServices = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerCardRef.current,
-        markers: false,
-        start: '-5% center',
-        end: 'bottom 50%+=150px',
-        scrub: true,
-      },
-    })
-    tlServices.from('.card', { x: 300, opacity: 0, stagger: 0.5 }, 'a')
-    tlServices.from(paragraphRef.current, { scale: 2, opacity: 0 })
-  })
-
   return (
-    <div id='services' className='services'>
-      <div className='container mx-auto px-8'>
+    <div id='services' ref={containerRef} className='services'>
+      <div className='px-8'>
         <div className='grid grid-rows-1 gap-10'>
-          <div ref={containerRef} className='grid grid-cols-1 gap-4'>
-            <h2 ref={headingRef}>Diseño y desarrollo web hecho a la medida</h2>
-
-            <p className='services-descrip'>
-              Cada proyecto tiene su propia esencia y mi misión es resaltarla.
-              Aquí tienes lo que puedo hacer por ti:
-            </p>
+          <div ref={headingRef} className='grid grid-cols-4 gap-4'>
+            <div className='col-span-3 services-title'>
+              <h2>
+                {'Creación'.split('').map((letter, index) => (
+                  <span key={index} style={{ display: 'inline-block' }}>
+                    {letter}
+                  </span>
+                ))}
+              </h2>
+            </div>
+            <div className='flex items-center justify-center'>
+              <i ref={IconRef} className='icon icon-star-solid text-[15rem]' />
+            </div>
           </div>
 
-          <div
-            ref={containerCardRef}
-            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
-            {servicesItems.map((service, key) => (
-              <div key={key} ref={cardRef} className='card space-y-4'>
-                <figure className='flex justify-center'>
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    height={224}
-                    width={224}
-                  />
-                </figure>
+          <div className='grid grid-cols-1 md:grid-cols-2 services-wrap'>
+            {servicesItems.map((service, index) => (
+              <div
+                key={index}
+                className={`
+                  ${
+                    index === servicesItems.length - 1 ? 'md:col-span-2' : ''
+                  } services-wrap-item space-y-4`}>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </div>
             ))}
-          </div>
-
-          <div className='grid grid-cols-1 gap-4'>
-            <p ref={paragraphRef}>
-              <strong>
-                Ya sea que necesites una página desde cero o renovar tu
-                presencia digital, trabajemos juntos para lograrlo.
-              </strong>
-            </p>
           </div>
         </div>
       </div>

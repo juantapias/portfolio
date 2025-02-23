@@ -5,110 +5,115 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import Bubble from '../figures/Bubble'
+type IBanner = {
+  title: string
+  description: string
+}
+
+const bannerItem: IBanner[] = [
+  {
+    title: 'Portafolio',
+    description:
+      'Proyectos que combinan diseño, conceptos y funcionalidad. Cada trabajo refleja un enfoque único en el desarrollo visual y creativo.',
+  },
+  {
+    title: 'Medellin, Colombia',
+    description:
+      'Diseño con identidad, innovación y visión global. Inspirado por la cultura vibrante y la energía creativa de Medellin.',
+  },
+  {
+    title: 'Creación Visual',
+    description:
+      'Estrategia, arte y diseño se conecta y comunican para aplicar innovación visual a los proyectos.',
+  },
+]
 
 export default function MainBanner() {
   gsap.registerPlugin(useGSAP, ScrollTrigger)
-
   const bannerRef = useRef<HTMLDivElement>(null)
-
-  const bubbleBigRef = useRef<HTMLDivElement>(null)
-  const bubbleSmallRef = useRef<HTMLDivElement>(null)
-
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descriptionRef = useRef<HTMLDivElement>(null)
-
-  const title = ['J', 'u', 'a', 'n', 'T', 'a', 'p', 'i', 'a', 's']
+  const bannerTitleRef = useRef<HTMLHeadingElement>(null)
+  const bannerBackgroundRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    gsap.to(bubbleBigRef.current, {
-      y: -20,
-      duration: 12,
-      repeat: -1,
-      yoyoEase: 'back.out(1.7)',
-      rotate: 360,
+    gsap.from('.banner-item', {
+      opacity: 0,
+      duration: 1,
+      stagger: 0.3,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.main-banner',
+        start: 'top 80%',
+      },
     })
-    gsap.to(bubbleSmallRef.current, {
-      y: -20,
-      duration: 3,
-      repeat: -1,
-      yoyoEase: 'back.out(1.7)',
-    })
-  })
 
-  useGSAP(() => {
-    const contentTL = gsap.timeline()
+    if (bannerBackgroundRef.current) {
+      gsap.from(bannerBackgroundRef.current, {
+        opacity: 0,
+        duration: 2,
+        ease: 'power2.out',
+      })
+    }
 
-    contentTL.from(bubbleBigRef.current, { opacity: 0 })
-    contentTL.from(bubbleSmallRef.current, { opacity: 0 })
-    contentTL
-      .from(
-        '.letter',
-        {
-          opacity: 0,
-          stagger: 0.2,
-        },
-        'a'
-      )
-      .fromTo(
-        descriptionRef.current,
-        { color: '#222222' },
-        { color: '#bbbbbb' },
-        '<1'
-      )
+    if (bannerTitleRef.current) {
+      const letters = bannerTitleRef.current.querySelectorAll('span')
+      gsap.from(letters, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.25,
+        ease: 'power2.out',
+      })
+    }
   })
 
   useGSAP(
     () => {
-      const bannerTL = gsap.timeline({
+      const letters =
+        bannerTitleRef.current &&
+        bannerTitleRef.current.querySelectorAll('span')
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: bannerRef.current,
-          start: '50% 50%',
-          pin: true,
-          end: '+=1500',
+          start: 'center center',
+          end: '150% center',
           scrub: true,
+          markers: false,
         },
       })
-      bannerTL.to(titleRef.current, { y: -200, opacity: 0 })
-      bannerTL.fromTo(descriptionRef.current, { opacity: 1 }, { opacity: 0 })
-      bannerTL.to(bubbleSmallRef.current, {
-        top: '-10%',
-        x: window.innerWidth + 500,
-      })
-      bannerTL.to(
-        bubbleBigRef.current,
+      tl.to('.main-banner-item', { opacity: 0, stagger: 0.1 })
+      tl.to(
+        bannerBackgroundRef.current,
         {
-          top: '120%',
-          width: '30%',
-          x: window.innerWidth + 500,
+          y: -200,
+          delay: 0.1,
           opacity: 0,
         },
-        '<2'
+        'a'
       )
+      tl.to(letters, { y: -200, opacity: 0, stagger: 0.1 }, 'a')
     },
     { scope: bannerRef }
   )
 
   return (
-    <div id='home' ref={bannerRef} className='main-banner' data-bg='dark'>
-      <Bubble ref={bubbleBigRef} top={0} width='50%' left={-40} />
-      <Bubble
-        ref={bubbleSmallRef}
-        bottom={5}
-        height='100px'
-        width='100px'
-        left={5}
-      />
-      <div>
-        <h1 ref={titleRef}>
-          {title.map((char, i) => (
-            <span key={i} className='letter'>
-              {char}
-            </span>
+    <div ref={bannerRef} className='main-banner px-8' data-bg='dark'>
+      <div className='grid grid-rows-1'>
+        <div className='grid grid-cols-1 md:grid-cols-3'>
+          {bannerItem.map((item, index) => (
+            <div key={index} className='main-banner-item space-y-4'>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+            </div>
           ))}
-        </h1>
-        <div ref={descriptionRef} className='description'>
-          Desarrollo Creativo
+        </div>
+        <div ref={bannerBackgroundRef} className='main-banner-title'>
+          <h1 ref={bannerTitleRef}>
+            {'Tapias'.split('').map((letter, index) => (
+              <span key={index} style={{ display: 'inline-block' }}>
+                {letter}
+              </span>
+            ))}
+          </h1>
         </div>
       </div>
     </div>

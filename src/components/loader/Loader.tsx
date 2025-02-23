@@ -31,10 +31,10 @@ export default function Loader({ isLoading }: IProps) {
           }
         )
         gsap.to(loaderRef.current, {
-          y: -1000,
+          delay: 3,
           duration: 5,
           ease: 'power2.inOut',
-          delay: 3,
+          opacity: 0,
         })
       }
     },
@@ -45,7 +45,7 @@ export default function Loader({ isLoading }: IProps) {
 
   return (
     <div ref={loaderRef} className='loader'>
-      <div ref={textRef} className='text space-x-2'>
+      <div ref={textRef} className='loader-text space-x-2'>
         {loadingArr.map((letter, key) => (
           <span key={key}>{letter}</span>
         ))}

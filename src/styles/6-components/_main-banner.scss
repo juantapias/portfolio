@@ -1,0 +1,104 @@
+.main-banner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  @include media (lg) {
+    height: calc(100vh - 53px);
+    margin-top: 53px;
+  }
+
+  &-item {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: calc(40vh);
+    justify-content: center;
+    padding: 2.5rem;
+
+    &:nth-child(2) {
+      border-left: .0625rem solid $secondary;
+      border-right: .0625rem solid $secondary;
+
+      @include media (sm) {
+        border: 0;
+        border-bottom: .0625rem solid $secondary;
+        border-top: .0625rem solid $secondary;
+      }
+    }
+
+    &>h2 {
+      font-family: 'Anton';
+      font-size: 1.5rem;
+      color: $secondary;
+      letter-spacing: 0.25rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &>p {
+      font-family: 'Montserrat Alt';
+      font-size: 1rem;
+      text-align: center;
+    }
+  }
+
+  &-title {
+    align-items: center;
+    display: flex;
+    background-color: $secondary;
+    height: 60vh;
+    justify-content: center;
+
+    @include media (lg) {
+      height: 50vh;
+    }
+
+    @include media (md) {
+      height: 30vh;
+    }
+
+    @include media (sm) {
+      height: 25vh;
+    }
+
+    &>h1 {
+      color: $primary;
+      font-family: 'Anton';
+      font-size: 30rem;
+      line-height: 1;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+
+      @include media (xl) {
+        font-size: 27rem;
+      }
+
+      @include media (lg) {
+        font-size: 18rem;
+      }
+
+      @include media (md) {
+        font-size: 13rem;
+      }
+
+      @include media (sm) {
+        font-size: 8rem;
+      }
+
+      &::after {
+        content: '';
+        background-image: url('../../../public/images/background.webp');
+        left: 0;
+        height: 90%;
+        position: absolute;
+        top: 5%;
+        width: 100%;
+      }
+    }
+  }
+}

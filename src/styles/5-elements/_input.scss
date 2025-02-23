@@ -1,0 +1,36 @@
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  &-label {
+    font-family: 'Anton';
+    font-size: 1rem;
+    color: $secondary;
+    text-transform: uppercase;
+  }
+
+  &-input,
+  &-text-area {
+    background-color: transparent;
+    border: 1px solid $secondary;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 0 1rem;
+    font-size: 1rem;
+    color: $secondary;
+    outline: none;
+
+    &::placeholder {
+      color: $secondary;
+      opacity: .75;
+    }
+  }
+
+  &-input {
+    height: 3rem;
+  }
+
+  &-text-area {
+    height: 6rem;
+  }
+}

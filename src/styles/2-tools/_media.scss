@@ -1,0 +1,43 @@
+/* =====================
+    * BREAKPOINTS *
+===================== */
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px,
+);
+
+/* =====================
+    * MEDIA QUERIES *
+===================== */
+
+@mixin media($media, $type: 'max') {
+  @if map-has-key($breakpoints, $media) {
+    $breakpoint: map-get($breakpoints, $media);
+
+    @if $type =='max' {
+      @media (max-width: $breakpoint) {
+        @content;
+      }
+    }
+
+    @else if $type =='min' {
+      @media (min-width: $breakpoint) {
+        @content;
+      }
+    }
+
+    @else {
+      @error "El tipo de media query debe ser 'max' o 'min'.";
+    }
+  }
+
+  @else {
+    @error "El breakpoint '#{$media}' no está definido en el mapa de breakpoints.";
+  }
+}

@@ -1,0 +1,16 @@
+.footer {
+  border-top: .0625rem solid $secondary;
+  color: $secondary;
+
+  &-link {
+    color: $secondary;
+    font-size: 1rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    transition: all 150ms ease-in-out;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
