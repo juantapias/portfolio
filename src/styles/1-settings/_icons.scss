@@ -28,6 +28,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-linkedin {
+  &:before {
+    content: $icon-linkedin;
+  }
+}
+
 .icon-woocommerce {
   &:before {
     content: $icon-woocommerce;

@@ -1,15 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
+import Contact from '@/components/sections/Contact'
+import SocialMedia from '@/components/social/SocialMedia'
 import Loader from '@/components/loader/Loader'
-import MainBanner from '@/components/banners/MainBanner'
-import About from '@/components/sections/About'
-import Works from '@/components/sections/Works'
-import Services from '@/components/sections/Services'
-import Ads from '@/components/sections/Ads'
 
-export default function Home() {
+export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -21,11 +17,8 @@ export default function Home() {
     <Loader isLoading={isLoading} />
   ) : (
     <>
-      <MainBanner />
-      <About />
-      <Works />
-      <Services />
-      <Ads />
+      <Contact />
+      <SocialMedia />
     </>
   )
 }

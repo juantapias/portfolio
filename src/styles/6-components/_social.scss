@@ -1,0 +1,26 @@
+.social {
+  h2 {
+    font-family: 'Anton';
+    font-size: 5rem;
+    text-transform: uppercase;
+    color: $secondary;
+  }
+
+  &-badge {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 100%;
+    color: $secondary;
+    display: flex;
+    height: 5rem;
+    justify-content: center;
+    font-size: 3rem;
+    transition: all 150ms ease-in-out;
+    width: 5rem;
+
+    &:hover {
+      background-color: $secondary;
+      color: $primary;
+    }
+  }
+}

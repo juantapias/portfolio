@@ -23,26 +23,35 @@ export default function Contact() {
   gsap.registerPlugin(useGSAP, ScrollTrigger)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          markers: false,
-          start: '-20% center',
-          end: '55% center',
-          scrub: true,
-        },
-      })
-      tl.from(['.contact-title', '.contact-subtitle'], {
-        y: 100,
-        opacity: 0,
-        stagger: 0.25,
-      })
-      tl.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.2 })
-    },
-    { scope: containerRef }
-  )
+  useGSAP(() => {
+    gsap.from(['.contact-title', '.contact-subtitle'], {
+      y: 100,
+      opacity: 0,
+      stagger: 0.25,
+    })
+    gsap.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.5 })
+  })
+
+  // useGSAP(
+  //   () => {
+  //     const tl = gsap.timeline({
+  //       scrollTrigger: {
+  //         trigger: containerRef.current,
+  //         markers: false,
+  //         start: '-20% center',
+  //         end: '55% center',
+  //         scrub: true,
+  //       },
+  //     })
+  //     tl.from(['.contact-title', '.contact-subtitle'], {
+  //       y: 100,
+  //       opacity: 0,
+  //       stagger: 0.25,
+  //     })
+  //     tl.from(['.form-group', '.form-submit'], { opacity: 0, stagger: 0.2 })
+  //   },
+  //   { scope: containerRef }
+  // )
 
   const [inputs, setInputs] = useState<Inputs>({
     name: '',
@@ -104,8 +113,8 @@ export default function Contact() {
   }
 
   return (
-    <div id='contact' className='space-y-8' data-bg='light'>
-      <div className='let-talk p-10'>
+    <div id='contact' className='space-y-8 py-8 mt-14' data-bg='light'>
+      <div className='let-talk'>
         <div ref={containerRef} className='container mx-auto space-y-8'>
           <div className='text-secondary text-center'>
             <h2 className='font-primary text-3xl md:text-6xl uppercase contact-title'>
@@ -157,7 +166,7 @@ export default function Contact() {
                   </div>
                 ))}
 
-                <div className='flex flex-col justify-center text-center items-center space-y-2'>
+                <div className='flex flex-col justify-center text-center items-center space-y-2 form-submit'>
                   <button
                     type='submit'
                     className={`${
