@@ -45,6 +45,14 @@
     }
   }
 
+  .icon {
+    font-size: 15rem;
+
+    @include media (sm) {
+      font-size: 5rem;
+    }
+  }
+
   &-wrap {
     &-item {
       padding: 2.5rem 1rem;

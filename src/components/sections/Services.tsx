@@ -92,7 +92,7 @@ export default function Services() {
               </h2>
             </div>
             <div className='flex items-center justify-center'>
-              <i ref={IconRef} className='icon icon-star-solid text-[15rem]' />
+              <i ref={IconRef} className='icon icon-star-solid' />
             </div>
           </div>
 
