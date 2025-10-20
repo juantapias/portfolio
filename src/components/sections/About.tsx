@@ -20,7 +20,7 @@ export default function About() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: '-20% center',
+          start: '-40% center',
           end: '70% center',
           scrub: true,
           markers: false,
