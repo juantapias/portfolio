@@ -1,33 +1,49 @@
 /* Fonts */
 
-/* Anton - Normal */
+// Prociono
 @font-face {
-  font-family: 'Anton';
-  src: url('./fonts/Anton/Anton-Regular.ttf') format('truetype');
+  font-family: 'Prociono';
+  src: url('./fonts/Prociono/Prociono-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-/* Montserrat - Light */
+/* Chenla */
 @font-face {
-  font-family: 'Montserrat Alt';
-  src: url('./fonts/Montserrat-Alternates/MontserratAlternates-Light.ttf') format('truetype');
+  font-family: 'Chenla';
+  src: url('./fonts/Chenla/Chenla-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Martel - Light */
+@font-face {
+  font-family: 'Martel';
+  src: url('./fonts/Martel/Martel-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
-/* Montserrat - Regular */
+/* Martel - Regular */
 @font-face {
-  font-family: 'Montserrat Alt';
-  src: url('./fonts/Montserrat-Alternates/MontserratAlternates-Regular.ttf') format('truetype');
+  font-family: 'Martel';
+  src: url('./fonts/Martel/Martel-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
-/* Fira Sans - Bold */
+/* Martel - SemiBold */
 @font-face {
-  font-family: 'Montserrat Alt';
-  src: url('./fonts/Montserrat-Alternates/MontserratAlternates-Bold.ttf') format('truetype');
+  font-family: 'Martel';
+  src: url('./fonts/Martel/Martel-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Martel - Bold */
+@font-face {
+  font-family: 'Martel';
+  src: url('./fonts/Martel/Martel-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }

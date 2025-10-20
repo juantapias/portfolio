@@ -1,107 +1,109 @@
 .main-banner {
   align-items: center;
+  background-image: url('../../../public/images/banner.jpg');
+  background-position: 50% 35%;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  height: 100vh;
+  gap: 2rem;
 
   @include media (lg) {
     height: calc(100vh - 53px);
-    margin-top: 53px;
   }
 
   @include media (sm) {
-    height: initial;
+    height: 100vh;
+    margin-top: 0;
   }
 
-  &-item {
-    align-items: center;
+
+  &>h1 {
+    font-family: 'Prociono';
+    color: white;
+    letter-spacing: 0.25rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 28vw;
+    line-height: 1;
     display: flex;
-    flex-direction: column;
-    height: calc(40vh);
-    justify-content: center;
-    padding: 2.5rem;
+    align-items: center;
 
-    &:nth-child(2) {
-      border-left: .0625rem solid $secondary;
-      border-right: .0625rem solid $secondary;
-
-      @include media (sm) {
-        border: 0;
-        border-bottom: .0625rem solid $secondary;
-        border-top: .0625rem solid $secondary;
+    &>span {
+      &.outline {
+        color: transparent;
+        -webkit-text-stroke: .25rem white;
       }
-    }
-
-    &>h2 {
-      font-family: 'Anton';
-      font-size: 1.5rem;
-      color: $secondary;
-      letter-spacing: 0.25rem;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    &>p {
-      font-family: 'Montserrat Alt';
-      font-size: 1rem;
-      text-align: center;
-    }
-  }
-
-  &-title {
-    align-items: center;
-    display: flex;
-    background-color: $secondary;
-    height: 60vh;
-    justify-content: center;
-
-    @include media (lg) {
-      height: 50vh;
-    }
-
-    @include media (md) {
-      height: 30vh;
     }
 
     @include media (sm) {
-      height: 25vh;
+      font-size: 24vw
+    }
+  }
+
+  &-content {
+    align-items: center;
+    bottom: 5%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    padding: 0 2rem;
+    gap: 2rem;
+
+    @include media (md) {
+      position: initial;
+      flex-direction: column;
+      padding: 0;
     }
 
-    &>h1 {
-      color: $primary;
-      font-family: 'Anton';
-      font-size: 30rem;
-      line-height: 1;
-      position: relative;
-      text-align: center;
-      text-transform: uppercase;
 
-      @include media (xl) {
-        font-size: 27rem;
-      }
+    &-text {
+      width: 30%;
 
-      @include media (lg) {
-        font-size: 18rem;
+      @include media (xxl) {
+        width: 40%;
       }
 
       @include media (md) {
-        font-size: 13rem;
+        width: 100%;
       }
+
+      &>h2 {
+        font-family: 'Martel';
+        font-size: 1.125rem;
+        color: $secondary;
+        letter-spacing: 0.25rem;
+        text-align: left;
+        text-transform: uppercase;
+        color: $white;
+
+        @include media (xxl) {
+          font-size: 1rem
+        }
+
+        @include media (md) {
+          font-size: 1.25rem
+        }
+
+        @include media (sm) {
+          font-size: 1rem;
+          text-align: center;
+        }
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
 
       @include media (sm) {
-        font-size: 8rem;
-      }
-
-      &::after {
-        content: '';
-        background-image: url('../../../public/images/background.webp');
-        left: 0;
-        height: 90%;
-        position: absolute;
-        top: 5%;
-        width: 100%;
+        font-size: 1rem;
       }
     }
   }

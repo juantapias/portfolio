@@ -1,16 +1,51 @@
 .footer {
-  border-top: .0625rem solid $secondary;
-  color: $secondary;
+  background-color: $black;
+  color: $accent;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 
-  &-link {
-    color: $secondary;
-    font-size: 1rem;
-    font-weight: 100;
-    text-transform: uppercase;
-    transition: all 150ms ease-in-out;
+  &::after {
+    content: "";
+    background: radial-gradient(circle, #ffd58d 0%, #f58d24 50%, #7a2b02 100%);
+    border-radius: 100%;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 30%;
+    width: 100vw;
+    z-index: -1;
+    opacity: 0.6;
+    transform: scale(1);
+    animation: pulse 6s ease-in-out infinite alternate,
+      pulse-shadow 3s ease-out infinite;
 
-    &:hover {
-      text-decoration: underline;
+    @include media (sm) {
+      height: 50vh;
+      top: 70%;
     }
+  }
+
+
+  @keyframes pulse-shadow {
+    0% {
+      box-shadow: 0 0 0 0px rgba(245, 141, 36, 0.4);
+    }
+
+    100% {
+      box-shadow: 0 0 0 80px rgba(245, 141, 36, 0);
+    }
+  }
+
+
+
+  &-copy {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: $white;
+    z-index: 1;
+    font-family: 'Chenla';
+    z-index: 2;
   }
 }

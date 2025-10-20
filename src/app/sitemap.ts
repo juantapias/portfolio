@@ -10,17 +10,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 1,
     },
-    {
-      url: 'https://www.juantapias.dev/about',
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://www.juantapias.dev/contact',
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
   ]
 }

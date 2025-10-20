@@ -28,148 +28,45 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-linkedin {
+.icon-phone {
   &:before {
-    content: $icon-linkedin;
+    content: $icon-phone;
   }
 }
 
-.icon-woocommerce {
+.icon-laptop {
   &:before {
-    content: $icon-woocommerce;
+    content: $icon-laptop;
   }
 }
 
-.icon-nodejs {
+.icon-arrow-right-up {
   &:before {
-    content: $icon-nodejs;
+    content: $icon-arrow-right-up;
   }
 }
 
-.icon-aws {
+.icon-chevron-left {
   &:before {
-    content: $icon-aws;
+    content: $icon-chevron-left;
   }
 }
 
-.icon-vue-fill {
+.icon-chevron-right {
   &:before {
-    content: $icon-vue-fill;
+    content: $icon-chevron-right;
   }
 }
 
-.icon-laravel {
+.icon-github {
   &:before {
-    content: $icon-laravel;
+    content: $icon-github;
   }
 }
 
-.icon-mysql {
+.icon-mail {
   &:before {
-    content: $icon-mysql;
-  }
-}
-
-.icon-php {
-  &:before {
-    content: $icon-php;
-  }
-}
-
-.icon-graphql {
-  &:before {
-    content: $icon-graphql;
-  }
-}
-
-.icon-wordpress {
-  &:before {
-    content: $icon-wordpress;
-  }
-}
-
-.icon-git {
-  &:before {
-    content: $icon-git;
-  }
-}
-
-.icon-figma .path1 {
-  &:before {
-    content: $icon-figma-path1;
-    color: rgb(68, 68, 68);
-    opacity: 0.6;
-  }
-}
-
-.icon-figma .path2 {
-  &:before {
-    content: $icon-figma-path2;
-    margin-left: -1em;
-    color: rgb(68, 68, 68);
-    opacity: 0.4;
-  }
-}
-
-.icon-figma .path3 {
-  &:before {
-    content: $icon-figma-path3;
-    margin-left: -1em;
-    color: rgb(68, 68, 68);
-  }
-}
-
-.icon-figma .path4 {
-  &:before {
-    content: $icon-figma-path4;
-    margin-left: -1em;
-    color: rgb(68, 68, 68);
-    opacity: 0.2;
-  }
-}
-
-.icon-figma .path5 {
-  &:before {
-    content: $icon-figma-path5;
-    margin-left: -1em;
-    color: rgb(68, 68, 68);
-    opacity: 0.8;
-  }
-}
-
-.icon-gsap {
-  &:before {
-    content: $icon-gsap;
-  }
-}
-
-.icon-sass {
-  &:before {
-    content: $icon-sass;
-  }
-}
-
-.icon-typescript {
-  &:before {
-    content: $icon-typescript;
-  }
-}
-
-.icon-nextjs {
-  &:before {
-    content: $icon-nextjs;
-  }
-}
-
-.icon-react {
-  &:before {
-    content: $icon-react;
-  }
-}
-
-.icon-spinner {
-  &:before {
-    content: $icon-spinner;
+    content: $icon-mail;
   }
 }
 
@@ -179,50 +76,14 @@
   }
 }
 
-.icon-mail-solid {
+.icon-linkedin {
   &:before {
-    content: $icon-mail-solid;
+    content: $icon-linkedin;
   }
 }
 
-.icon-star-solid {
+.icon-whatsapp {
   &:before {
-    content: $icon-star-solid;
-  }
-}
-
-.icon-mail-outline {
-  &:before {
-    content: $icon-mail-outline;
-  }
-}
-
-.icon-internet {
-  &:before {
-    content: $icon-internet;
-  }
-}
-
-.icon-tiktok {
-  &:before {
-    content: $icon-tiktok;
-  }
-}
-
-.icon-twitter-x {
-  &:before {
-    content: $icon-twitter-x;
-  }
-}
-
-.icon-close {
-  &:before {
-    content: $icon-close;
-  }
-}
-
-.icon-github {
-  &:before {
-    content: $icon-github;
+    content: $icon-whatsapp;
   }
 }

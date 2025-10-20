@@ -1,0 +1,64 @@
+{
+  "Nav": {
+    "home": "Inicio",
+    "works": "Trabajos",
+    "about": "Acerca de",
+    "contact": "Contacto"
+  },
+  "Hero": {
+    "subtitle": "Creando experiencias digitales que combinan diseño innovador con tecnología de vanguardia. Transformo ideas en soluciones hermosas y funcionales que generan impacto.",
+    "btnCTA": "Ver mi trabajo",
+    "btnContact": "Contáctame"
+  },
+  "Works": {
+    "services": [
+      {
+        "label": "Diseño UI / UX",
+        "description": "Creando interfaces que priorizan la claridad, el flujo y la experiencia del usuario.",
+        "features": "Wireframes, trayectorias de usuario, prototipos interactivos, optimización de usabilidad."
+      },
+      {
+        "label": "Diseño Web",
+        "description": "Creando sitios web modernos y responsivos que equilibran estética y rendimiento.",
+        "features": "Páginas de aterrizaje, portafolios creativos, sitios corporativos, páginas de producto."
+      },
+      {
+        "label": "Diseño de Aplicaciones",
+        "description": "Diseñando experiencias mobile-first con navegación intuitiva y fuerte jerarquía visual.",
+        "features": "Prototipos iOS y Android, interfaces React Native, microinteracciones."
+      },
+      {
+        "label": "Sistemas de Diseño",
+        "description": "Construyendo bases de diseño escalables que aseguran consistencia entre productos.",
+        "features": "Bibliotecas de componentes, tokens, guías de estilo, documentación."
+      },
+      {
+        "label": "Diseños y Desarrollos en Framer",
+        "description": "Creando sitios y prototipos interactivos de alta fidelidad usando Framer.",
+        "features": "Desde concepto hasta sitios en vivo — animaciones, transiciones y diseños responsivos."
+      }
+    ]
+  },
+  "Projects": {
+    "title": "Una muestra de mi trabajo en diseño, desarrollo y experiencia digital.",
+    "content": "Cada proyecto refleja un equilibrio entre creatividad y precisión — desde interfaces centradas en el usuario hasta construcciones técnicamente refinadas. \n\n Abordo cada idea como una oportunidad para crear algo significativo, funcional y visualmente distintivo."
+  },
+  "About": {
+    "title": "Sobre mí",
+    "content": "Soy desarrollador front-end y diseñador UI/UX enfocado en crear experiencias digitales que se sientan intuitivas y humanas. \n\n Me importan profundamente los detalles, el rendimiento y las interacciones invisibles que hacen que las personas disfruten usar un producto. \n\n Mi trabajo combina creatividad y lógica — mezclando diseño cuidadoso con código limpio y mantenible. Creo que un buen diseño no se trata solo de estética, sino de cómo hace sentir a las personas y cómo se mueven a través de una interfaz. \n\n Cada proyecto es una oportunidad para crear algo significativo, funcional y duradero — un puente entre la tecnología y la emoción."
+  },
+  "Ads": {
+    "line1": "Tu sitio web,",
+    "line2": "tan auténtico",
+    "line3": "como tu marca"
+  },
+  "Footer": {
+    "social": "Conéctate conmigo",
+    "backToTop": "Volver arriba"
+  },
+  "NotFound": {
+    "title": "¡Ups! 😅 Parece que estás perdido...",
+    "content": "Esta página está fuera de servicio o nunca existió (¡ups, nuestro error!). Pero no te preocupes, sigue explorando",
+    "btnBackHome": "Volver al inicio"
+  }
+}

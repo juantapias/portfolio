@@ -1,23 +1,22 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 
 import './globals.scss'
-
-import Header from '@/containers/Header'
-//import Loader from '@/components/loader/Loader'
-import Footer from '@/containers/Footer'
-import Script from 'next/script'
-import PageTransition from '@/containers/PageTransition'
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 export const metadata: Metadata = {
-  title: 'Juan Tapias - Creando experiencias visuales',
+  title: 'Juan Tapias – Crafting Modern Digital Experiences',
   description:
-    'Transformo ideas en realidades visuales: identidad, diseño web y creatividad al servicio de tu esencia.',
+    'I transform ideas into engaging digital experiences through web development, UI/UX design, and creative visual solutions. Explore my portfolio of modern websites and interactive designs.',
   keywords: [
-    'diseño web',
-    'identidad visual',
-    'experiencia digital',
-    'creatividad',
-    'portafolio artístico',
+    'web development',
+    'UI/UX design',
+    'visual identity',
+    'creative portfolio',
+    'modern websites',
+    'digital experiences',
+    'front-end developer',
   ],
   authors: [{ url: 'https://www.juantapias.dev/', name: 'Juan Tapias' }],
   verification: {
@@ -27,11 +26,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
+      <head />
       <body>
         {/* Google Tag Manager (noscript) */}
         <noscript>
@@ -57,11 +57,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* <Loader /> */}
-
-        <Header />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
+        {children}
       </body>
     </html>
   )

@@ -1,66 +1,76 @@
-export const technologies = [
+export const services = [
   {
-    icon: 'icon-react',
-    location: 'left',
+    label: 'UI / UX Design',
+    description:
+      'Creating interfaces that prioritize clarity, flow, and user experience.',
+    features:
+      'Wireframes, user journeys, interactive prototypes, usability optimization.',
   },
   {
-    icon: 'icon-woocommerce',
-    location: 'left',
+    label: 'Web Design',
+    description:
+      'Crafting modern, responsive websites that balance aesthetics and performance.',
+    features:
+      'Landing pages, creative portfolios, corporate sites, product pages.',
   },
   {
-    icon: 'icon-nodejs',
-    location: 'left',
+    label: 'App Design',
+    description:
+      'Designing mobile-first experiences with intuitive navigation and strong visual hierarchy.',
+    features:
+      'iOS & Android prototypes, React Native interfaces, microinteractions.',
   },
   {
-    icon: 'icon-aws',
-    location: 'left',
+    label: 'Design Systems',
+    description:
+      'Building scalable design foundations that ensure consistency across products.',
+    features: 'Component libraries, tokens, style guides, documentation.',
   },
   {
-    icon: 'icon-vue-fill',
-    location: 'left',
+    label: 'Framer Designs / Builds',
+    description:
+      'Creating high-fidelity interactive sites and prototypes using Framer.',
+    features:
+      'From concept to live builds — animations, transitions, and responsive layouts.',
+  },
+]
+
+export const socials = [
+  {
+    label: 'Instagram',
+    icon: 'icon icon-instagram',
+    url: 'https://www.instagram.com/tapias.dev/',
   },
   {
-    icon: 'icon-laravel',
-    location: 'left',
+    label: 'LinkedIn',
+    icon: 'icon icon-linkedin',
+    url: 'https://www.linkedin.com/in/juan-carlos-tapias-flores/',
   },
   {
-    icon: 'icon-mysql',
-    location: 'left',
+    label: 'GitHub',
+    icon: 'icon icon-github',
+    url: 'https://github.com/juantapias',
   },
   {
-    icon: 'icon-php',
-    location: 'left',
+    label: 'TikTok',
+    icon: 'icon-tiktok',
+    link: 'https://www.tiktok.com/@tapias.dev',
   },
+]
+
+export const uiDesktop = [
   {
-    icon: 'icon-graphql',
-    location: 'right',
+    label: 'Pacific Waves Hostel & Surf',
+    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1760572834/pacific-waves_zeewif.mov',
+    type: 'video',
+    link: 'https://www.pacificwaveshostel.com/',
   },
+]
+
+export const uiMobile = [
   {
-    icon: 'icon-wordpress',
-    location: 'right',
-  },
-  {
-    icon: 'icon-git',
-    location: 'right',
-  },
-  {
-    icon: 'icon-figma',
-    location: 'right',
-  },
-  {
-    icon: 'icon-gsap',
-    location: 'right',
-  },
-  {
-    icon: 'icon-sass',
-    location: 'right',
-  },
-  {
-    icon: 'icon-typescript',
-    location: 'right',
-  },
-  {
-    icon: 'icon-nextjs',
-    location: 'right',
+    label: 'FunnelHot',
+    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1760899545/funnelhot_dtnm3a.mov',
+    type: 'video',
   },
 ]

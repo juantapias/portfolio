@@ -4,77 +4,76 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Link from 'next/link'
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 export default function About() {
+  const t = useTranslations('About')
   gsap.registerPlugin(useGSAP, ScrollTrigger)
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
+  const imageRef = useRef<HTMLDivElement | null>(null)
 
   useGSAP(
     () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top center',
-          end: 'bottom center',
+          start: '-20% center',
+          end: '70% center',
           scrub: true,
           markers: false,
         },
       })
-      tl.from('.about-title', { y: 100, opacity: 0 }, 'a')
       if (contentRef.current)
-        tl.from(['.about-content p', '.view-more'], {
+        tl.from(['.about-title', '.about-content p'], {
           y: 100,
           opacity: 0,
           stagger: 0.1,
-        })
-      tl.from(
-        '.about-container',
-        { borderBottomColor: 'transparent', delay: 1 },
-        'a'
-      )
+        }).from(
+          imageRef.current,
+          {
+            opacity: 0,
+            scale: 0,
+          },
+          '-=0.75'
+        )
     },
     { scope: containerRef }
   )
 
   return (
-    <div id='about' ref={containerRef} className='about px-8' data-bg='dark'>
-      <div className='about-container px-8'>
+    <section id='about' ref={containerRef} className='about px-16'>
+      <div className='about-container'>
         <div className='grid grid-rows-1'>
-          <div className='grid grid-cols-1 gap-10'>
-            <div className='about-title'>
-              <h2>Detrás del concepto</h2>
-            </div>
+          <article className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
+            <figure
+              ref={imageRef}
+              className='relative flex items-center justify-center w-72 h-96 md:w-[500px] md:h-[500px] mx-auto'>
+              <Image
+                src='/images/about.png'
+                alt='About me'
+                fill
+                className='object-contain rounded-2xl fade-borders'
+                priority
+              />
+            </figure>
 
-            <div
-              ref={contentRef}
-              className='about-content space-y-4 text-center'>
-              <p>
-                Mi trabajo es una exploración constante entre el arte, la
-                identidad y la funcionalidad, buscando crear piezas que no solo
-                sean visualmente impactantes, sino que también cuenten una
-                historia y generen conexión.
-              </p>
+            <div>
+              <div className='about-title'>
+                <h2>{t('title')}</h2>
+              </div>
 
-              <p>
-                A través del branding, el diseño web y la dirección de arte,
-                ayudo a marcas y proyectos a encontrar su voz visual, dándoles
-                una identidad auténtica y memorable. Cada detalle, cada color y
-                cada forma están pensados para comunicar algo más allá de lo
-                evidente.
-              </p>
-
-              <div className='view-more'>
-                <Link href='about' className='btn is-secondary'>
-                  Ver más
-                </Link>
+              <div
+                ref={contentRef}
+                className='about-content space-y-4 text-center'>
+                <p className='whitespace-pre-line'>{t('content')}</p>
               </div>
             </div>
-          </div>
+          </article>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

@@ -1,0 +1,104 @@
+.work {
+  background-color: $black;
+  padding: 2.5rem 0;
+
+  &-container {
+
+    overflow: hidden;
+
+    &-item {
+      border-top: .0625rem solid $darkGray;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2rem;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      @include media (sm) {
+        padding: 1rem 0;
+      }
+    }
+
+    &-head {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      transition: color 150ms ease-in-out;
+
+      &>h3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 150ms ease-in-out;
+        padding-top: 2rem;
+
+      }
+
+      &>i {
+        transition: color 150ms ease-in-out;
+        color: $white;
+        font-size: 2rem;
+        width: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+      }
+
+      &:hover {
+        &>h3 {
+          color: $accent;
+        }
+
+        &>i {
+          color: $accent;
+        }
+      }
+
+      &>h3 {
+        color: $white;
+        font-size: 3rem;
+        font-family: 'Anton';
+        line-height: 1;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+
+        @include media (lg) {
+          font-size: 2rem;
+        }
+
+        @include media(md) {
+          font-size: 2rem;
+        }
+
+        @include media(sm) {
+          font-size: 2rem;
+        }
+      }
+
+      &>p {
+        color: $primary;
+        font-family: 'Montserrat Alt';
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+
+    &-contain {
+      align-items: center;
+      color: $primary;
+      display: flex;
+      font-family: 'Anton';
+      font-size: 2rem;
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+      padding: 2rem;
+    }
+  }
+}

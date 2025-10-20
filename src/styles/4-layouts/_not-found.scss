@@ -1,14 +1,14 @@
 .not-found {
+  background: radial-gradient(circle, #ffd58d 0%, #f58d24 50%, #7a2b02 100%);
   align-items: center;
-  color: $secondary;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 53px);
+  height: calc(100vh - 40px);
   justify-content: center;
   padding: 0 2rem;
 
   @include media (sm) {
-    height: calc(100vh - 53px);
+    height: calc(100vh - 40px);
   }
 
   &>h2 {

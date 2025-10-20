@@ -1,0 +1,64 @@
+{
+  "Nav": {
+    "home": "Home",
+    "works": "Works",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "subtitle": "Crafting digital experiences that blend innovative design with cutting-edge technology. I transform ideas into beautiful, functional solutions that make an impact.",
+    "btnCTA": "View my work",
+    "btnContact": "Contact me"
+  },
+  "Works": {
+    "services": [
+      {
+        "label": "UI / UX Design",
+        "description": "Creating interfaces that prioritize clarity, flow, and user experience.",
+        "features": "Wireframes, user journeys, interactive prototypes, usability optimization."
+      },
+      {
+        "label": "Web Design",
+        "description": "Crafting modern, responsive websites that balance aesthetics and performance.",
+        "features": "Landing pages, creative portfolios, corporate sites, product pages."
+      },
+      {
+        "label": "App Design",
+        "description": "Designing mobile-first experiences with intuitive navigation and strong visual hierarchy.",
+        "features": "iOS & Android prototypes, React Native interfaces, microinteractions."
+      },
+      {
+        "label": "Design Systems",
+        "description": "Building scalable design foundations that ensure consistency across products.",
+        "features": "Component libraries, tokens, style guides, documentation."
+      },
+      {
+        "label": "Framer Designs / Builds",
+        "description": "Creating high-fidelity interactive sites and prototypes using Framer.",
+        "features": "From concept to live builds — animations, transitions, and responsive layouts."
+      }
+    ]
+  },
+  "Projects": {
+    "title": "A showcase of my work across design, development, and digital experience.",
+    "content": "Each project reflects a balance between creativity and precision — from user-focused interfaces to technically refined builds. \n\n I approach every idea as an opportunity to craft something meaningful, functional, and visually distinct."
+  },
+  "About": {
+    "title": "About me",
+    "content": "I’m a front-end developer and UI/UX designer focused on crafting digital experiences that feel intuitive and human. \n\n I care deeply about details, performance, and the invisible interactions that make people enjoy using a product. \n\n My work combines creativity and logic — blending thoughtful design with clean, maintainable code. I believe that good design is not only about aesthetics but about how it makes people feel and move through an interface. \n\n Each project is an opportunity to create something meaningful, functional, and lasting — a bridge between technology and emotion."
+  },
+  "Ads": {
+    "line1": "Your website,",
+    "line2": "as authentic",
+    "line3": "as your brand"
+  },
+  "Footer": {
+    "social": "Connect with me",
+    "backToTop": "Back to top"
+  },
+  "NotFound": {
+    "title": "Oops! 😅 Looks like you&apos;re lost...",
+    "content": "This page is out of service or never existed (oops, our bad!). But don&apos;t worry, keep exploring",
+    "btnBackHome": "Back to home"
+  }
+}
