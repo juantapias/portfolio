@@ -22,6 +22,23 @@ export const metadata: Metadata = {
   verification: {
     google: '7mChXJQWgjNhHpEDBYtQka7uA2dJN3FsNtowrOzmdJc',
   },
+  openGraph: {
+    title: 'Juan Tapias – Crafting Modern Digital Experiences',
+    description:
+      'Transforming ideas into engaging digital experiences through web development and UI/UX design.',
+    url: 'https://www.juantapias.dev/',
+    siteName: 'Juan Tapias Portfolio',
+    images: [
+      {
+        url: 'https://www.juantapias.dev/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Preview of Juan Tapias Portfolio',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
@@ -30,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <head />
       <body>
         {/* Google Tag Manager (noscript) */}
@@ -56,7 +73,6 @@ export default function RootLayout({
             `,
           }}
         />
-
         {children}
       </body>
     </html>
