@@ -18,3 +18,9 @@ export type ITech = {
   icon: string
   location: string
 }
+
+export type Services = {
+  label: string
+  description: string
+  features: string[]
+}

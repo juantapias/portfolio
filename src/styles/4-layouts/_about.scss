@@ -1,19 +1,24 @@
 .about {
+  background-color: $black;
   display: flex;
   position: relative;
   overflow: hidden;
 
+
   &-container {
-    border-bottom: .0625rem solid $secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 2.5rem 0;
   }
 
   &-title {
     &>h2 {
-      color: $secondary;
+      color: $accent;
       font-family: 'Anton';
       font-size: 5rem;
-      text-align: center;
+      line-height: 1;
+      text-align: right;
       text-transform: uppercase;
 
       @include media(md) {
@@ -22,6 +27,26 @@
 
       @include media(sm) {
         font-size: 3rem
+      }
+    }
+  }
+
+  &-content {
+
+    &>p {
+      color: $white;
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+      text-align: right;
+
+      @include media(md) {
+        font-size: 1.25rem;
+        line-height: 2.25rem;
+      }
+
+      @include media(sm) {
+        font-size: 1rem;
+        line-height: 2rem;
       }
     }
   }

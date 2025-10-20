@@ -1,31 +1,83 @@
 .btn {
-  font-family: 'Anton';
+  font-family: 'Chenla';
+  border-radius: 9999px;
   font-size: 1rem;
   padding: 1rem 2rem;
   text-transform: uppercase;
-  transition: all 150ms ease-in-out;
+  transition: background 300ms ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
 
-  &.is-primary {
-    background-color: $primary;
-    border: 0.0625rem solid $secondary;
-    color: $secondary;
+  @include media (sm) {
+    font-size: 0.875rem;
+    padding: .5rem 1rem;
+  }
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 100%;
+    background-color: $white;
+    transform: translate(-50%, -50%);
+    transition: width .5s ease, height .5s ease;
+    z-index: -1;
+  }
 
-    &:hover {
-      background-color: $secondary;
-      color: $primary;
+  &:hover {
+    cursor: pointer;
+
+    &::before {
+      width: 100vw;
+      height: 100vh;
     }
   }
 
-  &.is-secondary {
-    background-color: $secondary;
+  &.is-primary {
+    background-color: $white;
+    border: 0.0625rem solid $white;
+    color: $black;
+
+    &::before {
+      background-color: $black;
+    }
+
+    &:hover {
+      background-color: $black;
+      border-color: $black;
+      color: $white;
+
+    }
+
+    &.is-outline {
+      background-color: transparent;
+      color: $white;
+
+      &::before {
+        background-color: $white;
+      }
+
+      &:hover {
+        background-color: $white;
+        border-color: $white;
+        color: $black;
+      }
+    }
+  }
+
+  &.is-white {
+    background-color: $white;
     border: 0.0625rem solid transparent;
     color: $primary;
 
     &:hover {
       background-color: $primary;
-      border: 0.0625rem solid $secondary;
-      color: $secondary;
+      border: 0.0625rem solid $white;
+      color: $white;
     }
   }
 
@@ -34,8 +86,14 @@
 
     &:hover {
       background-color: $primary;
-      color: $secondary;
+      color: $white;
       cursor: not-allowed;
     }
+  }
+
+  &>i {
+    color: currentColor;
+    font-size: 1.5rem;
+    transition: color 300ms ease-in-out;
   }
 }
