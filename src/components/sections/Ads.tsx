@@ -19,8 +19,8 @@ export default function Ads() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: adsRef.current,
-          start: '-30% center',
-          end: '60% center',
+          start: '-50% center',
+          end: 'center center',
           scrub: true,
           markers: false,
         },
