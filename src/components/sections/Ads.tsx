@@ -35,7 +35,7 @@ export default function Ads() {
   }, [])
 
   return (
-    <section id='ads' ref={adsRef} className='ads px-16'>
+    <section id='ads' ref={adsRef} className='ads px-8 lg:px-16'>
       <article className='ads-container'>
         <h2 className='space-x-2 flex flex-col items-start justify-start'>
           <span className='inline-flex'>{t('line1')}</span>

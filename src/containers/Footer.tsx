@@ -13,7 +13,7 @@ export default function Footer() {
 
   return (
     <footer id='footer' className='footer'>
-      <section className='grid grid-row-1 px-16 p-12 z-10'>
+      <section className='grid grid-row-1 px-8 lg:px-16 p-12 z-10'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           <article className='flex flex-col gap-2'>
             <h2 className='text-2xl lg:text-4xl font-light'>{t('social')}</h2>

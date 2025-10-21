@@ -44,7 +44,7 @@ export default function About() {
   )
 
   return (
-    <section id='about' ref={containerRef} className='about px-16'>
+    <section id='about' ref={containerRef} className='about px-8 lg:px-16'>
       <div className='about-container'>
         <div className='grid grid-rows-1'>
           <article className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
