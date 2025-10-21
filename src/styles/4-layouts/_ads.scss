@@ -23,11 +23,14 @@
       text-align: left;
       text-transform: uppercase;
 
+      @include media (xxl) {
+        font-size: 8rem;
+      }
+
       @include media (xl) {
         font-size: 7rem;
         line-height: 1;
       }
-
 
       @include media (md) {
         font-size: 5rem;
