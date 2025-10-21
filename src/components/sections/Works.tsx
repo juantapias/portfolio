@@ -23,7 +23,7 @@ export default function Works() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 80%',
-          end: 'bottom 40%',
+          end: 'center 40%',
           scrub: true,
           markers: false,
         },
