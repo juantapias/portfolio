@@ -112,7 +112,7 @@ export default function Projects() {
         </nav>
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-          <div className='px-16 flex flex-col items-center justify-center order-2 lg:order-1'>
+          <div className='px-8 lg:px-16 flex flex-col items-center justify-center order-2 lg:order-1'>
             <h2 id='projects-title' className='projects-title'>
               {t('title')}
             </h2>
