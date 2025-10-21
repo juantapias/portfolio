@@ -22,6 +22,13 @@ export const metadata: Metadata = {
   verification: {
     google: '7mChXJQWgjNhHpEDBYtQka7uA2dJN3FsNtowrOzmdJc',
   },
+  alternates: {
+    canonical: 'https://www.juantapias.dev/',
+    languages: {
+      en: 'https://www.juantapias.dev/en',
+      es: 'https://www.juantapias.dev/es',
+    },
+  },
   openGraph: {
     title: 'Juan Tapias – Crafting Modern Digital Experiences',
     description:
@@ -38,6 +45,13 @@ export const metadata: Metadata = {
     ],
     locale: 'en_US',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Juan Tapias – Crafting Modern Digital Experiences',
+    description:
+      'Transforming ideas into engaging digital experiences through web development and UI/UX design.',
+    images: ['https://www.juantapias.dev/og-image.jpg'],
   },
 }
 
