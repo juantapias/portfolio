@@ -28,24 +28,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-phone {
-  &:before {
-    content: $icon-phone;
-  }
-}
-
-.icon-laptop {
-  &:before {
-    content: $icon-laptop;
-  }
-}
-
-.icon-arrow-right-up {
-  &:before {
-    content: $icon-arrow-right-up;
-  }
-}
-
 .icon-chevron-left {
   &:before {
     content: $icon-chevron-left;
@@ -58,15 +40,27 @@
   }
 }
 
-.icon-github {
+.icon-www {
   &:before {
-    content: $icon-github;
+    content: $icon-www;
   }
 }
 
-.icon-mail {
+.icon-arrow-right-up {
   &:before {
-    content: $icon-mail;
+    content: $icon-arrow-right-up;
+  }
+}
+
+.icon-phone {
+  &:before {
+    content: $icon-phone;
+  }
+}
+
+.icon-laptop {
+  &:before {
+    content: $icon-laptop;
   }
 }
 
@@ -82,8 +76,20 @@
   }
 }
 
+.icon-github {
+  &:before {
+    content: $icon-github;
+  }
+}
+
 .icon-whatsapp {
   &:before {
     content: $icon-whatsapp;
+  }
+}
+
+.icon-tiktok {
+  &:before {
+    content: $icon-tiktok;
   }
 }

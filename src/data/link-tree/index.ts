@@ -20,7 +20,7 @@ export const linkTree = [
       {
         name: 'Website',
         url: 'https://juantapias.dev',
-        icon: 'icon-internet',
+        icon: 'icon-www',
       },
     ],
   },

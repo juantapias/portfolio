@@ -1,12 +1,14 @@
 .link-tree {
+  background-color: $black;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 72px);
+  height: calc(100vh);
 
   &-buttons {
     display: flex;
     flex-direction: column;
+    color: $white;
   }
 }

@@ -53,8 +53,8 @@ export const socials = [
   },
   {
     label: 'TikTok',
-    icon: 'icon-tiktok',
-    link: 'https://www.tiktok.com/@tapias.dev',
+    icon: 'icon icon-tiktok',
+    url: 'https://www.tiktok.com/@tapias.dev',
   },
 ]
 
