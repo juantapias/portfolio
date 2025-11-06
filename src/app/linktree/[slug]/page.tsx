@@ -46,7 +46,7 @@ export default function Page({
             key={key}
             href={item.url}
             target='_blank'
-            className='space-x-2 btn is-secondary tracking-widest text-center'>
+            className='space-x-2 btn is-primary is-outline font-primary text-center'>
             <i className={`icon ${item.icon}`} />
             <span>{item.name}</span>
           </Link>
