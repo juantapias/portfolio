@@ -55,7 +55,7 @@ export default function Projects() {
   }, [activeFilter])
 
   const handleVideoPlayback = (swiper: SwiperType) => {
-    swiper.slides.forEach((slide: HTMLElement, index: number) => {
+    swiper.slides?.forEach((slide: HTMLElement, index: number) => {
       const video = slide.querySelector('video') as HTMLVideoElement
       if (!video) return
 
@@ -135,7 +135,7 @@ export default function Projects() {
                   playsInline
                   className='rounded-md'
                   height={200}
-                  width={activeFilter === 'mobile' ? 250 : 650}
+                  width={activeFilter === 'mobile' ? 250 : 750}
                 />
               </div>
             ) : (
@@ -147,14 +147,14 @@ export default function Projects() {
                 spaceBetween={50}
                 slidesPerView={activeFilter === 'mobile' ? 1 : 1}
                 centeredSlides={true}
-                // breakpoints={{
-                //   320: { slidesPerView: 1.2, spaceBetween: 20 },
-                //   640: { slidesPerView: 1.5, spaceBetween: 30 },
-                //   768: { slidesPerView: 2, spaceBetween: 40 },
-                //   1024: { slidesPerView: 2.5, spaceBetween: 50 },
-                // }}
+                breakpoints={{
+                  320: { slidesPerView: 1.2, spaceBetween: 20 },
+                  640: { slidesPerView: 1.5, spaceBetween: 30 },
+                  768: { slidesPerView: 2, spaceBetween: 40 },
+                  1024: { slidesPerView: 1.5, spaceBetween: 50 },
+                }}
                 modules={[Navigation]}
-                className='projects-swiper-container py-4'
+                className='projects-swiper-container py-4 w-full'
                 aria-label='Projects showcase carousel'
                 navigation={{
                   nextEl: '.custom-next',
@@ -191,7 +191,7 @@ export default function Projects() {
                   : uiDesktop.map((item, index) => (
                       <SwiperSlide key={index}>
                         <figure
-                          className='projects-swiper-figure-desktop'
+                          className='projects-swiper-figure-desktop w-full'
                           role='group'
                           aria-label={`Desktop project: ${item.label}`}>
                           {item.type === 'image' ? (
@@ -207,7 +207,7 @@ export default function Projects() {
                               loop
                               muted
                               playsInline
-                              height={200}
+                              height={300}
                               width={600}
                               className='rounded-md'
                             />

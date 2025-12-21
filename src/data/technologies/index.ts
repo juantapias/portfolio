@@ -65,6 +65,12 @@ export const uiDesktop = [
     type: 'video',
     link: 'https://www.pacificwaveshostel.com/',
   },
+  {
+    label: 'Mindsett',
+    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1766328431/mindsett_dh4p3v.mov',
+    type: 'video',
+    link: 'https://mindsett.com.ar/',
+  },
 ]
 
 export const uiMobile = [
