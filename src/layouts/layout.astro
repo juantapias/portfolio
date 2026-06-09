@@ -17,7 +17,7 @@ interface Props {
 const {
   title,
   description = 'Diseñador y desarrollador front-end especializado en crear experiencias digitales intuitivas y visualmente distintivas.',
-  ogImage = '/og-default.jpg',
+  ogImage = '../../public/images/og-image.jpg',
   ogType = 'website',
   canonicalURL = Astro.url.href,
   noindex = false,
@@ -55,12 +55,7 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-
-    <!-- Preconnect fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 
     <slot name="head" />
   </head>
