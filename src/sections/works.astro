@@ -1,0 +1,59 @@
+---
+import type { IServices } from '../types'
+import { useTranslations } from '../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const services = t('Works.services')
+---
+<section
+  id='works'
+  class='py-10 px-8'
+  aria-labelledby='works-title'>
+  <div class='overflow-hidden'>
+    <div class='grid grid-rows-1'>
+      <div class='grid grid-cols-1'>
+        {services.map((service: IServices) => (
+          <article
+            class='work-container-item border-t border-darkGray flex flex-col gap-4 py-4 px-0 md:p-8 first:border-t-0 transition-colors duration-150 ease-in-out group'
+            aria-label={`Service: ${service.label}`}>
+            <div class='flex items-center text-white justify-center w-full group-hover:text-accent'>
+              <h3 class='font-bold text-3xl md:text-4xl lg:text-5xl uppercase relative '>{service.label}</h3>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector("#works")
+    if (!container) return
+
+    const items = container.querySelectorAll(".work-container-item")
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: "top 80%",
+        end: "center 40%",
+        scrub: true,
+        markers: false,
+      },
+    })
+
+    tl.from(items, {
+      y: 100,
+      opacity: 0,
+      stagger: 0.3,
+    })
+  })
+</script>

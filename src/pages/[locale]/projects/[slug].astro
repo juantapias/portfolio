@@ -1,0 +1,59 @@
+---
+import ProjectPage from '../../../components/project'
+import { projects } from '../../../data/projects'
+import Layout from '../../../layouts/layout.astro'
+import { resolveProjectView } from '../../../utils/project'
+
+export function getStaticPaths() {
+  const locales = ['es', 'en'] as const
+  return locales.flatMap(locale =>
+    projects.map(project => ({
+      params: { locale, slug: project.slug },
+      props: { project, locale },
+    }))
+  )
+}
+
+interface Props {
+  project: (typeof projects)[number]
+  locale: 'es' | 'en'
+}
+
+const { project, locale } = Astro.props
+const t = project.translations[locale]
+const view = resolveProjectView(project, locale)
+
+const ogImage = project.coverImage
+  ? new URL(project.coverImage, Astro.site).toString()
+  : undefined
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: t.name,
+  description: t.seo.description,
+  author: {
+    '@type': 'Person',
+    name: 'Juan Tapias',
+    url: 'https://juantapias.dev',
+  },
+  datePublished: `${project.year}-01-01`,
+  keywords: t.seo.keywords.join(', '),
+  url: project.website,
+}
+---
+
+<Layout
+  title={t.seo.title}
+  description={t.seo.description}
+  ogImage={ogImage}
+  ogType="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+
+  <ProjectPage
+    locale={locale}
+    project={view}
+    client:load
+  />
+</Layout>

@@ -1,0 +1,87 @@
+{
+  "Nav": {
+    "home": "Home",
+    "works": "Works",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "subtitle": "Crafting digital experiences through design and technology. Transforming ideas into functional beauty.",
+    "btnCTA": "View my work",
+    "btnContact": "Contact me"
+  },
+  "Works": {
+    "services": [
+      {
+        "label": "Branding & Graphic Design",
+        "description": "Creating strong visual identities and graphic assets that communicate a brand’s essence.",
+        "features": "Logo design, illustrations, visual identity, graphic systems, social media assets and brand materials."
+      },
+      {
+        "label": "Product Design (UI / UX)",
+        "description": "Designing digital experiences that prioritize clarity, usability, and interaction.",
+        "features": "User research, wireframes, user flows, interactive prototypes, experience optimization."
+      },
+      {
+        "label": "Web Design",
+        "description": "Designing modern websites that balance aesthetics, visual storytelling, and user experience.",
+        "features": "Landing pages, creative portfolios, corporate websites, product pages."
+      },
+      {
+        "label": "App Design",
+        "description": "Designing mobile-first experiences with intuitive navigation and strong visual hierarchy.",
+        "features": "iOS and Android prototypes, interface design, interaction systems, micro-interactions."
+      },
+      {
+        "label": "Design Systems",
+        "description": "Building scalable design foundations that ensure consistency across digital products.",
+        "features": "Component libraries, design tokens, style guides, documentation."
+      },
+      {
+        "label": "Framer Development",
+        "description": "Building high-fidelity interactive websites directly in Framer.",
+        "features": "Animations, transitions, advanced prototypes, and fully responsive sites."
+      }
+    ]
+  },
+  "Projects": {
+    "title": "A showcase of my work across design, development, and digital experience.",
+    "content": "Each project reflects a balance between creativity and precision — from user-focused interfaces to technically refined builds. \n\n I approach every idea as an opportunity to craft something meaningful, functional, and visually distinct."
+  },
+  "About": {
+    "title": "About me",
+    "content": "I’m a front-end developer and UI/UX designer focused on crafting digital experiences that feel intuitive and human. \n\n I care deeply about details, performance, and the invisible interactions that make people enjoy using a product. \n\n My work combines creativity and logic — blending thoughtful design with clean, maintainable code. I believe that good design is not only about aesthetics but about how it makes people feel and move through an interface. \n\n Each project is an opportunity to create something meaningful, functional, and lasting — a bridge between technology and emotion."
+  },
+  "Ads": {
+    "line1": "Your website,",
+    "line2": "as authentic",
+    "line3": "as your brand"
+  },
+  "Footer": {
+    "social": "Connect with me",
+    "backToTop": "Back to top"
+  },
+
+  "project": {
+    "overview": {
+      "label": "Project summary",
+      "title": "An overview",
+      "cta": "View live site"
+    },
+    "challenge": { "label": "The challenge" },
+    "solution": { "label": "The solution" },
+    "features": { "label": "Features" },
+    "responsibilities": { "label": "Responsibilities" },
+    "cta": {
+      "title": "Have a project like this?",
+      "subtitle": "Let's talk and build something memorable together.",
+      "contact": "Contact me",
+      "more": "View more projects"
+    },
+    "lightbox": { "alt": "Expanded view" },
+    "year": "Year",
+    "duration": "Duration",
+    "industry": "Industry",
+    "country": "Country"
+  }
+}

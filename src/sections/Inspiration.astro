@@ -1,0 +1,48 @@
+---
+import { useTranslations } from '../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+---
+
+<section id='ads' class='h-[80vh] relative overflow-hidden px-8 lg:px-16'>
+  <div class='h-full flex items-center justify-start'>
+    <h2 class='text-9xl text-left uppercase text-accent leading-none space-x-2 space-y-6 flex flex-col items-start justify-start'>
+      <span class='inline-flex'>{t('Ads.line1')}</span>
+      <span class='inline-flex'>{t('Ads.line2')}</span>
+      <span class='inline-flex'>{t('Ads.line3')}</span>
+    </h2>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const ads = document.querySelector("#ads")
+
+    if (!ads) return
+
+    gsap.registerPlugin(ScrollTrigger)
+
+    const spans = ads.querySelectorAll("span")
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ads,
+        start: "-50% center",
+        end: "center center",
+        scrub: true,
+        markers: false,
+      },
+    })
+
+    tl.from(spans, {
+      opacity: 0,
+      x: -200,
+      stagger: 0.5,
+      duration: 1,
+    })
+  })
+</script>

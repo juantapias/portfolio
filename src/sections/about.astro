@@ -1,0 +1,76 @@
+---
+import { useTranslations } from '../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+---
+
+<section id='about' class='flex relative overflow-hidden px-8 lg:px-16'>
+  <div class='flex justify-center items-center py-10'>
+    <div class='grid grid-rows-1'>
+      <div class='grid grid-cols-1 lg:grid-cols-2 gap-10'>
+        <div class='flex items-center'>
+          <figure
+            id='about-image'
+            class='relative flex items-center justify-center w-72 h-96 md:w-[500px] md:h-[500px] mx-auto'>
+            <img
+              src='/images/about.png'
+              alt='About me'
+              class='object-contain rounded-2xl fade-borders'
+            />
+          </figure>
+        </div>
+
+        <div>
+          <div class='text-accent uppercase text-5xl md:text-6xl lg:text-8xl leading-none text-right'>
+            <h2>{t('About.title')}</h2>
+          </div>
+
+          <div
+            id='about-content'
+            class='text-white text-base md:text-xl lg:text-2xl space-y-4 text-right leading-8 md:leading-9 lg:leading-10'>
+            <p class='whitespace-pre-line'>{t('About.content')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector("#about");
+    if (!container) return;
+
+    const image = container.querySelector("#about-image");
+    const title = container.querySelector("h2");
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: "-40% center",
+        end: "70% center",
+        scrub: true,
+        markers: false,
+      },
+    });
+
+    tl.from([title, ...container.querySelectorAll("#about-content p")], {
+      y: 100,
+      opacity: 0,
+      stagger: 0.15,
+    }).from(
+      image,
+      {
+        opacity: 0,
+        scale: 0,
+      },
+      "-=0.75"
+    );
+  })
+</script>

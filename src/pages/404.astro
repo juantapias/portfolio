@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/layout-blank.astro'
+
+const locale = (Astro.currentLocale ?? 'es') as 'es' | 'en'
+---
+
+<Layout title="404 — Página no encontrada">
+  <section style="
+    font-family: 'Space Grotesk', sans-serif;
+    background: #000;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  ">
+
+    <div style="
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #E8A020; margin-bottom: 1.5rem;
+    ">
+      <span style="width:6px;height:6px;background:#E8A020;border-radius:50%;display:inline-block;"></span>
+      {locale === 'en' ? 'Page not found' : 'Página no encontrada'}
+    </div>
+
+    <div style="
+      font-size: clamp(7rem, 20vw, 12rem);
+      font-weight: 700; line-height: 1;
+      letter-spacing: -0.04em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.12);
+    ">
+      4<span style="color: #E8A020; -webkit-text-stroke: 0;">0</span>4
+    </div>
+
+    <div style="width:40px;height:1px;background:rgba(232,160,32,0.4);margin:0 auto;"></div>
+
+    <h1 style="
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 500; letter-spacing: 0.02em;
+      margin: 1.5rem 0 0.75rem; line-height: 1.1;
+    ">
+      {locale === 'en' ? 'THIS PAGE DOES NOT EXIST' : 'ESTA PÁGINA NO EXISTE'}
+    </h1>
+
+    <p style="
+      color: rgba(255,255,255,0.45); font-size: 1rem;
+      max-width: 380px; line-height: 1.7; margin-bottom: 2.5rem;
+    ">
+      {locale === 'en'
+        ? "The URL you're looking for doesn't exist or was moved. Go back home and let's keep building."
+        : 'La URL que buscas no existe o fue movida a otro lugar. Vuelve al inicio y sigamos construyendo.'}
+    </p>
+
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <a href={`/${locale}`} class='btn primary'>
+        {locale === 'en' ? 'Back to home →' : 'Volver al inicio →'}
+      </a>
+      <a href={`/${locale}#works`} class='btn default'>
+        {locale === 'en' ? 'View projects' : 'Ver proyectos'}
+      </a>
+    </div>
+  </section>
+</Layout>

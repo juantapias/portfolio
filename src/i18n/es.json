@@ -1,0 +1,97 @@
+{
+  "Nav": {
+    "home": "Inicio",
+    "works": "Trabajos",
+    "about": "Acerca de",
+    "contact": "Contacto"
+  },
+  "Hero": {
+    "subtitle": "Creando experiencias digitales a través del diseño y la tecnología. Transformando ideas en belleza funcional.",
+    "btnCTA": "Ver mi trabajo",
+    "btnContact": "Contáctame"
+  },
+  "Works": {
+    "services": [
+      {
+        "label": "Branding y Diseño Gráfico",
+        "description": "Creando identidades visuales sólidas y piezas gráficas que comunican la esencia de una marca.",
+        "features": "Diseño de logotipos, ilustraciones, identidad visual, sistemas gráficos, piezas para redes sociales y material de marca."
+      },
+      {
+        "label": "Diseño de Producto (UI / UX)",
+        "description": "Diseñando experiencias digitales que priorizan la claridad, la usabilidad y la interacción.",
+        "features": "Investigación de usuario, wireframes, trayectorias de usuario, prototipos interactivos, optimización de experiencia."
+      },
+      {
+        "label": "Diseño Web",
+        "description": "Diseñando sitios web modernos que equilibran estética, narrativa visual y experiencia de usuario.",
+        "features": "Landing pages, portafolios creativos, sitios corporativos, páginas de producto."
+      },
+      {
+        "label": "Diseño de Aplicaciones",
+        "description": "Diseñando experiencias mobile-first con navegación intuitiva y jerarquía visual clara.",
+        "features": "Prototipos iOS y Android, diseño de interfaces, sistemas de interacción, microinteracciones."
+      },
+      {
+        "label": "Sistemas de Diseño",
+        "description": "Construyendo sistemas de diseño escalables que garantizan consistencia entre productos digitales.",
+        "features": "Bibliotecas de componentes, design tokens, guías de estilo, documentación."
+      },
+      {
+        "label": "Desarrollo en Framer",
+        "description": "Creando sitios web interactivos de alta fidelidad directamente en Framer.",
+        "features": "Animaciones, transiciones, prototipos avanzados y sitios completamente responsivos."
+      }
+    ]
+  },
+  "Projects": {
+    "title": "Una muestra de mi trabajo en diseño, desarrollo y experiencia digital.",
+    "content": "Cada proyecto refleja un equilibrio entre creatividad y precisión — desde interfaces centradas en el usuario hasta construcciones técnicamente refinadas. \n\n Abordo cada idea como una oportunidad para crear algo significativo, funcional y visualmente distintivo."
+  },
+  "About": {
+    "title": "Sobre mí",
+    "content": "Soy desarrollador front-end y diseñador UI/UX enfocado en crear experiencias digitales que se sientan intuitivas y humanas. \n\n Me importan profundamente los detalles, el rendimiento y las interacciones invisibles que hacen que las personas disfruten usar un producto. \n\n Mi trabajo combina creatividad y lógica — mezclando diseño cuidadoso con código limpio y mantenible. Creo que un buen diseño no se trata solo de estética, sino de cómo hace sentir a las personas y cómo se mueven a través de una interfaz. \n\n Cada proyecto es una oportunidad para crear algo significativo, funcional y duradero — un puente entre la tecnología y la emoción."
+  },
+  "Ads": {
+    "line1": "Tu sitio web,",
+    "line2": "tan auténtico",
+    "line3": "como tu marca"
+  },
+  "Footer": {
+    "social": "Conéctate conmigo",
+    "backToTop": "Volver arriba"
+  },
+
+  "project": {
+    "year": "Año",
+    "duration": "Duración",
+    "industry": "Industria",
+    "country": "País",
+    "overview": {
+      "label": "Resumen del proyecto",
+      "title": "Una visión general",
+      "cta": "Ver sitio live"
+    },
+    "challenge": {
+      "label": "El reto"
+    },
+    "solution": {
+      "label": "La solución"
+    },
+    "features": {
+      "label": "Funcionalidades"
+    },
+    "responsibilities": {
+      "label": "Responsabilidades"
+    },
+    "cta": {
+      "title": "¿Tienes un proyecto así?",
+      "subtitle": "Hablemos y construyamos algo memorable juntos.",
+      "contact": "Contáctame",
+      "more": "Ver más proyectos"
+    },
+    "lightbox": {
+      "alt": "Vista ampliada"
+    }
+  }
+}

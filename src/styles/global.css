@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f58d24;
+  --color-secondary: #7a2b02;
+  --color-accent: #ffd58d;
+  --color-white: #fff;
+  --color-black: #0a0a0a;
+  --color-darkGray: #222;
+  --color-grayLight: rgba(255, 255, 255, 0.02);
+
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 90rem;
+}
+
+body {
+  background-color: var(--color-black);
+}
+
+/* Fonts */
+
+@font-face {
+  font-family: 'Prociono';
+  src: url('/fonts/Prociono/Prociono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Chenla */
+@font-face {
+  font-family: 'Chenla';
+  src: url('/fonts/Chenla/Chenla-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Martel - Light */
+@font-face {
+  font-family: 'Martel';
+  src: url('/fonts/Martel/Martel-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Martel - Regular */
+@font-face {
+  font-family: 'Martel';
+  src: url('/fonts/Martel/Martel-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Martel - SemiBold */
+@font-face {
+  font-family: 'Martel';
+  src: url('/fonts/Martel/Martel-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Martel - Bold */
+@font-face {
+  font-family: 'Martel';
+  src: url('/fonts/Martel/Martel-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Prociono';
+}
+
+h1 {
+  font-family: 'Chenla';
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Anton';
+}
+
+p {
+  font-family: 'Martel';
+}
+
+
+.font-primary {
+  font-family: 'Prociono';
+}
+
+.font-secondary {
+  font-family: 'Chenla';
+}
+
+.font-tertiary {
+  font-family: 'Martel';
+}
+
+/* buttons */
+.btn {
+  appearance: button;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  border: none;
+  border-radius: 9999px;
+  outline: none;
+
+  font-family: "Chenla";
+  font-size: 1rem;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    box-shadow 0.5s ease,
+    border-color 0.5s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+  padding: 1rem 2rem;
+}
+
+.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+
+/* default */
+.btn.default {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.btn.default:hover {
+  box-shadow: var(--color-white) 0px 7px 29px 0px;
+}
+
+.btn.primary {
+  background-color: var(--color-primary);
+  border: 0.0625rem solid transparent;
+  color: var(--color-black);
+}
+
+.btn.primary:hover {
+  background-color: var(--color-black);
+  border: 0.0625rem solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* outline */
+.btn.outline {
+  border: 0.0625rem solid var(--color-white);
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+.btn.outline:hover {
+  background-color: var(--color-white);
+  box-shadow: var(--color-white) 0px 7px 29px 0px;
+  color: var(--color-black);
+}
+
+/* optional interaction states */
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}

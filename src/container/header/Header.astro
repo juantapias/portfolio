@@ -1,0 +1,553 @@
+---
+import { useTranslations } from '../../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const headerLink = [
+  { label: t('Nav.home'), link: '#banner' },
+  { label: t('Nav.works'), link: '#works' },
+  { label: t('Nav.about'), link: '#about' },
+  { label: t('Nav.contact'), link: '#ads' },
+]
+---
+
+<header class="header">
+
+  <!-- Desktop navigation -->
+  <nav class="navigation desktop-navigation" aria-label="Main navigation">
+    {headerLink.map(item => (
+      <a
+        href={item.link}
+        class="navigation-link navigation-link-inactive">
+        {item.label}
+      </a>
+    ))}
+    <span class="navigation-indicator"></span>
+  </nav>
+
+  <!-- Locale switch -->
+  <div class="locale-switch">
+    <a 
+      href="#" 
+      data-locale="en"
+      class={`locale-link ${locale === 'en' ? 'active' : ''}`}
+    >EN</a>
+    <span class="locale-separator">/</span>
+    <a 
+      href="#" 
+      data-locale="es"
+      class={`locale-link ${locale === 'es' ? 'active' : ''}`}
+    >ES</a>
+  </div>
+
+  <!-- Mobile menu button -->
+  <button
+    class="mobile-menu-button"
+    aria-label="Toggle mobile menu"
+    aria-expanded="false">
+
+    <span class="hamburger"></span>
+  </button>
+
+  <!-- Mobile navigation -->
+  <nav class="mobile-navigation" aria-label="Mobile navigation">
+    <ul class="mobile-navigation-list">
+      {headerLink.map(item => (
+        <li class="mobile-navigation-item">
+          <a
+            href={item.link}
+            class="mobile-navigation-link">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mobile-locale-switch">
+      <a 
+        href="#" 
+        data-locale="en"
+        class={`locale-link ${locale === 'en' ? 'active' : ''}`}
+      >EN</a>
+      <span class="locale-separator">/</span>
+      <a 
+        href="#" 
+        data-locale="es"
+        class={`locale-link ${locale === 'es' ? 'active' : ''}`}
+      >ES</a>
+    </div>
+  </nav>
+
+</header>
+
+<style>
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    padding: 0 2rem;
+  }
+  
+  /* =====================
+     Navigation
+  ===================== */
+  
+  .navigation {
+    position: relative;
+    display: flex;
+    gap: 2rem;
+    border: 1px solid white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+  }
+  
+  .navigation-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background: white;
+    border-radius: 9999px;
+    z-index: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .navigation-link {
+    position: relative;
+    z-index: 1;
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.125rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .navigation-link:hover {
+    color: #e0e0e0;
+  }
+  
+  .navigation-link-active {
+    border-radius: 9999px;
+    color: #181818;
+  }
+  
+  .navigation-link-inactive {
+    color: white;
+  }
+  
+  /* =====================
+     Locale Switch
+  ===================== */
+  
+  .locale-switch {
+    position: absolute;
+    top: 0.5rem;
+    right: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    color: white;
+  }
+  
+  @media (max-width: 576px) {
+    .locale-switch {
+      display: none;
+    }
+  }
+  
+  .locale-link {
+    display: flex;
+    padding: 0 0.5rem;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 9999px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .locale-link:hover {
+    color: #e0e0e0;
+  }
+  
+  .locale-link.active {
+    background: white;
+    border-radius: 9999px;
+    color: #181818;
+  }
+  
+  /* =====================
+     Mobile Locale Switch
+  ===================== */
+  
+  .mobile-locale-switch {
+    display: flex;
+    gap: 0.5rem;
+    color: white;
+  }
+  
+  .mobile-locale-switch .locale-link {
+    font-size: 1.25rem;
+  }
+  
+  /* =====================
+     Desktop Navigation
+  ===================== */
+  
+  @media (max-width: 768px) {
+    .desktop-navigation {
+      display: none;
+    }
+  }
+  
+  /* =====================
+     Mobile Menu Button
+  ===================== */
+  
+  .mobile-menu-button {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 20;
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-menu-button {
+      display: block;
+    }
+  }
+  
+  .hamburger {
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+  }
+  
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .hamburger::before {
+    transform: translateY(-8px);
+  }
+  
+  .hamburger::after {
+    transform: translateY(8px);
+  }
+  
+  .hamburger.open {
+    background-color: transparent;
+  }
+  
+  .hamburger.open::before {
+    transform: rotate(45deg);
+  }
+  
+  .hamburger.open::after {
+    transform: rotate(-45deg);
+  }
+  
+  /* =====================
+     Mobile Navigation
+  ===================== */
+  
+  .mobile-navigation {
+    display: none;
+    position: fixed;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: height 0.4s ease;
+    z-index: 15;
+  }
+  
+  .mobile-navigation.open {
+    height: 100vh;
+    display: flex;
+  }
+  
+  .mobile-navigation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mobile-navigation-item {
+    text-align: center;
+  }
+  
+  .mobile-navigation-link {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .mobile-navigation-link:hover {
+    color: #e0e0e0;
+  }
+  
+  .mobile-navigation-link-active {
+    color: #ffffff;
+    font-weight: bold;
+    position: relative;
+  }
+  
+  .mobile-navigation-link-active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+  }
+
+</style>
+
+<script>
+  import gsap from "gsap"
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    let activeSection = "#banner"
+    let mobileMenuOpen = false
+    let isScrolling = false
+
+    const links = document.querySelectorAll<HTMLAnchorElement>(".navigation-link")
+    const indicator = document.querySelector<HTMLElement>(".navigation-indicator")
+    const mobileButton = document.querySelector<HTMLButtonElement>(".mobile-menu-button")
+    const mobileMenu = document.querySelector<HTMLElement>(".mobile-navigation")
+    const hamburger = document.querySelector<HTMLElement>(".hamburger")
+
+    /* -----------------------
+      Scroll to section util
+    ----------------------- */
+
+    const scrollToSection = (target: string) => {
+      const section = document.querySelector<HTMLElement>(target)
+      if (!section) return
+
+      isScrolling = true
+      activeSection = target
+
+      links.forEach(l => {
+        l.classList.remove("navigation-link-active")
+        l.classList.add("navigation-link-inactive")
+      })
+
+      const activeLink = [...links].find(l => l.getAttribute("href") === target)
+      if (activeLink) {
+        activeLink.classList.add("navigation-link-active")
+        activeLink.classList.remove("navigation-link-inactive")
+
+        if (indicator) {
+          const { offsetLeft, offsetWidth } = activeLink
+          gsap.to(indicator, { x: offsetLeft, width: offsetWidth, duration: 0.4, ease: "power3.out" })
+        }
+      }
+
+      section.scrollIntoView({ behavior: "smooth", block: "start" })
+      history.replaceState(null, "", window.location.pathname)
+
+      setTimeout(() => { isScrolling = false }, 700)
+    }
+
+    /* -----------------------
+      Header intro animation
+    ----------------------- */
+
+    gsap.from(".header", { y: -100, duration: 0.6, ease: "power3.out" })
+
+    /* -----------------------
+      Activar ítem según ruta actual
+    ----------------------- */
+
+    const path = window.location.pathname
+
+    const routeToSection: Record<string, string> = {
+      "/es/projects": "#works",
+      "/en/projects": "#works",
+    }
+
+    const matchedSection = Object.keys(routeToSection).find(route => path.startsWith(route))
+    ? routeToSection[Object.keys(routeToSection).find(route => path.startsWith(route))!]
+    : undefined
+
+    if (matchedSection) {
+      const matchedLink = [...links].find(l => l.getAttribute("href") === matchedSection)
+
+      if (matchedLink && indicator) {
+        matchedLink.classList.add("navigation-link-active")
+        matchedLink.classList.remove("navigation-link-inactive")
+
+        const { offsetLeft, offsetWidth } = matchedLink
+        gsap.set(indicator, { x: offsetLeft, width: offsetWidth })
+      }
+    }
+
+    /* -----------------------
+      Initial indicator position
+    ----------------------- */
+
+    const firstLink = links[0]
+
+    if (firstLink && indicator && !matchedSection) {
+      const { offsetLeft, offsetWidth } = firstLink
+      gsap.set(indicator, { x: offsetLeft, width: offsetWidth })
+    }
+
+    /* -----------------------
+      Scroll a sección al cargar
+      (viene de otra página)
+    ----------------------- */
+
+    const params = new URLSearchParams(window.location.search)
+    const targetSection = params.get("section")
+
+    if (targetSection) {
+      history.replaceState(null, "", window.location.pathname)
+      setTimeout(() => scrollToSection(`#${targetSection}`), 100)
+    }
+
+    /* -----------------------
+      Click navigation
+    ----------------------- */
+
+    links.forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault()
+
+        const target = link.getAttribute("href")
+        if (!target) return
+
+        const isHome = window.location.pathname === "/es" || window.location.pathname === "/en"
+
+        if (!isHome) {
+          const isEn = window.location.pathname.startsWith("/en")
+          const basePath = isEn ? "/en" : "/es"
+          const sectionId = target.replace("#", "")
+          window.location.href = `${basePath}?section=${sectionId}`
+          return
+        }
+
+        scrollToSection(target)
+      })
+    })
+
+    /* -----------------------
+      Locale switch
+    ----------------------- */
+
+    const localeLinks = document.querySelectorAll<HTMLAnchorElement>('[data-locale]')
+
+    localeLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault()
+        const targetLocale = link.getAttribute('data-locale')
+        if (!targetLocale) return
+
+        const currentPath = window.location.pathname
+        // Reemplaza el prefijo /es o /en por el nuevo locale
+        const newPath = currentPath.replace(/^\/(es|en)/, `/${targetLocale}`)
+        
+        // Si no cambió (misma ruta sin prefijo reconocido), ve a la raíz del locale
+        window.location.href = newPath !== currentPath 
+          ? newPath 
+          : `/${targetLocale}`
+      })
+    })
+
+    /* -----------------------
+      Intersection Observer
+    ----------------------- */
+
+    const sections = ["#banner", "#works", "#about", "#ads"]
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !isScrolling) {
+          activeSection = `#${entry.target.id}`
+
+          links.forEach(link => {
+            const href = link.getAttribute("href")
+            if (!href) return
+
+            const isActive = href === activeSection
+
+            if (isActive && indicator) {
+              const { offsetLeft, offsetWidth } = link
+              gsap.to(indicator, { x: offsetLeft, width: offsetWidth, duration: 0.4, ease: "power3.out" })
+              link.classList.add("navigation-link-active")
+              link.classList.remove("navigation-link-inactive")
+            } else {
+              link.classList.remove("navigation-link-active")
+              link.classList.add("navigation-link-inactive")
+            }
+          })
+        }
+      })
+    }, { threshold: 0.3, rootMargin: "-10% 0px -10% 0px" })
+
+    sections.forEach(section => {
+      const el = document.querySelector(section)
+      if (el) observer.observe(el)
+    })
+
+    /* -----------------------
+      Mobile menu
+    ----------------------- */
+
+    mobileButton?.addEventListener("click", () => {
+      mobileMenuOpen = !mobileMenuOpen
+      mobileMenu?.classList.toggle("open")
+      hamburger?.classList.toggle("open")
+      mobileButton.setAttribute("aria-expanded", mobileMenuOpen.toString())
+    })
+
+    document.querySelectorAll(".mobile-navigation-link").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu?.classList.remove("open")
+        hamburger?.classList.remove("open")
+        mobileMenuOpen = false
+      })
+    })
+
+  })
+</script>

@@ -1,0 +1,56 @@
+.projectsSwiper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 35rem;
+  position: relative;
+  width: 100%;
+}
+
+.projectsSwiperFigureMobile {
+  height: 32rem;
+  position: relative;
+  width: 100%;
+}
+
+.projectsSwiperFigureWeb {
+  border-radius: 1rem;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  background-color: #1c1c1c;
+}
+
+.projectsSwiperFigureWeb video {
+  margin: auto;
+}
+
+.projectsSwiperContainer {
+  padding: 5rem 0;
+}
+
+.swiperNav {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.customPrev,
+.customNext {
+  background-color: transparent;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  font-size: 2rem;
+  transition: color .3s ease;
+}
+
+.customPrev:hover,
+.customNext:hover {
+  color: var(--color-accent);
+}

@@ -1,0 +1,92 @@
+---
+
+import { IconBrandWhatsapp } from '@tabler/icons-react'
+import { socials } from '../../data/technologies'
+import { useTranslations } from '../../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+---
+
+<footer id='footer' class='footer'>
+  <div class='grid grid-row-1 px-8 lg:px-16 p-12 z-10'>
+    <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
+      <div class='flex flex-col gap-2'>
+        <h2 class='text-2xl lg:text-4xl font-light text-accent font-tertiary'>{t('Footer.social')}</h2>
+        <nav class='flex gap-4' aria-label='Social media links'>
+          {socials.map(item => (
+            <a
+            
+              href={item.url || ''}
+              class='text-white text-4xl hover:text-primary'>
+              <item.icon size={36}/>
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div class='flex flex-col lg:flex-row items-end lg:items-center justify-end gap-4 lg:gap-8'>
+        <a
+          href='mailto:dev.juantapias@gmail.com'
+          class='btn default'>
+          <span>dev.juantapias@gmail.com</span>
+      </a>
+
+        <a
+          href='https://wa.link/63go9c'
+          target='_blank'
+          rel='noopener noreferrer'
+          class='btn outline'>
+          <IconBrandWhatsapp />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class='flex justify-end pr-8'>
+    <button class='uppercase text-xs text-accent' onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+      {t('Footer.backToTop')}
+    </button>
+  </div>
+
+  <div class='flex justify-center text-center text-white z-1'>
+    <a href='/' class='flex items-center gap-2 text-white'>
+      Tapias © {new Date().getFullYear()}
+    </a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer::after{
+    content: "";
+    background: radial-gradient(circle, #ffd58d 0%, #f58d24 50%, #7a2b02 100%);
+    border-radius: 100%;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 30%;
+    width: 100vw;
+    z-index: -1;
+    opacity: 0.6;
+    transform: scale(1);
+    animation: pulse 6s ease-in-out infinite alternate,
+      pulse-shadow 3s ease-out infinite;
+  }
+
+  @keyframes pulse-shadow {
+    0% {
+      box-shadow: 0 0 0 0px rgba(245, 141, 36, 0.4);
+    }
+
+    100% {
+      box-shadow: 0 0 0 80px rgba(245, 141, 36, 0);
+    }
+  }
+</style>

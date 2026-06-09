@@ -1,0 +1,11 @@
+---
+import LinkTree from '../../components/link-tree'
+import { linkTree } from '../../data/link-tree'
+import Layout from '../../layouts/layout-blank.astro'
+
+const data = linkTree[0]
+---
+<Layout title='Inicio'>
+  <LinkTree client:load />
+</Layout>
+

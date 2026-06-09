@@ -1,0 +1,187 @@
+---
+import { useTranslations } from '../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+---
+
+<section
+  id='banner'
+  class='hero lg:h-screen px-8 bg-cover'
+  aria-labelledby='main-banner-title'>
+
+  <h1 id='main-banner-title'>
+    {'Tapias'.split('').map((letter, index) => (
+      <span class={index >= 1 && index <= 4 ? 'outline' : ''}>
+        {letter}
+      </span>
+    ))}
+  </h1>
+
+  <div class='main-banner-content flex md:flex-col lg:flex-row bottom-[5%] justify-between lg:absolute w-full md:p-0 lg:px-8 gap-8 items-center'>
+    <div class='main-banner-content-text md:w-full lg:w-1/3 xl:w-2/5'>
+      <h2 class='text-base md:text-xl xl:text-base text-white text-center md:text-left uppercase font-tertiary tracking-[0.25rem]'>
+        {t('Hero.subtitle')}
+      </h2>
+    </div>
+
+    <div class='flex items-center space-x-4'>
+      <button id='btn-view-work' class='btn default'>{t('Hero.btnCTA')}</button>
+
+      <a
+        href='https://wa.link/63go9c'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='btn outline'
+        aria-label='Contact me via WhatsApp'>
+        {t('Hero.btnContact')}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.hero {
+  align-items: center;
+  background-image: url('/images/banner.jpg');
+  background-position: 50% 35%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  gap: 2rem;
+}
+
+.hero h1 {
+  font-family: 'Prociono';
+  color: white;
+  letter-spacing: 0.25rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 28vw;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.hero h1 span.outline {
+  color: transparent;
+  -webkit-text-stroke: .25rem white;
+}
+
+#main-banner-title span,
+.main-banner-content h2,
+.btn {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+</style>
+
+<script>
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const banner = document.querySelector("#banner")
+  if (!banner) return
+
+  const title = banner.querySelector("#main-banner-title")
+  const letters = title?.querySelectorAll("span") || []
+  const h2s = banner.querySelectorAll("h2")
+  const buttons = banner.querySelectorAll('.btn')
+
+  gsap.set(letters, { opacity: 0, y: 20 })
+  gsap.set(h2s, { opacity: 0, y: 20 })
+  gsap.set(buttons, { opacity: 0 })
+
+  /* -----------------------
+     Intro animations (usando .to() en vez de .from())
+  ----------------------- */
+  const introTl = gsap.timeline({
+    onComplete: () => {
+      // Una vez terminada la intro, registrar el ScrollTrigger
+      // Esto evita que el scrub sobreescriba la animación de entrada
+      initScrollAnimations()
+    }
+  })
+
+  if (letters.length) {
+    introTl.to(letters, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      stagger: 0.25,
+      ease: "power2.out",
+    })
+  }
+
+  introTl
+    .to(h2s, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.25,
+      ease: "power2.out",
+    }, "-=0.2")
+    .to(buttons, {
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.25,
+      ease: "power2.out",
+    }, "-=0.2")
+
+  /* -----------------------
+     Scroll animations (se inicializan después de la intro)
+  ----------------------- */
+  function initScrollAnimations() {
+    const mm = gsap.matchMedia()
+
+    mm.add("(min-width: 769px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: banner,
+          start: "60% center",
+          end: "130% center",
+          scrub: true,
+        }
+      })
+
+      tl.to(letters, { opacity: 0, y: -200, stagger: 0.25 })
+        .to(h2s, { opacity: 0, y: -200, stagger: 0.25 })
+        .to(buttons, { opacity: 0, y: -200, stagger: 0.25 })
+    })
+
+    mm.add("(max-width: 768px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: banner,
+          start: "center center",
+          end: "120% center",
+          scrub: true,
+        }
+      })
+
+      tl.to(letters, { opacity: 0, y: -100, stagger: 0.2 })
+        .to(h2s, { opacity: 0, y: -100, stagger: 0.2 })
+        .to(buttons, { opacity: 0, y: -100, stagger: 0.2 })
+    })
+  }
+
+  /* -----------------------
+     Scroll button
+  ----------------------- */
+  const workBtn = banner.querySelector("#btn-view-work")
+
+  workBtn?.addEventListener("click", () => {
+    const workSection = document.getElementById("works")
+    workSection?.scrollIntoView({ behavior: "smooth" })
+  })
+})
+</script>

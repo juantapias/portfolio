@@ -1,4 +1,0 @@
-User-Agent: *
-Disallow: /private/
-
-Sitemap: https://juantapias.dev/sitemap.xml
