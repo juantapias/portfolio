@@ -104,12 +104,12 @@ export default function Projectos({ locale }: ProjectosProps) {
           <div className='px-8 lg:px-16 flex flex-col items-center justify-center order-2 lg:order-1'>
             <h2
               id='projects-title'
-              className='text-accent text-4xl lg:text-5xl leading-none relative text-left uppercase mb-8'>
+              className='text-accent text-3xl md:text-4xl lg:text-5xl leading-none relative text-left uppercase mb-8'>
               {t('Projects.title')}
             </h2>
             <div
               id='projects-content'
-              className='text-white text-lg lg:text-2xl leading-8 md:leading-9 lg:leading-10 gap-2'>
+              className='text-white text-sm md:text-base lg:text-lg xl:text-xl leading-7 md:leading-8 lg:leading-9 gap-2'>
               <p className='whitespace-pre-line'>{t('Projects.content')}</p>
             </div>
           </div>

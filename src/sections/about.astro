@@ -15,20 +15,22 @@ const t = useTranslations(locale)
             class='relative flex items-center justify-center w-72 h-96 md:w-[500px] md:h-[500px] mx-auto'>
             <img
               src='/images/about.png'
-              alt='About me'
+              alt='Juan Tapias — diseñador y desarrollador front-end'
+              width={500}
+              height={500}
               class='object-contain rounded-2xl fade-borders'
             />
           </figure>
         </div>
 
         <div>
-          <div class='text-accent uppercase text-5xl md:text-6xl lg:text-8xl leading-none text-right'>
+          <div class='text-accent uppercase text-4xl md:text-5xl lg:text-6xl xl:text-8xl leading-none text-right'>
             <h2>{t('About.title')}</h2>
           </div>
 
           <div
             id='about-content'
-            class='text-white text-base md:text-xl lg:text-2xl space-y-4 text-right leading-8 md:leading-9 lg:leading-10'>
+            class='text-white text-sm md:text-base lg:text-lg xl:text-xl space-y-4 text-right leading-7 md:leading-8 lg:leading-9'>
             <p class='whitespace-pre-line'>{t('About.content')}</p>
           </div>
         </div>

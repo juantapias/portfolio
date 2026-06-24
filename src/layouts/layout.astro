@@ -2,8 +2,6 @@
 import Header from '../container/header/Header.astro'
 import Footer from '../container/footer/Footer.astro'
 import '../styles/global.css'
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 interface Props {
   title: string
@@ -17,20 +15,31 @@ interface Props {
 const {
   title,
   description = 'Diseñador y desarrollador front-end especializado en crear experiencias digitales intuitivas y visualmente distintivas.',
-  ogImage = '../../public/images/og-image.jpg',
+  ogImage = '/images/og-image.jpg',
   ogType = 'website',
   canonicalURL = Astro.url.href,
   noindex = false,
 } = Astro.props
 
+const locale = Astro.currentLocale ?? 'es'
 const siteName = 'Juan Tapias'
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`
+const ogImageURL = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site).toString()
+
+const alternateLocale = locale === 'es' ? 'en' : 'es'
+const alternatePath = Astro.url.pathname.replace(`/${locale}`, `/${alternateLocale}`)
+const alternateURL = new URL(alternatePath, Astro.site).toString()
+const ogLocale = locale === 'es' ? 'es_CO' : 'en_US'
 ---
 
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://res.cloudinary.com" />
 
     <!-- Primary -->
     <title>{fullTitle}</title>
@@ -39,23 +48,29 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang={locale} href={canonicalURL} />
+    <link rel="alternate" hreflang={alternateLocale} href={alternateURL} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/es', Astro.site).toString()} />
+
     <!-- Open Graph -->
     <meta property="og:site_name" content={siteName} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
-    <meta property="og:locale" content="es_CO" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={locale === 'es' ? 'en_US' : 'es_CO'} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <slot name="head" />
   </head>

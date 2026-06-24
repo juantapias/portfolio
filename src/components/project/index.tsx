@@ -104,7 +104,7 @@ export default function ProjectPage({ locale, project }: Props) {
             }}>
             <h1
               style={{
-                fontSize: 'clamp(3rem, 9vw, 6.5rem)',
+                fontSize: 'clamp(2rem, 7vw, 6.5rem)',
                 lineHeight: 0.95,
                 letterSpacing: '0.02em',
                 marginBottom: '0.75rem',
@@ -113,7 +113,7 @@ export default function ProjectPage({ locale, project }: Props) {
             </h1>
             <p
               style={{
-                fontSize: '1.05rem',
+                fontSize: 'clamp(0.875rem, 1.5vw, 1.05rem)',
                 color: 'rgba(255,255,255,0.65)',
                 maxWidth: '520px',
               }}>
@@ -131,7 +131,7 @@ export default function ProjectPage({ locale, project }: Props) {
             style={{ padding: '1.5rem 2rem', background: '#0a0a0a' }}>
             <p
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: '#E8A020',
@@ -157,7 +157,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <p
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: '#E8A020',
@@ -167,8 +167,8 @@ export default function ProjectPage({ locale, project }: Props) {
             </p>
             <h2
               style={{
-                fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-                lineHeight: 1,
+                fontSize: 'clamp(1.5rem, 3.5vw, 3.2rem)',
+                lineHeight: 1.1,
                 letterSpacing: '0.03em',
               }}>
               {t('project.overview.title')}
@@ -211,7 +211,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <h3
               style={{
-                fontSize: '2rem',
+                fontSize: 'clamp(1.25rem, 2.5vw, 2rem)',
                 marginBottom: '1.25rem',
                 letterSpacing: '0.02em',
               }}>
@@ -229,7 +229,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <h3
               style={{
-                fontSize: '2rem',
+                fontSize: 'clamp(1.25rem, 2.5vw, 2rem)',
                 marginBottom: '1.25rem',
                 letterSpacing: '0.02em',
               }}>
@@ -258,7 +258,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <p
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: '#E8A020',
@@ -302,7 +302,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <p
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: '#E8A020',
@@ -358,7 +358,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <p
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: '#E8A020',
@@ -385,7 +385,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <div>
             <p
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.75rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: '#E8A020',
@@ -422,7 +422,7 @@ export default function ProjectPage({ locale, project }: Props) {
         }}>
         <h2
           style={{
-            fontSize: 'clamp(2.5rem, 7vw, 5rem)',
+            fontSize: 'clamp(1.75rem, 6vw, 5rem)',
             marginBottom: '1.25rem',
             letterSpacing: '0.02em',
           }}>
@@ -446,7 +446,7 @@ export default function ProjectPage({ locale, project }: Props) {
           <a href='https://wa.link/63go9c' className='btn primary'>
             {t('project.cta.contact')}
           </a>
-          <a href='/#trabajos' className='btn outline'>
+          <a href={`/${locale}?section=projects`} className='btn outline'>
             {t('project.cta.more')}
           </a>
         </div>

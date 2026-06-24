@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper/types'
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 import { uiDesktop, uiMobile } from '../../../data/technologies'
 
@@ -150,21 +152,22 @@ export default function ProjectSwiper({
                       />
                     )}
 
-                    <div className='p-4 flex items-center justify-between gap-4'>
-                      <h3 className='text-accent'>{item.label}</h3>
+                    <div className='p-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+                      <h3 className='text-accent text-sm font-semibold truncate'>{item.label}</h3>
 
-                      <div className='flex justify-between items-center gap-4'>
+                      <div className='flex items-center gap-2'>
                         <a
                           href={`${locale}/projects/${item.slug}`}
-                          className='btn outline small'>
+                          className='btn outline small flex-1 sm:flex-none text-center'>
                           Ver más
                         </a>
                         <a
                           href={item.link}
                           target='_blank'
-                          className='btn default small flex items-center space-x-2'>
-                          <span>Ir al proyecto</span>
-                          <IconExternalLink size={16} />
+                          rel='noopener noreferrer'
+                          className='btn default small flex items-center justify-center gap-1 flex-1 sm:flex-none'>
+                          <span>Proyecto</span>
+                          <IconExternalLink size={14} />
                         </a>
                       </div>
                     </div>

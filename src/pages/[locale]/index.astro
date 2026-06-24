@@ -15,9 +15,20 @@ export function getStaticPaths() {
 
 const locale = Astro.params.locale as 'es' | 'en'
 
+const seo = {
+  es: {
+    title: 'Juan Tapias — Diseñador y Desarrollador Front-end',
+    description: 'Portafolio de Juan Tapias: diseñador y desarrollador front-end especializado en experiencias digitales intuitivas, UI/UX y branding.',
+  },
+  en: {
+    title: 'Juan Tapias — Front-end Designer & Developer',
+    description: 'Portfolio of Juan Tapias: front-end designer and developer specialized in intuitive digital experiences, UI/UX and branding.',
+  },
+}
 ---
 
-<Layout title='Inicio'>
+<Layout title={seo[locale].title} description={seo[locale].description}>
+  <link rel="preload" as="image" href="/images/banner.jpg" slot="head" />
   <Hero />
   <Works />
   <Projects locale={locale} client:load />
