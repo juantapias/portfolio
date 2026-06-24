@@ -19,7 +19,7 @@ const services = t('Works.services')
             class='work-container-item border-t border-darkGray flex flex-col gap-4 py-4 px-0 md:p-8 first:border-t-0 transition-colors duration-150 ease-in-out group'
             aria-label={`Service: ${service.label}`}>
             <div class='flex items-center text-white justify-center w-full group-hover:text-accent'>
-              <h3 class='font-bold text-xl md:text-3xl lg:text-4xl xl:text-5xl uppercase relative'>{service.label}</h3>
+              <h3 class='works-label font-bold uppercase relative'>{service.label}</h3>
             </div>
           </article>
         ))}
@@ -27,6 +27,19 @@ const services = t('Works.services')
     </div>
   </div>
 </section>
+
+<style>
+  /*
+    clamp(min, preferred, max)
+    320px → ~0.85rem   (cabe en 256px de contenido con texto largo uppercase)
+    768px → ~1.9rem
+    1280px → 3rem (max)
+  */
+  .works-label {
+    font-size: clamp(0.85rem, 1rem + 1.8vw, 3rem);
+    white-space: nowrap;
+  }
+</style>
 
 <script>
   import gsap from "gsap"

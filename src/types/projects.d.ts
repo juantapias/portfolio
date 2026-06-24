@@ -23,6 +23,8 @@ export interface ProjectTranslation {
   category: string
   industry: string
 
+  duration: string
+
   overview: ProjectOverview
 
   challenge: ProjectSection
@@ -46,7 +48,6 @@ export interface Project {
   country: string
 
   year: number
-  duration: string
 
   role?: string[]
 

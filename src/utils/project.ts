@@ -11,7 +11,7 @@ export function resolveProjectView(
     status: project.status,
     country: project.country,
     year: project.year,
-    duration: project.duration,
+    duration: t.duration,
     website: project.website,
     coverImage: project.coverImage,
     techStack: project.techStack,

@@ -67,6 +67,13 @@ export const socials = [
 
 export const uiDesktop = [
   {
+    label: 'Menuestro',
+    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1782317449/menuestro_l6uufx.mov',
+    type: 'video',
+    link: 'https://pacificwaveshostel.com/',
+    slug: 'menuestro',
+  },
+  {
     label: 'Pacific Waves Hostel & Surf',
     url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1781014504/pacific-waves-hostel_ldqsbe.mov',
     type: 'video',

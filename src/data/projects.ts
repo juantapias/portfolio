@@ -1,6 +1,226 @@
 import type { Project } from '../types/projects'
 
 export const projects: Project[] = [
+  //Menuestro
+  {
+    slug: 'menuestro',
+    featured: true,
+
+    client: 'Menuestro',
+
+    projectType: 'personal',
+
+    status: 'completed',
+    country: 'Colombia',
+
+    year: 2026,
+
+    website: 'https://menuestro.com',
+
+    coverImage:
+      'https://res.cloudinary.com/dcuocptj7/image/upload/v1782316861/menuestro_sa2pkm.png',
+    thumbnail: '',
+    video:
+      'https://res.cloudinary.com/dcuocptj7/video/upload/v1782317449/menuestro_l6uufx.mov',
+
+    role: [
+      'Product Designer',
+      'UI/UX Designer',
+      'Frontend Developer',
+      'Backend Developer',
+      'Fullstack Developer',
+      'Product Owner',
+    ],
+
+    techStack: ['Next.js', 'Supabase', 'Tailwind CSS', 'Vercel'],
+
+    tags: [
+      'SaaS',
+      'Dashboard',
+      'Multi-Tenant',
+      'Restaurant Tech',
+      'Product Design',
+      'UI/UX',
+      'Fullstack',
+      'Analytics',
+      'Reservations',
+      'Ecommerce',
+    ],
+
+    translations: {
+      es: {
+        name: 'Menuestro',
+
+        category: 'SaaS Platform',
+        industry: 'Tecnología para Restaurantes',
+
+        duration: '5 Semanas',
+
+        overview: {
+          short:
+            'Plataforma SaaS todo en uno para restaurantes que centraliza menús digitales con QR, reservas online, promociones, analíticas y gestión comercial desde un único panel administrativo.',
+
+          medium:
+            'Menuestro fue creado para resolver uno de los principales problemas de digitalización en el sector gastronómico latinoamericano: el uso de herramientas fragmentadas y procesos manuales para gestionar menús, reservas y operaciones comerciales. La plataforma permite a cada restaurante administrar su presencia digital desde una única solución escalable y fácil de utilizar.',
+
+          long: 'Menuestro es una plataforma SaaS multi-tenant diseñada para ayudar a restaurantes a digitalizar sus operaciones sin depender de múltiples herramientas desconectadas. El producto permite crear menús digitales accesibles mediante QR, recibir reservas online, gestionar promociones, organizar productos y categorías, administrar clientes y visualizar métricas clave del negocio desde un único panel centralizado.\n\nCada restaurante obtiene su propio espacio independiente dentro de la plataforma, incluyendo una URL pública personalizada donde los clientes pueden consultar la carta digital, realizar reservas y acceder a información actualizada del negocio sin necesidad de instalar aplicaciones adicionales.\n\nEl proyecto fue concebido, diseñado y desarrollado de forma integral, abarcando investigación del problema, definición de producto, experiencia de usuario, arquitectura técnica, desarrollo fullstack y despliegue. El resultado es una solución escalable orientada a reducir la complejidad tecnológica para negocios gastronómicos y facilitar su transformación digital.',
+        },
+
+        challenge: {
+          title: 'El reto',
+          description:
+            'La industria gastronómica en Latinoamérica continúa operando con procesos manuales y herramientas aisladas para gestionar menús, reservas y operaciones comerciales. El desafío consistía en diseñar una solución unificada capaz de simplificar estos procesos, reducir la dependencia tecnológica y ofrecer una experiencia intuitiva para usuarios con conocimientos técnicos limitados.',
+        },
+
+        solution: {
+          title: 'La solución',
+          description:
+            'Se desarrolló una plataforma SaaS multi-tenant que centraliza la gestión de menús digitales, reservas, promociones, analíticas y operaciones comerciales. La experiencia fue diseñada para que cualquier restaurante pueda configurar y administrar su presencia digital en pocos minutos mediante un panel administrativo intuitivo y escalable.',
+        },
+
+        features: [
+          'Sistema SaaS multi-tenant',
+          'Autenticación y gestión de usuarios',
+          'Menús digitales mediante QR',
+          'URLs públicas personalizadas',
+          'Gestión de categorías y productos',
+          'Gestión de promociones',
+          'Sistema de reservas online',
+          'CRM para gestión de clientes',
+          'Módulo de ecommerce',
+          'Dashboard administrativo',
+          'Analíticas de negocio',
+          'Métricas de ventas',
+          'Métricas de reservas',
+          'Planes de suscripción',
+          'Experiencia multidioma para clientes',
+          'Arquitectura escalable',
+        ],
+
+        responsibilities: [
+          'Investigación de producto',
+          'Definición de requerimientos',
+          'Diseño UI/UX',
+          'Arquitectura de información',
+          'Diseño del sistema',
+          'Desarrollo frontend',
+          'Desarrollo backend',
+          'Modelado de base de datos',
+          'Implementación de autenticación',
+          'Desarrollo fullstack',
+          'Diseño de producto',
+          'Despliegue y DevOps',
+        ],
+
+        seo: {
+          title:
+            'Menuestro | Plataforma SaaS para Menús Digitales, Reservas y Gestión de Restaurantes',
+          description:
+            'Menuestro es una plataforma SaaS diseñada para ayudar a restaurantes a gestionar menús digitales, reservas online, promociones y métricas de negocio desde un único panel administrativo.',
+          keywords: [
+            'Menuestro',
+            'SaaS',
+            'Restaurant Management',
+            'Digital Menu',
+            'QR Menu',
+            'Online Reservations',
+            'Dashboard',
+            'Next.js',
+            'Supabase',
+            'Multi Tenant',
+            'Restaurant Software',
+            'Product Design',
+          ],
+        },
+      },
+
+      en: {
+        name: 'Menuestro',
+
+        category: 'SaaS Platform',
+        industry: 'Restaurant Technology',
+
+        duration: '5 Weeks',
+
+        overview: {
+          short:
+            'All-in-one SaaS platform for restaurants that centralizes digital QR menus, online reservations, promotions, analytics, and business management through a single administrative dashboard.',
+
+          medium:
+            'Menuestro was created to solve one of the biggest digitalization challenges in the Latin American restaurant industry: fragmented tools and manual processes used to manage menus, reservations, and commercial operations. The platform enables restaurants to manage their digital presence through a single scalable solution.',
+
+          long: 'Menuestro is a multi-tenant SaaS platform designed to help restaurants digitize their operations without relying on disconnected tools. The platform enables businesses to create QR-powered digital menus, receive online reservations, manage promotions, organize products and categories, oversee customer relationships, and track key business metrics through a centralized dashboard.\n\nEach restaurant receives its own independent workspace, including a personalized public URL where customers can browse menus, make reservations, and access updated business information without installing any additional applications.\n\nThe project was entirely conceived, designed, and developed from the ground up, covering product discovery, UX design, technical architecture, fullstack development, and deployment. The result is a scalable solution that reduces operational complexity while accelerating digital adoption across the restaurant industry.',
+        },
+
+        challenge: {
+          title: 'The Challenge',
+          description:
+            'Restaurants across Latin America still rely heavily on manual processes and disconnected tools to manage menus, reservations, and business operations. The challenge was to design a unified solution that simplifies these workflows while remaining accessible to users with limited technical expertise.',
+        },
+
+        solution: {
+          title: 'The Solution',
+          description:
+            'A multi-tenant SaaS platform was developed to centralize digital menus, reservations, promotions, analytics, and business operations. The experience was designed so restaurant owners can launch and manage their digital presence within minutes through an intuitive and scalable administrative dashboard.',
+        },
+
+        features: [
+          'Multi-tenant SaaS architecture',
+          'Authentication and user management',
+          'QR-powered digital menus',
+          'Custom public URLs',
+          'Category and product management',
+          'Promotion management',
+          'Online reservation system',
+          'Customer relationship management (CRM)',
+          'Ecommerce module',
+          'Administrative dashboard',
+          'Business analytics',
+          'Sales metrics',
+          'Reservation metrics',
+          'Subscription plans',
+          'Multilingual customer experience',
+          'Scalable architecture',
+        ],
+
+        responsibilities: [
+          'Product Research',
+          'Requirements Definition',
+          'UI/UX Design',
+          'Information Architecture',
+          'System Design',
+          'Frontend Development',
+          'Backend Development',
+          'Database Modeling',
+          'Authentication Implementation',
+          'Fullstack Development',
+          'Product Design',
+          'Deployment and DevOps',
+        ],
+
+        seo: {
+          title:
+            'Menuestro | SaaS Platform for Digital Menus, Reservations and Restaurant Management',
+          description:
+            'Menuestro is a SaaS platform that helps restaurants manage digital menus, online reservations, promotions, and business analytics from a single dashboard.',
+          keywords: [
+            'Menuestro',
+            'SaaS',
+            'Restaurant Management',
+            'Digital Menu',
+            'QR Menu',
+            'Online Reservations',
+            'Dashboard',
+            'Next.js',
+            'Supabase',
+            'Multi Tenant',
+            'Restaurant Software',
+            'Product Design',
+          ],
+        },
+      },
+    },
+  },
   // Diagnostico CIC
   {
     slug: 'diagnostico-cic',
@@ -14,7 +234,6 @@ export const projects: Project[] = [
     country: 'Argentina',
 
     year: 2026,
-    duration: '3 Semanas',
 
     website: 'https://diagnosticocic.com.ar/',
 
@@ -36,6 +255,8 @@ export const projects: Project[] = [
 
         category: 'Sitio Web Corporativo',
         industry: 'Salud',
+
+        duration: '3 Semanas',
 
         overview: {
           short:
@@ -104,6 +325,8 @@ export const projects: Project[] = [
 
         category: 'Corporate Website',
         industry: 'Healthcare',
+
+        duration: '3 Weeks',
 
         overview: {
           short:
@@ -182,7 +405,6 @@ export const projects: Project[] = [
     country: 'Colombia',
 
     year: 2025,
-    duration: '3 semanas',
 
     role: ['Fullstack Developer', 'UI/UX Designer'],
 
@@ -211,6 +433,8 @@ export const projects: Project[] = [
 
         category: 'Sitio Web Corporativo',
         industry: 'Turismo',
+
+        duration: '3 Semanas',
 
         overview: {
           short:
@@ -283,6 +507,8 @@ export const projects: Project[] = [
 
         category: 'Corporate Website',
         industry: 'Tourism',
+
+        duration: '3 Weeks',
 
         overview: {
           short:
@@ -366,7 +592,6 @@ export const projects: Project[] = [
     country: 'Argentina',
 
     year: 2026,
-    duration: '2 Semanas',
 
     website: 'https://mindsett.com.ar/',
 
@@ -396,6 +621,8 @@ export const projects: Project[] = [
 
         category: 'Sitio Web Corporativo',
         industry: 'Marketing Digital',
+
+        duration: '2 Semanas',
 
         overview: {
           short:
@@ -468,6 +695,8 @@ export const projects: Project[] = [
 
         category: 'Corporate Website',
         industry: 'Digital Marketing',
+
+        duration: '2 Weeks',
 
         overview: {
           short:
@@ -550,7 +779,6 @@ export const projects: Project[] = [
     country: 'Argentina',
 
     year: 2026,
-    duration: '3 Semanas',
 
     website: 'https://quimicadanez.com/',
 
@@ -580,6 +808,8 @@ export const projects: Project[] = [
 
         category: 'Catálogo Digital',
         industry: 'Productos Químicos',
+
+        duration: '3 Semanas',
 
         overview: {
           short:
@@ -652,6 +882,8 @@ export const projects: Project[] = [
 
         category: 'Digital Product Catalog',
         industry: 'Chemical Products',
+
+        duration: '3 Weeks',
 
         overview: {
           short:
@@ -734,7 +966,6 @@ export const projects: Project[] = [
     country: 'Argentina',
 
     year: 2026,
-    duration: '3 Semanas',
 
     website: 'https://ingenorsa.com.ar/',
 
@@ -764,6 +995,8 @@ export const projects: Project[] = [
 
         category: 'Sitio Web Corporativo',
         industry: 'Construcción',
+
+        duration: '3 Semanas',
 
         overview: {
           short:
@@ -836,6 +1069,8 @@ export const projects: Project[] = [
 
         category: 'Corporate Website',
         industry: 'Construction',
+
+        duration: '3 Weeks',
 
         overview: {
           short:
@@ -918,7 +1153,6 @@ export const projects: Project[] = [
     country: 'Colombia',
 
     year: 2026,
-    duration: '6 Semanas',
 
     website: 'https://dianamoncada.com',
 
@@ -947,6 +1181,8 @@ export const projects: Project[] = [
 
         category: 'Sitio Web y Blog',
         industry: 'Psicología',
+
+        duration: '6 Semanas',
 
         overview: {
           short:
@@ -1019,6 +1255,8 @@ export const projects: Project[] = [
 
         category: 'Website and Blog',
         industry: 'Psychology',
+
+        duration: '6 Weeks',
 
         overview: {
           short:
