@@ -81,13 +81,6 @@ export const uiDesktop = [
     slug: 'pacific-waves-hostel-and-surf',
   },
   {
-    label: 'Mindsett',
-    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1766328431/mindsett_dh4p3v.mov',
-    type: 'video',
-    link: 'https://mindsett.com.ar/',
-    slug: 'mindsett',
-  },
-  {
     label: 'Quimica Danez',
     url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1773947692/danez_mx7luz.mov',
     type: 'video',
@@ -103,7 +96,7 @@ export const uiDesktop = [
   },
   {
     label: 'Diana Moncada',
-    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1779895887/dianamoncada_ymni5q.mov',
+    url: 'https://res.cloudinary.com/dcuocptj7/video/upload/v1784813255/diana-moncada_rsghqj.mov',
     type: 'video',
     link: 'https://dianamoncada.com/',
     slug: 'diana-moncada',
