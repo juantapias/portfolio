@@ -1,0 +1,133 @@
+---
+import { useTranslations } from '../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const brands = [
+  { src: '/images/brands/menuestro-logo.webp', alt: 'Menuestro' },
+  { src: '/images/brands/cic-logo.webp', alt: 'Diagnóstico CIC' },
+  { src: '/images/brands/danez-logo.webp', alt: 'Química Danez' },
+  { src: '/images/brands/diana-moncada-logo.webp', alt: 'Diana Moncada' },
+  { src: '/images/brands/ingenor-logo.webp', alt: 'Ingenor' },
+  { src: '/images/brands/pacific-waves-logo.webp', alt: 'Pacific Waves Hostel & Surf' },
+  { src: '/images/brands/mindsett-logo.webp', alt: 'Mindsett' },
+]
+
+// Enough repeated sets so the track always spans well beyond any viewport width,
+// so the scroll-driven loop below never runs out of logos to show.
+const REPEAT_COUNT = 6
+const trackSets = Array.from({ length: REPEAT_COUNT }, (_, setIndex) => ({ setIndex, brands }))
+---
+
+<section
+  id='brands'
+  class='py-16 md:py-24 px-8 lg:px-16 overflow-hidden'
+  aria-labelledby='brands-title'>
+  <h2
+    id='brands-title'
+    class='text-accent text-2xl md:text-3xl lg:text-4xl leading-none relative text-left uppercase'>
+    {t('Brands.title')}
+  </h2>
+
+  <div class='brands-viewport mt-10 md:mt-14 overflow-hidden'>
+    <ul class='brands-track flex items-center gap-12 md:gap-20 w-max' data-set-size={brands.length}>
+      {trackSets.map(({ setIndex, brands: setBrands }) => (
+        setBrands.map((brand) => (
+          <li class='brand-item shrink-0' aria-hidden={setIndex === 0 ? undefined : 'true'}>
+            <img
+              src={brand.src}
+              alt={setIndex === 0 ? brand.alt : ''}
+              width={160}
+              height={64}
+              loading='lazy'
+              class='brand-logo h-8 md:h-12 w-auto object-contain grayscale opacity-50 transition-all duration-300 ease-out hover:grayscale-0 hover:opacity-100'
+            />
+          </li>
+        ))
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector("#brands")
+    if (!section) return
+
+    const title = section.querySelector<HTMLElement>("#brands-title")
+    const track = section.querySelector<HTMLElement>(".brands-track")
+    const items = section.querySelectorAll<HTMLElement>(".brand-item")
+
+    if (!track || !items.length) return
+
+    if (title) {
+      gsap.set(title, { opacity: 0, y: 50 })
+
+      gsap.to(title, {
+        opacity: 1,
+        y: 0,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 90%",
+          end: "top 55%",
+          scrub: true,
+        },
+      })
+    }
+
+    gsap.set(items, { opacity: 0, y: 40, scale: 0.9 })
+
+    gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      stagger: 0.03,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 85%",
+        end: "top 35%",
+        scrub: true,
+      },
+    })
+
+    // Width (in px) of a single set of logos — measured from the DOM so it
+    // accounts for gaps and responsive sizing exactly, then used to wrap the
+    // track position infinitely, so it never runs out of logos while scrolling.
+    const setSize = Number(track.dataset.setSize) || 1
+    let setWidth = 0
+
+    const measure = () => {
+      const first = items[0]
+      const nextSetFirst = items[setSize]
+      setWidth = nextSetFirst
+        ? nextSetFirst.offsetLeft - first.offsetLeft
+        : track.scrollWidth / (items.length / setSize)
+    }
+
+    measure()
+    window.addEventListener("resize", measure)
+
+    const LOOPS = 4
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true,
+      onUpdate: (self) => {
+        if (!setWidth) return
+        const rawX = -self.progress * setWidth * LOOPS
+        const x = gsap.utils.wrap(-setWidth, 0, rawX)
+        gsap.set(track, { x })
+      },
+    })
+  })
+</script>
