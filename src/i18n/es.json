@@ -14,33 +14,38 @@
     "services": [
       {
         "label": "Branding y Diseño Gráfico",
-        "description": "Creando identidades visuales sólidas y piezas gráficas que comunican la esencia de una marca.",
+        "description": "Construyo identidades de marca sólidas y coherentes que ayudan a tu negocio a destacar y generar confianza desde el primer contacto.",
         "features": "Diseño de logotipos, ilustraciones, identidad visual, sistemas gráficos, piezas para redes sociales y material de marca."
       },
       {
         "label": "Diseño de Producto (UI / UX)",
-        "description": "Diseñando experiencias digitales que priorizan la claridad, la usabilidad y la interacción.",
+        "description": "Diseño experiencias digitales centradas en el usuario, pensadas para facilitar la conversión y generar confianza en tu producto.",
         "features": "Investigación de usuario, wireframes, trayectorias de usuario, prototipos interactivos, optimización de experiencia."
       },
       {
         "label": "Diseño Web",
-        "description": "Diseñando sitios web modernos que equilibran estética, narrativa visual y experiencia de usuario.",
+        "description": "Diseño sitios web modernos y estratégicos que comunican el valor de tu marca y convierten visitantes en clientes.",
         "features": "Landing pages, portafolios creativos, sitios corporativos, páginas de producto."
       },
       {
         "label": "Diseño de Aplicaciones",
-        "description": "Diseñando experiencias mobile-first con navegación intuitiva y jerarquía visual clara.",
+        "description": "Diseño experiencias mobile-first con navegación intuitiva que facilitan el uso y mejoran la retención de tus usuarios.",
         "features": "Prototipos iOS y Android, diseño de interfaces, sistemas de interacción, microinteracciones."
       },
       {
         "label": "Sistemas de Diseño",
-        "description": "Construyendo sistemas de diseño escalables que garantizan consistencia entre productos digitales.",
+        "description": "Construyo sistemas de diseño escalables que garantizan consistencia entre tus productos digitales, ahorrando tiempo y costos a largo plazo.",
         "features": "Bibliotecas de componentes, design tokens, guías de estilo, documentación."
       },
       {
         "label": "Desarrollo en Framer",
-        "description": "Creando sitios web interactivos de alta fidelidad directamente en Framer.",
+        "description": "Desarrollo sitios web interactivos de alta fidelidad directamente en Framer, listos para publicar en tiempo récord.",
         "features": "Animaciones, transiciones, prototipos avanzados y sitios completamente responsivos."
+      },
+      {
+        "label": "Gestión de Redes Sociales",
+        "description": "Gestiono la presencia de tu marca en redes sociales con estrategia de contenido y diseño visual coherente, fortaleciendo tu conexión con la audiencia y tus ventas.",
+        "features": "Planeación de contenido, diseño de piezas gráficas, calendario editorial, gestión de publicaciones, análisis de métricas y crecimiento de comunidad."
       }
     ]
   },
