@@ -6,9 +6,9 @@
     "contact": "Contacto"
   },
   "Hero": {
-    "subtitle": "Creando experiencias digitales a través del diseño y la tecnología. Transformando ideas en belleza funcional.",
+    "subtitle": "Diseño y desarrollo productos digitales que ayudan a marcas y negocios a crecer, combinando estrategia, diseño y tecnología en cada proyecto.",
     "btnCTA": "Ver mi trabajo",
-    "btnContact": "Contáctame"
+    "btnContact": "Hablemos de tu proyecto"
   },
   "Works": {
     "services": [
@@ -45,17 +45,17 @@
     ]
   },
   "Projects": {
-    "title": "Una muestra de mi trabajo en diseño, desarrollo y experiencia digital.",
-    "content": "Cada proyecto refleja un equilibrio entre creatividad y precisión — desde interfaces centradas en el usuario hasta construcciones técnicamente refinadas. \n\n Abordo cada idea como una oportunidad para crear algo significativo, funcional y visualmente distintivo."
+    "title": "Proyectos reales que combinan diseño, desarrollo y estrategia para generar resultados.",
+    "content": "Cada proyecto nace de trabajar de cerca con el cliente, entendiendo sus objetivos de negocio antes de escribir una sola línea de código. \n\n No solo diseño y desarrollo interfaces — construyo soluciones digitales completas, desde la estrategia inicial hasta el lanzamiento y el soporte posterior."
   },
   "About": {
     "title": "Sobre mí",
-    "content": "Soy desarrollador front-end y diseñador UI/UX enfocado en crear experiencias digitales que se sientan intuitivas y humanas. \n\n Me importan profundamente los detalles, el rendimiento y las interacciones invisibles que hacen que las personas disfruten usar un producto. \n\n Mi trabajo combina creatividad y lógica — mezclando diseño cuidadoso con código limpio y mantenible. Creo que un buen diseño no se trata solo de estética, sino de cómo hace sentir a las personas y cómo se mueven a través de una interfaz. \n\n Cada proyecto es una oportunidad para crear algo significativo, funcional y duradero — un puente entre la tecnología y la emoción."
+    "content": "Soy desarrollador de producto digital y diseñador UI/UX, y ayudo a marcas y negocios a convertir ideas en productos digitales sólidos — desde la estrategia y el diseño hasta el desarrollo completo. \n\n Me involucro en cada detalle: la experiencia de usuario, el rendimiento, la arquitectura técnica y las pequeñas interacciones que hacen que un producto se sienta confiable y profesional. \n\n Trabajo de cerca con cada cliente, entendiendo sus objetivos de negocio para entregar soluciones que no solo se ven bien, sino que funcionan y generan resultados reales. \n\n Si buscas un aliado que combine visión de diseño, solidez técnica y compromiso real con tu proyecto, estoy aquí para ayudarte a construirlo."
   },
   "Ads": {
-    "line1": "Tu sitio web,",
-    "line2": "tan auténtico",
-    "line3": "como tu marca"
+    "line1": "Tu producto digital,",
+    "line2": "tan sólido",
+    "line3": "como tu negocio"
   },
   "Footer": {
     "social": "Conéctate conmigo",
@@ -85,9 +85,9 @@
       "label": "Responsabilidades"
     },
     "cta": {
-      "title": "¿Tienes un proyecto así?",
-      "subtitle": "Hablemos y construyamos algo memorable juntos.",
-      "contact": "Contáctame",
+      "title": "¿Tienes un proyecto en mente?",
+      "subtitle": "Hablemos de tus objetivos y construyamos juntos una solución a la medida de tu negocio.",
+      "contact": "Hablemos de tu proyecto",
       "more": "Ver más proyectos"
     },
     "lightbox": {

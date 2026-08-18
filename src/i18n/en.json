@@ -6,9 +6,9 @@
     "contact": "Contact"
   },
   "Hero": {
-    "subtitle": "Crafting digital experiences through design and technology. Transforming ideas into functional beauty.",
+    "subtitle": "I design and build digital products that help brands and businesses grow, combining strategy, design, and technology in every project.",
     "btnCTA": "View my work",
-    "btnContact": "Contact me"
+    "btnContact": "Let's talk about your project"
   },
   "Works": {
     "services": [
@@ -45,17 +45,17 @@
     ]
   },
   "Projects": {
-    "title": "A showcase of my work across design, development, and digital experience.",
-    "content": "Each project reflects a balance between creativity and precision — from user-focused interfaces to technically refined builds. \n\n I approach every idea as an opportunity to craft something meaningful, functional, and visually distinct."
+    "title": "Real projects combining design, development, and strategy to deliver results.",
+    "content": "Every project starts with working closely with the client, understanding their business goals before writing a single line of code. \n\n I don't just design and build interfaces — I build complete digital solutions, from initial strategy to launch and ongoing support."
   },
   "About": {
     "title": "About me",
-    "content": "I’m a front-end developer and UI/UX designer focused on crafting digital experiences that feel intuitive and human. \n\n I care deeply about details, performance, and the invisible interactions that make people enjoy using a product. \n\n My work combines creativity and logic — blending thoughtful design with clean, maintainable code. I believe that good design is not only about aesthetics but about how it makes people feel and move through an interface. \n\n Each project is an opportunity to create something meaningful, functional, and lasting — a bridge between technology and emotion."
+    "content": "I’m a digital product developer and UI/UX designer, and I help brands and businesses turn ideas into solid digital products — from strategy and design to full-stack development. \n\n I care about every detail: user experience, performance, technical architecture, and the small interactions that make a product feel reliable and professional. \n\n I work closely with every client, understanding their business goals to deliver solutions that don't just look good, but actually work and drive real results. \n\n If you're looking for a partner who combines design vision, technical depth, and real commitment to your project, I'm here to help you build it."
   },
   "Ads": {
-    "line1": "Your website,",
-    "line2": "as authentic",
-    "line3": "as your brand"
+    "line1": "Your digital product,",
+    "line2": "as solid",
+    "line3": "as your business"
   },
   "Footer": {
     "social": "Connect with me",
@@ -73,9 +73,9 @@
     "features": { "label": "Features" },
     "responsibilities": { "label": "Responsibilities" },
     "cta": {
-      "title": "Have a project like this?",
-      "subtitle": "Let's talk and build something memorable together.",
-      "contact": "Contact me",
+      "title": "Have a project in mind?",
+      "subtitle": "Let's talk about your goals and build a solution tailored to your business.",
+      "contact": "Let's talk about your project",
       "more": "View more projects"
     },
     "lightbox": { "alt": "Expanded view" },
