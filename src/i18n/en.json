@@ -6,56 +6,64 @@
     "contact": "Contact"
   },
   "Hero": {
-    "subtitle": "Crafting digital experiences through design and technology. Transforming ideas into functional beauty.",
+    "subtitle": "I design and build digital products that help brands and businesses grow, combining strategy, design, and technology in every project.",
     "btnCTA": "View my work",
-    "btnContact": "Contact me"
+    "btnContact": "Let's talk about your project"
+  },
+  "Brands": {
+    "title": "Brands that already took the leap"
   },
   "Works": {
     "services": [
       {
         "label": "Branding & Graphic Design",
-        "description": "Creating strong visual identities and graphic assets that communicate a brand’s essence.",
+        "description": "I build strong, consistent brand identities that help your business stand out and earn trust from the first impression.",
         "features": "Logo design, illustrations, visual identity, graphic systems, social media assets and brand materials."
       },
       {
         "label": "Product Design (UI / UX)",
-        "description": "Designing digital experiences that prioritize clarity, usability, and interaction.",
+        "description": "I design user-centered digital experiences built to drive conversion and build trust in your product.",
         "features": "User research, wireframes, user flows, interactive prototypes, experience optimization."
       },
       {
         "label": "Web Design",
-        "description": "Designing modern websites that balance aesthetics, visual storytelling, and user experience.",
+        "description": "I design modern, strategic websites that communicate your brand's value and turn visitors into customers.",
         "features": "Landing pages, creative portfolios, corporate websites, product pages."
       },
       {
         "label": "App Design",
-        "description": "Designing mobile-first experiences with intuitive navigation and strong visual hierarchy.",
+        "description": "I design mobile-first experiences with intuitive navigation that make products easier to use and keep users coming back.",
         "features": "iOS and Android prototypes, interface design, interaction systems, micro-interactions."
       },
       {
         "label": "Design Systems",
-        "description": "Building scalable design foundations that ensure consistency across digital products.",
+        "description": "I build scalable design systems that ensure consistency across your digital products, saving time and cost in the long run.",
         "features": "Component libraries, design tokens, style guides, documentation."
       },
       {
         "label": "Framer Development",
-        "description": "Building high-fidelity interactive websites directly in Framer.",
+        "description": "I build high-fidelity interactive websites directly in Framer, ready to launch in record time.",
         "features": "Animations, transitions, advanced prototypes, and fully responsive sites."
+      },
+      {
+        "label": "Social Media Management",
+        "description": "I manage your brand's presence on social media with content strategy and consistent visual design, strengthening your connection with your audience and driving sales.",
+        "features": "Content planning, graphic asset design, editorial calendar, post management, metrics analysis, and community growth."
       }
     ]
   },
   "Projects": {
-    "title": "A showcase of my work across design, development, and digital experience.",
-    "content": "Each project reflects a balance between creativity and precision — from user-focused interfaces to technically refined builds. \n\n I approach every idea as an opportunity to craft something meaningful, functional, and visually distinct."
+    "title": "Real projects combining design, development, and strategy to deliver results.",
+    "content": "Every project starts with working closely with the client, understanding their business goals before writing a single line of code. \n\n I don't just design and build interfaces — I build complete digital solutions, from initial strategy to launch and ongoing support."
   },
   "About": {
     "title": "About me",
-    "content": "I’m a front-end developer and UI/UX designer focused on crafting digital experiences that feel intuitive and human. \n\n I care deeply about details, performance, and the invisible interactions that make people enjoy using a product. \n\n My work combines creativity and logic — blending thoughtful design with clean, maintainable code. I believe that good design is not only about aesthetics but about how it makes people feel and move through an interface. \n\n Each project is an opportunity to create something meaningful, functional, and lasting — a bridge between technology and emotion."
+    "content": "I’m a digital product developer and UI/UX designer, and I help brands and businesses turn ideas into solid digital products — from strategy and design to full-stack development. \n\n I care about every detail: user experience, performance, technical architecture, and the small interactions that make a product feel reliable and professional. \n\n I work closely with every client, understanding their business goals to deliver solutions that don't just look good, but actually work and drive real results. \n\n If you're looking for a partner who combines design vision, technical depth, and real commitment to your project, I'm here to help you build it."
   },
   "Ads": {
-    "line1": "Your website,",
-    "line2": "as authentic",
-    "line3": "as your brand"
+    "line1": "Your digital product,",
+    "line2": "as solid",
+    "line3": "as your business"
   },
   "Footer": {
     "social": "Connect with me",
@@ -73,9 +81,9 @@
     "features": { "label": "Features" },
     "responsibilities": { "label": "Responsibilities" },
     "cta": {
-      "title": "Have a project like this?",
-      "subtitle": "Let's talk and build something memorable together.",
-      "contact": "Contact me",
+      "title": "Have a project in mind?",
+      "subtitle": "Let's talk about your goals and build a solution tailored to your business.",
+      "contact": "Let's talk about your project",
       "more": "View more projects"
     },
     "lightbox": { "alt": "Expanded view" },
