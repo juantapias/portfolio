@@ -27,8 +27,8 @@
       },
       {
         "label": "Diseño Web",
-        "description": "Diseño sitios web modernos y estratégicos que comunican el valor de tu marca y convierten visitantes en clientes.",
-        "features": "Landing pages, portafolios creativos, sitios corporativos, páginas de producto."
+        "description": "Diseño y desarrollo sitios web modernos, interactivos y estratégicos que comunican el valor de tu marca y convierten visitantes en clientes.",
+        "features": "Landing pages, portafolios creativos, sitios corporativos, páginas de producto, animaciones y prototipos de alta fidelidad completamente responsivos."
       },
       {
         "label": "Diseño de Aplicaciones",
@@ -39,11 +39,6 @@
         "label": "Sistemas de Diseño",
         "description": "Construyo sistemas de diseño escalables que garantizan consistencia entre tus productos digitales, ahorrando tiempo y costos a largo plazo.",
         "features": "Bibliotecas de componentes, design tokens, guías de estilo, documentación."
-      },
-      {
-        "label": "Desarrollo en Framer",
-        "description": "Desarrollo sitios web interactivos de alta fidelidad directamente en Framer, listos para publicar en tiempo récord.",
-        "features": "Animaciones, transiciones, prototipos avanzados y sitios completamente responsivos."
       },
       {
         "label": "Gestión de Redes Sociales",
