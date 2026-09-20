@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title,
-  description = 'Diseñador y desarrollador de producto digital especializado en crear experiencias digitales intuitivas, confiables y visualmente distintivas.',
+  description = 'Estudio de diseño y desarrollo web, UI/UX, branding, apps y sistemas de diseño para marcas y negocios de Latinoamérica y el mundo. Por Juan Tapias.',
   ogImage = '/images/og-image.jpg',
   ogType = 'website',
   canonicalURL = Astro.url.href,
@@ -24,8 +24,8 @@ const {
 } = Astro.props
 
 const locale = Astro.currentLocale ?? 'es'
-const siteName = 'Juan Tapias'
-const fullTitle = title === siteName ? title : `${title} — ${siteName}`
+const siteName = 'Tapias'
+const fullTitle = title.includes(siteName) ? title : `${title} — ${siteName}`
 const ogImageURL = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site).toString()
 
 const alternateLocale = locale === 'es' ? 'en' : 'es'

@@ -19,12 +19,12 @@ const locale = Astro.params.locale as 'es' | 'en'
 
 const seo = {
   es: {
-    title: 'Juan Tapias — Diseñador y Desarrollador de Producto Digital',
-    description: 'Portafolio de Juan Tapias: diseñador y desarrollador de producto digital especializado en experiencias digitales intuitivas, UI/UX, branding y desarrollo completo de soluciones.',
+    title: 'Tapias — Estudio de Diseño y Desarrollo Web, UI/UX y Branding',
+    description: 'Estudio de diseño y desarrollo web, UI/UX, branding, apps y sistemas de diseño para marcas y negocios de Latinoamérica y el mundo. Por Juan Tapias.',
   },
   en: {
-    title: 'Juan Tapias — Digital Product Designer & Developer',
-    description: 'Portfolio of Juan Tapias: digital product designer and developer specialized in intuitive digital experiences, UI/UX, branding, and full-stack solutions.',
+    title: 'Tapias — Web Design & Development Studio, UI/UX and Branding',
+    description: 'Web design and development studio for brands in Latin America and worldwide: UI/UX, branding, app design, design systems and social media. By Juan Tapias.',
   },
 }
 
@@ -49,10 +49,14 @@ const jsonLd = [
     name: 'Juan Tapias',
     url: siteUrl,
     image: `${siteUrl}/images/og-image.jpg`,
-    jobTitle: locale === 'es' ? 'Diseñador y desarrollador de producto digital' : 'Digital product designer & developer',
+    jobTitle: locale === 'es' ? 'Diseñador y desarrollador web, fundador de Tapias' : 'Web designer & developer, founder of Tapias',
     description: seo[locale].description,
+    worksFor: { '@id': `${siteUrl}/#service` },
     email: 'mailto:dev.juantapias@gmail.com',
-    knowsAbout: ['UI/UX', 'Branding', 'Web development', 'Astro', 'React', 'Design systems'],
+    knowsAbout: [
+      'Web design', 'Web development', 'UI/UX design', 'Branding', 'App design',
+      'Design systems', 'Social media management', 'Astro', 'React',
+    ],
     sameAs: [
       'https://github.com/juantapias',
       'https://www.instagram.com/tapias.dev/',
@@ -63,11 +67,17 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': `${siteUrl}/#service`,
-    name: 'Juan Tapias',
+    name: 'Tapias',
+    alternateName: ['Tapias Studio', 'Juan Tapias'],
+    description: seo[locale].description,
     url: siteUrl,
     image: `${siteUrl}/images/og-image.jpg`,
     founder: { '@id': `${siteUrl}/#person` },
-    areaServed: 'Worldwide',
+    serviceType: ['Web design', 'Web development', 'UI/UX design', 'Branding', 'App design', 'Design systems', 'Social media management'],
+    areaServed: [
+      { '@type': 'Place', name: 'Latin America' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
     availableLanguage: ['es', 'en'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',

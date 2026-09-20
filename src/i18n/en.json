@@ -6,6 +6,7 @@
     "contact": "Contact"
   },
   "Hero": {
+    "h1": "Tapias — Web design and development studio, UI/UX and branding for brands in Latin America and worldwide",
     "subtitle": "I design and build digital products that help brands and businesses grow, combining strategy, design, and technology in every project.",
     "btnCTA": "View my work",
     "btnContact": "Let's talk about your project"
@@ -26,7 +27,7 @@
         "features": "User research, wireframes, user flows, interactive prototypes, experience optimization."
       },
       {
-        "label": "Web Design",
+        "label": "Web Design & Development",
         "description": "I design and build modern, interactive, strategic websites that communicate your brand's value and turn visitors into customers.",
         "features": "Landing pages, creative portfolios, corporate websites, product pages, animations, and fully responsive high-fidelity prototypes."
       },
