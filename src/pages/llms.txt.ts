@@ -16,9 +16,9 @@ export const GET: APIRoute = ({ site }) => {
     })
     .join('\n')
 
-  const body = `# Juan Tapias
+  const body = `# Tapias
 
-> Digital product designer and developer (UI/UX, branding, full-stack web). Based in Colombia, working with clients worldwide in Spanish and English.
+> Tapias is a web design and development studio led by Juan Tapias. Services: web design and development, UI/UX design, branding, app design, design systems and social media management. Based in Colombia, working with brands and businesses in Latin America and worldwide, in Spanish and English.
 
 ## Pages
 - [Home (EN)](${base}/en)

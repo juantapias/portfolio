@@ -11,6 +11,7 @@ const t = useTranslations(locale)
   aria-labelledby='main-banner-title'>
 
   <h1 id='main-banner-title'>
+    <span class='sr-only'>{t('Hero.h1')}</span>
     {'Tapias'.split('').map((letter, index) => (
       <span class={index >= 1 && index <= 4 ? 'outline' : ''}>
         {letter}
@@ -80,7 +81,7 @@ const t = useTranslations(locale)
   }
 }
 
-#main-banner-title span,
+#main-banner-title span:not(.sr-only),
 .main-banner-content h2,
 .btn {
   opacity: 0;
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!banner) return
 
   const title = banner.querySelector("#main-banner-title")
-  const letters = title?.querySelectorAll("span") || []
+  const letters = title?.querySelectorAll("span:not(.sr-only)") || []
   const h2s = banner.querySelectorAll("h2")
   const buttons = banner.querySelectorAll('.btn')
 

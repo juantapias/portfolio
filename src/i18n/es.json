@@ -6,6 +6,7 @@
     "contact": "Contacto"
   },
   "Hero": {
+    "h1": "Tapias — Estudio de diseño y desarrollo web, UI/UX y branding para marcas de Latinoamérica y el mundo",
     "subtitle": "Diseño y desarrollo productos digitales que ayudan a marcas y negocios a crecer, combinando estrategia, diseño y tecnología en cada proyecto.",
     "btnCTA": "Ver mi trabajo",
     "btnContact": "Hablemos de tu proyecto"
@@ -26,7 +27,7 @@
         "features": "Investigación de usuario, wireframes, trayectorias de usuario, prototipos interactivos, optimización de experiencia."
       },
       {
-        "label": "Diseño Web",
+        "label": "Diseño y Desarrollo Web",
         "description": "Diseño y desarrollo sitios web modernos, interactivos y estratégicos que comunican el valor de tu marca y convierten visitantes en clientes.",
         "features": "Landing pages, portafolios creativos, sitios corporativos, páginas de producto, animaciones y prototipos de alta fidelidad completamente responsivos."
       },
