@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/layout.astro'
+import { useTranslations } from '../../utils/i18n'
+import en from '../../i18n/en.json'
+
+export function getStaticPaths() {
+  return [{ params: { locale: 'en' } }]
+}
+
+const locale = 'en' as const
+const t = useTranslations(locale)
+const sections = en.Privacy.sections
+---
+
+<Layout title={t('Privacy.title')} description={en.Privacy.title}>
+  <article class='mx-auto max-w-3xl px-8 pt-32 pb-24 text-white'>
+    <h1 class='font-primary text-3xl md:text-5xl mb-2'>{t('Privacy.title')}</h1>
+    <p class='text-sm text-white/60 mb-10'>{t('Privacy.updated')}</p>
+    {sections.map(s => (
+      <section class='mb-8'>
+        <h2 class='text-xl text-accent font-tertiary mb-2'>{s.title}</h2>
+        <p class='leading-relaxed text-white/85'>{s.body}</p>
+      </section>
+    ))}
+    <a href='/en' class='btn outline mt-6'>{t('Privacy.back')}</a>
+  </article>
+</Layout>

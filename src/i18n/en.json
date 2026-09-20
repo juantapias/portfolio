@@ -60,6 +60,49 @@
     "line2": "as solid",
     "line3": "as your business"
   },
+  "Cookies": {
+    "title": "Your privacy matters",
+    "text": "I use analytics cookies (Google Analytics) to understand how the site is used and to improve it. They stay off until you accept.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "policy": "Privacy policy",
+    "settings": "Cookies"
+  },
+  "Privacy": {
+    "title": "Privacy & cookie policy",
+    "updated": "Last updated: September 20, 2026",
+    "back": "Back to home",
+    "sections": [
+      {
+        "title": "Data controller",
+        "body": "Juan Tapias is the controller of the data collected on this website. You can write to dev.juantapias@gmail.com with any privacy question."
+      },
+      {
+        "title": "What data I collect",
+        "body": "This site has no forms or user accounts. I only process the data you send me when you contact me by email or WhatsApp and, if you accept cookies, anonymous browsing data: page views, link clicks, device type, browser, approximate country and language."
+      },
+      {
+        "title": "Cookies I use",
+        "body": "Google Analytics 4 (Google LLC) sets the _ga and _ga_* cookies, lasting up to 2 years, to tell visits apart and measure site usage. Analytics storage stays denied until you click Accept. If you reject, no analytics cookies are set. The site also stores your choice in your browser's local storage (cookie-consent)."
+      },
+      {
+        "title": "How I use the data",
+        "body": "Only to measure and improve the site's performance and content, and to reply to the messages you send me. I do not sell data or use it for advertising."
+      },
+      {
+        "title": "Third parties",
+        "body": "Google Analytics may transfer data to Google servers outside your country. Links to WhatsApp and social networks lead to third-party services with their own privacy policies."
+      },
+      {
+        "title": "Your rights",
+        "body": "You can access, update, correct or request deletion of your data, and withdraw your consent at any time (Colombian Law 1581 of 2012 and, where applicable, the GDPR). To exercise them, email dev.juantapias@gmail.com."
+      },
+      {
+        "title": "Changing your choice",
+        "body": "You can change your cookie choice at any time using the \"Cookies\" link in the footer."
+      }
+    ]
+  },
   "Footer": {
     "social": "Connect with me",
     "backToTop": "Back to top"
