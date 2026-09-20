@@ -2,6 +2,7 @@
 import Header from '../container/header/Header.astro'
 import Footer from '../container/footer/Footer.astro'
 import Analytics from '../components/Analytics.astro'
+import CookieBanner from '../components/CookieBanner.astro'
 import '../styles/global.css'
 
 interface Props {
@@ -28,7 +29,9 @@ const fullTitle = title === siteName ? title : `${title} — ${siteName}`
 const ogImageURL = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site).toString()
 
 const alternateLocale = locale === 'es' ? 'en' : 'es'
-const alternatePath = Astro.url.pathname.replace(`/${locale}`, `/${alternateLocale}`)
+const alternatePath = Astro.url.pathname
+  .replace(`/${locale}`, `/${alternateLocale}`)
+  .replace(/\/(privacy|privacidad)\/?$/, alternateLocale === 'en' ? '/privacy' : '/privacidad')
 const alternateURL = new URL(alternatePath, Astro.site).toString()
 const ogLocale = locale === 'es' ? 'es_CO' : 'en_US'
 ---
@@ -82,5 +85,6 @@ const ogLocale = locale === 'es' ? 'es_CO' : 'en_US'
       <slot />
     </main>
     <Footer />
+    <CookieBanner locale={locale as 'es' | 'en'} />
   </body>
 </html>

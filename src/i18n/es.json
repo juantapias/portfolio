@@ -60,6 +60,49 @@
     "line2": "tan sólido",
     "line3": "como tu negocio"
   },
+  "Cookies": {
+    "title": "Tu privacidad importa",
+    "text": "Uso cookies de analítica (Google Analytics) para entender cómo se usa el sitio y mejorarlo. No se activan hasta que las aceptes.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "policy": "Política de privacidad",
+    "settings": "Cookies"
+  },
+  "Privacy": {
+    "title": "Política de privacidad y cookies",
+    "updated": "Última actualización: 20 de septiembre de 2026",
+    "back": "Volver al inicio",
+    "sections": [
+      {
+        "title": "Responsable",
+        "body": "Juan Tapias es el responsable del tratamiento de los datos recogidos en este sitio. Puedes escribirme a dev.juantapias@gmail.com para cualquier consulta sobre privacidad."
+      },
+      {
+        "title": "Qué datos recojo",
+        "body": "Este sitio no tiene formularios ni cuentas de usuario. Solo trato los datos que tú me envías al contactarme por correo o WhatsApp, y, si aceptas las cookies, datos de navegación anónimos: páginas vistas, clics en enlaces, tipo de dispositivo, navegador, país aproximado e idioma."
+      },
+      {
+        "title": "Cookies que utilizo",
+        "body": "Google Analytics 4 (Google LLC) instala las cookies _ga y _ga_*, con una duración de hasta 2 años, para distinguir visitas y medir el uso del sitio. El almacenamiento de analítica permanece denegado hasta que pulses Aceptar. Si rechazas, no se instalan cookies de analítica. El sitio también guarda tu elección en el almacenamiento local de tu navegador (cookie-consent)."
+      },
+      {
+        "title": "Para qué uso los datos",
+        "body": "Únicamente para medir y mejorar el rendimiento y el contenido del sitio, y para responder a los mensajes que me envías. No vendo datos ni los uso para publicidad."
+      },
+      {
+        "title": "Terceros",
+        "body": "Google Analytics puede transferir datos a servidores de Google fuera de tu país. Los enlaces a WhatsApp y redes sociales dirigen a servicios de terceros con sus propias políticas de privacidad."
+      },
+      {
+        "title": "Tus derechos",
+        "body": "Puedes conocer, actualizar, rectificar o solicitar la supresión de tus datos, y revocar tu consentimiento en cualquier momento (Ley 1581 de 2012 en Colombia y, si aplica, el RGPD). Para ejercerlos, escríbeme a dev.juantapias@gmail.com."
+      },
+      {
+        "title": "Cambiar tu elección",
+        "body": "Puedes modificar tu decisión sobre las cookies en cualquier momento con el enlace \"Cookies\" del pie de página."
+      }
+    ]
+  },
   "Footer": {
     "social": "Conéctate conmigo",
     "backToTop": "Volver arriba"
