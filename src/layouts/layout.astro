@@ -1,6 +1,7 @@
 ---
 import Header from '../container/header/Header.astro'
 import Footer from '../container/footer/Footer.astro'
+import Analytics from '../components/Analytics.astro'
 import '../styles/global.css'
 
 interface Props {
@@ -72,6 +73,7 @@ const ogLocale = locale === 'es' ? 'es_CO' : 'en_US'
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
+    <Analytics />
     <slot name="head" />
   </head>
   <body>

@@ -1,0 +1,46 @@
+---
+const gaId = import.meta.env.PUBLIC_GA_ID ?? 'G-ESXDT1VRM0'
+---
+
+{
+  import.meta.env.PROD && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+      <script is:inline define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || []
+        function gtag() {
+          dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', gaId)
+      </script>
+      <script is:inline>
+        document.addEventListener('click', (e) => {
+          const a = e.target instanceof Element && e.target.closest('a[href]')
+          if (!a || typeof gtag !== 'function') return
+
+          const href = a.getAttribute('href') || ''
+          const linkLocation = a.closest('footer')
+            ? 'footer'
+            : a.closest('header')
+              ? 'header'
+              : a.closest('section')?.id || 'page'
+          const params = { link_url: href, link_location: linkLocation }
+
+          if (/^https?:\/\/(wa\.link|wa\.me|api\.whatsapp\.com)\//.test(href)) {
+            gtag('event', 'generate_lead', { ...params, method: 'whatsapp' })
+          } else if (href.startsWith('mailto:')) {
+            gtag('event', 'generate_lead', { ...params, method: 'email' })
+          } else if (/linkedin\.com|github\.com/.test(href)) {
+            gtag('event', 'social_click', {
+              ...params,
+              network: href.includes('linkedin') ? 'linkedin' : 'github',
+            })
+          } else if (/^https?:\/\//.test(href) && !href.includes(window.location.hostname)) {
+            gtag('event', 'outbound_click', params)
+          }
+        })
+      </script>
+    </>
+  )
+}
