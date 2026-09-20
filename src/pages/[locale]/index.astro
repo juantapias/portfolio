@@ -1,4 +1,5 @@
 ---
+import { useTranslations } from '../../utils/i18n'
 import Layout from '../../layouts/layout.astro'
 import About from '../../sections/about.astro'
 import Brands from '../../sections/Brands.astro'
@@ -26,10 +27,65 @@ const seo = {
     description: 'Portfolio of Juan Tapias: digital product designer and developer specialized in intuitive digital experiences, UI/UX, branding, and full-stack solutions.',
   },
 }
+
+const siteUrl = 'https://juantapias.dev'
+const t = useTranslations(locale)
+const services = (t('Works.services') as unknown as { label: string; description: string }[]) ?? []
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: `${siteUrl}/${locale}`,
+    name: 'Juan Tapias',
+    inLanguage: locale === 'es' ? 'es-CO' : 'en-US',
+    publisher: { '@id': `${siteUrl}/#person` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${siteUrl}/#person`,
+    name: 'Juan Tapias',
+    url: siteUrl,
+    image: `${siteUrl}/images/og-image.jpg`,
+    jobTitle: locale === 'es' ? 'Diseñador y desarrollador de producto digital' : 'Digital product designer & developer',
+    description: seo[locale].description,
+    email: 'mailto:dev.juantapias@gmail.com',
+    knowsAbout: ['UI/UX', 'Branding', 'Web development', 'Astro', 'React', 'Design systems'],
+    sameAs: [
+      'https://github.com/juantapias',
+      'https://www.instagram.com/tapias.dev/',
+      'https://www.tiktok.com/@tapias.dev/',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': `${siteUrl}/#service`,
+    name: 'Juan Tapias',
+    url: siteUrl,
+    image: `${siteUrl}/images/og-image.jpg`,
+    founder: { '@id': `${siteUrl}/#person` },
+    areaServed: 'Worldwide',
+    availableLanguage: ['es', 'en'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: locale === 'es' ? 'Servicios' : 'Services',
+      itemListElement: Array.isArray(services)
+        ? services.map(s => ({
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: s.label, description: s.description },
+          }))
+        : [],
+    },
+  },
+]
 ---
 
 <Layout title={seo[locale].title} description={seo[locale].description}>
   <link rel="preload" as="image" href="/images/banner.jpg" slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <Hero />
   <Works />
   <Projects locale={locale} client:load />
