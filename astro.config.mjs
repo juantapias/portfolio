@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config'
 
 import react from '@astrojs/react'
+import sitemap from '@astrojs/sitemap'
 
 import tailwindcss from '@tailwindcss/vite'
 
@@ -18,7 +19,13 @@ export default defineConfig({
     },
   },
 
-  integrations: [react()],
+  integrations: [
+    react(),
+    sitemap({
+      i18n: { defaultLocale: 'es', locales: { es: 'es-CO', en: 'en-US' } },
+      filter: page => !page.includes('/404') && !page.includes('/link-tree'),
+    }),
+  ],
 
   vite: {
     plugins: [tailwindcss()],
