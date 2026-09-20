@@ -2,6 +2,7 @@
 const { title } = Astro.props;
 
 import "../styles/global.css";
+import Analytics from "../components/Analytics.astro";
 
 ---
 <html lang="en">
@@ -9,6 +10,7 @@ import "../styles/global.css";
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{title}</title>
+    <Analytics />
   </head>
   <body>
     <main>
