@@ -23,7 +23,10 @@ export default defineConfig({
     react(),
     sitemap({
       i18n: { defaultLocale: 'es', locales: { es: 'es-CO', en: 'en-US' } },
-      filter: page => !page.includes('/404') && !page.includes('/link-tree'),
+      filter: page =>
+        page !== 'https://juantapias.dev/' &&
+        !page.includes('/404') &&
+        !page.includes('/link-tree'),
     }),
   ],
 
