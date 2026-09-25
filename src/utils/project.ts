@@ -14,6 +14,7 @@ export function resolveProjectView(
     duration: t.duration,
     website: project.website,
     coverImage: project.coverImage,
+    coverPosition: project.coverPosition,
     techStack: project.techStack,
     tags: project.tags,
     role: project.role,
