@@ -31,7 +31,7 @@ ${services}
 ${projectLines}
 
 ## Contact
-- Email: dev.juantapias@gmail.com
+- Email: hola@juantapias.dev
 - GitHub: https://github.com/juantapias
 - Instagram: https://www.instagram.com/tapias.dev/
 `
