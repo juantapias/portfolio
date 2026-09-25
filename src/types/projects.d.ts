@@ -56,6 +56,8 @@ export interface Project {
   githubUrl?: string
 
   coverImage?: string
+  /** CSS object-position for the cover image, e.g. 'top center' (default: 'center') */
+  coverPosition?: string
   thumbnail?: string
   video?: string
 
@@ -77,6 +79,7 @@ export interface ProjectView {
   duration: string
   website?: string
   coverImage?: string
+  coverPosition?: string
   techStack: string[]
   tags: string[]
   role?: string[]

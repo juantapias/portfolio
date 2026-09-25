@@ -46,7 +46,12 @@ export default function ProjectPage({ locale, project }: Props) {
               loading='eager'
               decoding='async'
               fetchPriority='high'
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: project.coverPosition ?? 'center',
+              }}
             />
           ) : (
             <div

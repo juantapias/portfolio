@@ -969,7 +969,9 @@ export const projects: Project[] = [
 
     website: 'https://dianamoncada.com',
 
-    coverImage: '',
+    coverImage:
+      'https://res.cloudinary.com/dcuocptj7/image/upload/v1790349326/cover-image-diana-moncada_sp6l6u.webp',
+    coverPosition: 'top center',
     thumbnail: '',
     video: '',
 
