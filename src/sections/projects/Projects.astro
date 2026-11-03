@@ -36,7 +36,7 @@ const total = String(views.length).padStart(2, '0')
       return (
         <li class={`works-item ${isFeatured ? 'is-featured' : ''}`}>
           <a
-            href={`/${locale}/projects/${project.slug}`}
+            href={`/${locale}/projects/${project.slug}/`}
             class='project-card group'
             data-project-card
             aria-label={`${project.name} — ${project.category}`}>

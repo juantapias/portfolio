@@ -53,8 +53,9 @@
   font-display: swap;
 }
 
+/* No scroll-behavior: smooth here: ScrollTrigger.refresh() scrolls programmatically
+   and would animate visibly. In-page anchors get smooth scrolling from layout.astro. */
 html {
-  scroll-behavior: smooth;
   overflow-x: clip;
 }
 

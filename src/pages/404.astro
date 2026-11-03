@@ -4,7 +4,7 @@ import Layout from '../layouts/layout-blank.astro'
 const locale = (Astro.currentLocale ?? 'es') as 'es' | 'en'
 ---
 
-<Layout title="404 — Página no encontrada">
+<Layout title="404 — Página no encontrada" lang={locale} noindex>
   <section style="
     font-family: 'Space Grotesk', sans-serif;
     background: #000;
@@ -64,10 +64,10 @@ const locale = (Astro.currentLocale ?? 'es') as 'es' | 'en'
     </p>
 
     <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
-      <a href={`/${locale}`} class='btn primary'>
+      <a href={`/${locale}/`} class='btn primary'>
         {locale === 'en' ? 'Back to home →' : 'Volver al inicio →'}
       </a>
-      <a href={`/${locale}#works`} class='btn default'>
+      <a href={`/${locale}/#works`} class='btn default'>
         {locale === 'en' ? 'View projects' : 'Ver proyectos'}
       </a>
     </div>

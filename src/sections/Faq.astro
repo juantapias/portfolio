@@ -1,0 +1,270 @@
+---
+import { useTranslations } from '../utils/i18n'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const items = (t('Faq.items') as unknown as { q: string; a: string }[]) ?? []
+---
+
+<section id='faq' class='px-4 md:px-6 lg:px-10 py-24 md:py-32' aria-labelledby='faq-title'>
+  <div class='grid gap-10 lg:grid-cols-[1fr_2fr]'>
+    <div class='px-2'>
+      <span class='eyebrow text-accent'>{t('Faq.eyebrow')}</span>
+      <h2
+        id='faq-title'
+        class='mt-6 text-white uppercase leading-[0.9] text-[clamp(2.5rem,6vw,6rem)]'>
+        {t('Faq.title')}
+      </h2>
+    </div>
+
+    <div class='faq-list'>
+      {items.map((item, index) => (
+        <details class='faq-item' open={index === 0}>
+          <summary class='faq-question'>
+            <span class='faq-index'>{String(index + 1).padStart(2, '0')}</span>
+            <h3 class='faq-q'>{item.q}</h3>
+            <span class='faq-icon' aria-hidden='true'></span>
+          </summary>
+          <div class='faq-panel'>
+            <p class='faq-answer'>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .faq-question {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 0.5rem;
+    cursor: pointer;
+    list-style: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* The active question can't be closed (one is always open), so no click affordance */
+  .faq-item.is-open .faq-question {
+    cursor: default;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 0.5rem;
+  }
+
+  .faq-index {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+  }
+
+  .faq-q {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.2vw, 1.875rem);
+    line-height: 1.15;
+    color: rgb(255 255 255 / 0.7);
+    transition: color 0.3s ease;
+  }
+
+  .faq-item.is-open .faq-q {
+    color: var(--color-white);
+  }
+
+  /* Hover must stay clearly weaker than the open state: when the page scrolls under a
+     still cursor, the hovered row would otherwise look like a second open question.
+     Only real pointers get it, so taps on touch screens don't leave a sticky hover. */
+  @media (hover: hover) and (pointer: fine) {
+    .faq-item:not(.is-open) .faq-question:hover .faq-q {
+      color: rgb(255 255 255 / 0.88);
+    }
+
+    .faq-item:not(.is-open) .faq-question:hover .faq-icon {
+      border-color: rgb(255 255 255 / 0.45);
+    }
+  }
+
+  /* Plus → minus. State is driven by .is-open (set by JS before the height
+     animation starts) so the icon reacts on click, not when the panel finishes. */
+  .faq-icon {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 9999px;
+    transition:
+      background-color 0.35s ease,
+      border-color 0.35s ease,
+      rotate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.875rem;
+    height: 1.5px;
+    border-radius: 1px;
+    background: var(--color-white);
+    translate: -50% -50%;
+    transition:
+      rotate 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.35s ease;
+  }
+
+  .faq-icon::after {
+    rotate: 90deg;
+  }
+
+  .faq-item.is-open .faq-icon {
+    rotate: 180deg;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .faq-item.is-open .faq-icon::before,
+  .faq-item.is-open .faq-icon::after {
+    background: var(--color-black);
+  }
+
+  .faq-item.is-open .faq-icon::after {
+    rotate: 0deg;
+  }
+
+  .faq-panel {
+    overflow: hidden;
+  }
+
+  .faq-answer {
+    max-width: 42rem;
+    padding: 0 0.5rem 1.75rem calc(0.5rem + 2.25rem);
+    color: rgb(255 255 255 / 0.75);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 640px) {
+    .faq-answer {
+      padding-left: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-icon,
+    .faq-icon::before,
+    .faq-icon::after {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const initFaq = () => {
+    const section = document.querySelector<HTMLElement>("#faq")
+    if (!section) return
+
+    const items = Array.from(section.querySelectorAll<HTMLDetailsElement>(".faq-item"))
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    let refreshTimer = 0
+
+    // One running timeline per item; kill() never fires the old onComplete, so a quick
+    // re-click can't close an item that was just reopened.
+    const running = new Map<HTMLDetailsElement, gsap.core.Timeline>()
+
+    // Opening and closing share one duration and ease, so the height one answer loses
+    // is the height the other gains, frame by frame: the rows below glide instead of
+    // jumping, and we never have to touch the scroll position.
+    const DURATION = 0.5
+    const EASE = "power3.inOut"
+
+    const animate = (item: HTMLDetailsElement, opening: boolean) => {
+      const panel = item.querySelector<HTMLElement>(".faq-panel")!
+      const answer = panel.firstElementChild as HTMLElement
+      // Current height, so reversing mid-animation continues from where it is
+      const from = item.open ? panel.offsetHeight : 0
+
+      running.get(item)?.kill()
+      item.classList.toggle("is-open", opening)
+      if (opening) item.open = true
+
+      if (reduceMotion) {
+        item.open = opening
+        return
+      }
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          if (!opening) item.open = false
+          gsap.set([panel, answer], { clearProps: "all" })
+          running.delete(item)
+        },
+      })
+
+      if (opening) {
+        tl.fromTo(panel, { height: from }, { height: "auto", duration: DURATION, ease: EASE }, 0)
+          .fromTo(answer, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out" }, DURATION * 0.35)
+      } else {
+        tl.fromTo(panel, { height: from }, { height: 0, duration: DURATION, ease: EASE }, 0)
+          .to(answer, { autoAlpha: 0, y: -6, duration: 0.2, ease: "power2.in" }, 0)
+      }
+
+      running.set(item, tl)
+    }
+
+    // Accordion: exactly one question is always open.
+    const activate = (item: HTMLDetailsElement) => {
+      if (item.classList.contains("is-open")) return // the active one stays open
+
+      items.filter(other => other.classList.contains("is-open")).forEach(other => animate(other, false))
+      animate(item, true)
+
+      // The pinned #ads section below needs fresh positions once heights settle
+      window.clearTimeout(refreshTimer)
+      refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), reduceMotion ? 60 : DURATION * 1000 + 60)
+    }
+
+    // Guarantee the "always one open" rule even if the markup changes
+    if (!items.some(item => item.open) && items[0]) items[0].open = true
+    items.forEach(item => item.classList.toggle("is-open", item.open))
+
+    items.forEach(item => {
+      const summary = item.querySelector<HTMLElement>(".faq-question")!
+      summary.addEventListener("click", event => {
+        event.preventDefault()
+        activate(item)
+      })
+    })
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFaq)
+  } else {
+    initFaq()
+  }
+</script>

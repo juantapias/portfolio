@@ -14,7 +14,7 @@ const headerLink = [
 ---
 
 <header class="header">
-  <a href={`/${locale}`} class="logo" aria-label="Tapias — home">
+  <a href={`/${locale}/`} class="logo" aria-label="Tapias — home">
     Tapias<span class="logo-dot">.</span>
   </a>
 
@@ -399,7 +399,7 @@ const headerLink = [
     const sectionIds = ["#banner", "#works", "#services", "#about", "#contact"]
 
     const isHome = /^\/(es|en)\/?$/.test(window.location.pathname)
-    const basePath = window.location.pathname.startsWith("/en") ? "/en" : "/es"
+    const basePath = window.location.pathname.startsWith("/en") ? "/en/" : "/es/"
 
     /* -----------------------
       Active link + indicator
@@ -488,8 +488,8 @@ const headerLink = [
         window.location.href = /^\/(es|en)(\/|$)/.test(currentPath)
           ? currentPath
               .replace(/^\/(es|en)/, `/${targetLocale}`)
-              .replace(/\/(privacy|privacidad)\/?$/, targetLocale === 'en' ? '/privacy' : '/privacidad')
-          : `/${targetLocale}`
+              .replace(/\/(privacy|privacidad)\/?$/, targetLocale === 'en' ? '/privacy/' : '/privacidad/')
+          : `/${targetLocale}/`
       })
     })
 

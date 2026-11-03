@@ -87,6 +87,7 @@
   },
   "Privacy": {
     "title": "Política de privacidad y cookies",
+    "description": "Cómo Tapias trata tus datos personales y usa cookies de analítica en juantapias.dev, y cómo aceptar, rechazar o retirar tu consentimiento.",
     "updated": "Última actualización: 20 de septiembre de 2026",
     "back": "Volver al inicio",
     "sections": [
@@ -309,6 +310,36 @@
       {
         "t": "shape",
         "s": "dot"
+      }
+    ]
+  },
+  "Faq": {
+    "eyebrow": "Preguntas frecuentes",
+    "title": "Antes de empezar",
+    "items": [
+      {
+        "q": "¿Qué servicios ofrece Tapias?",
+        "a": "Tapias es un estudio de diseño y desarrollo dirigido por Juan Tapias. Ofrezco branding y diseño gráfico, diseño de producto (UI/UX), diseño y desarrollo web, diseño de aplicaciones, sistemas de diseño y gestión de redes sociales. Puedes contratar un servicio puntual o el proyecto completo, desde la marca hasta el lanzamiento."
+      },
+      {
+        "q": "¿Cuánto tarda un proyecto?",
+        "a": "Depende del alcance. Los proyectos que he entregado han tomado entre 3 y 6 semanas: un sitio corporativo suele estar listo en unas 3 semanas, mientras que un ecommerce, una plataforma SaaS o un sitio con blog pueden tomar de 4 a 6. Al inicio defino contigo un cronograma con fechas claras."
+      },
+      {
+        "q": "¿Cuánto cuesta un sitio web o una app?",
+        "a": "Cada proyecto se cotiza a medida según su alcance, funcionalidades y plazos. Escríbeme por WhatsApp o a hola@juantapias.dev contándome tu idea y te envío una propuesta con alcance, tiempos y precio."
+      },
+      {
+        "q": "¿Trabajas con clientes fuera de Colombia?",
+        "a": "Sí. Trabajo desde Colombia con marcas y negocios de toda Latinoamérica y del resto del mundo, en español e inglés. Todo el proceso es remoto, con reuniones por videollamada y comunicación directa conmigo."
+      },
+      {
+        "q": "¿Con qué tecnologías trabajas?",
+        "a": "Elijo la tecnología según el proyecto. Para sitios rápidos y optimizados uso Astro y React; para productos y ecommerce, Next.js con Supabase, Tailwind CSS y Vercel; y cuando el cliente necesita editar el contenido por su cuenta, WordPress con Elementor Pro. El diseño lo hago en Figma."
+      },
+      {
+        "q": "¿Cómo es el proceso de trabajo?",
+        "a": "Primero las preguntas, después el código. Empiezo entendiendo tu negocio y tus objetivos; luego defino la estructura y diseño la experiencia; después desarrollo, pruebo y lanzo. Como hago yo mismo la marca, el diseño y el desarrollo, todo encaja y no hay intermediarios."
       }
     ]
   }

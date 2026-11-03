@@ -59,7 +59,7 @@ const t = useTranslations(locale)
     <p class='text-white/60 md:text-center'>{t('Footer.location')}</p>
 
     <div class='flex flex-wrap gap-x-5 gap-y-2 md:justify-end text-white/70'>
-      <a href={locale === 'en' ? '/en/privacy' : '/es/privacidad'} class='hover:text-accent'>
+      <a href={locale === 'en' ? '/en/privacy/' : '/es/privacidad/'} class='hover:text-accent'>
         {t('Cookies.policy')}
       </a>
       <button type='button' data-cookie-settings class='hover:text-accent cursor-pointer'>

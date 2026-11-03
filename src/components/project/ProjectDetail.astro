@@ -32,7 +32,7 @@ const arrow = `<svg width='16' height='16' viewBox='0 0 24 24' fill='none' strok
   <!-- ── HERO ── -->
   <header class='px-4 md:px-6 lg:px-10 pt-28 md:pt-36'>
     <a
-      href={`/${locale}?section=works`}
+      href={`/${locale}/?section=works`}
       class='case-reveal inline-flex items-center gap-2 text-sm text-white/60 hover:text-accent transition-colors'>
       <span aria-hidden='true'>←</span> {t('project.back')}
     </a>
@@ -203,7 +203,7 @@ const arrow = `<svg width='16' height='16' viewBox='0 0 24 24' fill='none' strok
 
   <!-- ── NEXT PROJECT ── -->
   <nav class='px-2 md:px-4 lg:px-6' aria-label={t('project.next')}>
-    <a href={`/${locale}/projects/${next.slug}`} class='case-next group'>
+    <a href={`/${locale}/projects/${next.slug}/`} class='case-next group'>
       {next.coverImage && (
         <img
           src={cloudinaryImage(next.coverImage, 1800)}
