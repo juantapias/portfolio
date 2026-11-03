@@ -7,33 +7,44 @@ const t = useTranslations(locale)
 
 <section
   id='banner'
-  class='hero lg:h-screen px-8 bg-cover'
+  class='hero'
   aria-labelledby='main-banner-title'>
+
+  <div class='hero-top'>
+    <span class='hero-reveal eyebrow text-white/80'>{t('Hero.eyebrow')}</span>
+    <span class='hero-reveal hero-available'>
+      <span class='hero-available-dot' aria-hidden='true'></span>
+      {t('Hero.available')}
+    </span>
+  </div>
 
   <h1 id='main-banner-title'>
     <span class='sr-only'>{t('Hero.h1')}</span>
     {'Tapias'.split('').map((letter, index) => (
-      <span class={index >= 1 && index <= 4 ? 'outline' : ''}>
+      <span aria-hidden='true' class={index >= 1 && index <= 4 ? 'outline' : ''}>
         {letter}
       </span>
     ))}
   </h1>
 
-  <div class='main-banner-content flex flex-col lg:flex-row bottom-[5%] justify-center lg:justify-between lg:absolute w-full md:p-0 lg:px-8 gap-6 items-center'>
-    <div class='main-banner-content-text w-full lg:w-1/3 xl:w-2/5'>
-      <h2 class='text-xs md:text-sm lg:text-base text-white text-center lg:text-left uppercase font-tertiary tracking-[0.25rem] leading-5 md:leading-6 lg:leading-7'>
-        {t('Hero.subtitle')}
-      </h2>
-    </div>
+  <div class='hero-bottom'>
+    <p class='hero-reveal hero-subtitle'>
+      {t('Hero.subtitle')}
+    </p>
 
-    <div class='hero-actions flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-sm sm:max-w-none'>
-      <button id='btn-view-work' class='btn default'>{t('Hero.btnCTA')}</button>
+    <div class='hero-actions'>
+      <a href='#works' id='btn-view-work' class='hero-reveal btn default arrow'>
+        {t('Hero.btnCTA')}
+        <span class='btn-arrow-icon' aria-hidden='true'>
+          <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M19 12l-7 7-7-7'/></svg>
+        </span>
+      </a>
 
       <a
         href='https://wa.link/63go9c'
         target='_blank'
         rel='noopener noreferrer'
-        class='btn outline'
+        class='hero-reveal btn outline'
         aria-label='Contact me via WhatsApp'>
         {t('Hero.btnContact')}
       </a>
@@ -43,30 +54,81 @@ const t = useTranslations(locale)
 
 <style>
 .hero {
-  align-items: center;
-  background-image: url('/images/banner.jpg');
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100svh;
+  padding: 6rem 1.5rem 2rem;
+  overflow: hidden;
+  background-image:
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0) 25%, rgba(10, 10, 10, 0) 55%, rgba(10, 10, 10, 0.85) 100%),
+    url('/images/banner.jpg');
   background-position: 50% 35%;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding: 7rem 2.5rem 2.5rem;
+  }
+}
+
+.hero-top {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hero-available {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  background: rgba(10, 10, 10, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+}
+
+.hero-available-dot {
   position: relative;
-  overflow: hidden;
-  height: 100vh;
-  gap: 2rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #4ade80;
+}
+
+.hero-available-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 .hero h1 {
-  font-family: 'Prociono';
-  color: white;
-  letter-spacing: 0.25rem;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 28vw;
-  line-height: 1;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 28vw;
+  line-height: 0.85;
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+  color: white;
 }
 
 .hero h1 span.outline {
@@ -74,16 +136,56 @@ const t = useTranslations(locale)
   -webkit-text-stroke: .25rem white;
 }
 
-@media (min-width: 1024px) and (max-width: 1279px) {
+@media (max-width: 768px) {
+  .hero h1 span.outline {
+    -webkit-text-stroke: .125rem white;
+  }
+}
+
+.hero-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-bottom {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.hero-subtitle {
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (min-width: 1024px) {
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
   .hero-actions {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: stretch;
+    width: fit-content;
   }
 }
 
 #main-banner-title span:not(.sr-only),
-.main-banner-content h2,
-.btn {
+.hero-reveal {
   opacity: 0;
   will-change: opacity, transform;
 }
@@ -96,100 +198,64 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  const banner = document.querySelector("#banner")
+  const banner = document.querySelector<HTMLElement>("#banner")
   if (!banner) return
 
-  const title = banner.querySelector("#main-banner-title")
-  const letters = title?.querySelectorAll("span:not(.sr-only)") || []
-  const h2s = banner.querySelectorAll("h2")
-  const buttons = banner.querySelectorAll('.btn')
+  const letters = banner.querySelectorAll("#main-banner-title span:not(.sr-only)")
+  const reveals = banner.querySelectorAll(".hero-reveal")
 
-  gsap.set(letters, { opacity: 0, y: 20 })
-  gsap.set(h2s, { opacity: 0, y: 20 })
-  gsap.set(buttons, { opacity: 0 })
+  gsap.set(letters, { opacity: 0, yPercent: 30 })
+  gsap.set(reveals, { opacity: 0, y: 20 })
 
   /* -----------------------
-     Intro animations (usando .to() en vez de .from())
+     Intro
   ----------------------- */
-  const introTl = gsap.timeline({
-    onComplete: () => {
-      // Una vez terminada la intro, registrar el ScrollTrigger
-      // Esto evita que el scrub sobreescriba la animación de entrada
-      initScrollAnimations()
-    }
-  })
-
-  if (letters.length) {
-    introTl.to(letters, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.25,
-      ease: "power2.out",
-    })
-  }
+  const introTl = gsap.timeline({ onComplete: initScrollAnimations })
 
   introTl
-    .to(h2s, {
+    .to(letters, {
+      opacity: 1,
+      yPercent: 0,
+      duration: 0.9,
+      stagger: 0.08,
+      ease: "power3.out",
+    })
+    .to(reveals, {
       opacity: 1,
       y: 0,
       duration: 0.6,
-      stagger: 0.25,
+      stagger: 0.1,
       ease: "power2.out",
-    }, "-=0.2")
-    .to(buttons, {
-      opacity: 1,
-      duration: 0.6,
-      stagger: 0.25,
-      ease: "power2.out",
-    }, "-=0.2")
+    }, "-=0.4")
 
   /* -----------------------
-     Scroll animations (se inicializan después de la intro)
+     Scroll: the title drifts away and the image scales slightly
   ----------------------- */
   function initScrollAnimations() {
     const mm = gsap.matchMedia()
 
-    mm.add("(min-width: 769px)", () => {
-      const tl = gsap.timeline({
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.to(letters, {
+        yPercent: -40,
+        opacity: 0,
+        stagger: 0.05,
+        ease: "none",
         scrollTrigger: {
           trigger: banner,
-          start: "60% center",
-          end: "130% center",
+          start: "top top",
+          end: "bottom top",
           scrub: true,
-        }
+        },
       })
-
-      tl.to(letters, { opacity: 0, y: -200, stagger: 0.25 })
-        .to(h2s, { opacity: 0, y: -200, stagger: 0.25 })
-        .to(buttons, { opacity: 0, y: -200, stagger: 0.25 })
-    })
-
-    mm.add("(max-width: 768px)", () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: banner,
-          start: "center center",
-          end: "120% center",
-          scrub: true,
-        }
-      })
-
-      tl.to(letters, { opacity: 0, y: -100, stagger: 0.2 })
-        .to(h2s, { opacity: 0, y: -100, stagger: 0.2 })
-        .to(buttons, { opacity: 0, y: -100, stagger: 0.2 })
     })
   }
 
   /* -----------------------
      Scroll button
   ----------------------- */
-  const workBtn = banner.querySelector("#btn-view-work")
-
-  workBtn?.addEventListener("click", () => {
-    const workSection = document.getElementById("works")
-    workSection?.scrollIntoView({ behavior: "smooth" })
+  banner.querySelector("#btn-view-work")?.addEventListener("click", (e) => {
+    e.preventDefault()
+    document.getElementById("works")?.scrollIntoView({ behavior: "smooth" })
   })
 })
 </script>

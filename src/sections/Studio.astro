@@ -1,0 +1,656 @@
+---
+import type { IServices } from '../types'
+import { useTranslations } from '../utils/i18n'
+
+type TrackItem =
+  | { t: 'w'; v: string; strong?: boolean }
+  | { t: 'box'; v: string; service: number; c: 'orange' | 'amber' | 'cream' | 'brown' }
+  | { t: 'shape'; s: 'star' | 'pen' | 'half' | 'dot' }
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const services = t('Works.services') as unknown as IServices[]
+const items = t('Studio.track') as unknown as TrackItem[]
+
+const palette = {
+  orange: { bg: '#f58d24', fg: '#0a0a0a' },
+  amber: { bg: '#ffd58d', fg: '#0a0a0a' },
+  cream: { bg: '#f4ede3', fg: '#141210' },
+  brown: { bg: '#7a2b02', fg: '#ffd58d' },
+}
+
+// Frase completa para lectores de pantalla (el track visual es decorativo)
+const sentence = items
+  .filter(item => item.t !== 'shape')
+  .map(item => (item as { v: string }).v)
+  .join(' ')
+
+let boxIndex = 0
+---
+
+<section id='studio' class='st' aria-label={t('Studio.label')}>
+  <div class='st-pin'>
+    <div class='st-bg' aria-hidden='true'>{t('Studio.bg')}</div>
+
+    <div class='st-intro'>
+      <h2 class='st-stickers'>
+        <span class='st-sticker a'>{t('Studio.stickerA')}</span><br />
+        <span class='st-sticker b'>{t('Studio.stickerB')}</span>
+      </h2>
+      <p class='st-p'>{t('Studio.text')}</p>
+    </div>
+
+    <p class='sr-only'>{sentence}</p>
+
+    <div class='st-track' aria-hidden='true'>
+      {items.map(item => {
+        if (item.t === 'w') {
+          return (
+            <span class={`st-i st-w ${item.strong ? 'is-strong' : ''}`}>
+              {item.v.split('').map(letter => <span>{letter}</span>)}
+            </span>
+          )
+        }
+
+        if (item.t === 'box') {
+          const colors = palette[item.c]
+          const up = boxIndex % 2 === 0
+          const rotation = up ? -5 : 4
+          boxIndex++
+          return (
+            <span
+              class='st-i st-box'
+              data-cursor='text'
+              style={`--bg:${colors.bg};--fg:${colors.fg};--r:${rotation}deg`}>
+              <i></i>
+              <b>{item.v}</b>
+              <a href='#services' tabindex='-1' class={`st-tag ${up ? 'is-up' : 'is-down'}`}>
+                {services[item.service]?.label} →
+              </a>
+            </span>
+          )
+        }
+
+        if (item.s === 'pen') {
+          return (
+            <span class='st-i st-pen' data-cursor='pen'>
+              <svg viewBox='0 0 260 120'>
+                <path class='st-pen-curve' d='M10 105 C 70 105 80 15 150 15 S 250 55 250 55' />
+                <g class='st-pen-handles'>
+                  <line x1='95' y1='15' x2='205' y2='15' />
+                  <circle cx='95' cy='15' r='6' />
+                  <circle cx='205' cy='15' r='6' />
+                  <rect x='143' y='8' width='14' height='14' />
+                </g>
+                <rect class='st-pen-anchor' x='3' y='98' width='14' height='14' />
+                <rect class='st-pen-anchor' x='243' y='48' width='14' height='14' />
+              </svg>
+            </span>
+          )
+        }
+
+        return (
+          <span class={`st-i st-shape st-${item.s}`} data-cursor={item.s === 'star' ? 'size' : item.s === 'half' ? 'move' : 'arrow'}>
+            <svg viewBox={item.s === 'star' ? '0 0 24 24' : '0 0 100 100'}>
+              {item.s === 'star' && (
+                <path d='M12 0c.5 6.6 5.4 11.5 12 12-6.6.5-11.5 5.4-12 12-.5-6.6-5.4-11.5-12-12C6.6 11.5 11.5 6.6 12 0Z' />
+              )}
+              {item.s === 'half' && <path d='M0 100 A50 50 0 0 1 100 100 Z' />}
+              {item.s === 'dot' && <circle cx='50' cy='50' r='46' />}
+            </svg>
+            <i class='st-sel'><u></u><u></u><u></u><u></u></i>
+          </span>
+        )
+      })}
+    </div>
+
+    <div class='st-cursor' data-icon='arrow' aria-hidden='true'>
+      <svg class='i-arrow' viewBox='0 0 24 24'><path d='M4 2.5 19 9.2l-6.4 1.9-2.3 6.4Z' /></svg>
+      <svg class='i-text' viewBox='0 0 24 24'><path d='M8 3h3.5M16 3h-4.5m0 0v18m0 0H8m3.5 0H16' /></svg>
+      <svg class='i-pen' viewBox='0 0 24 24'><path d='M3 21l2.5-8L14 4.5l5.5 5.5L11 18.5Z M14 4.5 16.5 2 22 7.5 19.5 10 M5.5 13l5.5 5.5 M3 21l5-5' /></svg>
+      <svg class='i-move' viewBox='0 0 24 24'><path d='M12 2v20M2 12h20M12 2 9 5M12 2l3 3M12 22l-3-3M12 22l3-3M2 12l3-3M2 12l3 3M22 12l-3-3M22 12l-3 3' /></svg>
+      <svg class='i-size' viewBox='0 0 24 24'><path d='M5 5l14 14M5 5h6M5 5v6M19 19h-6M19 19v-6' /></svg>
+      <b>{t('Studio.cursor')}</b>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Base (móvil, reduced motion y sin JS): texto estático ── */
+
+  .st {
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 1rem 7rem;
+    background: var(--color-black);
+    color: white;
+  }
+
+  .st-bg,
+  .st-cursor {
+    display: none;
+  }
+
+  .st-intro {
+    margin-bottom: 3.5rem;
+  }
+
+  .st-sticker {
+    display: inline-block;
+    padding: 0.12em 0.28em 0.04em;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6.4vw, 6.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--color-black);
+  }
+
+  .st-sticker.a {
+    background: var(--color-accent);
+    rotate: -4deg;
+  }
+
+  .st-sticker.b {
+    margin: 0.08em 0 0 0.6em;
+    background: var(--color-primary);
+    rotate: 3deg;
+  }
+
+  .st-p {
+    max-width: 28em;
+    margin-top: 1.75em;
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .st-track {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.14em 0.26em;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 8vw, 9rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .st-i {
+    position: relative;
+    display: inline-block;
+  }
+
+  .st-w {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .st-w.is-strong {
+    color: white;
+  }
+
+  .st-w > span {
+    display: inline-block;
+  }
+
+  /* Caja de color que se "pinta" detrás de la palabra */
+  .st-box {
+    padding: 0.12em 0.2em 0;
+  }
+
+  .st-box i {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: var(--bg);
+    transform-origin: 0 50%;
+  }
+
+  .st-box b {
+    position: relative;
+    font-weight: 400;
+    color: var(--fg);
+  }
+
+  .st-tag {
+    position: absolute;
+    left: 45%;
+    z-index: 3;
+    padding: 0.5em 0.8em 0.45em;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: max(0.7rem, 0.13em);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    white-space: nowrap;
+    rotate: var(--r);
+    box-shadow: 0 0.6em 1.6em rgba(0, 0, 0, 0.45);
+    transition: filter 0.3s ease;
+  }
+
+  .st-tag:hover {
+    filter: brightness(1.1);
+  }
+
+  .st-tag.is-up {
+    top: -0.55em;
+  }
+
+  .st-tag.is-down {
+    bottom: -0.45em;
+  }
+
+  /* Formas editables */
+  .st-shape {
+    width: 0.86em;
+    height: 0.86em;
+  }
+
+  .st-shape svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .st-star svg {
+    fill: var(--color-accent);
+  }
+
+  .st-half svg {
+    fill: var(--color-primary);
+  }
+
+  .st-dot svg {
+    fill: var(--color-cream);
+  }
+
+  .st-sel {
+    position: absolute;
+    inset: -0.06em;
+    border: 1.5px solid var(--color-accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .st-sel u {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--color-black);
+    border: 1.5px solid var(--color-accent);
+  }
+
+  .st-sel u:nth-child(1) { left: -5px; top: -5px; }
+  .st-sel u:nth-child(2) { right: -5px; top: -5px; }
+  .st-sel u:nth-child(3) { left: -5px; bottom: -5px; }
+  .st-sel u:nth-child(4) { right: -5px; bottom: -5px; }
+
+  .st-pen {
+    width: 2.6em;
+  }
+
+  .st-pen svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .st-pen-curve {
+    fill: none;
+    stroke: white;
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+
+  .st-pen-handles line {
+    stroke: var(--color-primary);
+    stroke-width: 2;
+  }
+
+  .st-pen-handles circle,
+  .st-pen-handles rect,
+  .st-pen-anchor {
+    fill: var(--color-black);
+    stroke: var(--color-primary);
+    stroke-width: 2.5;
+  }
+
+  @media (max-width: 767px) {
+    .st-sticker {
+      white-space: normal;
+    }
+
+    .st-track {
+      row-gap: 0.25em;
+    }
+
+    .st-tag {
+      display: none;
+    }
+  }
+
+  /* ── Modo animado (escritorio): sección fijada + track horizontal ── */
+
+  .st.on {
+    height: 520vh;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .st.on .st-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .st.on .st-bg {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 0;
+    display: block;
+    padding-left: 4vw;
+    translate: 0 -50%;
+    font-family: var(--font-display);
+    font-size: 46vh;
+    line-height: 0.8;
+    color: #1a1714;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .st.on .st-intro {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 4;
+    margin: 0;
+    padding: 0 6vw;
+    translate: 0 -50%;
+  }
+
+  .st.on .st-sticker {
+    white-space: nowrap;
+  }
+
+  .st.on .st-track {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 2;
+    flex-wrap: nowrap;
+    padding: 0 22vw 0 100vw;
+    translate: 0 -50%;
+    font-size: clamp(3.5rem, 6.2vw, 7.5rem);
+    white-space: nowrap;
+  }
+
+  .st.on .st-cursor {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 6;
+    display: block;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  /* Cursor falso estilo herramienta de diseño */
+  .st-cursor svg {
+    position: absolute;
+    display: none;
+    width: 28px;
+    height: 28px;
+    overflow: visible;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+  }
+
+  .st-cursor .i-arrow {
+    left: -4px;
+    top: -3px;
+    fill: white;
+    stroke: var(--color-black);
+    stroke-width: 1.5;
+  }
+
+  .st-cursor .i-text,
+  .st-cursor .i-move,
+  .st-cursor .i-size {
+    left: -14px;
+    top: -14px;
+  }
+
+  .st-cursor .i-pen {
+    left: -3px;
+    top: -25px;
+  }
+
+  .st-cursor[data-icon='arrow'] .i-arrow,
+  .st-cursor[data-icon='text'] .i-text,
+  .st-cursor[data-icon='pen'] .i-pen,
+  .st-cursor[data-icon='move'] .i-move,
+  .st-cursor[data-icon='size'] .i-size {
+    display: block;
+  }
+
+  .st-cursor b {
+    position: absolute;
+    left: 20px;
+    top: 24px;
+    padding: 0.2rem 0.45rem;
+    border-radius: 0.3rem;
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector<HTMLElement>('#studio')
+    if (!section) return
+
+    const pin = section.querySelector<HTMLElement>('.st-pin')!
+    const bg = section.querySelector<HTMLElement>('.st-bg')!
+    const intro = section.querySelector<HTMLElement>('.st-intro')!
+    const para = section.querySelector<HTMLElement>('.st-p')!
+    const track = section.querySelector<HTMLElement>('.st-track')!
+    const cursor = section.querySelector<HTMLElement>('.st-cursor')!
+    const stickers = [...section.querySelectorAll<HTMLElement>('.st-sticker')]
+    const items = [...section.querySelectorAll<HTMLElement>('.st-i')]
+    const boxes = items.filter(el => el.classList.contains('st-box'))
+
+    const mm = gsap.matchMedia()
+
+    /* -----------------------
+       Escritorio: sección fijada + track horizontal
+    ----------------------- */
+    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      section.classList.add('on')
+      const vh = () => window.innerHeight
+
+      // Palabra de fondo que se desplaza durante toda la sección
+      gsap.fromTo(bg, { xPercent: 0 }, {
+        xPercent: -45,
+        ease: 'none',
+        scrollTrigger: { trigger: section, start: 'top top', end: 'bottom bottom', scrub: true },
+      })
+
+      // Intro: stickers colocados por el cursor + párrafo, luego sale
+      const introTl = gsap.timeline({
+        scrollTrigger: { trigger: section, start: 'top top', end: () => `+=${vh() * 1.25}`, scrub: true },
+      })
+
+      introTl
+        .from(stickers[0], { scale: 0.3, rotation: -14, opacity: 0, duration: 1, ease: 'back.out(2)' })
+        .from(stickers[1], { scale: 0.3, rotation: 12, opacity: 0, duration: 1, ease: 'back.out(2)' }, '+=0.2')
+        .from(para, { y: 30, opacity: 0, duration: 0.8 }, '+=0.1')
+        .to({}, { duration: 0.8 })
+        .to(intro, { xPercent: -60, opacity: 0, duration: 1.2, ease: 'power2.in' })
+
+      // Track horizontal
+      const trackTween = gsap.to(track, {
+        x: () => -(track.scrollWidth - window.innerWidth),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: () => `top+=${vh() * 1.15} top`,
+          end: 'bottom bottom',
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      })
+
+      const inTrack = (trigger: Element, start: string, end: string) => ({
+        trigger,
+        start,
+        end,
+        scrub: true,
+        containerAnimation: trackTween,
+      })
+
+      items.forEach(item => {
+        // Palabras: las letras caen y se acomodan
+        if (item.classList.contains('st-w')) {
+          gsap.from(item.children, {
+            yPercent: () => gsap.utils.random(-140, 140),
+            rotation: () => gsap.utils.random(-35, 35),
+            opacity: 0,
+            stagger: 0.06,
+            ease: 'power2.out',
+            scrollTrigger: inTrack(item, 'left 105%', 'left 62%'),
+          })
+          return
+        }
+
+        // Cajas: el fondo se pinta, el texto toma color y aparece la etiqueta
+        if (item.classList.contains('st-box')) {
+          const label = item.querySelector('b')!
+          const tl = gsap.timeline({ scrollTrigger: inTrack(item, 'left 85%', 'left 40%') })
+          tl.from(item.querySelector('i'), { scaleX: 0, duration: 1, ease: 'power2.inOut' })
+            .fromTo(label, { color: 'rgba(255,255,255,0.4)' }, { color: getComputedStyle(label).color, duration: 0.5 }, 0.3)
+            .from(item.querySelector('.st-tag'), { scale: 0, opacity: 0, rotation: -25, duration: 0.6, ease: 'back.out(2)' }, 0.8)
+          return
+        }
+
+        // Pluma: la curva se dibuja y aparecen los manejadores
+        if (item.classList.contains('st-pen')) {
+          const curve = item.querySelector<SVGPathElement>('.st-pen-curve')!
+          const length = curve.getTotalLength()
+          gsap.set(curve, { strokeDasharray: length })
+          const tl = gsap.timeline({ scrollTrigger: inTrack(item, 'left 90%', 'left 35%') })
+          tl.fromTo(curve, { strokeDashoffset: length }, { strokeDashoffset: 0, duration: 1, ease: 'none' })
+            .from(item.querySelectorAll('.st-pen-anchor'), { scale: 0, transformOrigin: '50% 50%', stagger: 0.6, duration: 0.2 }, 0)
+            .from(item.querySelector('.st-pen-handles'), { opacity: 0, duration: 0.2 }, 0.45)
+            .to(item.querySelector('.st-pen-handles'), { opacity: 0, duration: 0.2 }, 1)
+          return
+        }
+
+        // Formas: se seleccionan, se transforman y se deseleccionan
+        const svg = item.querySelector('svg')
+        const sel = item.querySelector('.st-sel')
+        const tl = gsap.timeline({ scrollTrigger: inTrack(item, 'left 90%', 'left 40%') })
+        tl.to(sel, { opacity: 1, duration: 0.1 })
+
+        if (item.classList.contains('st-star')) {
+          tl.from(svg, { scale: 0.15, rotation: -90, duration: 1, ease: 'power2.out' }, 0)
+        } else if (item.classList.contains('st-half')) {
+          tl.from([svg, sel], { yPercent: 140, xPercent: -80, rotation: -30, duration: 1, ease: 'power2.out' }, 0)
+        } else {
+          tl.from(svg, { scale: 0, duration: 1, ease: 'back.out(1.6)' }, 0)
+        }
+
+        tl.to(sel, { opacity: 0, duration: 0.2 })
+      })
+
+      /* Cursor: persigue el elemento que se está "editando" */
+      const xTo = gsap.quickTo(cursor, 'x', { duration: 0.55, ease: 'power3' })
+      const yTo = gsap.quickTo(cursor, 'y', { duration: 0.55, ease: 'power3' })
+      const anchors = items.filter(el => !el.classList.contains('st-w'))
+
+      const updateCursor = () => {
+        const pinRect = pin.getBoundingClientRect()
+        const introProgress = introTl.scrollTrigger?.progress ?? 0
+        let target: HTMLElement | null = null
+        let icon = 'arrow'
+
+        if (introProgress < 0.8) {
+          target = introProgress < 0.25 ? stickers[0] : introProgress < 0.5 ? stickers[1] : para
+          icon = introProgress < 0.5 ? 'move' : 'text'
+        } else {
+          const limit = window.innerWidth * 0.62
+          for (const el of anchors) {
+            if (el.getBoundingClientRect().left < limit) target = el
+          }
+          icon = target?.dataset.cursor ?? 'arrow'
+        }
+
+        if (target) {
+          const r = target.getBoundingClientRect()
+          const x = Math.min(r.right - 6, window.innerWidth * 0.82)
+          const y = Math.min(r.bottom - 4, window.innerHeight * 0.85)
+          xTo(x - pinRect.left)
+          yTo(y - pinRect.top)
+        } else {
+          xTo(window.innerWidth * 0.6)
+          yTo(window.innerHeight * 0.62)
+        }
+
+        cursor.dataset.icon = icon
+      }
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: updateCursor,
+        onRefresh: updateCursor,
+      })
+
+      requestAnimationFrame(() => ScrollTrigger.refresh())
+
+      return () => section.classList.remove('on')
+    })
+
+    /* -----------------------
+       Móvil: revelado simple
+    ----------------------- */
+    mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
+      gsap.from(stickers, {
+        scale: 0.6,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'back.out(2)',
+        scrollTrigger: { trigger: section, start: 'top 75%' },
+      })
+
+      boxes.forEach(box => {
+        gsap.from(box.querySelector('i'), {
+          scaleX: 0,
+          duration: 0.8,
+          ease: 'power3.inOut',
+          scrollTrigger: { trigger: box, start: 'top 85%' },
+        })
+      })
+    })
+  })
+</script>

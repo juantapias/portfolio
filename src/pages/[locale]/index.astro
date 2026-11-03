@@ -5,8 +5,9 @@ import About from '../../sections/about.astro'
 import Brands from '../../sections/Brands.astro'
 import Hero from '../../sections/hero.astro'
 import Inspiration from '../../sections/Inspiration.astro'
-import Projects from '../../sections/projects/Projects'
-import Works from '../../sections/works.astro'
+import Projects from '../../sections/projects/Projects.astro'
+import Services from '../../sections/Services.astro'
+import Studio from '../../sections/Studio.astro'
 
 export function getStaticPaths() {
   return [
@@ -97,9 +98,10 @@ const jsonLd = [
   <link rel="preload" as="image" href="/images/banner.jpg" slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <Hero />
-  <Works />
-  <Projects locale={locale} client:load />
+  <Studio />
+  <Projects />
+  <Brands />
+  <Services />
   <About />
   <Inspiration />
-  <Brands />
 </Layout>

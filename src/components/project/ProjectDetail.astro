@@ -1,0 +1,445 @@
+---
+import type { ProjectView } from '../../types/projects'
+import { useTranslations } from '../../utils/i18n'
+import { cloudinaryImage, cloudinaryVideo, formatDuration, paragraphs } from '../../utils/project'
+
+interface Props {
+  locale: 'es' | 'en'
+  project: ProjectView
+  next: ProjectView
+}
+
+const { locale, project, next } = Astro.props
+const t = useTranslations(locale)
+
+// "nov. 2026" si se conoce el mes de lanzamiento; si no, solo el año
+const launched = project.launchedAt
+  ? new Intl.DateTimeFormat(locale === 'es' ? 'es-CO' : 'en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+      .format(new Date(`${project.launchedAt}-01T00:00:00Z`))
+  : project.year.toString()
+
+const metaItems = [
+  { label: t('project.year'), value: launched },
+  { label: t('project.duration'), value: formatDuration(project.durationWeeks, locale) },
+  { label: t('project.industry'), value: project.industry },
+  { label: t('project.country'), value: project.country },
+]
+
+const arrow = `<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7M8 7h9v9'/></svg>`
+---
+
+<article class='case'>
+  <!-- ── HERO ── -->
+  <header class='px-4 md:px-6 lg:px-10 pt-28 md:pt-36'>
+    <a
+      href={`/${locale}?section=works`}
+      class='case-reveal inline-flex items-center gap-2 text-sm text-white/60 hover:text-accent transition-colors'>
+      <span aria-hidden='true'>←</span> {t('project.back')}
+    </a>
+
+    <div class='case-reveal mt-10 flex flex-wrap items-center gap-2'>
+      <span class='case-chip is-primary'>{project.category}</span>
+      <span class='case-chip'>{project.industry}</span>
+      {project.status === 'in-progress' && (
+        <span class='case-chip is-live'><span class='case-live-dot' aria-hidden='true'></span>{t('project.inProgress')}</span>
+      )}
+    </div>
+
+    <h1 class='case-title'>
+      <span class='case-title-line'>{project.name}</span>
+    </h1>
+
+    <div class='case-reveal mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end'>
+      <p class='max-w-2xl text-lg md:text-xl leading-relaxed text-white/75'>
+        {project.overview.short}
+      </p>
+      {project.website && (
+        <a
+          href={project.website}
+          target='_blank'
+          rel='noopener noreferrer'
+          class='btn default arrow self-start'>
+          {t('project.overview.cta')}
+          <span class='btn-arrow-icon' aria-hidden='true' set:html={arrow} />
+        </a>
+      )}
+    </div>
+  </header>
+
+  <!-- ── MEDIA ── -->
+  <div class='px-2 md:px-4 lg:px-6 mt-12 md:mt-16'>
+    <div class='case-media'>
+      {project.video ? (
+        <video
+          src={cloudinaryVideo(project.video, 1920)}
+          poster={cloudinaryImage(project.coverImage, 2000)}
+          autoplay
+          muted
+          loop
+          playsinline
+          class='w-full h-full object-cover'
+          aria-label={project.coverAlt}
+        />
+      ) : project.coverImage ? (
+        <img
+          src={cloudinaryImage(project.coverImage, 2000)}
+          alt={project.coverAlt}
+          width={2000}
+          height={1125}
+          loading='eager'
+          fetchpriority='high'
+          class='w-full h-full object-cover'
+          style={{ objectPosition: project.coverPosition ?? 'center' }}
+        />
+      ) : null}
+    </div>
+  </div>
+
+  <!-- ── META ROW ── -->
+  <dl class='px-4 md:px-6 lg:px-10 mt-10 grid grid-cols-2 md:grid-cols-4 border-y border-white/10'>
+    {metaItems.map(item => (
+      <div class='py-6 pr-4 border-white/10 md:[&:not(:last-child)]:border-r md:px-6 md:first:pl-0'>
+        <dt class='eyebrow text-accent'>{item.label}</dt>
+        <dd class='mt-2 text-lg text-white'>{item.value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <!-- ── OVERVIEW ── -->
+  <section class='px-4 md:px-6 lg:px-10 py-24 md:py-32 grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16'>
+    <div>
+      <span class='eyebrow text-accent'>{t('project.overview.label')}</span>
+      <h2 class='mt-5 text-4xl md:text-5xl leading-none uppercase'>{t('project.overview.title')}</h2>
+    </div>
+    <div>
+      <p class='font-display text-2xl md:text-3xl leading-snug text-white/90'>
+        {project.overview.medium}
+      </p>
+      <div class='mt-12 md:columns-2 gap-10 leading-relaxed text-white/65'>
+        {paragraphs(project.overview.long).map(p => <p class='mb-6 break-inside-avoid-column'>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RETO Y SOLUCIÓN ── -->
+  <section class='case-light'>
+    <div class='grid gap-4 md:grid-cols-2'>
+      <div class='case-panel'>
+        <span class='case-panel-index'>01</span>
+        <h3 class='text-3xl md:text-5xl leading-none uppercase'>{t('project.challenge.label')}</h3>
+        <p class='mt-6 leading-relaxed text-ink/70'>{project.challenge}</p>
+      </div>
+      <div class='case-panel is-dark'>
+        <span class='case-panel-index'>02</span>
+        <h3 class='text-3xl md:text-5xl leading-none uppercase'>{t('project.solution.label')}</h3>
+        <p class='mt-6 leading-relaxed text-white/70'>{project.solution}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESULTADOS (opcional) ── -->
+  {project.results?.length ? (
+    <section class='px-4 md:px-6 lg:px-10 pt-24 md:pt-32'>
+      <span class='eyebrow text-accent'>{t('project.results.label')}</span>
+      <dl class='mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+        {project.results.map(result => (
+          <div class='flex flex-col rounded-3xl border border-white/10 p-6 md:p-8'>
+            <dt class='order-2 mt-3 text-sm text-white/60'>{result.label}</dt>
+            <dd class='font-display text-5xl md:text-6xl leading-none text-primary'>{result.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  ) : null}
+
+  <!-- ── TESTIMONIO (opcional) ── -->
+  {project.testimonial && (
+    <figure class='px-4 md:px-6 lg:px-10 pt-24 md:pt-32 max-w-5xl'>
+      <span class='eyebrow text-accent'>{t('project.testimonial.label')}</span>
+      <blockquote class='mt-8 font-display text-3xl md:text-5xl leading-tight'>
+        “{project.testimonial.quote}”
+      </blockquote>
+      <figcaption class='mt-8 text-white/60'>
+        <span class='text-white'>{project.testimonial.author}</span> — {project.testimonial.role}
+      </figcaption>
+    </figure>
+  )}
+
+  <!-- ── FEATURES & RESPONSABILIDADES ── -->
+  <section class='px-4 md:px-6 lg:px-10 py-24 md:py-32 grid gap-16 lg:grid-cols-2'>
+    {[
+      { label: t('project.features.label'), items: project.features },
+      { label: t('project.responsibilities.label'), items: project.responsibilities },
+    ].map(group => (
+      <div>
+        <span class='eyebrow text-accent'>{group.label}</span>
+        <ol class='mt-6 border-b border-white/10'>
+          {group.items.map((item, i) => (
+            <li class='flex gap-5 py-4 border-t border-white/10 text-white/80'>
+              <span class='text-xs font-semibold text-primary pt-1'>{String(i + 1).padStart(2, '0')}</span>
+              {item}
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </section>
+
+  <!-- ── TECH STACK & TAGS ── -->
+  <section class='px-4 md:px-6 lg:px-10 pb-24 md:pb-32 grid gap-12 lg:grid-cols-2'>
+    <div>
+      <span class='eyebrow text-accent'>{t('project.techStack')}</span>
+      <ul class='mt-6 flex flex-wrap gap-2'>
+        {project.techStack.map(item => <li class='case-chip is-large'>{item}</li>)}
+      </ul>
+    </div>
+    <div>
+      <span class='eyebrow text-accent'>{t('project.tags')}</span>
+      <ul class='mt-6 flex flex-wrap gap-2'>
+        {project.tags.map(tag => <li class='case-chip is-tag'>{tag}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── NEXT PROJECT ── -->
+  <nav class='px-2 md:px-4 lg:px-6' aria-label={t('project.next')}>
+    <a href={`/${locale}/projects/${next.slug}`} class='case-next group'>
+      {next.coverImage && (
+        <img
+          src={cloudinaryImage(next.coverImage, 1800)}
+          alt=''
+          loading='lazy'
+          class='case-next-image'
+          style={{ objectPosition: next.coverPosition ?? 'center' }}
+        />
+      )}
+      <div class='case-next-content'>
+        <span class='eyebrow text-white/80'>{t('project.next')}</span>
+        <div class='flex items-end justify-between gap-6'>
+          <span class='case-next-name'>{next.name}</span>
+          <span class='case-next-arrow' aria-hidden='true' set:html={arrow} />
+        </div>
+      </div>
+    </a>
+  </nav>
+</article>
+
+<style>
+  .case-title {
+    margin-top: 1.5rem;
+    overflow: hidden;
+    font-size: clamp(3.5rem, 13vw, 13rem);
+    line-height: 0.88;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .case-title-line {
+    display: inline-block;
+  }
+
+  .case-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.875rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .case-chip.is-primary {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-black);
+  }
+
+  .case-chip.is-live {
+    gap: 0.5rem;
+    border-color: rgba(74, 222, 128, 0.4);
+    color: #86efac;
+  }
+
+  .case-live-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: #4ade80;
+  }
+
+  .case-chip.is-large {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .case-chip.is-tag {
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.875rem;
+    border-color: rgba(245, 141, 36, 0.35);
+    background: rgba(245, 141, 36, 0.08);
+    color: var(--color-accent);
+  }
+
+  .case-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-radius: 1.5rem;
+    background: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .case-media {
+      aspect-ratio: 16 / 9;
+      border-radius: 2.5rem;
+    }
+  }
+
+  .case-light {
+    padding: 6rem 1rem;
+    border-radius: 2rem;
+    margin: 0 0.5rem;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .case-light {
+      padding: 6rem 1.5rem;
+      margin: 0 1rem;
+      border-radius: 3rem;
+    }
+  }
+
+  .case-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    background: white;
+  }
+
+  @media (min-width: 768px) {
+    .case-panel {
+      padding: 3rem;
+      min-height: 28rem;
+    }
+  }
+
+  .case-panel.is-dark {
+    background: var(--color-ink);
+    color: white;
+  }
+
+  .case-panel-index {
+    margin-bottom: auto;
+    padding-bottom: 3rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .case-next {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 70vh;
+    min-height: 26rem;
+    border-radius: 1.5rem;
+    background: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .case-next {
+      border-radius: 2.5rem;
+    }
+  }
+
+  .case-next-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+    transition:
+      transform 1.2s var(--ease-out-expo),
+      opacity 0.6s ease;
+  }
+
+  .case-next:hover .case-next-image {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+
+  .case-next-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.8), transparent 60%);
+  }
+
+  @media (min-width: 768px) {
+    .case-next-content {
+      padding: 2.5rem;
+    }
+  }
+
+  .case-next-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 10rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .case-next-arrow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  .case-next-arrow :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .case-next:hover .case-next-arrow {
+    transform: rotate(45deg);
+  }
+</style>
+
+<script>
+  import gsap from 'gsap'
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+
+    tl.from('.case-title-line', { yPercent: 100, duration: 1.2 })
+      .from('.case-reveal', { y: 30, opacity: 0, duration: 0.8, stagger: 0.1 }, '-=0.9')
+      .fromTo(
+        '.case-media',
+        { clipPath: 'inset(10% 5% 0% 5% round 2.5rem)', opacity: 0 },
+        { clipPath: 'inset(0% 0% 0% 0% round 0rem)', opacity: 1, duration: 1.4, clearProps: 'clipPath' },
+        '-=0.8'
+      )
+  })
+</script>

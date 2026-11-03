@@ -25,7 +25,7 @@ export default defineConfig({
       i18n: { defaultLocale: 'es', locales: { es: 'es-CO', en: 'en-US' } },
       filter: page =>
         page !== 'https://juantapias.dev/' &&
-        !page.includes('/404') &&
+        !/\/404\/?$/.test(new URL(page).pathname) &&
         !page.includes('/link-tree'),
     }),
   ],
