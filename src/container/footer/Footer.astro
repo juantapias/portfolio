@@ -1,101 +1,191 @@
 ---
-
 import { IconBrandWhatsapp } from '@tabler/icons-react'
 import { socials } from '../../data/technologies'
 import { useTranslations } from '../../utils/i18n'
 
 const locale = Astro.currentLocale as 'es' | 'en'
 const t = useTranslations(locale)
-
 ---
 
-<footer id='footer' class='footer'>
-  <div class='grid grid-row-1 px-8 lg:px-16 p-12 z-10'>
-    <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
-      <div class='flex flex-col gap-2'>
-        <h2 class='text-xl md:text-2xl lg:text-3xl font-light text-accent font-tertiary'>{t('Footer.social')}</h2>
-        <nav class='flex gap-4' aria-label='Social media links'>
-          {socials.map(item => (
-            <a
-            
-              href={item.url || ''}
-              class='text-white text-4xl hover:text-primary'>
-              <item.icon size={36}/>
-            </a>
-          ))}
-        </nav>
-      </div>
+<footer id='contact' class='footer'>
+  <div class='px-4 md:px-6 lg:px-10 pt-24 md:pt-36'>
+    <span class='eyebrow text-accent footer-reveal'>{t('Footer.ctaEyebrow')}</span>
 
-      <div class='flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-4 lg:gap-8 w-full lg:w-auto'>
-        <a
-          href='mailto:hola@juantapias.dev'
-          class='btn default'>
-          <span class='break-all'>hola@juantapias.dev</span>
+    <a
+      href='mailto:hola@juantapias.dev'
+      class='footer-cta group'
+      aria-label={`${t('Footer.write')}: hola@juantapias.dev`}>
+      <span class='footer-cta-line footer-reveal'>{t('Footer.ctaLine1')}</span>
+      <span class='footer-cta-line footer-reveal'>
+        <span class='text-primary'>{t('Footer.ctaLine2')}</span>
+        <span class='footer-cta-arrow' aria-hidden='true'>
+          <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7M8 7h9v9'/></svg>
+        </span>
+      </span>
+    </a>
+
+    <div class='mt-12 md:mt-16 flex flex-col sm:flex-row gap-3 footer-reveal'>
+      <a href='mailto:hola@juantapias.dev' class='btn default arrow'>
+        <span class='break-all'>hola@juantapias.dev</span>
+        <span class='btn-arrow-icon' aria-hidden='true'>
+          <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7M8 7h9v9'/></svg>
+        </span>
       </a>
-
-        <a
-          href='https://wa.link/63go9c'
-          target='_blank'
-          rel='noopener noreferrer'
-          class='btn outline'>
-          <IconBrandWhatsapp />
-        </a>
-      </div>
+      <a
+        href='https://wa.link/63go9c'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='btn outline'>
+        <IconBrandWhatsapp size={20} />
+        WhatsApp
+      </a>
     </div>
   </div>
 
-  <div class='flex justify-end pr-8'>
-    <button class='uppercase text-xs text-accent' onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
-      {t('Footer.backToTop')}
-    </button>
+  <div class='mt-24 md:mt-32 mx-4 md:mx-6 lg:mx-10 py-8 border-t border-white/15 grid gap-6 md:grid-cols-3 md:items-center text-sm'>
+    <nav class='flex gap-2' aria-label='Social media links'>
+      {socials.map(item => (
+        <a
+          href={item.url}
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label={item.label}
+          class='flex items-center justify-center w-11 h-11 rounded-full border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-black transition-colors'>
+          <item.icon size={20} />
+        </a>
+      ))}
+    </nav>
+
+    <p class='text-white/60 md:text-center'>{t('Footer.location')}</p>
+
+    <div class='flex flex-wrap gap-x-5 gap-y-2 md:justify-end text-white/70'>
+      <a href={locale === 'en' ? '/en/privacy' : '/es/privacidad'} class='hover:text-accent'>
+        {t('Cookies.policy')}
+      </a>
+      <button type='button' data-cookie-settings class='hover:text-accent cursor-pointer'>
+        {t('Cookies.settings')}
+      </button>
+      <button
+        type='button'
+        class='hover:text-accent cursor-pointer'
+        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        {t('Footer.backToTop')} ↑
+      </button>
+    </div>
   </div>
 
-  <div class='flex justify-center gap-4 text-center text-xs text-white z-1'>
-    <a href={locale === 'en' ? '/en/privacy' : '/es/privacidad'} class='underline underline-offset-2 hover:text-accent'>
-      {t('Cookies.policy')}
-    </a>
-    <button type='button' data-cookie-settings class='underline underline-offset-2 hover:text-accent'>
-      {t('Cookies.settings')}
-    </button>
-  </div>
-
-  <div class='flex justify-center text-center text-white z-1'>
-    <a href='/' class='flex items-center gap-2 text-white'>
-      By Tapias © {new Date().getFullYear()}
-    </a>
+  <div class='footer-wordmark' aria-hidden='true'>
+    Tapias<span class='text-primary'>©{new Date().getFullYear()}</span>
   </div>
 </footer>
 
 <style>
   .footer {
-    overflow: hidden;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    color: white;
   }
 
-  .footer::after{
+  /* Glow naranja: la firma visual del portafolio */
+  .footer::after {
     content: "";
-    background: radial-gradient(circle, #ffd58d 0%, #f58d24 50%, #7a2b02 100%);
-    border-radius: 100%;
-    height: 100vh;
-    left: 0;
     position: absolute;
-    top: 30%;
-    width: 100vw;
+    left: 50%;
+    top: 55%;
     z-index: -1;
-    opacity: 0.6;
-    transform: scale(1);
-    animation: pulse 6s ease-in-out infinite alternate,
-      pulse-shadow 3s ease-out infinite;
+    width: 120vw;
+    height: 100vw;
+    border-radius: 100%;
+    background: radial-gradient(circle, #ffd58d 0%, #f58d24 35%, #7a2b02 65%, transparent 72%);
+    opacity: 0.45;
+    transform: translateX(-50%);
+    animation: footer-pulse 6s ease-in-out infinite alternate;
   }
 
-  @keyframes pulse-shadow {
-    0% {
-      box-shadow: 0 0 0 0px rgba(245, 141, 36, 0.4);
+  @keyframes footer-pulse {
+    to {
+      opacity: 0.6;
+      transform: translateX(-50%) scale(1.05);
     }
+  }
 
-    100% {
-      box-shadow: 0 0 0 80px rgba(245, 141, 36, 0);
-    }
+  .footer-cta {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 10.5rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .footer-cta-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 0.15em;
+  }
+
+  .footer-cta-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .footer-cta-arrow svg {
+    width: 45%;
+    height: 45%;
+  }
+
+  .footer-cta:hover .footer-cta-arrow {
+    transform: rotate(45deg);
+  }
+
+  .footer-wordmark {
+    padding: 0 1rem;
+    font-family: var(--font-display);
+    font-size: 24vw;
+    line-height: 0.8;
+    padding-bottom: 2vw;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: rgba(10, 10, 10, 0.85);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .footer-wordmark span {
+    font-size: 0.18em;
+    vertical-align: top;
+    letter-spacing: 0;
   }
 </style>
+
+<script>
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector<HTMLElement>('#contact')
+    if (!footer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    gsap.from(footer.querySelectorAll('.footer-reveal'), {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.12,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: footer, start: 'top 70%' },
+    })
+  })
+</script>

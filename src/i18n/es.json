@@ -3,13 +3,18 @@
     "home": "Inicio",
     "works": "Trabajos",
     "about": "Acerca de",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "services": "Servicios",
+    "cta": "Hablemos"
   },
   "Hero": {
     "h1": "Tapias — Estudio de diseño y desarrollo web, UI/UX y branding para marcas de Latinoamérica y el mundo",
     "subtitle": "Diseño y desarrollo productos digitales que ayudan a marcas y negocios a crecer, combinando estrategia, diseño y tecnología en cada proyecto.",
     "btnCTA": "Ver mi trabajo",
-    "btnContact": "Hablemos de tu proyecto"
+    "btnContact": "Hablemos de tu proyecto",
+    "eyebrow": "Estudio de diseño y desarrollo",
+    "available": "Disponible para nuevos proyectos",
+    "scroll": "Desliza"
   },
   "Brands": {
     "title": "Marcas que ya dieron el salto"
@@ -50,16 +55,27 @@
   },
   "Projects": {
     "title": "Proyectos reales que combinan diseño, desarrollo y estrategia para generar resultados.",
-    "content": "Cada proyecto nace de trabajar de cerca con el cliente, entendiendo sus objetivos de negocio antes de escribir una sola línea de código. \n\n No solo diseño y desarrollo interfaces — construyo soluciones digitales completas, desde la estrategia inicial hasta el lanzamiento y el soporte posterior."
+    "content": "Cada proyecto nace de trabajar de cerca con el cliente, entendiendo sus objetivos de negocio antes de escribir una sola línea de código. \n\n No solo diseño y desarrollo interfaces — construyo soluciones digitales completas, desde la estrategia inicial hasta el lanzamiento y el soporte posterior.",
+    "eyebrow": "Casos reales",
+    "heading": "Trabajos",
+    "script": "seleccionados",
+    "viewCase": "Ver caso",
+    "ctaCard": {
+      "title": "¿Tu proyecto es el siguiente?",
+      "text": "Cuéntame tu idea y la convertimos en un producto digital que funcione.",
+      "button": "Hablemos"
+    }
   },
   "About": {
     "title": "Sobre mí",
-    "content": "Soy desarrollador de producto digital y diseñador UI/UX, y ayudo a marcas y negocios a convertir ideas en productos digitales sólidos — desde la estrategia y el diseño hasta el desarrollo completo. \n\n Me involucro en cada detalle: la experiencia de usuario, el rendimiento, la arquitectura técnica y las pequeñas interacciones que hacen que un producto se sienta confiable y profesional. \n\n Trabajo de cerca con cada cliente, entendiendo sus objetivos de negocio para entregar soluciones que no solo se ven bien, sino que funcionan y generan resultados reales. \n\n Si buscas un aliado que combine visión de diseño, solidez técnica y compromiso real con tu proyecto, estoy aquí para ayudarte a construirlo."
+    "content": "Soy desarrollador de producto digital y diseñador UI/UX, y ayudo a marcas y negocios a convertir ideas en productos digitales sólidos — desde la estrategia y el diseño hasta el desarrollo completo. \n\n Me involucro en cada detalle: la experiencia de usuario, el rendimiento, la arquitectura técnica y las pequeñas interacciones que hacen que un producto se sienta confiable y profesional. \n\n Trabajo de cerca con cada cliente, entendiendo sus objetivos de negocio para entregar soluciones que no solo se ven bien, sino que funcionan y generan resultados reales. \n\n Si buscas un aliado que combine visión de diseño, solidez técnica y compromiso real con tu proyecto, estoy aquí para ayudarte a construirlo.",
+    "eyebrow": "Quién está detrás"
   },
   "Ads": {
     "line1": "Tu producto digital,",
     "line2": "tan sólido",
-    "line3": "como tu negocio"
+    "line3": "como tu negocio",
+    "tags": ["Estrategia", "Diseño UI/UX", "Desarrollo a medida", "Rendimiento", "SEO", "Escalable"]
   },
   "Cookies": {
     "title": "Tu privacidad importa",
@@ -106,9 +122,13 @@
   },
   "Footer": {
     "social": "Conéctate conmigo",
-    "backToTop": "Volver arriba"
+    "backToTop": "Volver arriba",
+    "ctaEyebrow": "¿Tienes un proyecto en mente?",
+    "ctaLine1": "Construyamos",
+    "ctaLine2": "algo juntos.",
+    "write": "Escríbeme",
+    "location": "Colombia — Trabajo con marcas de todo el mundo"
   },
-
   "project": {
     "year": "Año",
     "duration": "Duración",
@@ -139,6 +159,157 @@
     },
     "lightbox": {
       "alt": "Vista ampliada"
+    },
+    "back": "Todos los trabajos",
+    "next": "Siguiente proyecto",
+    "techStack": "Tecnologías",
+    "tags": "Etiquetas",
+    "inProgress": "En curso",
+    "results": {
+      "label": "Resultados"
+    },
+    "testimonial": {
+      "label": "Lo que dice el cliente"
     }
+  },
+  "Services": {
+    "eyebrow": "Lo que hago",
+    "title": "Servicios"
+  },
+  "Studio": {
+    "label": "Servicios de Tapias",
+    "bg": "Un estudio",
+    "stickerA": "Un estudio.",
+    "stickerB": "Todo en un solo lugar.",
+    "text": "Soy Juan Tapias. Marca, diseño, web y apps: lo hago yo mismo, para que todo encaje. Primero las preguntas, después el código.",
+    "cursor": "Juan",
+    "track": [
+      {
+        "t": "shape",
+        "s": "star"
+      },
+      {
+        "t": "w",
+        "v": "Primero"
+      },
+      {
+        "t": "w",
+        "v": "la"
+      },
+      {
+        "t": "box",
+        "v": "marca.",
+        "service": 0,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "Luego"
+      },
+      {
+        "t": "w",
+        "v": "la"
+      },
+      {
+        "t": "box",
+        "v": "experiencia.",
+        "service": 1,
+        "c": "amber"
+      },
+      {
+        "t": "shape",
+        "s": "pen"
+      },
+      {
+        "t": "w",
+        "v": "Después"
+      },
+      {
+        "t": "w",
+        "v": "una"
+      },
+      {
+        "t": "box",
+        "v": "web",
+        "service": 2,
+        "c": "cream"
+      },
+      {
+        "t": "w",
+        "v": "que"
+      },
+      {
+        "t": "w",
+        "v": "convierte,"
+      },
+      {
+        "t": "shape",
+        "s": "half"
+      },
+      {
+        "t": "w",
+        "v": "una"
+      },
+      {
+        "t": "box",
+        "v": "app",
+        "service": 3,
+        "c": "brown"
+      },
+      {
+        "t": "w",
+        "v": "que"
+      },
+      {
+        "t": "w",
+        "v": "se"
+      },
+      {
+        "t": "w",
+        "v": "usa,"
+      },
+      {
+        "t": "w",
+        "v": "un"
+      },
+      {
+        "t": "box",
+        "v": "sistema",
+        "service": 4,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "que"
+      },
+      {
+        "t": "w",
+        "v": "escala"
+      },
+      {
+        "t": "w",
+        "v": "y"
+      },
+      {
+        "t": "box",
+        "v": "redes",
+        "service": 5,
+        "c": "amber"
+      },
+      {
+        "t": "w",
+        "v": "que",
+        "strong": true
+      },
+      {
+        "t": "w",
+        "v": "conectan.",
+        "strong": true
+      },
+      {
+        "t": "shape",
+        "s": "dot"
+      }
+    ]
   }
 }

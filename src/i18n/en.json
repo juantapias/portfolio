@@ -3,13 +3,18 @@
     "home": "Home",
     "works": "Works",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "services": "Services",
+    "cta": "Let's talk"
   },
   "Hero": {
     "h1": "Tapias — Web design and development studio, UI/UX and branding for brands in Latin America and worldwide",
     "subtitle": "I design and build digital products that help brands and businesses grow, combining strategy, design, and technology in every project.",
     "btnCTA": "View my work",
-    "btnContact": "Let's talk about your project"
+    "btnContact": "Let's talk about your project",
+    "eyebrow": "Design & development studio",
+    "available": "Available for new projects",
+    "scroll": "Scroll"
   },
   "Brands": {
     "title": "Brands that already took the leap"
@@ -50,16 +55,27 @@
   },
   "Projects": {
     "title": "Real projects combining design, development, and strategy to deliver results.",
-    "content": "Every project starts with working closely with the client, understanding their business goals before writing a single line of code. \n\n I don't just design and build interfaces — I build complete digital solutions, from initial strategy to launch and ongoing support."
+    "content": "Every project starts with working closely with the client, understanding their business goals before writing a single line of code. \n\n I don't just design and build interfaces — I build complete digital solutions, from initial strategy to launch and ongoing support.",
+    "eyebrow": "Real cases",
+    "heading": "Works",
+    "script": "selected",
+    "viewCase": "View case",
+    "ctaCard": {
+      "title": "Is your project next?",
+      "text": "Tell me your idea and let's turn it into a digital product that works.",
+      "button": "Let's talk"
+    }
   },
   "About": {
     "title": "About me",
-    "content": "I’m a digital product developer and UI/UX designer, and I help brands and businesses turn ideas into solid digital products — from strategy and design to full-stack development. \n\n I care about every detail: user experience, performance, technical architecture, and the small interactions that make a product feel reliable and professional. \n\n I work closely with every client, understanding their business goals to deliver solutions that don't just look good, but actually work and drive real results. \n\n If you're looking for a partner who combines design vision, technical depth, and real commitment to your project, I'm here to help you build it."
+    "content": "I’m a digital product developer and UI/UX designer, and I help brands and businesses turn ideas into solid digital products — from strategy and design to full-stack development. \n\n I care about every detail: user experience, performance, technical architecture, and the small interactions that make a product feel reliable and professional. \n\n I work closely with every client, understanding their business goals to deliver solutions that don't just look good, but actually work and drive real results. \n\n If you're looking for a partner who combines design vision, technical depth, and real commitment to your project, I'm here to help you build it.",
+    "eyebrow": "Who's behind it"
   },
   "Ads": {
     "line1": "Your digital product,",
     "line2": "as solid",
-    "line3": "as your business"
+    "line3": "as your business",
+    "tags": ["Strategy", "UI/UX design", "Custom development", "Performance", "SEO", "Scalable"]
   },
   "Cookies": {
     "title": "Your privacy matters",
@@ -106,29 +122,190 @@
   },
   "Footer": {
     "social": "Connect with me",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "ctaEyebrow": "Have a project in mind?",
+    "ctaLine1": "Let's build",
+    "ctaLine2": "something together.",
+    "write": "Write to me",
+    "location": "Colombia — Working with brands worldwide"
   },
-
   "project": {
     "overview": {
       "label": "Project summary",
       "title": "An overview",
       "cta": "View live site"
     },
-    "challenge": { "label": "The challenge" },
-    "solution": { "label": "The solution" },
-    "features": { "label": "Features" },
-    "responsibilities": { "label": "Responsibilities" },
+    "challenge": {
+      "label": "The challenge"
+    },
+    "solution": {
+      "label": "The solution"
+    },
+    "features": {
+      "label": "Features"
+    },
+    "responsibilities": {
+      "label": "Responsibilities"
+    },
     "cta": {
       "title": "Have a project in mind?",
       "subtitle": "Let's talk about your goals and build a solution tailored to your business.",
       "contact": "Let's talk about your project",
       "more": "View more projects"
     },
-    "lightbox": { "alt": "Expanded view" },
+    "lightbox": {
+      "alt": "Expanded view"
+    },
     "year": "Year",
     "duration": "Duration",
     "industry": "Industry",
-    "country": "Country"
+    "country": "Country",
+    "back": "All works",
+    "next": "Next project",
+    "techStack": "Tech stack",
+    "tags": "Tags",
+    "inProgress": "In progress",
+    "results": {
+      "label": "Results"
+    },
+    "testimonial": {
+      "label": "What the client says"
+    }
+  },
+  "Services": {
+    "eyebrow": "What I do",
+    "title": "Services"
+  },
+  "Studio": {
+    "label": "Tapias services",
+    "bg": "One studio",
+    "stickerA": "One studio.",
+    "stickerB": "Everything in one place.",
+    "text": "I'm Juan Tapias. Brand, design, web and apps: I do it myself, so everything fits together. Questions first, code after.",
+    "cursor": "Juan",
+    "track": [
+      {
+        "t": "shape",
+        "s": "star"
+      },
+      {
+        "t": "w",
+        "v": "First"
+      },
+      {
+        "t": "w",
+        "v": "the"
+      },
+      {
+        "t": "box",
+        "v": "brand.",
+        "service": 0,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "Then"
+      },
+      {
+        "t": "w",
+        "v": "the"
+      },
+      {
+        "t": "box",
+        "v": "experience.",
+        "service": 1,
+        "c": "amber"
+      },
+      {
+        "t": "shape",
+        "s": "pen"
+      },
+      {
+        "t": "w",
+        "v": "Next"
+      },
+      {
+        "t": "w",
+        "v": "a"
+      },
+      {
+        "t": "box",
+        "v": "website",
+        "service": 2,
+        "c": "cream"
+      },
+      {
+        "t": "w",
+        "v": "that"
+      },
+      {
+        "t": "w",
+        "v": "converts,"
+      },
+      {
+        "t": "shape",
+        "s": "half"
+      },
+      {
+        "t": "w",
+        "v": "an"
+      },
+      {
+        "t": "box",
+        "v": "app",
+        "service": 3,
+        "c": "brown"
+      },
+      {
+        "t": "w",
+        "v": "people"
+      },
+      {
+        "t": "w",
+        "v": "use,"
+      },
+      {
+        "t": "w",
+        "v": "a"
+      },
+      {
+        "t": "box",
+        "v": "system",
+        "service": 4,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "that"
+      },
+      {
+        "t": "w",
+        "v": "scales"
+      },
+      {
+        "t": "w",
+        "v": "and"
+      },
+      {
+        "t": "box",
+        "v": "socials",
+        "service": 5,
+        "c": "amber"
+      },
+      {
+        "t": "w",
+        "v": "that",
+        "strong": true
+      },
+      {
+        "t": "w",
+        "v": "connect.",
+        "strong": true
+      },
+      {
+        "t": "shape",
+        "s": "dot"
+      }
+    ]
   }
 }

@@ -3,76 +3,110 @@ import { useTranslations } from '../utils/i18n'
 
 const locale = Astro.currentLocale as 'es' | 'en'
 const t = useTranslations(locale)
+
+const paragraphs = String(t('About.content'))
+  .split(/\n\s*\n/)
+  .map(p => p.trim())
+  .filter(Boolean)
+const [lead, ...rest] = paragraphs
 ---
 
-<section id='about' class='flex relative overflow-hidden px-8 lg:px-16'>
-  <div class='flex justify-center items-center py-10'>
-    <div class='grid grid-rows-1'>
-      <div class='grid grid-cols-1 lg:grid-cols-2 gap-10'>
-        <div class='flex items-center'>
-          <figure
-            id='about-image'
-            class='relative flex items-center justify-center w-72 h-96 md:w-[500px] md:h-[500px] mx-auto'>
-            <img
-              src='/images/about.png'
-              alt='Juan Tapias — diseñador y desarrollador de producto digital'
-              width={500}
-              height={500}
-              class='object-contain rounded-2xl fade-borders'
-            />
-          </figure>
-        </div>
+<section id='about' class='px-4 md:px-6 lg:px-10 py-24 md:py-32 overflow-hidden'>
+  <div class='grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20 items-start'>
+    <figure id='about-image' class='about-figure'>
+      <img
+        src='/images/about.png'
+        alt='Juan Tapias — diseñador y desarrollador de producto digital'
+        width={500}
+        height={500}
+        loading='lazy'
+        class='w-full h-full object-cover'
+      />
+      <figcaption class='about-caption'>
+        <span class='font-display text-2xl leading-none'>Juan Tapias</span>
+        <span class='text-xs uppercase tracking-[0.14em] text-black/70'>UI/UX · Dev</span>
+      </figcaption>
+    </figure>
 
-        <div>
-          <div class='text-accent uppercase text-4xl md:text-5xl lg:text-6xl xl:text-8xl leading-none text-right'>
-            <h2>{t('About.title')}</h2>
-          </div>
+    <div id='about-content' class='lg:pt-6'>
+      <span class='eyebrow text-accent'>{t('About.eyebrow')}</span>
+      <h2 class='mt-6 text-white uppercase leading-[0.9] text-[clamp(3rem,8vw,8rem)]'>
+        {t('About.title')}
+      </h2>
 
-          <div
-            id='about-content'
-            class='text-white text-sm md:text-base lg:text-lg xl:text-xl space-y-4 text-right leading-7 md:leading-8 lg:leading-9'>
-            <p class='whitespace-pre-line'>{t('About.content')}</p>
-          </div>
-        </div>
+      <p class='about-lead mt-10'>{lead}</p>
+
+      <div class='mt-10 grid gap-6 md:grid-cols-2 text-white/65 leading-relaxed'>
+        {rest.map(p => <p>{p}</p>)}
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+<style>
+  .about-figure {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 2rem;
+    background: radial-gradient(circle at 50% 30%, #f58d24 0%, #7a2b02 70%, #0a0a0a 100%);
+  }
 
-  gsap.registerPlugin(ScrollTrigger);
+  @media (min-width: 1024px) {
+    .about-figure {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+
+  .about-caption {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 1.125rem;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    color: var(--color-black);
+  }
+
+  .about-lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    line-height: 1.2;
+    color: white;
+  }
+</style>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
 
   document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector("#about");
-    if (!container) return;
+    const container = document.querySelector<HTMLElement>("#about")
+    if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const image = container.querySelector("#about-image");
-    const title = container.querySelector("h2");
+    gsap.fromTo(container.querySelector("#about-image"), { clipPath: "inset(20% 20% 20% 20% round 2rem)" }, {
+      clipPath: "inset(0% 0% 0% 0% round 2rem)",
+      duration: 1.4,
+      ease: "power3.out",
+      clearProps: "clipPath",
+      scrollTrigger: { trigger: container, start: "top 70%" },
+    })
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "-40% center",
-        end: "70% center",
-        scrub: true,
-        markers: false,
-      },
-    });
-
-    tl.from([title, ...container.querySelectorAll("#about-content p")], {
-      y: 100,
+    gsap.from(container.querySelectorAll("#about-content > *"), {
+      y: 50,
       opacity: 0,
-      stagger: 0.15,
-    }).from(
-      image,
-      {
-        opacity: 0,
-        scale: 0,
-      },
-      "-=0.75"
-    );
+      duration: 0.9,
+      stagger: 0.12,
+      ease: "power3.out",
+      scrollTrigger: { trigger: container, start: "top 65%" },
+    })
   })
 </script>

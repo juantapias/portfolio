@@ -1,0 +1,587 @@
+---
+import { projects } from '../../data/projects'
+import { useTranslations } from '../../utils/i18n'
+import { cloudinaryImage, cloudinaryVideo, resolveProjectView } from '../../utils/project'
+
+const locale = Astro.currentLocale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const views = projects.map(project => resolveProjectView(project, locale))
+const total = String(views.length).padStart(2, '0')
+---
+
+<section id='works' class='works' aria-labelledby='works-title'>
+  <header class='works-header'>
+    <div class='flex items-center justify-between text-ink'>
+      <span class='eyebrow works-reveal'>{t('Projects.eyebrow')}</span>
+      <span class='works-reveal text-sm font-medium'>({total})</span>
+    </div>
+
+    <h2 id='works-title' class='works-title'>
+      <span class='works-title-main'>
+        <span class='works-title-line'>{t('Projects.heading')}</span>
+      </span>
+      <span class='works-script works-reveal'>{t('Projects.script')}</span>
+    </h2>
+
+    <div class='works-intro'>
+      <p class='works-reveal works-lead'>{t('Projects.title')}</p>
+      <p class='works-reveal works-copy whitespace-pre-line'>{t('Projects.content')}</p>
+    </div>
+  </header>
+
+  <ul class='works-grid'>
+    {views.map((project, index) => {
+      const isFeatured = index === 0
+      return (
+        <li class={`works-item ${isFeatured ? 'is-featured' : ''}`}>
+          <a
+            href={`/${locale}/projects/${project.slug}`}
+            class='project-card group'
+            data-project-card
+            aria-label={`${project.name} — ${project.category}`}>
+            <div class='project-media'>
+              {project.coverImage && (
+                <img
+                  src={cloudinaryImage(project.coverImage, isFeatured ? 2000 : 1400)}
+                  alt={project.coverAlt}
+                  width={isFeatured ? 2000 : 1400}
+                  height={isFeatured ? 1125 : 1050}
+                  loading={isFeatured ? 'eager' : 'lazy'}
+                  decoding='async'
+                  class='project-cover'
+                  style={{ objectPosition: project.coverPosition ?? 'center' }}
+                />
+              )}
+              {project.video && (
+                <video
+                  class='project-video'
+                  data-src={cloudinaryVideo(project.video, isFeatured ? 1600 : 1200)}
+                  muted
+                  loop
+                  playsinline
+                  preload='none'
+                  aria-hidden='true'
+                />
+              )}
+
+              <div class='project-chips'>
+                <span class='project-chip'>{project.year}</span>
+                <span class='project-chip'>{project.country}</span>
+              </div>
+            </div>
+
+            <div class='project-info'>
+              <div class='min-w-0'>
+                <div class='project-meta'>
+                  <span class='project-index'>{String(index + 1).padStart(2, '0')}</span>
+                  <span>{project.category}</span>
+                  <span class='hidden sm:inline text-ink/40'>/</span>
+                  <span class='hidden sm:inline text-ink/60'>{project.industry}</span>
+                </div>
+                <h3 class='project-name'>{project.name}</h3>
+                <p class='project-summary'>{project.overview.short}</p>
+              </div>
+
+              <span class='project-arrow' aria-hidden='true'>
+                <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7M8 7h9v9'/></svg>
+              </span>
+            </div>
+          </a>
+        </li>
+      )
+    })}
+
+    <li class='works-item'>
+      <div class='works-cta'>
+        <span class='eyebrow text-ink'>{t('Nav.contact')}</span>
+        <div>
+          <p class='works-cta-title'>{t('Projects.ctaCard.title')}</p>
+          <p class='mt-4 max-w-sm text-ink/75'>{t('Projects.ctaCard.text')}</p>
+        </div>
+        <a
+          href='https://wa.link/63go9c'
+          target='_blank'
+          rel='noopener noreferrer'
+          class='btn dark arrow self-start'>
+          {t('Projects.ctaCard.button')}
+          <span class='btn-arrow-icon' aria-hidden='true'>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7M8 7h9v9'/></svg>
+          </span>
+        </a>
+      </div>
+    </li>
+  </ul>
+
+  <div class='works-cursor' aria-hidden='true'>
+    <span>{t('Projects.viewCase')}</span>
+  </div>
+</section>
+
+<style>
+  .works {
+    position: relative;
+    z-index: 1;
+    margin-top: -2.5rem;
+    padding: 6rem 1rem 4rem;
+    border-radius: 2rem 2rem 0 0;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .works {
+      padding: 8rem 1.5rem 6rem;
+      border-radius: 3rem 3rem 0 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .works {
+      padding: 9rem 2.5rem 7rem;
+    }
+  }
+
+  /* ── Header ── */
+
+  .works-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .works-header {
+      margin-bottom: 6rem;
+    }
+  }
+
+  .works-title {
+    position: relative;
+    text-align: center;
+    line-height: 0.82;
+    text-transform: uppercase;
+  }
+
+  .works-title-main {
+    display: block;
+    overflow: hidden;
+    padding-top: 0.05em;
+  }
+
+  .works-title-line {
+    display: inline-block;
+    font-size: clamp(3.25rem, 15vw, 19rem);
+    letter-spacing: -0.02em;
+  }
+
+  .works-script {
+    position: absolute;
+    right: 6%;
+    bottom: -0.35em;
+    font-size: clamp(2rem, 7vw, 7rem);
+    line-height: 1;
+    text-transform: none;
+    color: var(--color-primary);
+    transform: rotate(-6deg);
+    font-style: italic;
+  }
+
+  .works-intro {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .works-intro {
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .works-lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+    line-height: 1.12;
+  }
+
+  .works-copy {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(20, 18, 16, 0.7);
+  }
+
+  @media (min-width: 1024px) {
+    .works-copy {
+      font-size: 1.0625rem;
+      padding-top: 0.5rem;
+    }
+  }
+
+  /* ── Grid ── */
+
+  .works-grid {
+    display: grid;
+    gap: 3rem 1.5rem;
+    list-style: none;
+  }
+
+  @media (min-width: 768px) {
+    .works-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4.5rem 1.5rem;
+    }
+
+    .works-item.is-featured {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ── Card ── */
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    color: inherit;
+  }
+
+  .project-card:focus-visible {
+    outline: none;
+  }
+
+  .project-card:focus-visible .project-media {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .project-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-radius: 1.5rem;
+    background: var(--color-ink);
+    isolation: isolate;
+  }
+
+  @media (min-width: 768px) {
+    .is-featured .project-media {
+      aspect-ratio: 16 / 8;
+      border-radius: 2rem;
+    }
+  }
+
+  .project-cover,
+  .project-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:
+      transform 1.2s var(--ease-out-expo),
+      opacity 0.6s ease;
+  }
+
+  .project-video {
+    opacity: 0;
+    background: var(--color-ink);
+  }
+
+  .project-video.is-playing {
+    opacity: 1;
+  }
+
+  .project-card:hover .project-cover,
+  .project-card:hover .project-video {
+    transform: scale(1.04);
+  }
+
+  .project-chips {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  .project-chip {
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    background: rgba(244, 237, 227, 0.92);
+    backdrop-filter: blur(6px);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .project-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 0.25rem;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+  }
+
+  .project-index {
+    color: var(--color-ink);
+  }
+
+  .project-name {
+    margin-top: 0.5rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .is-featured .project-name {
+    font-size: clamp(2.25rem, 6vw, 5.5rem);
+  }
+
+  .project-card:hover .project-name {
+    color: var(--color-secondary);
+  }
+
+  .project-summary {
+    margin-top: 0.75rem;
+    max-width: 36rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgba(20, 18, 16, 0.65);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-arrow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    color: var(--color-primary);
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      background 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .project-card:hover .project-arrow {
+    transform: rotate(45deg);
+    background: var(--color-primary);
+    color: var(--color-ink);
+  }
+
+  /* ── CTA card ── */
+
+  .works-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    height: 100%;
+    min-height: 22rem;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .works-cta {
+      aspect-ratio: 4 / 3;
+      height: auto;
+      padding: 2.5rem;
+    }
+  }
+
+  /* The global .btn.dark hover turns primary, which vanishes on this primary card */
+  .works-cta .btn.dark:hover {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  .works-cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.75rem);
+    line-height: 1;
+  }
+
+  /* ── Cursor bubble ── */
+
+  .works-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    display: none;
+    pointer-events: none;
+  }
+
+  .works-cursor span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: -3.25rem 0 0 -3.25rem;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: scale(0);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .works-cursor.is-visible span {
+    transform: scale(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .works-cursor {
+      display: block;
+    }
+
+    .project-media {
+      cursor: none;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector<HTMLElement>('#works')
+    if (!section) return
+
+    const cards = section.querySelectorAll<HTMLAnchorElement>('[data-project-card]')
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    /* -----------------------
+       Video preview: hover on desktop, in-view on touch
+    ----------------------- */
+
+    const playVideo = (video: HTMLVideoElement | null) => {
+      if (!video) return
+      if (!video.src && video.dataset.src) video.src = video.dataset.src
+      video.play().then(() => video.classList.add('is-playing')).catch(() => {})
+    }
+
+    const pauseVideo = (video: HTMLVideoElement | null) => {
+      if (!video) return
+      video.pause()
+      video.classList.remove('is-playing')
+    }
+
+    if (!reduceMotion) {
+      if (canHover) {
+        cards.forEach(card => {
+          const video = card.querySelector<HTMLVideoElement>('.project-video')
+          card.addEventListener('mouseenter', () => playVideo(video))
+          card.addEventListener('mouseleave', () => pauseVideo(video))
+        })
+      } else {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const video = entry.target.querySelector<HTMLVideoElement>('.project-video')
+            entry.isIntersecting ? playVideo(video) : pauseVideo(video)
+          })
+        }, { rootMargin: '-35% 0px -35% 0px' })
+
+        cards.forEach(card => observer.observe(card))
+      }
+    }
+
+    /* -----------------------
+       Cursor bubble ("Ver caso")
+    ----------------------- */
+
+    const cursor = section.querySelector<HTMLElement>('.works-cursor')
+
+    if (cursor && canHover) {
+      const xTo = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' })
+      const yTo = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' })
+
+      window.addEventListener('mousemove', e => {
+        xTo(e.clientX)
+        yTo(e.clientY)
+      })
+
+      section.querySelectorAll<HTMLElement>('.project-media').forEach(media => {
+        media.addEventListener('mouseenter', () => cursor.classList.add('is-visible'))
+        media.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'))
+      })
+    }
+
+    /* -----------------------
+       Scroll reveals
+    ----------------------- */
+
+    if (reduceMotion) return
+
+    gsap.from(section.querySelector('.works-title-line'), {
+      yPercent: 100,
+      duration: 1.2,
+      ease: 'power4.out',
+      scrollTrigger: { trigger: section, start: 'top 75%' },
+    })
+
+    gsap.from(section.querySelectorAll('.works-reveal'), {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 65%' },
+    })
+
+    gsap.utils.toArray<HTMLElement>('.works-item', section).forEach(item => {
+      const media = item.querySelector('.project-media, .works-cta')
+
+      gsap.from(item, {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: item, start: 'top 90%' },
+      })
+
+      if (media) {
+        gsap.fromTo(media, { clipPath: 'inset(12% 6% 0% 6% round 2rem)' }, {
+          clipPath: 'inset(0% 0% 0% 0% round 0rem)',
+          clearProps: 'clipPath',
+          duration: 1.3,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: item, start: 'top 90%' },
+        })
+      }
+    })
+  })
+</script>
