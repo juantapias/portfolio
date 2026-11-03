@@ -12,7 +12,7 @@ export const GET: APIRoute = ({ site }) => {
   const projectLines = projects
     .map(p => {
       const t = p.translations.en
-      return `- [${t.name}](${base}/en/projects/${p.slug}): ${t.seo.description}`
+      return `- [${t.name}](${base}/en/projects/${p.slug}/): ${t.seo.description}`
     })
     .join('\n')
 
@@ -21,8 +21,9 @@ export const GET: APIRoute = ({ site }) => {
 > Tapias is a web design and development studio led by Juan Tapias. Services: web design and development, UI/UX design, branding, app design, design systems and social media management. Based in Colombia, working with brands and businesses in Latin America and worldwide, in Spanish and English.
 
 ## Pages
-- [Home (EN)](${base}/en)
-- [Inicio (ES)](${base}/es)
+- [Home (EN)](${base}/en/)
+- [Inicio (ES)](${base}/es/)
+- [Privacy policy](${base}/en/privacy/)
 
 ## Services
 ${services}
@@ -34,6 +35,8 @@ ${projectLines}
 - Email: hola@juantapias.dev
 - GitHub: https://github.com/juantapias
 - Instagram: https://www.instagram.com/tapias.dev/
+- TikTok: https://www.tiktok.com/@tapias.dev/
+- LinkedIn: https://www.linkedin.com/in/juan-carlos-tapias-flores/
 `
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

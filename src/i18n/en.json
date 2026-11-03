@@ -87,6 +87,7 @@
   },
   "Privacy": {
     "title": "Privacy & cookie policy",
+    "description": "How Tapias handles your personal data and uses analytics cookies on juantapias.dev, and how to accept, reject or withdraw your consent.",
     "updated": "Last updated: September 20, 2026",
     "back": "Back to home",
     "sections": [
@@ -305,6 +306,36 @@
       {
         "t": "shape",
         "s": "dot"
+      }
+    ]
+  },
+  "Faq": {
+    "eyebrow": "FAQ",
+    "title": "Before we start",
+    "items": [
+      {
+        "q": "What services does Tapias offer?",
+        "a": "Tapias is a design and development studio led by Juan Tapias. I offer branding and graphic design, product design (UI/UX), web design and development, app design, design systems and social media management. You can hire a single service or the full project, from brand to launch."
+      },
+      {
+        "q": "How long does a project take?",
+        "a": "It depends on the scope. The projects I've delivered have taken between 3 and 6 weeks: a corporate website is usually ready in about 3 weeks, while an ecommerce store, a SaaS platform or a site with a blog can take 4 to 6. At the start we agree on a timeline with clear dates."
+      },
+      {
+        "q": "How much does a website or an app cost?",
+        "a": "Every project is quoted individually based on its scope, features and timeline. Message me on WhatsApp or at hola@juantapias.dev with your idea and I'll send you a proposal with scope, timeline and price."
+      },
+      {
+        "q": "Do you work with clients outside Colombia?",
+        "a": "Yes. I work from Colombia with brands and businesses across Latin America and worldwide, in Spanish and English. The whole process is remote, with video calls and direct communication with me."
+      },
+      {
+        "q": "What technologies do you work with?",
+        "a": "I choose the stack for each project. For fast, optimized websites I use Astro and React; for products and ecommerce, Next.js with Supabase, Tailwind CSS and Vercel; and when the client needs to edit content on their own, WordPress with Elementor Pro. I design in Figma."
+      },
+      {
+        "q": "What is the process like?",
+        "a": "Questions first, code second. I start by understanding your business and goals, then define the structure and design the experience, and finally build, test and launch. Since I handle the brand, design and development myself, everything fits together with no middlemen."
       }
     ]
   }

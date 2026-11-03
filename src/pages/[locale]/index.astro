@@ -7,6 +7,7 @@ import Hero from '../../sections/hero.astro'
 import Inspiration from '../../sections/Inspiration.astro'
 import Projects from '../../sections/projects/Projects.astro'
 import Services from '../../sections/Services.astro'
+import Faq from '../../sections/Faq.astro'
 import Studio from '../../sections/Studio.astro'
 
 export function getStaticPaths() {
@@ -20,7 +21,7 @@ const locale = Astro.params.locale as 'es' | 'en'
 
 const seo = {
   es: {
-    title: 'Tapias — Estudio de Diseño y Desarrollo Web, UI/UX y Branding',
+    title: 'Tapias — Estudio de Diseño y Desarrollo Web, UI/UX, Branding',
     description: 'Estudio de diseño y desarrollo web, UI/UX, branding, apps y sistemas de diseño para marcas y negocios de Latinoamérica y el mundo. Por Juan Tapias.',
   },
   en: {
@@ -32,13 +33,14 @@ const seo = {
 const siteUrl = 'https://juantapias.dev'
 const t = useTranslations(locale)
 const services = (t('Works.services') as unknown as { label: string; description: string }[]) ?? []
+const faqs = (t('Faq.items') as unknown as { q: string; a: string }[]) ?? []
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${siteUrl}/#website`,
-    url: `${siteUrl}/${locale}`,
+    url: `${siteUrl}/${locale}/`,
     name: 'Juan Tapias',
     inLanguage: locale === 'es' ? 'es-CO' : 'en-US',
     publisher: { '@id': `${siteUrl}/#person` },
@@ -49,7 +51,7 @@ const jsonLd = [
     '@id': `${siteUrl}/#person`,
     name: 'Juan Tapias',
     url: siteUrl,
-    image: `${siteUrl}/images/og-image.jpg`,
+    image: `${siteUrl}/images/juan-tapias.jpg`,
     jobTitle: locale === 'es' ? 'Diseñador y desarrollador web, fundador de Tapias' : 'Web designer & developer, founder of Tapias',
     description: seo[locale].description,
     worksFor: { '@id': `${siteUrl}/#service` },
@@ -62,6 +64,7 @@ const jsonLd = [
       'https://github.com/juantapias',
       'https://www.instagram.com/tapias.dev/',
       'https://www.tiktok.com/@tapias.dev/',
+      'https://www.linkedin.com/in/juan-carlos-tapias-flores/',
     ],
   },
   {
@@ -72,7 +75,10 @@ const jsonLd = [
     alternateName: ['Tapias Studio', 'Juan Tapias'],
     description: seo[locale].description,
     url: siteUrl,
+    logo: `${siteUrl}/images/logo.png`,
     image: `${siteUrl}/images/og-image.jpg`,
+    email: 'hola@juantapias.dev',
+    address: { '@type': 'PostalAddress', addressCountry: 'CO' },
     founder: { '@id': `${siteUrl}/#person` },
     serviceType: ['Web design', 'Web development', 'UI/UX design', 'Branding', 'App design', 'Design systems', 'Social media management'],
     areaServed: [
@@ -91,6 +97,17 @@ const jsonLd = [
         : [],
     },
   },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${siteUrl}/${locale}/#faq`,
+    inLanguage: locale === 'es' ? 'es-CO' : 'en-US',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
 ]
 ---
 
@@ -103,5 +120,6 @@ const jsonLd = [
   <Brands />
   <Services />
   <About />
+  <Faq />
   <Inspiration />
 </Layout>
