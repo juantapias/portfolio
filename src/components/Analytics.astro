@@ -32,7 +32,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID ?? 'G-ESXDT1VRM0'
       <script is:inline>
         document.addEventListener('click', (e) => {
           const a = e.target instanceof Element && e.target.closest('a[href]')
-          if (!a || typeof gtag !== 'function') return
+          // data-no-track: enlaces cuyo evento ya se envió desde otro sitio (p. ej. el formulario de la landing)
+          if (!a || typeof gtag !== 'function' || a.hasAttribute('data-no-track')) return
 
           const href = a.getAttribute('href') || ''
           const linkLocation = a.closest('footer')

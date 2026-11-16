@@ -9,25 +9,41 @@ interface Props {
   description?: string
   lang?: 'es' | 'en'
   noindex?: boolean
+  ogImage?: string
 }
 
-const { title, description, lang = 'es', noindex = false } = Astro.props
+const { title, description, lang = 'es', noindex = false, ogImage } = Astro.props
+const ogImageURL = ogImage && (ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site).toString())
 ---
 <html lang={lang}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0a0a" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
+    {ogImageURL && (
+      <>
+        <meta property="og:site_name" content="Tapias" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url.href} />
+        <meta property="og:title" content={title} />
+        {description && <meta property="og:description" content={description} />}
+        <meta property="og:image" content={ogImageURL} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </>
+    )}
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <SiteVerification />
     <Analytics />
+    <slot name="head" />
   </head>
   <body>
     <main>
       <slot />
     </main>
-    <CookieBanner />
+    <slot name="after" />
+    <CookieBanner locale={lang} />
   </body>
 </html>

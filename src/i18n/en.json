@@ -75,7 +75,14 @@
     "line1": "Your digital product,",
     "line2": "as solid",
     "line3": "as your business",
-    "tags": ["Strategy", "UI/UX design", "Custom development", "Performance", "SEO", "Scalable"]
+    "tags": [
+      "Strategy",
+      "UI/UX design",
+      "Custom development",
+      "Performance",
+      "SEO",
+      "Scalable"
+    ]
   },
   "Cookies": {
     "title": "Your privacy matters",
@@ -338,5 +345,209 @@
         "a": "Questions first, code second. I start by understanding your business and goals, then define the structure and design the experience, and finally build, test and launch. Since I handle the brand, design and development myself, everything fits together with no middlemen."
       }
     ]
+  },
+  "Landing": {
+    "seo": {
+      "title": "Web Design That Turns Visitors into Clients",
+      "description": "Fast, SEO-ready websites and landing pages built to convert visitors into clients. Delivered in 3 to 6 weeks. Get your free proposal today."
+    },
+    "topCta": "Get a proposal",
+    "hero": {
+      "eyebrow": "Custom web design & development",
+      "line1": "A website that",
+      "line2": "brings you clients,",
+      "line3": "not just visits.",
+      "subtitle": "I design and build fast, SEO-ready websites and landing pages made to get your visitors to reach out. You work directly with me, from idea to launch.",
+      "cta": "Get my free proposal",
+      "ctaAlt": "Message on WhatsApp",
+      "proof": [
+        "Projects launched in Colombia and Argentina",
+        "Delivered in 3 to 6 weeks",
+        "No middlemen"
+      ]
+    },
+    "logos": "Brands that already trust Tapias",
+    "pains": {
+      "eyebrow": "Sound familiar?",
+      "title": "Your business grows. Your website doesn’t.",
+      "items": [
+        "Your website looks outdated and you’d rather not share it.",
+        "Your ads bring visits, but nobody gets in touch.",
+        "It loads slowly on phones and people leave before seeing it.",
+        "When people search for you on Google, they find your competitors."
+      ],
+      "closing": "Every visitor who leaves without contacting you is a client for someone else."
+    },
+    "benefits": {
+      "eyebrow": "What you get",
+      "title": "Everything your website needs to sell",
+      "items": [
+        {
+          "title": "Custom design",
+          "text": "No templates. A website that looks like your brand, designed for your customer."
+        },
+        {
+          "title": "Built for mobile",
+          "text": "Most of your visitors arrive on their phones. That’s where it looks best."
+        },
+        {
+          "title": "Genuinely fast",
+          "text": "Optimized images and code so it loads in seconds, even on a weak signal."
+        },
+        {
+          "title": "SEO from day one",
+          "text": "Structure, metadata and speed so Google can find you."
+        },
+        {
+          "title": "One-tap contact",
+          "text": "WhatsApp, forms and calls to action exactly where your customers look for them."
+        },
+        {
+          "title": "Analytics connected",
+          "text": "Google Analytics set up so you know where your clients come from and what works."
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Real projects",
+      "title": "Websites already at work",
+      "viewCase": "View case",
+      "cta": "I want one like this"
+    },
+    "process": {
+      "eyebrow": "How we work",
+      "title": "From idea to launch in 4 steps",
+      "steps": [
+        {
+          "title": "Intro call",
+          "text": "Tell me about your business and goals. Free, no strings attached."
+        },
+        {
+          "title": "Clear proposal",
+          "text": "You get the scope, timeline and price in writing."
+        },
+        {
+          "title": "Design & build",
+          "text": "You review the design before any code is written and give feedback at every stage."
+        },
+        {
+          "title": "Launch",
+          "text": "We go live and I connect analytics so you can measure results."
+        }
+      ]
+    },
+    "form": {
+      "eyebrow": "Free proposal",
+      "title": "Tell me about your project",
+      "subtitle": "Answer 4 quick questions and I’ll reach out on WhatsApp with next steps.",
+      "stepLabel": "Step",
+      "of": "of",
+      "back": "Back",
+      "next": "Continue",
+      "questions": [
+        {
+          "id": "service",
+          "label": "What do you need?",
+          "options": [
+            "Landing page",
+            "Business website",
+            "Online store",
+            "Redesign my website",
+            "Brand + website",
+            "Other"
+          ]
+        },
+        {
+          "id": "stage",
+          "label": "What stage is your business at?",
+          "options": [
+            "Just starting",
+            "Already selling, want to grow",
+            "Established company"
+          ]
+        },
+        {
+          "id": "budget",
+          "label": "What’s your approximate budget?",
+          "options": [
+            "Under USD 500",
+            "USD 500 to 1,500",
+            "USD 1,500 to 3,000",
+            "Over USD 3,000",
+            "Not sure yet"
+          ]
+        },
+        {
+          "id": "timeline",
+          "label": "When do you need it?",
+          "options": [
+            "As soon as possible",
+            "In 1 to 2 months",
+            "Just exploring"
+          ]
+        }
+      ],
+      "contact": {
+        "label": "What’s your name?",
+        "name": "Your name",
+        "business": "Your business or brand (optional)",
+        "message": "Anything else I should know (optional)",
+        "submit": "Send via WhatsApp",
+        "note": "WhatsApp will open with your message ready to send.",
+        "required": "Please enter your name to continue."
+      },
+      "success": {
+        "title": "Thanks! Almost there.",
+        "text": "Send the message on WhatsApp and I’ll reply personally. Didn’t it open?",
+        "link": "Open WhatsApp"
+      },
+      "message": {
+        "greeting": "Hi Juan, I found your page and I’d like a proposal.",
+        "name": "Name",
+        "business": "Business",
+        "service": "I need",
+        "stage": "Stage",
+        "budget": "Budget",
+        "timeline": "Timeline",
+        "notes": "Notes",
+        "source": "Source"
+      }
+    },
+    "faq": {
+      "eyebrow": "Common questions",
+      "title": "Before you reach out",
+      "items": [
+        {
+          "q": "How much does a website cost?",
+          "a": "It depends on the scope: a landing page doesn’t cost the same as an online store. After our conversation I send you a written proposal with scope, timeline and price, so you can decide with all the facts."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "The projects I’ve delivered have taken between 3 and 6 weeks. A business website is usually ready in about 3 weeks; an online store or a site with a blog can take 4 to 6."
+        },
+        {
+          "q": "Will I be able to edit the website myself?",
+          "a": "Yes, if you need to. When you want to update content on your own, I work with WordPress and Elementor Pro. When speed is the priority, I use Astro and React."
+        },
+        {
+          "q": "Do you work with businesses outside Colombia?",
+          "a": "Yes. I work remotely with brands across Latin America and the rest of the world, in Spanish and English, with video calls and direct communication with me."
+        },
+        {
+          "q": "What do I need to get started?",
+          "a": "Just a conversation. If you already have a logo, copy or photos, great. If not, I can help with the brand and content too."
+        }
+      ]
+    },
+    "final": {
+      "title": "Your next website can start today.",
+      "text": "One no-strings conversation and you get your proposal.",
+      "cta": "Get my proposal"
+    },
+    "footer": {
+      "portfolio": "See full portfolio",
+      "privacy": "Privacy"
+    },
+    "sticky": "Get a free proposal"
   }
 }

@@ -27,7 +27,9 @@ export default defineConfig({
       filter: page =>
         page !== 'https://juantapias.dev/' &&
         !/\/404\/?$/.test(new URL(page).pathname) &&
-        !page.includes('/link-tree'),
+        !page.includes('/link-tree') &&
+        // Landing de campañas pagadas: noindex, no debe estar en el sitemap
+        !/\/(es|en)\/web\/$/.test(page),
       // Privacy pages have different slugs per locale, so the plugin can't pair them itself
       serialize(item) {
         if (/\/(es\/privacidad|en\/privacy)\/$/.test(item.url)) {
