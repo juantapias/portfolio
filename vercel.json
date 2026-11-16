@@ -1,5 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
-  "redirects": [{ "source": "/", "destination": "/es/", "permanent": true }]
+  "redirects": [
+    { "source": "/", "destination": "/es/", "permanent": true },
+
+    { "source": "/ig", "destination": "/es/?utm_source=instagram&utm_medium=social&utm_campaign=bio", "permanent": false },
+    { "source": "/ig/", "destination": "/es/?utm_source=instagram&utm_medium=social&utm_campaign=bio", "permanent": false },
+
+    { "source": "/tiktok", "destination": "/es/?utm_source=tiktok&utm_medium=social&utm_campaign=bio", "permanent": false },
+    { "source": "/tiktok/", "destination": "/es/?utm_source=tiktok&utm_medium=social&utm_campaign=bio", "permanent": false },
+
+    { "source": "/propuesta", "destination": "/es/web/?utm_source=instagram&utm_medium=social&utm_campaign=propuesta", "permanent": false },
+    { "source": "/propuesta/", "destination": "/es/web/?utm_source=instagram&utm_medium=social&utm_campaign=propuesta", "permanent": false }
+  ]
 }
