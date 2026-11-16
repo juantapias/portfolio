@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Analytics from "../components/Analytics.astro";
+import SiteVerification from "../components/SiteVerification.astro";
 import CookieBanner from "../components/CookieBanner.astro";
 
 interface Props {
@@ -20,6 +21,7 @@ const { title, description, lang = 'es', noindex = false } = Astro.props
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <SiteVerification />
     <Analytics />
   </head>
   <body>
