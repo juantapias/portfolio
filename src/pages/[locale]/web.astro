@@ -1,0 +1,790 @@
+---
+/**
+ * Landing de captación para campañas pagadas (Meta / Instagram y Google Ads).
+ * URL: /es/web/ y /en/web/
+ *
+ * - Sin Header/Footer del sitio: un solo objetivo (pedir propuesta), sin fugas.
+ * - noindex: es tráfico pagado; no debe competir en Google con la home.
+ * - Guarda los UTMs / gclid / fbclid al aterrizar y los adjunta al mensaje de WhatsApp.
+ */
+import Layout from '../../layouts/layout-blank.astro'
+import LeadForm from '../../components/landing/LeadForm.astro'
+import { projects } from '../../data/projects'
+import { useTranslations } from '../../utils/i18n'
+import { cloudinaryImage, formatDuration, resolveProjectView } from '../../utils/project'
+
+export function getStaticPaths() {
+  return [{ params: { locale: 'es' } }, { params: { locale: 'en' } }]
+}
+
+const locale = Astro.params.locale as 'es' | 'en'
+const t = useTranslations(locale)
+
+const WHATSAPP = '573332384866'
+const whatsappUrl = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t('Landing.form.message.greeting') as string)}`
+
+const featuredSlugs = ['pacific-waves-hostel-and-surf', 'menuestro', 'diagnostico-cic', '404-studio']
+const featured = featuredSlugs
+  .map(slug => projects.find(p => p.slug === slug))
+  .filter(p => p !== undefined)
+  .map(p => resolveProjectView(p, locale))
+
+const brands = [
+  { src: '/images/brands/menuestro-logo.webp', alt: 'Menuestro' },
+  { src: '/images/brands/cic-logo.webp', alt: 'Diagnóstico CIC' },
+  { src: '/images/brands/danez-logo.webp', alt: 'Química Danez' },
+  { src: '/images/brands/diana-moncada-logo.webp', alt: 'Diana Moncada' },
+  { src: '/images/brands/ingenor-logo.webp', alt: 'Ingenor' },
+  { src: '/images/brands/pacific-waves-logo.webp', alt: 'Pacific Waves Hostel & Surf' },
+  { src: '/images/brands/mindsett-logo.webp', alt: 'Mindsett' },
+  { src: '/images/brands/404-studio-logo.webp', alt: '404 Studio' },
+]
+
+const proof = t('Landing.hero.proof') as unknown as string[]
+const pains = t('Landing.pains.items') as unknown as string[]
+const benefits = t('Landing.benefits.items') as unknown as { title: string; text: string }[]
+const steps = t('Landing.process.steps') as unknown as { title: string; text: string }[]
+const faqs = t('Landing.faq.items') as unknown as { q: string; a: string }[]
+
+const benefitIcons = [
+  'M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z',
+  'M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2ZM11 18h2',
+  'M13 2 3 14h9l-1 8 10-12h-9l1-8Z',
+  'm21 21-4.3-4.3M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z',
+  'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z',
+  'M3 3v18h18M7 15l4-4 3 3 5-6',
+]
+
+const homeHref = `/${locale}/`
+const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
+---
+
+<Layout
+  title={`${t('Landing.seo.title')} — Tapias`}
+  description={t('Landing.seo.description')}
+  lang={locale}
+  ogImage='/images/og-image.jpg'
+  noindex>
+  <link rel='preload' as='image' href='/images/banner.jpg' slot='head' />
+
+  <!-- Barra superior: marca + un único CTA -->
+  <header class='lp-top'>
+    <a href={homeHref} class='font-primary text-2xl uppercase tracking-wider text-white' aria-label='Tapias'>
+      Tapias
+    </a>
+    <a href='#propuesta' class='btn primary small' data-cta='top'>{t('Landing.topCta')}</a>
+  </header>
+
+  <!-- 1. Hero: promesa + CTA -->
+  <section id='lp-hero' class='lp-hero' aria-labelledby='lp-title'>
+    <div class='lp-hero-inner'>
+      <span class='eyebrow text-white/80 lp-fade'>{t('Landing.hero.eyebrow')}</span>
+      <h1 id='lp-title' class='lp-title lp-fade'>
+        <span>{t('Landing.hero.line1')}</span>
+        <span class='text-primary'>{t('Landing.hero.line2')}</span>
+        <span class='lp-title-outline'>{t('Landing.hero.line3')}</span>
+      </h1>
+      <p class='lp-subtitle lp-fade'>{t('Landing.hero.subtitle')}</p>
+
+      <div class='lp-actions lp-fade'>
+        <a href='#propuesta' class='btn primary arrow' data-cta='hero'>
+          {t('Landing.hero.cta')}
+          <span class='btn-arrow-icon' aria-hidden='true'>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M19 12l-7 7-7-7'/></svg>
+          </span>
+        </a>
+        <a href={whatsappUrl} target='_blank' rel='noopener noreferrer' class='btn outline'>
+          {t('Landing.hero.ctaAlt')}
+        </a>
+      </div>
+
+      <ul class='lp-proof lp-fade'>
+        {proof.map(item => (
+          <li>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M5 12l5 5L20 7'/></svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2. Prueba social: logos -->
+  <section id='lp-logos' class='py-12 md:py-16 border-y border-white/10 overflow-hidden' aria-labelledby='lp-logos-title'>
+    <h2 id='lp-logos-title' class='eyebrow text-accent px-4 md:px-6 lg:px-10'>{t('Landing.logos')}</h2>
+    <div class='lp-marquee mt-8'>
+      <ul class='lp-marquee-track'>
+        {[0, 1].map(set => brands.map(brand => (
+          <li aria-hidden={set === 1 ? 'true' : undefined}>
+            <img src={brand.src} alt={set === 0 ? brand.alt : ''} loading='lazy' decoding='async' height='40' />
+          </li>
+        )))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Problema -->
+  <section id='lp-pains' class='lp-section' aria-labelledby='lp-pains-title'>
+    <div class='lp-head'>
+      <span class='eyebrow text-accent'>{t('Landing.pains.eyebrow')}</span>
+      <h2 id='lp-pains-title' class='lp-h2'>{t('Landing.pains.title')}</h2>
+    </div>
+    <ul class='grid gap-3 md:grid-cols-2'>
+      {pains.map(pain => (
+        <li class='lp-pain'>
+          <span class='lp-pain-x' aria-hidden='true'>
+            <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round'><path d='M18 6 6 18M6 6l12 12'/></svg>
+          </span>
+          {pain}
+        </li>
+      ))}
+    </ul>
+    <p class='mt-10 font-primary text-[clamp(1.5rem,3vw,2.25rem)] leading-tight text-accent max-w-3xl'>
+      {t('Landing.pains.closing')}
+    </p>
+  </section>
+
+  <!-- 4. Solución / beneficios -->
+  <section id='lp-benefits' class='lp-section lp-cream' aria-labelledby='lp-benefits-title'>
+    <div class='lp-head'>
+      <span class='eyebrow text-secondary'>{t('Landing.benefits.eyebrow')}</span>
+      <h2 id='lp-benefits-title' class='lp-h2 text-ink'>{t('Landing.benefits.title')}</h2>
+    </div>
+    <ul class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      {benefits.map((item, index) => (
+        <li class='lp-benefit'>
+          <span class='lp-benefit-icon' aria-hidden='true'>
+            <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d={benefitIcons[index]} /></svg>
+          </span>
+          <h3 class='text-2xl text-ink'>{item.title}</h3>
+          <p class='text-ink/70 leading-relaxed'>{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 5. Casos reales -->
+  <section id='lp-work' class='lp-section' aria-labelledby='lp-work-title'>
+    <div class='lp-head'>
+      <span class='eyebrow text-accent'>{t('Landing.work.eyebrow')}</span>
+      <h2 id='lp-work-title' class='lp-h2'>{t('Landing.work.title')}</h2>
+    </div>
+    <ul class='grid gap-6 md:grid-cols-2'>
+      {featured.map(project => (
+        <li>
+          <a
+            href={`/${locale}/projects/${project.slug}/`}
+            target='_blank'
+            rel='noopener'
+            class='lp-case group'>
+            <div class='lp-case-media'>
+              <img
+                src={cloudinaryImage(project.coverImage, 1200)}
+                alt={project.coverAlt}
+                loading='lazy'
+                decoding='async'
+                width='1200'
+                height='750'
+                style={{ objectPosition: project.coverPosition ?? 'center' }} />
+            </div>
+            <div class='flex items-end justify-between gap-4 pt-4'>
+              <div>
+                <h3 class='text-2xl md:text-3xl text-white'>{project.name}</h3>
+                <p class='mt-1 text-sm text-white/55'>
+                  {project.industry} · {project.country} · {formatDuration(project.durationWeeks, locale)}
+                </p>
+              </div>
+              <span class='lp-case-link'>
+                {t('Landing.work.viewCase')}
+                <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M7 17 17 7M8 7h9v9'/></svg>
+              </span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class='mt-12 flex justify-center'>
+      <a href='#propuesta' class='btn default arrow' data-cta='work'>
+        {t('Landing.work.cta')}
+        <span class='btn-arrow-icon' aria-hidden='true'>
+          <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14M19 12l-7 7-7-7'/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 6. Proceso -->
+  <section id='lp-process' class='lp-section border-t border-white/10' aria-labelledby='lp-process-title'>
+    <div class='lp-head'>
+      <span class='eyebrow text-accent'>{t('Landing.process.eyebrow')}</span>
+      <h2 id='lp-process-title' class='lp-h2'>{t('Landing.process.title')}</h2>
+    </div>
+    <ol class='grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4'>
+      {steps.map((item, index) => (
+        <li class='bg-black p-6 md:p-8'>
+          <span class='font-primary text-5xl text-primary'>{String(index + 1).padStart(2, '0')}</span>
+          <h3 class='mt-6 text-2xl text-white'>{item.title}</h3>
+          <p class='mt-2 text-white/65 leading-relaxed'>{item.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- 7. Formulario de calificación -->
+  <section id='propuesta' class='lp-section lp-form-section' aria-labelledby='lp-form-title'>
+    <div class='grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start'>
+      <div class='lg:sticky lg:top-28'>
+        <span class='eyebrow text-accent'>{t('Landing.form.eyebrow')}</span>
+        <h2 id='lp-form-title' class='lp-h2 mt-6'>{t('Landing.form.title')}</h2>
+        <p class='mt-4 max-w-md text-lg text-white/70 leading-relaxed'>{t('Landing.form.subtitle')}</p>
+        <div class='mt-8 flex items-center gap-4'>
+          <img
+            src='/images/juan-tapias.jpg'
+            alt='Juan Tapias'
+            width='64'
+            height='64'
+            loading='lazy'
+            class='h-16 w-16 rounded-full object-cover border-2 border-primary' />
+          <div>
+            <p class='text-white font-medium'>Juan Tapias</p>
+            <p class='text-sm text-white/55'>{t('Landing.hero.eyebrow')}</p>
+          </div>
+        </div>
+      </div>
+      <LeadForm locale={locale} phone={WHATSAPP} />
+    </div>
+  </section>
+
+  <!-- 8. Objeciones -->
+  <section id='lp-faq' class='lp-section border-t border-white/10' aria-labelledby='lp-faq-title'>
+    <div class='grid gap-10 lg:grid-cols-[1fr_2fr]'>
+      <div>
+        <span class='eyebrow text-accent'>{t('Landing.faq.eyebrow')}</span>
+        <h2 id='lp-faq-title' class='lp-h2 mt-6'>{t('Landing.faq.title')}</h2>
+      </div>
+      <div class='border-t border-white/10'>
+        {faqs.map((item, index) => (
+          <details class='lp-faq' open={index === 0} name='lp-faq'>
+            <summary>
+              <h3>{item.q}</h3>
+              <span class='lp-faq-icon' aria-hidden='true'></span>
+            </summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CTA final -->
+  <section id='lp-final' class='lp-final' aria-labelledby='lp-final-title'>
+    <h2 id='lp-final-title' class='lp-final-title'>{t('Landing.final.title')}</h2>
+    <p class='mt-5 text-lg text-black/75'>{t('Landing.final.text')}</p>
+    <div class='mt-10 flex flex-col sm:flex-row gap-3 justify-center'>
+      <a href='#propuesta' class='btn dark' data-cta='final'>{t('Landing.final.cta')}</a>
+      <a href={whatsappUrl} target='_blank' rel='noopener noreferrer' class='btn lp-btn-ghost'>
+        {t('Landing.hero.ctaAlt')}
+      </a>
+    </div>
+  </section>
+
+  <footer class='lp-footer'>
+    <span>© {new Date().getFullYear()} Tapias</span>
+    <nav class='flex gap-5'>
+      <a href={homeHref}>{t('Landing.footer.portfolio')}</a>
+      <a href={privacyHref}>{t('Landing.footer.privacy')}</a>
+      <button type='button' data-cookie-settings>{t('Cookies.settings')}</button>
+    </nav>
+  </footer>
+
+  <!-- CTA fijo en móvil -->
+  <div class='lp-sticky' data-sticky slot='after'>
+    <a href='#propuesta' class='btn primary w-full' data-cta='sticky'>{t('Landing.sticky')}</a>
+  </div>
+</Layout>
+
+<style>
+  /* Barra superior */
+  .lp-top {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    background: rgb(10 10 10 / 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  }
+
+  @media (min-width: 1024px) {
+    .lp-top {
+      padding: 1rem 2.5rem;
+    }
+  }
+
+  /* Hero */
+  .lp-hero {
+    display: flex;
+    align-items: flex-end;
+    min-height: 100svh;
+    padding: 7rem 1rem 3rem;
+    background-image:
+      linear-gradient(to bottom, rgb(10 10 10 / 0.55) 0%, rgb(10 10 10 / 0.45) 40%, rgb(10 10 10 / 0.95) 100%),
+      url('/images/banner.jpg');
+    background-position: 50% 35%;
+    background-size: cover;
+  }
+
+  @media (min-width: 1024px) {
+    .lp-hero {
+      padding: 8rem 2.5rem 4rem;
+    }
+  }
+
+  .lp-hero-inner {
+    max-width: 64rem;
+  }
+
+  .lp-title {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    font-size: clamp(2.75rem, 8vw, 7rem);
+    line-height: 0.95;
+    color: white;
+  }
+
+  .lp-title-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px white;
+  }
+
+  @media (min-width: 768px) {
+    .lp-title-outline {
+      -webkit-text-stroke-width: 2px;
+    }
+  }
+
+  .lp-subtitle {
+    max-width: 38rem;
+    margin-top: 1.75rem;
+    font-size: clamp(1rem, 1.6vw, 1.1875rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .lp-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .lp-actions {
+      flex-direction: row;
+    }
+  }
+
+  .lp-proof {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .lp-proof li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lp-proof svg {
+    color: var(--color-primary);
+  }
+
+  .lp-fade {
+    animation: lp-up 0.9s var(--ease-out-expo) both;
+  }
+
+  .lp-fade:nth-child(2) { animation-delay: 0.08s; }
+  .lp-fade:nth-child(3) { animation-delay: 0.16s; }
+  .lp-fade:nth-child(4) { animation-delay: 0.24s; }
+  .lp-fade:nth-child(5) { animation-delay: 0.32s; }
+
+  @keyframes lp-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+
+  /* Logos */
+  .lp-marquee {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .lp-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    width: max-content;
+    animation: lp-marquee 40s linear infinite;
+  }
+
+  .lp-marquee-track img {
+    height: 2.5rem;
+    width: auto;
+    opacity: 0.7;
+    filter: grayscale(1) brightness(1.6);
+  }
+
+  @keyframes lp-marquee {
+    to {
+      transform: translateX(calc(-50% - 2rem));
+    }
+  }
+
+  /* Secciones */
+  .lp-section {
+    padding: 5rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .lp-section {
+      padding: 7rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lp-section {
+      padding: 8rem 2.5rem;
+    }
+  }
+
+  .lp-head {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .lp-head {
+      grid-template-columns: 1fr 2fr;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .lp-h2 {
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+    line-height: 0.95;
+    color: white;
+  }
+
+  .lp-cream {
+    background: var(--color-cream);
+  }
+
+  .lp-cream .lp-h2 {
+    color: var(--color-ink);
+  }
+
+  .lp-cream .eyebrow::before {
+    background: var(--color-secondary);
+  }
+
+  /* Dolores */
+  .lp-pain {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 1.25rem;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .lp-pain-x {
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    padding: 0.375rem;
+    border-radius: 9999px;
+    background: rgb(245 141 36 / 0.15);
+    color: var(--color-primary);
+  }
+
+  /* Beneficios */
+  .lp-benefit {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    border-radius: 1.25rem;
+    background: white;
+    box-shadow: 0 1px 0 rgb(20 18 16 / 0.06);
+  }
+
+  .lp-benefit-icon {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: var(--color-ink);
+  }
+
+  /* Casos */
+  .lp-case {
+    display: block;
+  }
+
+  .lp-case-media {
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border-radius: 1.25rem;
+    background: var(--color-darkGray);
+  }
+
+  .lp-case-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease-out-expo);
+  }
+
+  .lp-case:hover .lp-case-media img {
+    transform: scale(1.04);
+  }
+
+  .lp-case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    color: var(--color-accent);
+  }
+
+  /* Formulario */
+  .lp-form-section {
+    background:
+      radial-gradient(60rem 30rem at 85% 0%, rgb(245 141 36 / 0.14), transparent 60%),
+      var(--color-black);
+    scroll-margin-top: 4rem;
+  }
+
+  /* FAQ */
+  .lp-faq {
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .lp-faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0.25rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .lp-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .lp-faq h3 {
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    line-height: 1.2;
+    color: white;
+  }
+
+  .lp-faq p {
+    padding: 0 0.25rem 1.75rem;
+    max-width: 44rem;
+    line-height: 1.65;
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .lp-faq-icon {
+    position: relative;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .lp-faq-icon::before,
+  .lp-faq-icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 2px;
+    background: var(--color-primary);
+    transition: transform 0.3s ease;
+  }
+
+  .lp-faq-icon::after {
+    transform: rotate(90deg);
+  }
+
+  .lp-faq[open] .lp-faq-icon::after {
+    transform: rotate(0);
+  }
+
+  /* CTA final */
+  .lp-final {
+    padding: 6rem 1rem;
+    text-align: center;
+    background: var(--color-primary);
+    color: var(--color-black);
+  }
+
+  @media (min-width: 1024px) {
+    .lp-final {
+      padding: 9rem 2.5rem;
+    }
+  }
+
+  .lp-final-title {
+    max-width: 56rem;
+    margin: 0 auto;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    line-height: 0.95;
+  }
+
+  .lp-btn-ghost {
+    border: 1px solid rgb(10 10 10 / 0.5);
+    color: var(--color-black);
+  }
+
+  .lp-btn-ghost:hover {
+    background: var(--color-black);
+    color: var(--color-primary);
+  }
+
+  .lp-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2rem 1rem 6rem;
+    font-size: 0.8125rem;
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .lp-footer {
+      padding: 2rem 2.5rem;
+    }
+  }
+
+  .lp-footer a:hover,
+  .lp-footer button:hover {
+    color: white;
+  }
+
+  .lp-footer button {
+    cursor: pointer;
+  }
+
+  /* CTA fijo en móvil: aparece al pasar el hero y se oculta en el formulario */
+  .lp-sticky {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 30;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgb(10 10 10 / 0.95) 60%, transparent);
+    transform: translateY(110%);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .lp-sticky.is-visible {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 768px) {
+    .lp-sticky {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lp-marquee-track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: auto;
+    }
+  }
+</style>
+
+<script>
+  // 1. Guarda el origen del anuncio (UTMs, gclid, fbclid) para adjuntarlo al lead
+  try {
+    const params = new URLSearchParams(window.location.search)
+    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid']
+    const found = Object.fromEntries(keys.filter(k => params.get(k)).map(k => [k, params.get(k)!]))
+    if (Object.keys(found).length) sessionStorage.setItem('lp-source', JSON.stringify(found))
+  } catch {}
+
+  const track = (event: string, params: Record<string, unknown> = {}) => {
+    const w = window as any
+    if (typeof w.gtag === 'function') w.gtag('event', event, params)
+  }
+
+  // 2. Clics en CTAs internos (miden qué bloque empuja más al formulario)
+  document.querySelectorAll<HTMLAnchorElement>('[data-cta]').forEach(link => {
+    link.addEventListener('click', () => track('cta_click', { cta_location: link.dataset.cta }))
+  })
+
+  // 3. WhatsApp directo: Analytics.astro ya envía generate_lead a GA4; aquí solo el Lead de Meta
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="https://wa.me/"]:not([data-no-track])').forEach(link => {
+    link.addEventListener('click', () => {
+      const fbq = (window as any).fbq
+      if (typeof fbq === 'function') fbq('track', 'Lead', { method: 'whatsapp' })
+    })
+  })
+
+  // 4. CTA fijo en móvil: visible tras el hero, oculto mientras se ve el formulario
+  const sticky = document.querySelector<HTMLElement>('[data-sticky]')
+  const hero = document.getElementById('lp-hero')
+  const formSection = document.getElementById('propuesta')
+  if (sticky && hero && formSection && 'IntersectionObserver' in window) {
+    let heroVisible = true
+    let formVisible = false
+    const update = () => sticky.classList.toggle('is-visible', !heroVisible && !formVisible)
+    new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting
+      update()
+    }).observe(hero)
+    new IntersectionObserver(([entry]) => {
+      formVisible = entry.isIntersecting
+      update()
+    }, { threshold: 0.15 }).observe(formSection)
+  }
+
+  // 5. Profundidad de scroll: cuánta gente llega a cada bloque del embudo
+  if ('IntersectionObserver' in window) {
+    const seen = new Set<string>()
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = entry.target.id
+        if (entry.isIntersecting && !seen.has(id)) {
+          seen.add(id)
+          track('lp_section_view', { section: id })
+          io.unobserve(entry.target)
+        }
+      })
+    }, { rootMargin: '0px 0px -50% 0px' })
+    document.querySelectorAll('main section[id]').forEach(s => io.observe(s))
+  }
+</script>

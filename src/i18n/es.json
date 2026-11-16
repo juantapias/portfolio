@@ -75,7 +75,14 @@
     "line1": "Tu producto digital,",
     "line2": "tan sólido",
     "line3": "como tu negocio",
-    "tags": ["Estrategia", "Diseño UI/UX", "Desarrollo a medida", "Rendimiento", "SEO", "Escalable"]
+    "tags": [
+      "Estrategia",
+      "Diseño UI/UX",
+      "Desarrollo a medida",
+      "Rendimiento",
+      "SEO",
+      "Escalable"
+    ]
   },
   "Cookies": {
     "title": "Tu privacidad importa",
@@ -342,5 +349,209 @@
         "a": "Primero las preguntas, después el código. Empiezo entendiendo tu negocio y tus objetivos; luego defino la estructura y diseño la experiencia; después desarrollo, pruebo y lanzo. Como hago yo mismo la marca, el diseño y el desarrollo, todo encaja y no hay intermediarios."
       }
     ]
+  },
+  "Landing": {
+    "seo": {
+      "title": "Diseño web que convierte visitas en clientes",
+      "description": "Diseño y desarrollo de sitios web y landing pages rápidos, con SEO y pensados para vender. Entrega en 3 a 6 semanas. Pide tu propuesta gratis."
+    },
+    "topCta": "Pedir propuesta",
+    "hero": {
+      "eyebrow": "Diseño y desarrollo web a medida",
+      "line1": "Una web que",
+      "line2": "te trae clientes,",
+      "line3": "no solo visitas.",
+      "subtitle": "Diseño y desarrollo sitios web y landing pages rápidos, con SEO y pensados para que tus visitantes te escriban. Hablas directo conmigo, de la idea al lanzamiento.",
+      "cta": "Quiero mi propuesta gratis",
+      "ctaAlt": "Escribir por WhatsApp",
+      "proof": [
+        "Proyectos lanzados en Colombia y Argentina",
+        "Entrega en 3 a 6 semanas",
+        "Sin intermediarios"
+      ]
+    },
+    "logos": "Marcas que ya confían en Tapias",
+    "pains": {
+      "eyebrow": "¿Te suena?",
+      "title": "Tu negocio crece. Tu web, no.",
+      "items": [
+        "Tu web se ve desactualizada y prefieres no compartirla.",
+        "Te llegan visitas de los anuncios, pero nadie te escribe.",
+        "Carga lento en el celular y la gente se va antes de verla.",
+        "Cuando te buscan en Google, aparece tu competencia."
+      ],
+      "closing": "Cada visita que se va sin escribirte es un cliente para otro."
+    },
+    "benefits": {
+      "eyebrow": "Lo que recibes",
+      "title": "Todo lo que tu web necesita para vender",
+      "items": [
+        {
+          "title": "Diseño a medida",
+          "text": "Nada de plantillas. Una web con la cara de tu marca, pensada para tu cliente."
+        },
+        {
+          "title": "Hecha para el celular",
+          "text": "La mayoría de tus visitas llegan desde el móvil. Ahí es donde mejor se ve."
+        },
+        {
+          "title": "Rápida de verdad",
+          "text": "Imágenes y código optimizados para que cargue en segundos, también con mala señal."
+        },
+        {
+          "title": "SEO desde el día uno",
+          "text": "Estructura, metadatos y velocidad para que Google te encuentre."
+        },
+        {
+          "title": "Contacto en un toque",
+          "text": "WhatsApp, formularios y botones de acción justo donde tu cliente los busca."
+        },
+        {
+          "title": "Analítica conectada",
+          "text": "Google Analytics listo para saber de dónde llegan tus clientes y qué funciona."
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Casos reales",
+      "title": "Webs que ya están trabajando",
+      "viewCase": "Ver caso",
+      "cta": "Quiero una así"
+    },
+    "process": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "De la idea al lanzamiento en 4 pasos",
+      "steps": [
+        {
+          "title": "Conversación inicial",
+          "text": "Me cuentas tu negocio y tus objetivos. Sin costo y sin compromiso."
+        },
+        {
+          "title": "Propuesta clara",
+          "text": "Recibes por escrito el alcance, los tiempos y el precio."
+        },
+        {
+          "title": "Diseño y desarrollo",
+          "text": "Revisas el diseño antes de pasar al código y opinas en cada etapa."
+        },
+        {
+          "title": "Lanzamiento",
+          "text": "Publicamos tu web y conecto la analítica para medir resultados."
+        }
+      ]
+    },
+    "form": {
+      "eyebrow": "Propuesta gratis",
+      "title": "Cuéntame de tu proyecto",
+      "subtitle": "Responde 4 preguntas rápidas y te escribo por WhatsApp con los siguientes pasos.",
+      "stepLabel": "Paso",
+      "of": "de",
+      "back": "Atrás",
+      "next": "Continuar",
+      "questions": [
+        {
+          "id": "service",
+          "label": "¿Qué necesitas?",
+          "options": [
+            "Landing page",
+            "Sitio web corporativo",
+            "Tienda online",
+            "Rediseño de mi web",
+            "Marca + web",
+            "Otro"
+          ]
+        },
+        {
+          "id": "stage",
+          "label": "¿En qué etapa está tu negocio?",
+          "options": [
+            "Estoy empezando",
+            "Ya vendo y quiero crecer",
+            "Empresa establecida"
+          ]
+        },
+        {
+          "id": "budget",
+          "label": "¿Cuál es tu presupuesto aproximado?",
+          "options": [
+            "Menos de USD 500",
+            "USD 500 a 1.500",
+            "USD 1.500 a 3.000",
+            "Más de USD 3.000",
+            "Aún no lo sé"
+          ]
+        },
+        {
+          "id": "timeline",
+          "label": "¿Para cuándo lo necesitas?",
+          "options": [
+            "Lo antes posible",
+            "En 1 a 2 meses",
+            "Solo estoy explorando"
+          ]
+        }
+      ],
+      "contact": {
+        "label": "¿Cómo te llamas?",
+        "name": "Tu nombre",
+        "business": "Tu negocio o marca (opcional)",
+        "message": "Algo más que deba saber (opcional)",
+        "submit": "Enviar por WhatsApp",
+        "note": "Se abrirá WhatsApp con tu mensaje listo para enviar.",
+        "required": "Escribe tu nombre para continuar."
+      },
+      "success": {
+        "title": "¡Gracias! Ya casi está.",
+        "text": "Envía el mensaje en WhatsApp y te respondo personalmente. ¿No se abrió?",
+        "link": "Abrir WhatsApp"
+      },
+      "message": {
+        "greeting": "Hola Juan, vengo de tu página y quiero una propuesta.",
+        "name": "Nombre",
+        "business": "Negocio",
+        "service": "Necesito",
+        "stage": "Etapa",
+        "budget": "Presupuesto",
+        "timeline": "Para cuándo",
+        "notes": "Comentarios",
+        "source": "Origen"
+      }
+    },
+    "faq": {
+      "eyebrow": "Dudas frecuentes",
+      "title": "Antes de escribirme",
+      "items": [
+        {
+          "q": "¿Cuánto cuesta una web?",
+          "a": "Depende del alcance: una landing page no cuesta lo mismo que una tienda online. Después de nuestra conversación te envío una propuesta con alcance, tiempos y precio por escrito, para que decidas con toda la información."
+        },
+        {
+          "q": "¿Cuánto tiempo tarda?",
+          "a": "Los proyectos que he entregado han tomado entre 3 y 6 semanas. Un sitio corporativo suele estar listo en unas 3 semanas; una tienda online o un sitio con blog puede tomar de 4 a 6."
+        },
+        {
+          "q": "¿Podré editar la web yo mismo?",
+          "a": "Sí, si lo necesitas. Cuando quieres actualizar el contenido por tu cuenta, trabajo con WordPress y Elementor Pro. Si lo prioritario es la velocidad, uso Astro y React."
+        },
+        {
+          "q": "¿Trabajas con negocios fuera de Colombia?",
+          "a": "Sí. Trabajo de forma remota con marcas de toda Latinoamérica y del resto del mundo, en español e inglés, con reuniones por videollamada y comunicación directa conmigo."
+        },
+        {
+          "q": "¿Qué necesito para empezar?",
+          "a": "Solo una conversación. Si ya tienes logo, textos o fotos, perfecto. Si no, también te ayudo con la marca y el contenido."
+        }
+      ]
+    },
+    "final": {
+      "title": "Tu próxima web puede empezar hoy.",
+      "text": "Una conversación sin compromiso y recibes tu propuesta.",
+      "cta": "Pedir mi propuesta"
+    },
+    "footer": {
+      "portfolio": "Ver portafolio completo",
+      "privacy": "Privacidad"
+    },
+    "sticky": "Pedir propuesta gratis"
   }
 }
