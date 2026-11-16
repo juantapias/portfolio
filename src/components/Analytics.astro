@@ -8,7 +8,9 @@ const gaId = import.meta.env.PUBLIC_GA_ID ?? 'G-ESXDT1VRM0'
       <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
       <script is:inline define:vars={{ gaId }}>
         window.dataLayer = window.dataLayer || []
-        function gtag() {
+        // define:vars envuelve este script en una IIFE: hay que exponer gtag
+        // explícitamente para que el banner y el tracking de clics lo usen.
+        window.gtag = function gtag() {
           dataLayer.push(arguments)
         }
         // Consent Mode v2: todo denegado hasta que el usuario acepte
