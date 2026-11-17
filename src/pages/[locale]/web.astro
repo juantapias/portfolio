@@ -6,6 +6,8 @@
  * - Sin Header/Footer del sitio: un solo objetivo (pedir propuesta), sin fugas.
  * - noindex: es tráfico pagado; no debe competir en Google con la home.
  * - Guarda los UTMs / gclid / fbclid al aterrizar y los adjunta al mensaje de WhatsApp.
+ * - Animaciones con el mismo lenguaje GSAP del home (ver <script> al final), sin
+ *   secciones fijadas (pin) para no frenar a quien viene de un anuncio.
  */
 import Layout from '../../layouts/layout-blank.astro'
 import LeadForm from '../../components/landing/LeadForm.astro'
@@ -39,6 +41,8 @@ const brands = [
   { src: '/images/brands/mindsett-logo.webp', alt: 'Mindsett' },
   { src: '/images/brands/404-studio-logo.webp', alt: '404 Studio' },
 ]
+// Igual que en Brands.astro: varias copias para que el bucle ligado al scroll nunca se quede sin logos
+const BRAND_SETS = 6
 
 const proof = t('Landing.hero.proof') as unknown as string[]
 const pains = t('Landing.pains.items') as unknown as string[]
@@ -66,27 +70,40 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
   ogImage='/images/og-image.jpg'
   noindex>
   <link rel='preload' as='image' href='/images/banner.jpg' slot='head' />
+  <!--
+    Oculta el contenido del hero antes del primer pintado solo si habrá animación.
+    Si GSAP no llega a cargar, a los 2,5 s se muestra igual (no se pierde el mensaje).
+  -->
+  <script is:inline slot='head'>
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('lp-motion')
+      setTimeout(function () {
+        if (!window.__lpMotionReady) document.documentElement.classList.remove('lp-motion')
+      }, 2500)
+    }
+  </script>
 
   <!-- Barra superior: marca + un único CTA -->
   <header class='lp-top'>
-    <a href={homeHref} class='font-primary text-2xl uppercase tracking-wider text-white' aria-label='Tapias'>
+    <a href={homeHref} class='lp-intro font-primary text-2xl uppercase tracking-wider text-white' aria-label='Tapias'>
       Tapias
     </a>
-    <a href='#propuesta' class='btn primary small' data-cta='top'>{t('Landing.topCta')}</a>
+    <a href='#propuesta' class='lp-intro btn primary small' data-cta='top'>{t('Landing.topCta')}</a>
   </header>
 
   <!-- 1. Hero: promesa + CTA -->
   <section id='lp-hero' class='lp-hero' aria-labelledby='lp-title'>
+    <div class='lp-hero-bg' aria-hidden='true'></div>
     <div class='lp-hero-inner'>
-      <span class='eyebrow text-white/80 lp-fade'>{t('Landing.hero.eyebrow')}</span>
-      <h1 id='lp-title' class='lp-title lp-fade'>
-        <span>{t('Landing.hero.line1')}</span>
-        <span class='text-primary'>{t('Landing.hero.line2')}</span>
-        <span class='lp-title-outline'>{t('Landing.hero.line3')}</span>
+      <span class='lp-intro eyebrow text-white/80'>{t('Landing.hero.eyebrow')}</span>
+      <h1 id='lp-title' class='lp-title'>
+        <span class='lp-title-line'><span class='lp-title-text'>{t('Landing.hero.line1')}</span></span>
+        <span class='lp-title-line'><span class='lp-title-text text-primary'>{t('Landing.hero.line2')}</span></span>
+        <span class='lp-title-line'><span class='lp-title-text lp-title-outline'>{t('Landing.hero.line3')}</span></span>
       </h1>
-      <p class='lp-subtitle lp-fade'>{t('Landing.hero.subtitle')}</p>
+      <p class='lp-intro lp-subtitle'>{t('Landing.hero.subtitle')}</p>
 
-      <div class='lp-actions lp-fade'>
+      <div class='lp-intro lp-actions'>
         <a href='#propuesta' class='btn primary arrow' data-cta='hero'>
           {t('Landing.hero.cta')}
           <span class='btn-arrow-icon' aria-hidden='true'>
@@ -98,9 +115,9 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
         </a>
       </div>
 
-      <ul class='lp-proof lp-fade'>
+      <ul class='lp-proof'>
         {proof.map(item => (
-          <li>
+          <li class='lp-intro'>
             <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M5 12l5 5L20 7'/></svg>
             {item}
           </li>
@@ -109,13 +126,13 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     </div>
   </section>
 
-  <!-- 2. Prueba social: logos -->
+  <!-- 2. Prueba social: logos que avanzan con el scroll (como en el home) -->
   <section id='lp-logos' class='py-12 md:py-16 border-y border-white/10 overflow-hidden' aria-labelledby='lp-logos-title'>
-    <h2 id='lp-logos-title' class='eyebrow text-accent px-4 md:px-6 lg:px-10'>{t('Landing.logos')}</h2>
+    <h2 id='lp-logos-title' class='eyebrow text-accent px-4 md:px-6 lg:px-10' data-rise>{t('Landing.logos')}</h2>
     <div class='lp-marquee mt-8'>
-      <ul class='lp-marquee-track'>
-        {[0, 1].map(set => brands.map(brand => (
-          <li aria-hidden={set === 1 ? 'true' : undefined}>
+      <ul class='lp-marquee-track' data-set-size={brands.length}>
+        {Array.from({ length: BRAND_SETS }, (_, set) => brands.map(brand => (
+          <li class='lp-brand' aria-hidden={set === 0 ? undefined : 'true'}>
             <img src={brand.src} alt={set === 0 ? brand.alt : ''} loading='lazy' decoding='async' height='40' />
           </li>
         )))}
@@ -126,20 +143,20 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
   <!-- 3. Problema -->
   <section id='lp-pains' class='lp-section' aria-labelledby='lp-pains-title'>
     <div class='lp-head'>
-      <span class='eyebrow text-accent'>{t('Landing.pains.eyebrow')}</span>
-      <h2 id='lp-pains-title' class='lp-h2'>{t('Landing.pains.title')}</h2>
+      <span class='eyebrow text-accent' data-rise>{t('Landing.pains.eyebrow')}</span>
+      <h2 id='lp-pains-title' class='lp-h2' data-split>{t('Landing.pains.title')}</h2>
     </div>
-    <ul class='grid gap-3 md:grid-cols-2'>
+    <ul class='grid gap-3 md:grid-cols-2' data-stagger>
       {pains.map(pain => (
         <li class='lp-pain'>
-          <span class='lp-pain-x' aria-hidden='true'>
+          <span class='lp-pain-x' aria-hidden='true' data-pop>
             <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round'><path d='M18 6 6 18M6 6l12 12'/></svg>
           </span>
-          {pain}
+          <span class='lp-pain-text'>{pain}</span>
         </li>
       ))}
     </ul>
-    <p class='mt-10 font-primary text-[clamp(1.5rem,3vw,2.25rem)] leading-tight text-accent max-w-3xl'>
+    <p class='lp-closing' data-glow>
       {t('Landing.pains.closing')}
     </p>
   </section>
@@ -147,13 +164,13 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
   <!-- 4. Solución / beneficios -->
   <section id='lp-benefits' class='lp-section lp-cream' aria-labelledby='lp-benefits-title'>
     <div class='lp-head'>
-      <span class='eyebrow text-secondary'>{t('Landing.benefits.eyebrow')}</span>
-      <h2 id='lp-benefits-title' class='lp-h2 text-ink'>{t('Landing.benefits.title')}</h2>
+      <span class='eyebrow text-secondary' data-rise>{t('Landing.benefits.eyebrow')}</span>
+      <h2 id='lp-benefits-title' class='lp-h2' data-split>{t('Landing.benefits.title')}</h2>
     </div>
-    <ul class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+    <ul class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3' data-stagger>
       {benefits.map((item, index) => (
         <li class='lp-benefit'>
-          <span class='lp-benefit-icon' aria-hidden='true'>
+          <span class='lp-benefit-icon' aria-hidden='true' data-pop>
             <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d={benefitIcons[index]} /></svg>
           </span>
           <h3 class='text-2xl text-ink'>{item.title}</h3>
@@ -166,12 +183,12 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
   <!-- 5. Casos reales -->
   <section id='lp-work' class='lp-section' aria-labelledby='lp-work-title'>
     <div class='lp-head'>
-      <span class='eyebrow text-accent'>{t('Landing.work.eyebrow')}</span>
-      <h2 id='lp-work-title' class='lp-h2'>{t('Landing.work.title')}</h2>
+      <span class='eyebrow text-accent' data-rise>{t('Landing.work.eyebrow')}</span>
+      <h2 id='lp-work-title' class='lp-h2' data-split>{t('Landing.work.title')}</h2>
     </div>
     <ul class='grid gap-6 md:grid-cols-2'>
       {featured.map(project => (
-        <li>
+        <li class='lp-case-item'>
           <a
             href={`/${locale}/projects/${project.slug}/`}
             target='_blank'
@@ -203,7 +220,7 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
         </li>
       ))}
     </ul>
-    <div class='mt-12 flex justify-center'>
+    <div class='mt-12 flex justify-center' data-rise>
       <a href='#propuesta' class='btn default arrow' data-cta='work'>
         {t('Landing.work.cta')}
         <span class='btn-arrow-icon' aria-hidden='true'>
@@ -211,18 +228,23 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
         </span>
       </a>
     </div>
+    <!-- Burbuja "Ver caso" que sigue al cursor (como en el home) -->
+    <div class='lp-cursor' aria-hidden='true'>
+      <span>{t('Landing.work.viewCase')}</span>
+    </div>
   </section>
 
   <!-- 6. Proceso -->
   <section id='lp-process' class='lp-section border-t border-white/10' aria-labelledby='lp-process-title'>
     <div class='lp-head'>
-      <span class='eyebrow text-accent'>{t('Landing.process.eyebrow')}</span>
-      <h2 id='lp-process-title' class='lp-h2'>{t('Landing.process.title')}</h2>
+      <span class='eyebrow text-accent' data-rise>{t('Landing.process.eyebrow')}</span>
+      <h2 id='lp-process-title' class='lp-h2' data-split>{t('Landing.process.title')}</h2>
     </div>
-    <ol class='grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4'>
+    <div class='lp-process-track' aria-hidden='true'><span class='lp-process-progress'></span></div>
+    <ol class='grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4' data-stagger>
       {steps.map((item, index) => (
         <li class='bg-black p-6 md:p-8'>
-          <span class='font-primary text-5xl text-primary'>{String(index + 1).padStart(2, '0')}</span>
+          <span class='inline-block font-primary text-5xl text-primary' data-pop>{String(index + 1).padStart(2, '0')}</span>
           <h3 class='mt-6 text-2xl text-white'>{item.title}</h3>
           <p class='mt-2 text-white/65 leading-relaxed'>{item.text}</p>
         </li>
@@ -234,10 +256,10 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
   <section id='propuesta' class='lp-section lp-form-section' aria-labelledby='lp-form-title'>
     <div class='grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start'>
       <div class='lg:sticky lg:top-28'>
-        <span class='eyebrow text-accent'>{t('Landing.form.eyebrow')}</span>
-        <h2 id='lp-form-title' class='lp-h2 mt-6'>{t('Landing.form.title')}</h2>
-        <p class='mt-4 max-w-md text-lg text-white/70 leading-relaxed'>{t('Landing.form.subtitle')}</p>
-        <div class='mt-8 flex items-center gap-4'>
+        <span class='eyebrow text-accent' data-rise>{t('Landing.form.eyebrow')}</span>
+        <h2 id='lp-form-title' class='lp-h2 mt-6' data-split>{t('Landing.form.title')}</h2>
+        <p class='mt-4 max-w-md text-lg text-white/70 leading-relaxed' data-rise>{t('Landing.form.subtitle')}</p>
+        <div class='mt-8 flex items-center gap-4' data-rise>
           <img
             src='/images/juan-tapias.jpg'
             alt='Juan Tapias'
@@ -251,7 +273,9 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
           </div>
         </div>
       </div>
-      <LeadForm locale={locale} phone={WHATSAPP} />
+      <div data-clip>
+        <LeadForm locale={locale} phone={WHATSAPP} />
+      </div>
     </div>
   </section>
 
@@ -259,17 +283,19 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
   <section id='lp-faq' class='lp-section border-t border-white/10' aria-labelledby='lp-faq-title'>
     <div class='grid gap-10 lg:grid-cols-[1fr_2fr]'>
       <div>
-        <span class='eyebrow text-accent'>{t('Landing.faq.eyebrow')}</span>
-        <h2 id='lp-faq-title' class='lp-h2 mt-6'>{t('Landing.faq.title')}</h2>
+        <span class='eyebrow text-accent' data-rise>{t('Landing.faq.eyebrow')}</span>
+        <h2 id='lp-faq-title' class='lp-h2 mt-6' data-split>{t('Landing.faq.title')}</h2>
       </div>
-      <div class='border-t border-white/10'>
+      <div class='border-t border-white/10' data-stagger>
         {faqs.map((item, index) => (
-          <details class='lp-faq' open={index === 0} name='lp-faq'>
+          <details class='lp-faq' open={index === 0}>
             <summary>
               <h3>{item.q}</h3>
               <span class='lp-faq-icon' aria-hidden='true'></span>
             </summary>
-            <p>{item.a}</p>
+            <div class='lp-faq-panel'>
+              <p>{item.a}</p>
+            </div>
           </details>
         ))}
       </div>
@@ -278,9 +304,9 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
 
   <!-- 9. CTA final -->
   <section id='lp-final' class='lp-final' aria-labelledby='lp-final-title'>
-    <h2 id='lp-final-title' class='lp-final-title'>{t('Landing.final.title')}</h2>
-    <p class='mt-5 text-lg text-black/75'>{t('Landing.final.text')}</p>
-    <div class='mt-10 flex flex-col sm:flex-row gap-3 justify-center'>
+    <h2 id='lp-final-title' class='lp-final-title' data-split>{t('Landing.final.title')}</h2>
+    <p class='mt-5 text-lg text-black/75' data-rise>{t('Landing.final.text')}</p>
+    <div class='mt-10 flex flex-col sm:flex-row gap-3 justify-center' data-rise>
       <a href='#propuesta' class='btn dark' data-cta='final'>{t('Landing.final.cta')}</a>
       <a href={whatsappUrl} target='_blank' rel='noopener noreferrer' class='btn lp-btn-ghost'>
         {t('Landing.hero.ctaAlt')}
@@ -304,6 +330,12 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
 </Layout>
 
 <style>
+  /* Estado previo a la intro (solo con animación activa, ver script en <head>) */
+  :global(html.lp-motion) .lp-intro,
+  :global(html.lp-motion) .lp-title-text {
+    opacity: 0;
+  }
+
   /* Barra superior */
   .lp-top {
     position: fixed;
@@ -326,21 +358,31 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
 
   /* Hero */
   .lp-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: flex;
     align-items: flex-end;
     min-height: 100svh;
     padding: 7rem 1rem 3rem;
-    background-image:
-      linear-gradient(to bottom, rgb(10 10 10 / 0.55) 0%, rgb(10 10 10 / 0.45) 40%, rgb(10 10 10 / 0.95) 100%),
-      url('/images/banner.jpg');
-    background-position: 50% 35%;
-    background-size: cover;
   }
 
   @media (min-width: 1024px) {
     .lp-hero {
       padding: 8rem 2.5rem 4rem;
     }
+  }
+
+  .lp-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(to bottom, rgb(10 10 10 / 0.55) 0%, rgb(10 10 10 / 0.45) 40%, rgb(10 10 10 / 0.95) 100%),
+      url('/images/banner.jpg');
+    background-position: 50% 35%;
+    background-size: cover;
+    will-change: transform;
   }
 
   .lp-hero-inner {
@@ -354,6 +396,18 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     font-size: clamp(2.75rem, 8vw, 7rem);
     line-height: 0.95;
     color: white;
+  }
+
+  /* Cada línea es una máscara: las letras suben desde abajo (como "Tapias" en el home) */
+  .lp-title-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+
+  .lp-title-text {
+    display: inline-block;
   }
 
   .lp-title-outline {
@@ -407,20 +461,10 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     color: var(--color-primary);
   }
 
-  .lp-fade {
-    animation: lp-up 0.9s var(--ease-out-expo) both;
-  }
-
-  .lp-fade:nth-child(2) { animation-delay: 0.08s; }
-  .lp-fade:nth-child(3) { animation-delay: 0.16s; }
-  .lp-fade:nth-child(4) { animation-delay: 0.24s; }
-  .lp-fade:nth-child(5) { animation-delay: 0.32s; }
-
-  @keyframes lp-up {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
+  /* Títulos de sección: SplitText envuelve cada línea en .lp-line-mask */
+  :global(.lp-line-mask) {
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
   }
 
   /* Logos */
@@ -433,20 +477,13 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     align-items: center;
     gap: 4rem;
     width: max-content;
-    animation: lp-marquee 40s linear infinite;
   }
 
-  .lp-marquee-track img {
+  .lp-brand img {
     height: 2.5rem;
     width: auto;
     opacity: 0.7;
     filter: grayscale(1) brightness(1.6);
-  }
-
-  @keyframes lp-marquee {
-    to {
-      transform: translateX(calc(-50% - 2rem));
-    }
   }
 
   /* Secciones */
@@ -485,8 +522,19 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     color: white;
   }
 
+  /* Bloque crema que se monta sobre el anterior, como "Trabajos" en el home */
   .lp-cream {
+    position: relative;
+    z-index: 1;
+    margin-top: -2.5rem;
+    border-radius: 2rem 2rem 0 0;
     background: var(--color-cream);
+  }
+
+  @media (min-width: 768px) {
+    .lp-cream {
+      border-radius: 3rem 3rem 0 0;
+    }
   }
 
   .lp-cream .lp-h2 {
@@ -497,8 +545,11 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     background: var(--color-secondary);
   }
 
-  /* Dolores */
+  /* Dolores: en escritorio se pintan de naranja al pasar el ratón (como Servicios) */
   .lp-pain {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
@@ -510,6 +561,21 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     color: rgb(255 255 255 / 0.85);
   }
 
+  .lp-pain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-primary);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  .lp-pain-text {
+    transition: color 0.3s ease;
+  }
+
   .lp-pain-x {
     display: inline-flex;
     width: 1.75rem;
@@ -519,6 +585,31 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     border-radius: 9999px;
     background: rgb(245 141 36 / 0.15);
     color: var(--color-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  @media (hover: hover) and (min-width: 1024px) {
+    .lp-pain:hover::before {
+      transform: scaleY(1);
+    }
+
+    .lp-pain:hover .lp-pain-text {
+      color: var(--color-black);
+    }
+
+    .lp-pain:hover .lp-pain-x {
+      background: var(--color-black);
+      color: var(--color-primary);
+    }
+  }
+
+  .lp-closing {
+    max-width: 48rem;
+    margin-top: 2.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--color-accent);
   }
 
   /* Beneficios */
@@ -575,6 +666,62 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     color: var(--color-accent);
   }
 
+  .lp-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    display: none;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lp-cursor {
+      display: block;
+    }
+
+    .lp-case-media {
+      cursor: none;
+    }
+  }
+
+  .lp-cursor span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: -3.25rem 0 0 -3.25rem;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: scale(0);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .lp-cursor.is-visible span {
+    transform: scale(1);
+  }
+
+  /* Proceso: barra que se llena con el scroll */
+  .lp-process-track {
+    height: 3px;
+    margin-bottom: 1.5rem;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.1);
+    overflow: hidden;
+  }
+
+  .lp-process-progress {
+    display: block;
+    height: 100%;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
   /* Formulario */
   .lp-form-section {
     background:
@@ -596,19 +743,35 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     padding: 1.5rem 0.25rem;
     cursor: pointer;
     list-style: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .lp-faq summary::-webkit-details-marker {
     display: none;
   }
 
+  /* La pregunta abierta no se puede cerrar (siempre hay una abierta) */
+  .lp-faq.is-open summary {
+    cursor: default;
+  }
+
   .lp-faq h3 {
     font-size: clamp(1.25rem, 2.2vw, 1.75rem);
     line-height: 1.2;
     color: white;
+    transition: color 0.3s ease;
   }
 
-  .lp-faq p {
+  .lp-faq summary:hover h3,
+  .lp-faq.is-open h3 {
+    color: var(--color-accent);
+  }
+
+  .lp-faq-panel {
+    overflow: hidden;
+  }
+
+  .lp-faq-panel p {
     padding: 0 0.25rem 1.75rem;
     max-width: 44rem;
     line-height: 1.65;
@@ -629,14 +792,14 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
     inset: 50% 0 auto;
     height: 2px;
     background: var(--color-primary);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s var(--ease-out-expo);
   }
 
   .lp-faq-icon::after {
     transform: rotate(90deg);
   }
 
-  .lp-faq[open] .lp-faq-icon::after {
+  .lp-faq.is-open .lp-faq-icon::after {
     transform: rotate(0);
   }
 
@@ -719,14 +882,18 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
 
   @media (prefers-reduced-motion: reduce) {
     .lp-marquee-track {
-      animation: none;
       flex-wrap: wrap;
       justify-content: center;
       width: auto;
     }
+
+    .lp-brand[aria-hidden='true'] {
+      display: none;
+    }
   }
 </style>
 
+<!-- Tracking del embudo (independiente de las animaciones) -->
 <script>
   // 1. Guarda el origen del anuncio (UTMs, gclid, fbclid) para adjuntarlo al lead
   try {
@@ -786,5 +953,278 @@ const privacyHref = locale === 'es' ? '/es/privacidad/' : '/en/privacy/'
       })
     }, { rootMargin: '0px 0px -50% 0px' })
     document.querySelectorAll('main section[id]').forEach(s => io.observe(s))
+  }
+</script>
+
+<!-- Animaciones: mismo lenguaje GSAP que el home -->
+<script>
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+  import { SplitText } from 'gsap/SplitText'
+
+  gsap.registerPlugin(ScrollTrigger, SplitText)
+
+  const PEAK = '#f58d24' // --color-primary
+  const SETTLE = '#ffd58d' // --color-accent
+
+  const root = document.documentElement
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  ;(window as any).__lpMotionReady = true
+
+  /* ── FAQ: acordeón animado, siempre una pregunta abierta (como en el home) ── */
+  const initFaq = () => {
+    const items = Array.from(document.querySelectorAll<HTMLDetailsElement>('.lp-faq'))
+    const running = new Map<HTMLDetailsElement, gsap.core.Timeline>()
+    const DURATION = 0.5
+    const EASE = 'power3.inOut'
+
+    const animate = (item: HTMLDetailsElement, opening: boolean) => {
+      const panel = item.querySelector<HTMLElement>('.lp-faq-panel')!
+      const answer = panel.firstElementChild as HTMLElement
+      const from = item.open ? panel.offsetHeight : 0
+
+      running.get(item)?.kill()
+      item.classList.toggle('is-open', opening)
+      if (opening) item.open = true
+
+      if (reduceMotion) {
+        item.open = opening
+        return
+      }
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          if (!opening) item.open = false
+          gsap.set([panel, answer], { clearProps: 'all' })
+          running.delete(item)
+        },
+      })
+
+      if (opening) {
+        tl.fromTo(panel, { height: from }, { height: 'auto', duration: DURATION, ease: EASE }, 0)
+          .fromTo(answer, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, DURATION * 0.35)
+      } else {
+        tl.fromTo(panel, { height: from }, { height: 0, duration: DURATION, ease: EASE }, 0)
+          .to(answer, { autoAlpha: 0, y: -6, duration: 0.2, ease: 'power2.in' }, 0)
+      }
+
+      running.set(item, tl)
+    }
+
+    if (!items.some(item => item.open) && items[0]) items[0].open = true
+    items.forEach(item => item.classList.toggle('is-open', item.open))
+
+    items.forEach(item => {
+      item.querySelector('summary')!.addEventListener('click', event => {
+        event.preventDefault()
+        if (item.classList.contains('is-open')) return
+        items.filter(other => other.classList.contains('is-open')).forEach(other => animate(other, false))
+        animate(item, true)
+        window.setTimeout(() => ScrollTrigger.refresh(), reduceMotion ? 60 : DURATION * 1000 + 60)
+      })
+    })
+  }
+
+  /* ── Cursor "Ver caso" sobre las portadas ── */
+  const initCursor = () => {
+    const cursor = document.querySelector<HTMLElement>('.lp-cursor')
+    if (!cursor || !canHover) return
+
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' })
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' })
+
+    window.addEventListener('mousemove', e => {
+      xTo(e.clientX)
+      yTo(e.clientY)
+    })
+
+    document.querySelectorAll<HTMLElement>('.lp-case-media').forEach(media => {
+      media.addEventListener('mouseenter', () => cursor.classList.add('is-visible'))
+      media.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'))
+    })
+  }
+
+  /* ── Hero: intro letra a letra + el título se aleja con el scroll ── */
+  const initHero = () => {
+    const hero = document.getElementById('lp-hero')!
+    const bg = hero.querySelector<HTMLElement>('.lp-hero-bg')!
+    const texts = gsap.utils.toArray<HTMLElement>('.lp-title-text', hero)
+    const intro = gsap.utils.toArray<HTMLElement>('.lp-intro')
+
+    const split = SplitText.create(texts, { type: 'words,chars', charsClass: 'lp-char' })
+
+    // GSAP toma el control del estado inicial y retiramos el ocultado por CSS
+    gsap.set(intro, { opacity: 0, y: 24 })
+    gsap.set(texts, { opacity: 1 })
+    gsap.set(split.chars, { yPercent: 110 })
+    root.classList.remove('lp-motion')
+
+    // Scroll: las letras se elevan y se desvanecen, la imagen hace parallax.
+    // Se crea al terminar la intro (como en el home) para que no se pisen.
+    const initScroll = () => {
+      const scrub = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
+      gsap.to(split.chars, { yPercent: -40, opacity: 0, stagger: 0.004, ease: 'none', scrollTrigger: scrub })
+      gsap.to(bg, { yPercent: 18, ease: 'none', scrollTrigger: { ...scrub } })
+    }
+
+    gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: initScroll })
+      .from(bg, { scale: 1.12, duration: 1.8, ease: 'power2.out' }, 0)
+      .to('.lp-top .lp-intro', { opacity: 1, y: 0, duration: 0.8, stagger: 0.08 }, 0)
+      .to('#lp-hero .eyebrow', { opacity: 1, y: 0, duration: 0.6 }, 0.1)
+      .to(split.chars, { yPercent: 0, duration: 0.9, stagger: 0.018 }, 0.2)
+      .to('#lp-hero .lp-intro:not(.eyebrow)', { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out' }, '-=0.5')
+  }
+
+  /* ── Logos: entran y avanzan ligados al scroll (como Brands.astro) ── */
+  const initLogos = () => {
+    const section = document.getElementById('lp-logos')!
+    const track = section.querySelector<HTMLElement>('.lp-marquee-track')!
+    const items = section.querySelectorAll<HTMLElement>('.lp-brand')
+    const setSize = Number(track.dataset.setSize) || 1
+    let setWidth = 0
+
+    gsap.from(items, {
+      opacity: 0,
+      y: 40,
+      scale: 0.9,
+      stagger: 0.03,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: section, start: 'top 95%', end: 'top 45%', scrub: true },
+    })
+
+    const measure = () => {
+      const next = items[setSize]
+      setWidth = next ? next.offsetLeft - items[0].offsetLeft : 0
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    // Los logos son lazy: al cargar cambian de ancho
+    section.querySelectorAll('img').forEach(img => img.addEventListener('load', measure, { once: true }))
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: self => {
+        if (!setWidth) return
+        gsap.set(track, { x: gsap.utils.wrap(-setWidth, 0, -self.progress * setWidth * 2.5) })
+      },
+    })
+  }
+
+  /* ── Reveals genéricos por atributo ── */
+  const initReveals = () => {
+    // Títulos: cada línea sube detrás de una máscara (como "Trabajos" en el home)
+    gsap.utils.toArray<HTMLElement>('[data-split]').forEach(title => {
+      SplitText.create(title, {
+        type: 'lines',
+        mask: 'lines',
+        linesClass: 'lp-line',
+        autoSplit: true,
+        onSplit: self =>
+          gsap.from(self.lines, {
+            yPercent: 110,
+            duration: 1.1,
+            stagger: 0.1,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: title, start: 'top 85%' },
+          }),
+      })
+    })
+
+    // Bloques sueltos
+    gsap.utils.toArray<HTMLElement>('[data-rise]').forEach(el => {
+      gsap.from(el, {
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      })
+    })
+
+    // Listas: los hijos entran en cascada
+    gsap.utils.toArray<HTMLElement>('[data-stagger]').forEach(list => {
+      gsap.from(list.children, {
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: list, start: 'top 82%' },
+      })
+    })
+
+    // Iconos y números: "saltan" como los stickers del bloque Estudio
+    gsap.utils.toArray<HTMLElement>('[data-pop]').forEach(el => {
+      gsap.from(el, {
+        scale: 0,
+        rotation: -25,
+        duration: 0.7,
+        delay: 0.25,
+        ease: 'back.out(2)',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      })
+    })
+
+    // Portadas y formulario: se destapan con clip-path (como los proyectos del home)
+    const clipFrom = { clipPath: 'inset(12% 6% 0% 6% round 2rem)' }
+    const clipTo = { clipPath: 'inset(0% 0% 0% 0% round 0rem)', clearProps: 'clipPath', duration: 1.3, ease: 'power3.out' }
+
+    gsap.utils.toArray<HTMLElement>('.lp-case-item').forEach(item => {
+      const trigger = { trigger: item, start: 'top 90%' }
+      gsap.from(item, { y: 80, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: trigger })
+      gsap.fromTo(item.querySelector('.lp-case-media'), clipFrom, { ...clipTo, scrollTrigger: trigger })
+    })
+
+    gsap.utils.toArray<HTMLElement>('[data-clip]').forEach(el => {
+      gsap.fromTo(el, clipFrom, { ...clipTo, scrollTrigger: { trigger: el, start: 'top 85%' } })
+    })
+
+    // Frase de cierre: cada letra se enciende en naranja y se asienta (como el bloque final del home)
+    gsap.utils.toArray<HTMLElement>('[data-glow]').forEach(line => {
+      const { chars } = SplitText.create(line, { type: 'words,chars' })
+      gsap.set(chars, { color: 'rgba(255, 255, 255, 0.18)' })
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: line, start: 'top 85%', end: 'top 35%', scrub: 0.8 },
+      })
+      const span = 85
+      const step = 3.5
+      chars.forEach((char, i) => {
+        const at = (i / chars.length) * span
+        tl.to(char, { color: PEAK, scale: 1.12, rotation: () => gsap.utils.random(-4, 4), duration: step, ease: 'power1.out' }, at)
+          .to(char, { color: SETTLE, scale: 1, rotation: 0, duration: step, ease: 'power1.inOut' }, at + step)
+      })
+    })
+
+    // Proceso: la barra se llena mientras recorres los pasos
+    gsap.to('.lp-process-progress', {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: { trigger: '#lp-process', start: 'top 70%', end: 'bottom 70%', scrub: true },
+    })
+  }
+
+  const init = () => {
+    initFaq()
+    initCursor()
+
+    if (reduceMotion) {
+      root.classList.remove('lp-motion')
+      gsap.set('.lp-process-progress', { scaleX: 1 })
+      return
+    }
+
+    initHero()
+    initLogos()
+    initReveals()
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init)
+  } else {
+    init()
   }
 </script>
