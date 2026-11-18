@@ -7,7 +7,10 @@ export type ThemePreference = "light" | "dark" | "system";
 export const THEME_KEY = "admin-theme";
 
 /** Se ejecuta en <head> antes de pintar para evitar el destello del tema equivocado. */
-export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${THEME_KEY}");var d=t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d)}catch(e){}})()`;
+export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${THEME_KEY}");var d=t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);if(t){var s=function(){document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute("content",d?"#0a0a0a":"#f4ede3")})};s();document.addEventListener("DOMContentLoaded",s)}}catch(e){}})()`;
+
+/** Color de la barra del navegador / sistema para cada tema (igual que --background) */
+const BAR_COLOR = { light: "#f4ede3", dark: "#0a0a0a" };
 
 export function readPreference(): ThemePreference {
   try {
@@ -29,6 +32,12 @@ export function applyPreference(pref: ThemePreference) {
   }
   const dark = pref === "dark" || (pref === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", dark);
+  // Con preferencia manual, la barra del sistema sigue al tema elegido y no al del sistema operativo
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => {
+    const media = m.getAttribute("media");
+    const color = pref === "system" && media ? (media.includes("dark") ? BAR_COLOR.dark : BAR_COLOR.light) : dark ? BAR_COLOR.dark : BAR_COLOR.light;
+    m.setAttribute("content", color);
+  });
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 

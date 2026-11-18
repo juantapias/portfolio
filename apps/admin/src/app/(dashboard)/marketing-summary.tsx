@@ -44,7 +44,7 @@ export async function MarketingSummary() {
         </div>
         <CardLink href="/conversion">Ver embudo</CardLink>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Stat href="/analitica" icon={Globe} label="Visitas a la web" value={sessions ? n(sessions.current) : "—"} info="Sesiones en Google Analytics 4, comparadas con los 28 días anteriores.">
           {sessions ? <Delta current={sessions.current} previous={sessions.previous} /> : <Muted>GA4 sin datos</Muted>}
         </Stat>

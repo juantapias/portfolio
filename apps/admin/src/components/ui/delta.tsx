@@ -18,7 +18,7 @@ export function Delta({ current, previous, inverse = false }: { current: number;
         <span className="sr-only">{change > 0 ? "Sube" : "Baja"}</span>
         {Math.abs(change * 100).toFixed(0)}%
       </span>
-      <span className="text-muted-foreground">vs. periodo anterior</span>
+      <span className="sr-only text-muted-foreground sm:not-sr-only">vs. periodo anterior</span>
     </span>
   );
 }

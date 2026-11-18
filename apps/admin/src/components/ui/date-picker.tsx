@@ -92,7 +92,7 @@ export function DatePicker({
             aria-label={ariaLabel ? `${ariaLabel}: ${date ? label : "sin fecha"}` : undefined}
             className={cn(
               controlClass,
-              "flex h-9 items-center gap-2 text-left",
+              "flex h-11 items-center gap-2 text-left md:h-9",
               !date && "text-muted-foreground",
               date && !required && "pr-9",
             )}

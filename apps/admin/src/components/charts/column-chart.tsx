@@ -52,7 +52,7 @@ export function ColumnChart({
           ))}
         </div>
 
-        <div className="relative flex-1">
+        <div className="relative min-w-0 flex-1">
           {/* Rejilla */}
           <div aria-hidden className="absolute inset-x-0 top-0" style={{ height }}>
             {ticks.map((t) => (
@@ -69,7 +69,7 @@ export function ColumnChart({
               const active = i === highlight;
               const pct = top ? (d.value / top) * 100 : 0;
               return (
-                <li key={d.label} className="flex h-full flex-1 flex-col justify-end">
+                <li key={d.label} className="flex h-full min-w-0 flex-1 flex-col justify-end">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <div
@@ -109,7 +109,7 @@ export function ColumnChart({
           </ul>
 
           {/* Eje X */}
-          <div aria-hidden className="mt-2 flex gap-2 sm:gap-3">
+          <div aria-hidden className="mt-2 flex min-w-0 gap-2 sm:gap-3">
             {data.map((d, i) => (
               <span
                 key={d.label}
