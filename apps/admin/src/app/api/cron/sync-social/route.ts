@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/server";
 import { getProfile, getTotals, isInstagramConfigured } from "@/lib/social/instagram";
+import { getConnection, getUser, getVideos, isTikTokConfigured } from "@/lib/social/tiktok";
 import { todayISO } from "@/lib/format";
 
 /**
@@ -32,6 +33,43 @@ export async function GET(request: Request) {
       results.instagram = error ? { error: error.message } : { ok: true, followers: profile.followers_count };
     } catch (e) {
       results.instagram = { error: (e as Error).message };
+    }
+  }
+
+  if (isTikTokConfigured() && (await getConnection())) {
+    try {
+      // getUser renueva el access token (24 h) si hace falta
+      const [user, videos] = await Promise.all([getUser(), getVideos(40)]);
+      const views = videos.reduce((s, v) => s + (v.view_count ?? 0), 0);
+      const { error } = await supabase.from("social_metrics_daily").upsert({
+        provider: "tiktok",
+        date: todayISO(),
+        followers: user.follower_count,
+        views, // vistas acumuladas de los últimos 40 videos
+        interactions: user.likes_count, // "me gusta" totales del perfil
+        raw: { user, videos: videos.length },
+      });
+      if (videos.length) {
+        await supabase.from("social_posts").upsert(
+          videos.map((v) => ({
+            provider: "tiktok",
+            external_id: v.id,
+            posted_at: new Date(v.create_time * 1000).toISOString(),
+            media_type: "VIDEO",
+            caption: v.title || v.video_description || null,
+            permalink: v.share_url ?? null,
+            thumbnail: v.cover_image_url ?? null,
+            views: v.view_count ?? null,
+            likes: v.like_count ?? null,
+            comments: v.comment_count ?? null,
+            shares: v.share_count ?? null,
+            updated_at: new Date().toISOString(),
+          })),
+        );
+      }
+      results.tiktok = error ? { error: error.message } : { ok: true, followers: user.follower_count };
+    } catch (e) {
+      results.tiktok = { error: (e as Error).message };
     }
   }
 

@@ -128,6 +128,51 @@
       }
     ]
   },
+  "Terms": {
+    "title": "Términos de servicio",
+    "short": "Términos",
+    "description": "Condiciones de uso de juantapias.dev y de los servicios de diseño y desarrollo web de Juan Tapias.",
+    "updated": "Última actualización: 18 de noviembre de 2026",
+    "back": "Volver al inicio",
+    "sections": [
+      {
+        "title": "Quién soy",
+        "body": "Este sitio pertenece a Juan Tapias, diseñador y desarrollador web independiente con base en Colombia. Al usar juantapias.dev aceptas estos términos. Si no estás de acuerdo con ellos, no uses el sitio."
+      },
+      {
+        "title": "Uso del sitio",
+        "body": "Puedes navegar el sitio, consultar los casos de estudio y contactarme para pedir una propuesta. No está permitido usarlo para actividades ilegales, intentar acceder a áreas restringidas, interferir con su funcionamiento ni enviar información falsa o de terceros sin su autorización."
+      },
+      {
+        "title": "Propuestas y presupuestos",
+        "body": "La información de los servicios y los rangos de precio del sitio son orientativos. Un proyecto solo empieza cuando aceptas una propuesta o presupuesto concreto por escrito, que define el alcance, los tiempos, el precio y las condiciones de pago. Cada presupuesto tiene una fecha de validez indicada en el propio documento."
+      },
+      {
+        "title": "Propiedad intelectual",
+        "body": "Los textos, diseños, código, imágenes y marcas del sitio son de Juan Tapias o de sus clientes, y se muestran con su permiso. No puedes copiarlos ni reutilizarlos sin autorización. La titularidad del trabajo hecho para cada cliente se rige por lo acordado en su propuesta."
+      },
+      {
+        "title": "Herramientas internas y servicios de terceros",
+        "body": "Uso herramientas internas para gestionar mi trabajo, entre ellas integraciones de solo lectura con mis propias cuentas de Instagram y TikTok para consultar sus estadísticas. Estas integraciones no publican contenido ni acceden a cuentas de otras personas. Los enlaces a WhatsApp, redes sociales y otros servicios externos se rigen por los términos de esos servicios."
+      },
+      {
+        "title": "Responsabilidad",
+        "body": "Trabajo para que el sitio esté disponible y la información sea correcta, pero puede tener errores o interrupciones. En la medida que lo permita la ley, no soy responsable de daños derivados del uso del sitio o de la imposibilidad de usarlo."
+      },
+      {
+        "title": "Privacidad",
+        "body": "El tratamiento de tus datos personales se explica en la política de privacidad, que forma parte de estos términos."
+      },
+      {
+        "title": "Ley aplicable y cambios",
+        "body": "Estos términos se rigen por las leyes de la República de Colombia. Puedo actualizarlos; la fecha de la última versión aparece al inicio de esta página."
+      },
+      {
+        "title": "Contacto",
+        "body": "Para cualquier consulta sobre estos términos, escríbeme a hola@juantapias.dev."
+      }
+    ]
+  },
   "Footer": {
     "social": "Conéctate conmigo",
     "backToTop": "Volver arriba",
