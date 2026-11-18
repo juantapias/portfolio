@@ -55,7 +55,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
         actions={<RangeFilter range={range} />}
       />
 
-      <p className="mb-6 rounded-md border border-border bg-surface px-3 py-2 text-xs text-muted">
+      <p className="mb-6 rounded-md border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
         GA4 solo mide a quien acepta las cookies, así que sus cifras están por debajo de la realidad. Los leads
         exactos están en el CRM.
       </p>
@@ -72,7 +72,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
             ] as const
           ).map(([label, key, fmt]) => (
             <Card key={key}>
-              <p className="text-sm text-muted">{label}</p>
+              <p className="text-sm text-muted-foreground">{label}</p>
               <p className="mt-2 text-3xl font-semibold tabular-nums">{fmt(overview.current[key])}</p>
               <p className="mt-1">
                 <Delta current={overview.current[key]} previous={overview.previous[key]} />
@@ -128,7 +128,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
             {ga.campaigns.status === "fulfilled" ? (
               ga.campaigns.value.length ? (
                 <table className="w-full text-sm">
-                  <thead className="text-left text-xs text-muted">
+                  <thead className="text-left text-xs text-muted-foreground">
                     <tr>
                       <th className="pb-2 font-medium">Campaña</th>
                       <th className="pb-2 text-right font-medium">Sesiones</th>
@@ -140,7 +140,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
                       <tr key={c.campaign + c.source}>
                         <td className="py-2">
                           {c.campaign}
-                          <span className="block text-xs text-muted">{c.source}</span>
+                          <span className="block text-xs text-muted-foreground">{c.source}</span>
                         </td>
                         <td className="py-2 text-right tabular-nums">{n(c.sessions)}</td>
                         <td className="py-2 text-right tabular-nums">{n(c.leads)}</td>
@@ -149,7 +149,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
                   </tbody>
                 </table>
               ) : (
-                <p className="text-sm text-muted">Ninguna visita con UTM en este periodo.</p>
+                <p className="text-sm text-muted-foreground">Ninguna visita con UTM en este periodo.</p>
               )
             ) : (
               <SectionError reason={ga.campaigns.reason} />
@@ -170,7 +170,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
       <section className="mt-12">
         <div className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight">Google (Search Console)</h2>
-          <p className="text-sm text-muted">
+          <p className="text-sm text-muted-foreground">
             Cómo te encuentran en Google · {formatDate(search.period.start)} – {formatDate(search.period.end)} (llega
             con ~2 días de retraso)
           </p>
@@ -188,7 +188,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
                 ] as const
               ).map(([label, key, fmt, inverse]) => (
                 <Card key={key}>
-                  <p className="text-sm text-muted">{label}</p>
+                  <p className="text-sm text-muted-foreground">{label}</p>
                   <p className="mt-2 text-3xl font-semibold tabular-nums">{fmt(search.current![key])}</p>
                   <p className="mt-1">
                     <Delta current={search.current![key]} previous={search.previous?.[key] ?? 0} inverse={inverse} />
@@ -216,13 +216,13 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
 
 function RangeFilter({ range }: { range: RangeDays }) {
   return (
-    <nav aria-label="Periodo" className="flex rounded-md border border-border bg-surface p-0.5 text-sm">
+    <nav aria-label="Periodo" className="flex rounded-md border border-border bg-card p-0.5 text-sm">
       {RANGES.map((r) => (
         <Link
           key={r.value}
           href={`/analitica?rango=${r.value}`}
           aria-current={r.value === range ? "page" : undefined}
-          className={`rounded px-3 py-1.5 ${r.value === range ? "bg-foreground text-background" : "text-muted hover:text-foreground"}`}
+          className={`rounded px-3 py-1.5 ${r.value === range ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
         >
           {r.label}
         </Link>
@@ -233,7 +233,7 @@ function RangeFilter({ range }: { range: RangeDays }) {
 
 function Funnel({ steps }: { steps: { step: string; users: number }[] }) {
   const first = steps[0]?.users ?? 0;
-  if (!first) return <p className="text-sm text-muted">Nadie visitó la landing en este periodo.</p>;
+  if (!first) return <p className="text-sm text-muted-foreground">Nadie visitó la landing en este periodo.</p>;
   return (
     <BarList
       items={steps.map((s) => ({ label: s.step, value: s.users }))}
@@ -251,11 +251,11 @@ function SearchTable({
   empty: string;
   compact?: boolean;
 }) {
-  if (!rows.length) return <p className="text-sm text-muted">{empty}</p>;
+  if (!rows.length) return <p className="text-sm text-muted-foreground">{empty}</p>;
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
-        <thead className="text-left text-xs text-muted">
+        <thead className="text-left text-xs text-muted-foreground">
           <tr>
             <th className="pb-2 font-medium">{compact ? "Página" : "Búsqueda"}</th>
             <th className="pb-2 text-right font-medium">Clics</th>
@@ -282,7 +282,7 @@ function SearchTable({
 
 function SectionError({ reason }: { reason: unknown }) {
   return (
-    <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">
+    <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
       No se pudo cargar: {reason instanceof Error ? reason.message : String(reason)}
     </p>
   );

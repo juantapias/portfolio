@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { saveProfile, type FormState } from "./actions";
 import { Button, Field, FormError, Input, Select, Textarea } from "@/components/ui/form";
 import type { BusinessProfile } from "@/lib/types";
+import { Check } from "lucide-react";
 
 export function ProfileForm({ profile }: { profile: BusinessProfile | null }) {
   const [state, action, pending] = useActionState<FormState, FormData>(saveProfile, {});
@@ -58,7 +59,7 @@ export function ProfileForm({ profile }: { profile: BusinessProfile | null }) {
       <FormError message={state.error} />
       <div className="flex items-center gap-3">
         <Button disabled={pending}>{pending ? "Guardando…" : "Guardar perfil"}</Button>
-        {state.ok && !pending && <span className="text-sm text-green-600 dark:text-green-400">Guardado ✓</span>}
+        {state.ok && !pending && <span className="inline-flex items-center gap-1 text-sm text-success"><Check aria-hidden className="size-4" />Guardado</span>}
       </div>
     </form>
   );

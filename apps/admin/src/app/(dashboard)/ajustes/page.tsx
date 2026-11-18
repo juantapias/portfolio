@@ -40,7 +40,7 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
       <PageHeader title="Ajustes" description="Tus datos como emisor e integraciones." />
 
       <Card title="Perfil del emisor" className="mb-6">
-        <p className="-mt-1 mb-5 text-sm text-muted">Aparece en el encabezado de tus presupuestos.</p>
+        <p className="-mt-1 mb-5 text-sm text-muted-foreground">Aparece en el encabezado de tus presupuestos.</p>
         <ProfileForm profile={profile} />
       </Card>
 
@@ -53,7 +53,7 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
           {telegram ? (
             <TestTelegramButton />
           ) : (
-            <span className="text-xs text-muted">Faltan TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID</span>
+            <span className="text-xs text-muted-foreground">Faltan TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID</span>
           )}
         </div>
         <ul className="divide-y divide-border text-sm">
@@ -61,20 +61,20 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
             <li key={t} className="flex items-center justify-between gap-4 py-2.5">
               <span>
                 <span aria-hidden>{NOTIFICATION_TYPES[t].icon}</span> {NOTIFICATION_TYPES[t].label}
-                <span className="block text-xs text-muted">{NOTIFICATION_TYPES[t].description}</span>
+                <span className="block text-xs text-muted-foreground">{NOTIFICATION_TYPES[t].description}</span>
               </span>
               <TypeToggle type={t} enabled={!telegramOff.has(t)} disabled={!telegram} />
             </li>
           ))}
         </ul>
-        <p className="mt-3 text-xs text-muted">Todas quedan siempre en la campana de Notificaciones; aquí eliges cuáles llegan también a Telegram.</p>
+        <p className="mt-3 text-xs text-muted-foreground">Todas quedan siempre en la campana de Notificaciones; aquí eliges cuáles llegan también a Telegram.</p>
       </Card>
 
       <Card title="Integraciones">
         {message && (
           <p
             role="status"
-            className={`mb-3 rounded-md px-3 py-2 text-sm ${message.tone === "green" ? "bg-green-50 text-green-800 dark:bg-green-950/40 dark:text-green-300" : "bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300"}`}
+            className={`mb-3 rounded-md px-3 py-2 text-sm ${message.tone === "green" ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}
           >
             {message.text}
           </p>
@@ -85,14 +85,14 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
             <Badge tone={isGoogleConfigured() ? "green" : "neutral"}>{isGoogleConfigured() ? "Conectado" : "Sin configurar"}</Badge>
           </li>
           <li className="flex items-center justify-between gap-4 py-3">
-            <span>Instagram <span className="text-muted">· token de sistema, no caduca</span></span>
+            <span>Instagram <span className="text-muted-foreground">· token de sistema, no caduca</span></span>
             <Badge tone={isInstagramConfigured() ? "green" : "neutral"}>{isInstagramConfigured() ? "Conectado" : "Sin configurar"}</Badge>
           </li>
           <li className="flex flex-wrap items-center justify-between gap-4 py-3">
             <span>
               TikTok
               {tiktok && (
-                <span className="text-muted">
+                <span className="text-muted-foreground">
                   {" "}· {tiktok.account_name ?? "cuenta conectada"} · desde {formatDate(tiktok.connected_at)} · reconexión antes del{" "}
                   {formatDate(tiktok.refresh_expires_at)}
                 </span>
@@ -110,7 +110,7 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
             )}
           </li>
         </ul>
-        <p className="mt-3 text-xs text-muted">Paso a paso en apps/admin/docs/integraciones.md</p>
+        <p className="mt-3 text-xs text-muted-foreground">Paso a paso en apps/admin/docs/integraciones.md</p>
       </Card>
     </>
   );

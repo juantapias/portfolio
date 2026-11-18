@@ -13,7 +13,7 @@ export function BarList({
 }) {
   const max = Math.max(...items.map((i) => i.value), 1);
 
-  if (items.length === 0) return <p className="text-sm text-muted">Sin datos en este periodo.</p>;
+  if (items.length === 0) return <p className="text-sm text-muted-foreground">Sin datos en este periodo.</p>;
 
   return (
     <ul className="space-y-2.5">
@@ -22,7 +22,7 @@ export function BarList({
           <div className="mb-1 flex items-baseline justify-between gap-3 text-sm">
             <span className="min-w-0 truncate">
               {item.label}
-              {item.hint && <span className="ml-1.5 text-xs text-muted">{item.hint}</span>}
+              {item.hint && <span className="ml-1.5 text-xs text-muted-foreground">{item.hint}</span>}
             </span>
             <span className="shrink-0 tabular-nums">
               {format(item.value)}

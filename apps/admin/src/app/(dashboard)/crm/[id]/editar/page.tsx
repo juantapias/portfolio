@@ -25,7 +25,7 @@ export default async function EditLeadPage({ params }: PageProps<"/crm/[id]/edit
       <Card title="Zona de peligro" className="mt-10 max-w-3xl">
         <form action={deleteLead} className="flex flex-wrap items-center justify-between gap-3">
           <input type="hidden" name="id" value={lead.id} />
-          <p className="text-sm text-muted">
+          <p className="text-sm text-muted-foreground">
             Elimina el lead y su historial. Sus presupuestos se conservan, sin cliente asociado.
           </p>
           <ConfirmButton variant="danger" message="¿Eliminar este lead y todo su historial?">Eliminar lead</ConfirmButton>

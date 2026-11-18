@@ -1,17 +1,37 @@
 import type { Tone } from "@/lib/crm";
+import { cn } from "@/lib/utils";
 
+/** Cada tono usa un token semántico: el texto en el color pleno y el fondo al 12%. */
 const tones: Record<Tone, string> = {
-  blue: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
-  amber: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300",
-  violet: "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300",
-  green: "bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-300",
-  red: "bg-red-50 text-red-700 dark:bg-red-950/50 dark:text-red-300",
-  neutral: "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300",
+  blue: "bg-info/12 text-info",
+  amber: "bg-warning/12 text-warning",
+  violet: "bg-violet/12 text-violet",
+  green: "bg-success/12 text-success",
+  red: "bg-destructive/12 text-destructive",
+  neutral: "bg-muted text-muted-foreground",
 };
 
-export function Badge({ tone = "neutral", children }: { tone?: Tone; children: React.ReactNode }) {
+export function Badge({
+  tone = "neutral",
+  dot = true,
+  children,
+  className,
+}: {
+  tone?: Tone;
+  /** Punto de color delante del texto: refuerza el estado sin depender solo del color de fondo */
+  dot?: boolean;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${tones[tone]}`}>
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap",
+        tones[tone],
+        className,
+      )}
+    >
+      {dot && <span aria-hidden className="size-1.5 rounded-full bg-current" />}
       {children}
     </span>
   );

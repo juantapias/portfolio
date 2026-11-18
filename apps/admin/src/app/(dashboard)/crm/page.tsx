@@ -8,6 +8,7 @@ import { buttonClass } from "@/components/ui/form";
 import { LEAD_STATUSES, sourceLabel } from "@/lib/crm";
 import { formatDate, formatMoney, todayISO } from "@/lib/format";
 import type { Lead } from "@/lib/types";
+import { CalendarClock } from "lucide-react";
 
 export const metadata: Metadata = { title: "CRM" };
 
@@ -36,7 +37,7 @@ export default async function CrmPage() {
         actions={<Link href="/crm/nuevo" className={buttonClass()}>Nuevo lead</Link>}
       />
 
-      {error && <p className="mb-4 text-sm text-red-600">{error.message}</p>}
+      {error && <p className="mb-4 text-sm text-destructive">{error.message}</p>}
 
       {leads.length === 0 ? (
         <EmptyState
@@ -52,7 +53,7 @@ export default async function CrmPage() {
               <section key={status.value} className="w-72 shrink-0 snap-start">
                 <header className="mb-3 flex items-center justify-between px-1">
                   <Badge tone={status.tone}>{status.label}</Badge>
-                  <span className="text-xs tabular-nums text-muted">{column.length}</span>
+                  <span className="text-xs tabular-nums text-muted-foreground">{column.length}</span>
                 </header>
                 <ul className="space-y-2">
                   {column.map((lead) => (
@@ -61,7 +62,7 @@ export default async function CrmPage() {
                     </li>
                   ))}
                   {column.length === 0 && (
-                    <li className="rounded-lg border border-dashed border-border p-4 text-center text-xs text-muted">
+                    <li className="rounded-lg border border-dashed border-border p-4 text-center text-xs text-muted-foreground">
                       Vacío
                     </li>
                   )}
@@ -82,11 +83,11 @@ function LeadCard({ lead, today }: { lead: Lead; today: string }) {
   return (
     <Link
       href={`/crm/${lead.id}`}
-      className="block rounded-lg border border-border bg-surface p-3 transition-colors hover:border-foreground/30"
+      className="block rounded-lg border border-border bg-card p-3 transition-colors hover:border-foreground/30"
     >
       <p className="font-medium leading-tight">{lead.name}</p>
-      {lead.company && <p className="text-sm text-muted">{lead.company}</p>}
-      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+      {lead.company && <p className="text-sm text-muted-foreground">{lead.company}</p>}
+      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
         {lead.estimated_value != null ? (
           <span className="font-medium text-foreground tabular-nums">
             {formatMoney(lead.estimated_value, lead.currency)}
@@ -97,8 +98,9 @@ function LeadCard({ lead, today }: { lead: Lead; today: string }) {
         {lead.form_data?.service && <span>{lead.form_data.service}</span>}
         {lead.source && <span>{sourceLabel(lead.source)}</span>}
         {lead.next_follow_up && (
-          <span className={overdue ? "font-medium text-red-600 dark:text-red-400" : ""}>
-            ↻ {formatDate(lead.next_follow_up)}
+          <span className={`inline-flex items-center gap-1 ${overdue ? "font-medium text-destructive" : ""}`}>
+            <CalendarClock aria-label="Seguimiento" className="size-3.5" />
+            {formatDate(lead.next_follow_up)}
           </span>
         )}
       </div>

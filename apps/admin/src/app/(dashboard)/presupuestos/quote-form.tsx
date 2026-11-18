@@ -4,9 +4,11 @@ import { useActionState, useMemo, useState } from "react";
 import Link from "next/link";
 import { saveQuote, type FormState, type ItemInput } from "./actions";
 import { Button, Field, FormError, Input, Select, Textarea, buttonClass } from "@/components/ui/form";
+import { DatePicker } from "@/components/ui/date-picker";
 import { CURRENCIES, computeTotals } from "@/lib/quotes";
 import { formatMoney } from "@/lib/format";
 import type { Quote, QuoteItem, ServiceTemplate } from "@/lib/types";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 
 interface Props {
   quote?: Quote;
@@ -120,10 +122,10 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
           />
         </Field>
         <Field label="Fecha de emisión">
-          <Input name="issue_date" type="date" defaultValue={quote?.issue_date} />
+          <DatePicker name="issue_date" defaultValue={quote?.issue_date} placeholder="Hoy" />
         </Field>
         <Field label="Válido hasta" hint={quote ? undefined : "Por defecto: 15 días"}>
-          <Input name="valid_until" type="date" defaultValue={quote?.valid_until} />
+          <DatePicker name="valid_until" defaultValue={quote?.valid_until} placeholder="En 15 días" />
         </Field>
       </section>
 
@@ -156,7 +158,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
         </div>
 
         <div className="overflow-hidden rounded-lg border border-border">
-          <div className="hidden grid-cols-[1fr_90px_160px_140px_72px] gap-3 border-b border-border bg-surface px-3 py-2 text-xs font-medium text-muted md:grid">
+          <div className="hidden grid-cols-[1fr_90px_160px_140px_72px] gap-3 border-b border-border bg-card px-3 py-2 text-xs font-medium text-muted-foreground md:grid">
             <span>Descripción</span>
             <span className="text-right">Cant.</span>
             <span className="text-right">Precio unitario</span>
@@ -165,7 +167,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
           </div>
           <ul className="divide-y divide-border">
             {items.map((item, index) => (
-              <li key={item.id} className="grid gap-2 bg-surface p-3 md:grid-cols-[1fr_90px_160px_140px_72px] md:items-start md:gap-3">
+              <li key={item.id} className="grid gap-2 bg-card p-3 md:grid-cols-[1fr_90px_160px_140px_72px] md:items-start md:gap-3">
                 <div className="space-y-2">
                   <Input
                     aria-label="Descripción"
@@ -206,14 +208,14 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
                 <p className="py-2 text-right text-sm tabular-nums">
                   {formatMoney(item.quantity * item.unit_price, currency)}
                 </p>
-                <div className="flex justify-end gap-0.5 text-muted">
-                  <IconButton label="Subir" onClick={() => move(index, -1)} disabled={index === 0}>↑</IconButton>
-                  <IconButton label="Bajar" onClick={() => move(index, 1)} disabled={index === items.length - 1}>↓</IconButton>
+                <div className="flex justify-end gap-0.5 text-muted-foreground">
+                  <IconButton label="Subir" onClick={() => move(index, -1)} disabled={index === 0}><ChevronUp className="size-4" /></IconButton>
+                  <IconButton label="Bajar" onClick={() => move(index, 1)} disabled={index === items.length - 1}><ChevronDown className="size-4" /></IconButton>
                   <IconButton
                     label="Quitar"
                     onClick={() => setItems((prev) => (prev.length > 1 ? prev.filter((i) => i.id !== item.id) : [newItem()]))}
                   >
-                    ×
+                    <X className="size-4" />
                   </IconButton>
                 </div>
               </li>
@@ -229,7 +231,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
       <section className="ml-auto w-full max-w-sm space-y-2 text-sm">
         <Line label="Subtotal" value={formatMoney(totals.subtotal, currency)} />
         <div className="flex items-center justify-between gap-4">
-          <label htmlFor="discount" className="text-muted">Descuento</label>
+          <label htmlFor="discount" className="text-muted-foreground">Descuento</label>
           <Input
             id="discount"
             name="discount"
@@ -243,7 +245,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
           />
         </div>
         <div className="flex items-center justify-between gap-4">
-          <label className="flex items-center gap-2 text-muted">
+          <label className="flex items-center gap-2 text-muted-foreground">
             <input type="checkbox" name="apply_tax" checked={applyTax} onChange={(e) => setApplyTax(e.target.checked)} />
             IVA
           </label>
@@ -259,17 +261,17 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
                 className="w-20 text-right"
                 aria-label="Porcentaje de IVA"
               />
-              <span className="text-muted">%</span>
+              <span className="text-muted-foreground">%</span>
             </span>
           ) : (
-            <span className="text-xs text-muted">No responsable de IVA</span>
+            <span className="text-xs text-muted-foreground">No responsable de IVA</span>
           )}
         </div>
         {applyTax && <Line label="IVA" value={formatMoney(totals.tax, currency)} />}
         <div className="border-t border-border pt-2">
           <Line label="Total" value={formatMoney(totals.total, currency)} strong />
           {currency !== "COP" && fx > 0 && (
-            <p className="mt-1 text-right text-xs text-muted">≈ {formatMoney(totals.total * fx, "COP")}</p>
+            <p className="mt-1 text-right text-xs text-muted-foreground">≈ {formatMoney(totals.total * fx, "COP")}</p>
           )}
         </div>
       </section>
@@ -296,7 +298,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
 function Line({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
   return (
     <div className={`flex justify-between gap-4 ${strong ? "text-base font-semibold" : ""}`}>
-      <span className={strong ? "" : "text-muted"}>{label}</span>
+      <span className={strong ? "" : "text-muted-foreground"}>{label}</span>
       <span className="tabular-nums">{value}</span>
     </div>
   );
@@ -309,7 +311,7 @@ function IconButton({ label, children, ...props }: React.ComponentProps<"button"
       aria-label={label}
       title={label}
       {...props}
-      className="flex size-8 items-center justify-center rounded-md hover:bg-background hover:text-foreground disabled:opacity-30"
+      className="flex size-8 items-center justify-center rounded-md hover:bg-accent hover:text-foreground disabled:opacity-30"
     >
       {children}
     </button>

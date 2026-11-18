@@ -12,6 +12,7 @@ import { getQuoteTotals } from "@/lib/quote-data";
 import type { Lead, LeadActivity, Quote } from "@/lib/types";
 import { StatusSelect } from "./status-select";
 import { ActivityForm } from "./activity-form";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 
 export async function generateMetadata({ params }: PageProps<"/crm/[id]">): Promise<Metadata> {
   const { id } = await params;
@@ -38,12 +39,12 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
 
   return (
     <>
-      <Link href="/crm" className="text-sm text-muted hover:text-foreground">← CRM</Link>
+      <Link href="/crm" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft aria-hidden className="size-4" />CRM</Link>
 
       <header className="mb-8 mt-3 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{lead.name}</h1>
-          {lead.company && <p className="mt-1 text-muted">{lead.company}</p>}
+          {lead.company && <p className="mt-1 text-muted-foreground">{lead.company}</p>}
         </div>
         <div className="flex flex-wrap gap-2">
           <StatusSelect id={lead.id} status={lead.status} />
@@ -59,13 +60,13 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
               <dl className="grid gap-4 text-sm sm:grid-cols-2">
                 {FORM_FIELDS.filter((f) => lead.form_data?.[f.key]).map((f) => (
                   <div key={f.key}>
-                    <dt className="text-xs text-muted">{f.label}</dt>
+                    <dt className="text-xs text-muted-foreground">{f.label}</dt>
                     <dd className="mt-0.5 font-medium">{lead.form_data![f.key]}</dd>
                   </div>
                 ))}
               </dl>
               {lead.ref && (
-                <p className="mt-4 text-xs text-muted">
+                <p className="mt-4 text-xs text-muted-foreground">
                   Busca <span className="font-mono font-medium text-foreground">Ref: {lead.ref}</span> en WhatsApp para encontrar el chat.
                 </p>
               )}
@@ -83,8 +84,8 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
             <ol className="mt-6 space-y-4 border-l border-border pl-4">
               {(activities as LeadActivity[] | null)?.map((a) => (
                 <li key={a.id} className="relative">
-                  <span className="absolute -left-[21px] top-1.5 size-2.5 rounded-full border-2 border-surface bg-muted" />
-                  <p className="text-xs text-muted">
+                  <span className="absolute -left-[21px] top-1.5 size-2.5 rounded-full border-2 border-card bg-muted-foreground" />
+                  <p className="text-xs text-muted-foreground">
                     <span className="font-medium text-foreground">{activityLabel(a.type)}</span> · {formatDateTime(a.created_at)}
                   </p>
                   {a.content && <p className="mt-0.5 whitespace-pre-line text-sm">{a.content}</p>}
@@ -98,13 +99,13 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
           <Card title="Datos">
             <dl className="space-y-3 text-sm">
               <Row label="Email">
-                {lead.email ? <a href={`mailto:${lead.email}`} className="hover:text-accent">{lead.email}</a> : "—"}
+                {lead.email ? <a href={`mailto:${lead.email}`} className="hover:text-brand">{lead.email}</a> : "—"}
               </Row>
               <Row label="Teléfono">
                 {lead.phone ? (
                   <span className="flex flex-wrap gap-x-2">
-                    <a href={`tel:${lead.phone}`} className="hover:text-accent">{lead.phone}</a>
-                    {whatsapp && <a href={whatsapp} target="_blank" rel="noreferrer" className="text-accent">WhatsApp ↗</a>}
+                    <a href={`tel:${lead.phone}`} className="hover:text-brand">{lead.phone}</a>
+                    {whatsapp && <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-brand">WhatsApp<ArrowUpRight aria-hidden className="size-3.5" /></a>}
                   </span>
                 ) : "—"}
               </Row>
@@ -112,7 +113,7 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
                 {lead.estimated_value != null ? formatMoney(lead.estimated_value, lead.currency) : "—"}
               </Row>
               <Row label="Próximo seguimiento">
-                <span className={overdue ? "font-medium text-red-600 dark:text-red-400" : ""}>
+                <span className={overdue ? "font-medium text-destructive" : ""}>
                   {formatDate(lead.next_follow_up)}
                 </span>
               </Row>
@@ -123,8 +124,8 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
                 </Row>
               )}
               {lead.landing_page && <Row label="Landing">{lead.landing_page}</Row>}
-              {lead.form_data?.gclid && <Row label="Google Ads">gclid ✓</Row>}
-              {lead.form_data?.fbclid && <Row label="Meta Ads">fbclid ✓</Row>}
+              {lead.form_data?.gclid && <Row label="Google Ads"><span className="inline-flex items-center gap-1">gclid<Check aria-label="detectado" className="size-3.5 text-success" /></span></Row>}
+              {lead.form_data?.fbclid && <Row label="Meta Ads"><span className="inline-flex items-center gap-1">fbclid<Check aria-label="detectado" className="size-3.5 text-success" /></span></Row>}
               <Row label="Creado">{formatDate(lead.created_at)}</Row>
             </dl>
           </Card>
@@ -136,10 +137,10 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
                   const st = quoteStatus(effectiveQuoteStatus(q.status, q.valid_until));
                   return (
                     <li key={q.id}>
-                      <Link href={`/presupuestos/${q.id}`} className="flex items-center justify-between gap-3 py-2.5 text-sm hover:text-accent">
+                      <Link href={`/presupuestos/${q.id}`} className="flex items-center justify-between gap-3 py-2.5 text-sm hover:text-brand">
                         <span className="min-w-0">
                           <span className="block truncate font-medium">{q.title}</span>
-                          <span className="text-xs text-muted">{q.number}</span>
+                          <span className="text-xs text-muted-foreground">{q.number}</span>
                         </span>
                         <span className="shrink-0 text-right">
                           <span className="block tabular-nums">{formatMoney(totals.get(q.id)?.total, q.currency)}</span>
@@ -151,7 +152,7 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
                 })}
               </ul>
             ) : (
-              <p className="text-sm text-muted">Sin presupuestos todavía.</p>
+              <p className="text-sm text-muted-foreground">Sin presupuestos todavía.</p>
             )}
           </Card>
         </div>
@@ -163,7 +164,7 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-xs text-muted">{label}</dt>
+      <dt className="text-xs text-muted-foreground">{label}</dt>
       <dd className="mt-0.5 break-words">{children}</dd>
     </div>
   );

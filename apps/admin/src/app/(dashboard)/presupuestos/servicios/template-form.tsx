@@ -34,11 +34,11 @@ export function TemplateForm({ template, onDone }: { template?: ServiceTemplate;
         </Field>
       </div>
       <div>
-        <p className="mb-1.5 text-sm font-medium">Precios <span className="font-normal text-muted">· deja vacío si no lo ofreces en esa moneda</span></p>
+        <p className="mb-1.5 text-sm font-medium">Precios <span className="font-normal text-muted-foreground">· deja vacío si no lo ofreces en esa moneda</span></p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
           {CURRENCIES.map((c) => (
-            <label key={c} className="flex items-center gap-2 rounded-md border border-border bg-background pl-3 text-sm focus-within:border-accent">
-              <span className="w-9 text-xs text-muted">{c}</span>
+            <label key={c} className="flex items-center gap-2 rounded-md border border-border bg-background pl-3 text-sm focus-within:border-ring">
+              <span className="w-9 text-xs text-muted-foreground">{c}</span>
               <input
                 name={`price_${c}`}
                 type="number"

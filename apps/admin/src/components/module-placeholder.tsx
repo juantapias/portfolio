@@ -14,7 +14,7 @@ export function ModulePlaceholder({ moduleKey }: { moduleKey: ModuleKey }) {
           <ul className="space-y-2 text-sm">
             {m.planned.map((item) => (
               <li key={item} className="flex gap-2">
-                <span aria-hidden className="text-muted">—</span>
+                <span aria-hidden className="text-muted-foreground">—</span>
                 {item}
               </li>
             ))}
@@ -22,7 +22,7 @@ export function ModulePlaceholder({ moduleKey }: { moduleKey: ModuleKey }) {
         </Card>
         <Card title="Fuente de datos">
           <p className="text-sm">{m.source}</p>
-          <p className="mt-4 inline-block rounded-full border border-border px-2.5 py-0.5 text-xs text-muted">
+          <p className="mt-4 inline-block rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
             En construcción
           </p>
         </Card>

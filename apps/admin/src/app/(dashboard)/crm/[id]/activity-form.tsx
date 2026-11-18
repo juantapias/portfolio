@@ -2,7 +2,8 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import { addActivity, type FormState } from "../actions";
-import { Button, FormError, Input, Select, Textarea } from "@/components/ui/form";
+import { Button, FormError, Select, Textarea } from "@/components/ui/form";
+import { DatePicker } from "@/components/ui/date-picker";
 import { ACTIVITY_TYPES } from "@/lib/crm";
 
 export function ActivityForm({ leadId }: { leadId: string }) {
@@ -23,9 +24,9 @@ export function ActivityForm({ leadId }: { leadId: string }) {
             <option key={a.value} value={a.value}>{a.label}</option>
           ))}
         </Select>
-        <label className="flex items-center gap-2 text-sm text-muted">
+        <label className="flex items-center gap-2 text-sm text-muted-foreground">
           Seguimiento
-          <Input name="next_follow_up" type="date" className="w-auto" />
+          <DatePicker name="next_follow_up" placeholder="Sin fecha" presets className="w-52" aria-label="Seguimiento" />
         </label>
         <Button disabled={pending} className="ml-auto">{pending ? "Guardando…" : "Añadir"}</Button>
       </div>

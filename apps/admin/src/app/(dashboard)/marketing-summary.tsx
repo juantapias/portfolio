@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { Card } from "@/components/ui/card";
+import { Camera, Globe, MousePointerClick, Music2 } from "lucide-react";
+import { CardLink, Stat } from "@/components/ui/card";
 import { Delta } from "@/components/ui/delta";
+import { StatGridSkeleton } from "@/components/skeletons";
 import { getSessionBreakdown } from "@/lib/analytics";
 import { isGoogleConfigured } from "@/lib/google/client";
 import { getDaily, getProfile, getTotals, isInstagramConfigured } from "@/lib/social/instagram";
@@ -35,26 +36,32 @@ export async function MarketingSummary() {
   const newFollowers = igFollows.status === "fulfilled" ? igFollows.value.reduce((s, d) => s + d.value, 0) : null;
 
   return (
-    <section className="mt-8">
-      <div className="mb-3 flex items-baseline justify-between">
-        <h2 className="text-sm font-medium text-muted">Marketing · últimos {DAYS} días</h2>
-        <Link href="/conversion" className="text-xs text-muted hover:text-accent">Ver embudo →</Link>
+    <section className="mt-8" aria-labelledby="marketing-title">
+      <div className="mb-4 flex items-end justify-between gap-3">
+        <div>
+          <p className="eyebrow mb-2">Últimos {DAYS} días</p>
+          <h2 id="marketing-title" className="font-heading text-2xl">Marketing</h2>
+        </div>
+        <CardLink href="/conversion">Ver embudo</CardLink>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Tile href="/analitica" label="Visitas a la web" value={sessions ? n(sessions.current) : "—"}>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Stat href="/analitica" icon={Globe} label="Visitas a la web" value={sessions ? n(sessions.current) : "—"} info="Sesiones en Google Analytics 4, comparadas con los 28 días anteriores.">
           {sessions ? <Delta current={sessions.current} previous={sessions.previous} /> : <Muted>GA4 sin datos</Muted>}
-        </Tile>
-        <Tile
+        </Stat>
+        <Stat
           href="/conversion"
+          icon={MousePointerClick}
           label="Visitas → lead"
           value={sessions?.current ? `${((leadsNow / sessions.current) * 100).toLocaleString("es-CO", { maximumFractionDigits: 1 })}%` : "—"}
+          info="Porcentaje de visitas que terminaron en un lead nuevo en el CRM."
         >
           <Muted>
             {n(leadsNow)} lead{leadsNow === 1 ? "" : "s"} · antes {n(leadsPrev)}
           </Muted>
-        </Tile>
-        <Tile
-          href="/redes"
+        </Stat>
+        <Stat
+          href="/redes?red=instagram"
+          icon={Camera}
           label="Instagram"
           value={igProfile.status === "fulfilled" ? `${n(igProfile.value.followers_count)} seg.` : "—"}
         >
@@ -66,12 +73,12 @@ export async function MarketingSummary() {
           ) : (
             <Muted>Sin conectar</Muted>
           )}
-        </Tile>
-        <Tile href="/redes" label="TikTok" value={tiktok.status === "fulfilled" ? `${n(tiktok.value.follower_count)} seg.` : "—"}>
+        </Stat>
+        <Stat href="/redes?red=tiktok" icon={Music2} label="TikTok" value={tiktok.status === "fulfilled" ? `${n(tiktok.value.follower_count)} seg.` : "—"}>
           <Muted>
             {tiktok.status === "fulfilled" ? `${n(tiktok.value.likes_count)} me gusta · ${n(tiktok.value.video_count)} videos` : "Sin conectar"}
           </Muted>
-        </Tile>
+        </Stat>
       </div>
     </section>
   );
@@ -80,28 +87,15 @@ export async function MarketingSummary() {
 export function MarketingSummarySkeleton() {
   return (
     <section className="mt-8" aria-busy="true" aria-label="Cargando marketing">
-      <h2 className="mb-3 text-sm font-medium text-muted">Marketing · últimos {DAYS} días</h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {Array.from({ length: 4 }, (_, i) => (
-          <div key={i} className="h-[118px] animate-pulse rounded-lg border border-border bg-surface" />
-        ))}
+      <div className="mb-4">
+        <p className="eyebrow mb-2">Últimos {DAYS} días</p>
+        <h2 className="font-heading text-2xl">Marketing</h2>
       </div>
+      <StatGridSkeleton />
     </section>
   );
 }
 
-function Tile({ href, label, value, children }: { href: string; label: string; value: string; children: React.ReactNode }) {
-  return (
-    <Link href={href} className="block transition-opacity hover:opacity-80">
-      <Card>
-        <p className="text-sm text-muted">{label}</p>
-        <p className="mt-2 text-3xl font-semibold tabular-nums">{value}</p>
-        <p className="mt-1">{children}</p>
-      </Card>
-    </Link>
-  );
-}
-
 function Muted({ children }: { children: React.ReactNode }) {
-  return <span className="text-xs text-muted">{children}</span>;
+  return <span className="text-xs text-muted-foreground">{children}</span>;
 }
