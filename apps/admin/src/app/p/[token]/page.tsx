@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { createAdminClient } from "@/lib/supabase/server";
+import { after } from "next/server";
+import { createAdminClient, createClient } from "@/lib/supabase/server";
+import { notify } from "@/lib/notifications";
 import { getQuoteBundle } from "@/lib/quote-data";
 import { QuoteDocument } from "@/components/quote-document";
 import { PrintButton } from "@/components/print-button";
@@ -30,6 +32,34 @@ export async function generateMetadata({ params }: PageProps<"/p/[token]">): Pro
 export default async function PublicQuotePage({ params }: PageProps<"/p/[token]">) {
   const bundle = await load((await params).token);
   if (!bundle) notFound();
+
+  // Si quien abre el enlace no es el admin, registra la apertura y avisa
+  // (como mucho un aviso cada 6 h por presupuesto, para no repetir en cada recarga)
+  const { data: session } = await (await createClient()).auth.getClaims();
+  if (!session?.claims) {
+    const { quote, client } = bundle;
+    after(async () => {
+      const now = new Date();
+      const last = quote.last_viewed_at ? new Date(quote.last_viewed_at) : null;
+      await createAdminClient()
+        .from("quotes")
+        .update({
+          view_count: (quote.view_count ?? 0) + 1,
+          last_viewed_at: now.toISOString(),
+          ...(!quote.first_viewed_at && { first_viewed_at: now.toISOString() }),
+        })
+        .eq("id", quote.id);
+      if (!last || now.getTime() - last.getTime() > 6 * 3600_000) {
+        await notify({
+          type: "presupuesto.visto",
+          title: `${client?.company || client?.name || "Un cliente"} abrió el presupuesto ${quote.number}`,
+          body: `${quote.title}${quote.first_viewed_at ? ` · Lo ha abierto ${(quote.view_count ?? 0) + 1} veces` : " · Primera apertura"}. Buen momento para hacer seguimiento.`,
+          link: `/presupuestos/${quote.id}`,
+          data: { quote_id: quote.id },
+        });
+      }
+    });
+  }
 
   const status = effectiveQuoteStatus(bundle.quote.status, bundle.quote.valid_until);
   const banner =

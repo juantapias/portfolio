@@ -1,6 +1,9 @@
 import { createHash } from "node:crypto";
+import { after } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
 import { todayISO } from "@/lib/format";
+import { notify } from "@/lib/notifications";
+import { channelFromSource } from "@/lib/conversion";
 
 /**
  * Endpoint público que recibe el formulario de la landing del portfolio.
@@ -150,6 +153,26 @@ export async function POST(request: Request) {
     console.error("[leads] insert failed", error.message);
     return json({ error: "server_error" }, 500, headers);
   }
+
+  // Aviso (campana + Telegram) después de responder, para no demorar al visitante
+  after(() =>
+    notify({
+      type: "lead.nuevo",
+      title: `Nuevo lead: ${name}${a.business ? ` (${str(a.business, 80)})` : ""}`,
+      body: [
+        [
+          formData.service && `Necesita: ${formData.service}`,
+          formData.budget && `Presupuesto: ${formData.budget}`,
+          formData.timeline && `Para: ${formData.timeline}`,
+        ].filter(Boolean).join(" · "),
+        str(a.notes, 500) && `“${str(a.notes, 300)}”`,
+        `Origen: ${utm.utm_source ? `${channelFromSource(utm.utm_source, utm.utm_medium ?? "")}${utm.utm_campaign ? ` / ${utm.utm_campaign}` : ""}` : "web (sin UTM)"}${ref ? ` · Ref: ${ref}` : ""}`,
+        "Si no te llega su WhatsApp, búscalo por la referencia o escríbele tú.",
+      ].filter(Boolean).join("\n"),
+      link: `/crm/${lead.id}`,
+      data: { lead_id: lead.id, ref },
+    }),
+  );
 
   await supabase.from("lead_activities").insert({
     lead_id: lead.id,

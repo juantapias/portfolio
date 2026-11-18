@@ -9,12 +9,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (!data?.claims) redirect("/login");
 
   const email = data.claims.email as string | undefined;
+  const { count: unread } = await supabase
+    .from("notifications")
+    .select("id", { count: "exact", head: true })
+    .is("read_at", null);
 
   return (
     <div className="mx-auto flex min-h-screen max-w-7xl flex-col md:flex-row">
       <aside className="flex flex-col gap-6 print:hidden border-b border-border p-4 md:sticky md:top-0 md:h-screen md:w-56 md:shrink-0 md:border-b-0 md:border-r">
         <p className="px-3 text-sm font-semibold tracking-tight">Tapias · Admin</p>
-        <Sidebar />
+        <Sidebar badges={{ notificaciones: unread ?? 0 }} />
         <div className="mt-auto hidden px-3 text-xs text-muted md:block">
           <p className="truncate">{email}</p>
           <form action="/auth/signout" method="post">

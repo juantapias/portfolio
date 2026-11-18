@@ -10,6 +10,7 @@ export type ModuleKey =
   | "analitica"
   | "conversion"
   | "redes"
+  | "notificaciones"
   | "ajustes";
 
 export interface AdminModule {
@@ -119,6 +120,14 @@ export const modules: AdminModule[] = [
       "Top publicaciones por engagement",
       "Tráfico que llega a la web desde cada red",
     ],
+  },
+  {
+    key: "notificaciones",
+    href: "/notificaciones",
+    label: "Notificaciones",
+    description: "Avisos de leads, presupuestos, seguimientos y conexiones.",
+    source: "Supabase + Telegram",
+    planned: [],
   },
   {
     key: "ajustes",
