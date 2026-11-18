@@ -7,7 +7,6 @@ export interface Point {
   value: number;
 }
 
-const W = 720;
 const H = 220;
 const PAD = { top: 12, right: 12, bottom: 28, left: 40 };
 
@@ -26,10 +25,17 @@ function niceTicks(max: number) {
  * Serie temporal de una sola métrica: área suave + línea de 2px, línea guía que
  * sigue el cursor y se ajusta al día más cercano, tooltip y tabla accesible.
  */
-export function LineChart({ data, label, format = (v) => v.toLocaleString("es-CO") }: {
+export function LineChart({
+  data,
+  label,
+  format = (v) => v.toLocaleString("es-CO"),
+  width: W = 720,
+}: {
   data: Point[];
   label: string;
   format?: (v: number) => string;
+  /** Ancho del lienzo SVG: más pequeño en tarjetas estrechas para que el texto no se encoja */
+  width?: number;
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -46,11 +52,11 @@ export function LineChart({ data, label, format = (v) => v.toLocaleString("es-CO
     const line = `M${pts.join("L")}`;
     const area = `${line}L${x(data.length - 1).toFixed(1)},${y(0)}L${x(0).toFixed(1)},${y(0)}Z`;
     return { ticks, x, y, line, area };
-  }, [data]);
+  }, [data, W]);
 
   // Etiquetas del eje X: ~6 fechas repartidas; la última siempre, sin pisar a la anterior
   const xLabels = useMemo(() => {
-    const every = Math.max(1, Math.ceil(data.length / 6));
+    const every = Math.max(1, Math.ceil(data.length / (W < 600 ? 4 : 6)));
     const last = data.length - 1;
     const idx = data.map((_, i) => i).filter((i) => i % every === 0);
     if (idx.at(-1) !== last) {
@@ -58,7 +64,7 @@ export function LineChart({ data, label, format = (v) => v.toLocaleString("es-CO
       idx.push(last);
     }
     return idx.map((i) => ({ i, d: data[i] }));
-  }, [data]);
+  }, [data, W]);
 
   function onMove(e: React.PointerEvent<SVGSVGElement>) {
     const rect = svgRef.current!.getBoundingClientRect();

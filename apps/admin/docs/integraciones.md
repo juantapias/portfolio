@@ -54,62 +54,31 @@ GA4 y Search Console guardan histórico, así que el módulo **consulta en vivo*
 
 ---
 
-## 2. Instagram (Instagram API con Instagram Login)
+## 2. Instagram (inicio de sesión unificado de Meta) — configurado el 18 nov 2026
 
-Usamos el flujo **"Instagram API with Instagram Login"**. No requiere Página de Facebook, a diferencia del flujo antiguo con Facebook Login.
+Meta ya no ofrece el "inicio de sesión con Instagram" en apps nuevas: se usa el **inicio de sesión unificado**,
+que exige un **portafolio comercial**. Configuración actual:
 
-**Requisito:** tu cuenta de Instagram debe ser **profesional** (Creador o Empresa).
-App de Instagram → *Configuración → Tipo de cuenta y herramientas → Cambiar a cuenta profesional*.
+- **App de Meta:** "Tapias Admin" (`1497505052254891`), caso de uso *Administrar mensajes y contenido en Instagram*.
+- **Portafolio comercial:** "Tapias" (sin verificar; la verificación solo hace falta para revisión de apps/anuncios).
+- **Permisos (acceso estándar, sin revisión):** `instagram_basic`, `instagram_manage_insights`
+  (+ `instagram_business_basic` / `instagram_business_manage_insights` agregados en la app).
+- **Rol:** `@tapias.dev` es *evaluador de Instagram*. La invitación se acepta en
+  <https://www.instagram.com/accounts/manage_access/> → *Invitaciones de prueba* (en la app móvil no aparece).
+- **Configuración de inicio de sesión:** "Admin lectura Instagram" (`2711341919284584`): token de **usuario del
+  sistema que no caduca**, activo = cuenta de Instagram, solo los dos permisos de lectura.
+- **Token:** se genera en *Casos de uso → API de Instagram → API setup with Unified login → 2. Generar tokens*.
+  Meta lo muestra una sola vez. Variables: `INSTAGRAM_USER_ID`, `INSTAGRAM_ACCESS_TOKEN`.
+  Para revocarlo: portafolio comercial → usuarios del sistema.
 
-### Pasos
+### Endpoints (graph.facebook.com/v23.0)
 
-1. **Cuenta de desarrollador**: <https://developers.facebook.com> → inicia sesión → regístrate como desarrollador.
-2. **Crea la app**
-   - *Mis apps → Crear app*.
-   - Caso de uso: **"Administrar mensajes y contenido en Instagram"** (Instagram API).
-   - Tipo: **Empresa**.
-3. **Configura el producto Instagram**
-   - En el panel de la app → *Instagram → Configuración de la API con inicio de sesión de Instagram*.
-   - Copia el **ID de la app de Instagram** y la **clave secreta de la app de Instagram**. Ojo: son distintos del App ID de Meta.
-     ```env
-     META_APP_ID=<Instagram app ID>
-     META_APP_SECRET=<Instagram app secret>
-     ```
-4. **Agrega tu cuenta como tester**
-   - *Roles de la app → Roles → Testers de Instagram* → agrega tu usuario.
-   - En la app de Instagram: *Configuración → Apps y sitios web → Invitaciones de tester* → **Aceptar**.
-   - En **modo desarrollo** la app funciona con cuentas que tengan un rol en ella. Como solo vas a leer **tu** cuenta, **no necesitas App Review** ni publicar la app.
-5. **Configura el login (OAuth)**
-   - En *Configurar inicio de sesión empresarial de Instagram* → *URIs de redireccionamiento OAuth válidas*:
-     `https://admin.juantapias.dev/api/integrations/instagram/callback`
-   - Permisos que vamos a pedir:
-     - `instagram_business_basic`: perfil, seguidores y publicaciones.
-     - `instagram_business_manage_insights`: alcance, vistas e interacciones.
-6. **Atajo para probar ya:** en la misma pantalla, *Generar tokens de acceso → Agregar cuenta* te da un token de larga duración para tu cuenta sin escribir código. Úsalo para probar los endpoints en Postman o curl. Después el admin hará el mismo flujo con OAuth y guardará el token en Supabase.
+- `<ig-user-id>?fields=username,followers_count,follows_count,media_count,profile_picture_url`
+- `<ig-user-id>/insights?metric=reach,views,profile_views,accounts_engaged,total_interactions,saves,shares&period=day&metric_type=total_value&since=…&until=…` (ventanas de máx. 30 días)
+- `<ig-user-id>/insights?metric=reach|follower_count&period=day` (serie diaria; `follower_count` solo últimos 30 días)
+- `<ig-user-id>/media?fields=…` y `<media-id>/insights?metric=reach,views,saved,shares,total_interactions`
 
-### Cómo funciona en el admin
-
-```
-Ajustes → "Conectar Instagram"
-  → https://www.instagram.com/oauth/authorize?client_id=…&redirect_uri=…&response_type=code
-      &scope=instagram_business_basic,instagram_business_manage_insights&state=<csrf>
-  → callback recibe ?code=
-  → POST https://api.instagram.com/oauth/access_token     (code → token corto, 1 h)
-  → GET  https://graph.instagram.com/access_token
-         ?grant_type=ig_exchange_token                     (token corto → largo, 60 días)
-  → guarda en la tabla `integrations` (provider = 'instagram')
-```
-
-- **Renovación:** el token largo dura 60 días. Un cron semanal llama a
-  `GET https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=…`
-  (solo funciona si el token tiene más de 24 h y no ha vencido).
-- **Endpoints que usaremos** (`graph.instagram.com/<versión>/…`):
-  - `me?fields=user_id,username,followers_count,media_count`
-  - `me/insights?metric=reach,views,profile_views,accounts_engaged,total_interactions&period=day&metric_type=total_value`
-  - `me/media?fields=id,caption,media_type,permalink,thumbnail_url,timestamp,like_count,comments_count`
-  - `<media-id>/insights?metric=reach,views,saved,shares,total_interactions`
-- Meta retiró `impressions` en 2025; ahora la métrica es `views`. Revisa la versión vigente de la Graph API en el changelog de Meta antes de implementar.
-- **Por qué un cron diario:** la API no da el histórico de seguidores. Si no guardamos un snapshot cada día en `social_metrics_daily`, no hay gráfica de crecimiento.
+El historial de seguidores no lo da la API: lo guarda el cron diario (§4) en `social_metrics_daily`.
 
 ---
 
@@ -170,11 +139,11 @@ Ajustes → "Conectar TikTok"
 
 ## 4. Sincronización diaria (Vercel Cron)
 
-Instagram y TikTok se guardan como snapshots. Se creará `apps/admin/vercel.json`:
+Instagram (y TikTok cuando se conecte) se guardan como snapshots. `apps/admin/vercel.json`:
 
 ```json
 {
-  "crons": [{ "path": "/api/cron/sync-social", "schedule": "0 6 * * *" }]
+  "crons": [{ "path": "/api/cron/sync-social", "schedule": "0 11 * * *" }]
 }
 ```
 
