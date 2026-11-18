@@ -30,12 +30,18 @@ export default defineConfig({
         !page.includes('/link-tree') &&
         // Landing de campañas pagadas: noindex, no debe estar en el sitemap
         !/\/(es|en)\/web\/$/.test(page),
-      // Privacy pages have different slugs per locale, so the plugin can't pair them itself
+      // Privacy and terms pages have different slugs per locale, so the plugin can't pair them itself
       serialize(item) {
         if (/\/(es\/privacidad|en\/privacy)\/$/.test(item.url)) {
           item.links = [
             { url: 'https://juantapias.dev/es/privacidad/', lang: 'es-CO' },
             { url: 'https://juantapias.dev/en/privacy/', lang: 'en-US' },
+          ]
+        }
+        if (/\/(es\/terminos|en\/terms)\/$/.test(item.url)) {
+          item.links = [
+            { url: 'https://juantapias.dev/es/terminos/', lang: 'es-CO' },
+            { url: 'https://juantapias.dev/en/terms/', lang: 'en-US' },
           ]
         }
         return item

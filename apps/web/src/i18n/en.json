@@ -128,6 +128,51 @@
       }
     ]
   },
+  "Terms": {
+    "title": "Terms of Service",
+    "short": "Terms",
+    "description": "Terms of use for juantapias.dev and Juan Tapias's web design and development services.",
+    "updated": "Last updated: November 18, 2026",
+    "back": "Back to home",
+    "sections": [
+      {
+        "title": "Who I am",
+        "body": "This website belongs to Juan Tapias, an independent web designer and developer based in Colombia. By using juantapias.dev you accept these terms. If you do not agree with them, please do not use the site."
+      },
+      {
+        "title": "Using the site",
+        "body": "You may browse the site, read the case studies and contact me to request a proposal. You may not use it for illegal activities, try to access restricted areas, interfere with how it works, or submit false information or third-party information without their consent."
+      },
+      {
+        "title": "Proposals and quotes",
+        "body": "The service information and price ranges on the site are for guidance only. A project only starts once you accept a specific written proposal or quote, which sets out the scope, timeline, price and payment terms. Each quote shows its validity date in the document itself."
+      },
+      {
+        "title": "Intellectual property",
+        "body": "The texts, designs, code, images and trademarks on the site belong to Juan Tapias or to his clients and are shown with their permission. You may not copy or reuse them without authorization. Ownership of the work done for each client is governed by what was agreed in their proposal."
+      },
+      {
+        "title": "Internal tools and third-party services",
+        "body": "I use internal tools to manage my work, including read-only integrations with my own Instagram and TikTok accounts to view their analytics. These integrations do not publish content or access other people's accounts. Links to WhatsApp, social networks and other external services are governed by those services' own terms."
+      },
+      {
+        "title": "Liability",
+        "body": "I work to keep the site available and its information accurate, but it may contain errors or interruptions. To the extent permitted by law, I am not liable for damages arising from the use of the site or the inability to use it."
+      },
+      {
+        "title": "Privacy",
+        "body": "How your personal data is processed is explained in the privacy policy, which is part of these terms."
+      },
+      {
+        "title": "Governing law and changes",
+        "body": "These terms are governed by the laws of the Republic of Colombia. I may update them; the date of the latest version is shown at the top of this page."
+      },
+      {
+        "title": "Contact",
+        "body": "For any question about these terms, email me at hola@juantapias.dev."
+      }
+    ]
+  },
   "Footer": {
     "social": "Connect with me",
     "backToTop": "Back to top",

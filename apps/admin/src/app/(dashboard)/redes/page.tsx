@@ -17,7 +17,9 @@ import {
   type IgPost,
   type IgTotals,
 } from "@/lib/social/instagram";
-import { formatDate } from "@/lib/format";
+import { getConnection, getUser, getVideos, isTikTokConfigured, type TtVideo } from "@/lib/social/tiktok";
+import { buttonClass } from "@/components/ui/form";
+import { daysAgoISO, formatDate, todayISO } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Redes sociales" };
 
@@ -58,13 +60,7 @@ export default async function SocialPage({ searchParams }: PageProps<"/redes">) 
         <EmptyState title="Instagram no está conectado" description="Faltan INSTAGRAM_ACCESS_TOKEN e INSTAGRAM_USER_ID." />
       )}
 
-      <section className="mt-12">
-        <h2 className="mb-4 text-lg font-semibold tracking-tight">TikTok</h2>
-        <EmptyState
-          title="Pendiente de conectar"
-          description="Falta crear la app en TikTok for Developers (Login Kit + Display API, en modo Sandbox)."
-        />
-      </section>
+      <TikTokSection range={range} />
     </>
   );
 }
@@ -219,6 +215,156 @@ async function InstagramSection({ range }: { range: Range }) {
         )}
       </Card>
     </section>
+  );
+}
+
+async function TikTokSection({ range }: { range: Range }) {
+  const header = <h2 className="mb-4 text-lg font-semibold tracking-tight">TikTok</h2>;
+
+  if (!isTikTokConfigured()) {
+    return (
+      <section className="mt-12">
+        {header}
+        <EmptyState title="Pendiente de configurar" description="Faltan TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET y TIKTOK_REDIRECT_URI." />
+      </section>
+    );
+  }
+  const connection = await getConnection();
+  if (!connection) {
+    return (
+      <section className="mt-12">
+        {header}
+        <EmptyState
+          title="TikTok aún no está conectado"
+          description="Autoriza tu cuenta una vez y el admin mantendrá la conexión renovándola sola."
+          action={<a href="/api/integrations/tiktok/connect" className={buttonClass()}>Conectar TikTok</a>}
+        />
+      </section>
+    );
+  }
+
+  const supabase = await createClient();
+  const [user, videos, history, traffic] = await Promise.allSettled([
+    getUser(),
+    getVideos(40),
+    supabase
+      .from("social_metrics_daily")
+      .select("date, followers")
+      .eq("provider", "tiktok")
+      .order("date")
+      .then(({ data }) => (data ?? []) as { date: string; followers: number | null }[]),
+    isGoogleConfigured() ? getSocialTraffic(range) : Promise.reject(new Error("GA4 sin conectar")),
+  ]);
+
+  if (user.status === "rejected") {
+    return (
+      <section className="mt-12">
+        {header}
+        <SectionError reason={user.reason} />
+        <a href="/api/integrations/tiktok/connect" className={buttonClass("secondary", "mt-3")}>Reconectar TikTok</a>
+      </section>
+    );
+  }
+  const u = user.value;
+  const since = new Date(daysAgoISO(range)).getTime() / 1000;
+  const inRange = videos.status === "fulfilled" ? videos.value.filter((v) => v.create_time >= since) : [];
+  const top = [...inRange].sort((a, b) => (b.view_count ?? 0) - (a.view_count ?? 0)).slice(0, 8);
+  const rangeViews = inRange.reduce((s, v) => s + (v.view_count ?? 0), 0);
+  const followerHistory = history.status === "fulfilled" ? history.value.filter((h) => h.followers != null) : [];
+  const past = followerHistory.find((h) => h.date >= daysAgoISO(range).slice(0, 10));
+
+  return (
+    <section className="mt-12">
+      <div className="mb-4 flex items-center gap-3">
+        {u.avatar_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={u.avatar_url} alt="" referrerPolicy="no-referrer" className="size-10 rounded-full border border-border" />
+        )}
+        <div>
+          <h2 className="text-lg font-semibold tracking-tight">TikTok</h2>
+          <a href={u.profile_deep_link ?? `https://www.tiktok.com/@${u.username}`} target="_blank" rel="noreferrer" className="text-sm text-muted hover:text-accent">
+            {u.username ? `@${u.username}` : u.display_name} · {n(u.video_count)} videos
+          </a>
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <p className="text-sm text-muted">Seguidores</p>
+          <p className="mt-2 text-3xl font-semibold tabular-nums">{n(u.follower_count)}</p>
+          <p className="mt-1">
+            {past?.followers != null && past.date !== todayISO() ? (
+              <Delta current={u.follower_count} previous={past.followers} />
+            ) : (
+              <span className="text-xs text-muted">La comparación aparece cuando haya historial</span>
+            )}
+          </p>
+        </Card>
+        <Card>
+          <p className="text-sm text-muted" title="Vistas acumuladas de los videos publicados en el periodo">Vistas de videos nuevos</p>
+          <p className="mt-2 text-3xl font-semibold tabular-nums">{n(rangeViews)}</p>
+          <p className="mt-1 text-xs text-muted">{inRange.length} video{inRange.length === 1 ? "" : "s"} en {range} días</p>
+        </Card>
+        <Card>
+          <p className="text-sm text-muted">Me gusta (total)</p>
+          <p className="mt-2 text-3xl font-semibold tabular-nums">{n(u.likes_count)}</p>
+          <p className="mt-1 text-xs text-muted">Acumulado del perfil</p>
+        </Card>
+        <Card>
+          <p className="text-sm text-muted">De TikTok a tu web</p>
+          <p className="mt-2 text-3xl font-semibold tabular-nums">
+            {traffic.status === "fulfilled" ? n(traffic.value.tiktok.sessions) : "—"}
+          </p>
+          <p className="mt-1 text-xs text-muted">
+            {traffic.status === "fulfilled" ? `sesiones · ${n(traffic.value.tiktok.leads)} leads (GA4)` : "GA4 sin datos"}
+          </p>
+        </Card>
+      </div>
+
+      {followerHistory.length >= 2 && (
+        <Card title="Seguidores (historial)" className="mt-6">
+          <LineChart label="Seguidores" data={followerHistory.map((h) => ({ date: h.date, value: h.followers! }))} />
+        </Card>
+      )}
+
+      <Card title={`Mejores videos (${range} días)`} className="mt-6">
+        {videos.status === "rejected" ? (
+          <SectionError reason={videos.reason} />
+        ) : top.length ? (
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {top.map((v) => <VideoCard key={v.id} video={v} />)}
+          </ul>
+        ) : (
+          <p className="text-sm text-muted">Sin videos publicados en este periodo.</p>
+        )}
+        <p className="mt-3 text-xs text-muted">
+          TikTok solo entrega totales acumulados por video (no alcance por día), por eso se ordenan por vistas totales.
+        </p>
+      </Card>
+    </section>
+  );
+}
+
+function VideoCard({ video }: { video: TtVideo }) {
+  return (
+    <li>
+      <a href={video.share_url} target="_blank" rel="noreferrer" className="group block">
+        <div className="relative aspect-[9/16] overflow-hidden rounded-md border border-border bg-background">
+          {video.cover_image_url && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={video.cover_image_url} alt={video.title?.slice(0, 80) ?? ""} referrerPolicy="no-referrer" loading="lazy" className="size-full object-cover transition group-hover:scale-[1.02]" />
+          )}
+        </div>
+        <p className="mt-2 line-clamp-2 text-xs text-muted">{video.title || video.video_description || "Sin texto"}</p>
+        <p className="mt-1 text-xs text-muted">{formatDate(new Date(video.create_time * 1000).toISOString())}</p>
+      </a>
+      <dl className="mt-2 grid grid-cols-2 gap-1 text-xs">
+        <Metric label="Vistas" value={video.view_count} />
+        <Metric label="Me gusta" value={video.like_count} />
+        <Metric label="Coment." value={video.comment_count} />
+        <Metric label="Compart." value={video.share_count} />
+      </dl>
+    </li>
   );
 }
 

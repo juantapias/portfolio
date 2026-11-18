@@ -62,6 +62,9 @@ const t = useTranslations(locale)
       <a href={locale === 'en' ? '/en/privacy/' : '/es/privacidad/'} class='hover:text-accent'>
         {t('Cookies.policy')}
       </a>
+      <a href={locale === 'en' ? '/en/terms/' : '/es/terminos/'} class='hover:text-accent'>
+        {t('Terms.short')}
+      </a>
       <button type='button' data-cookie-settings class='hover:text-accent cursor-pointer'>
         {t('Cookies.settings')}
       </button>
