@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,7 +16,23 @@ const prociono = localFont({
 
 export const metadata: Metadata = {
   title: { default: "Admin", template: "%s · Admin" },
+  applicationName: "Admin",
   robots: { index: false, follow: false },
+  // Instalada en iOS: pantalla completa, barra de estado sobre el contenido y nombre corto bajo el icono
+  appleWebApp: { capable: true, title: "Admin", statusBarStyle: "black-translucent" },
+  formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  // viewport-fit=cover: el contenido llega bajo el notch y la barra de inicio; los márgenes los ponen los safe-area insets
+  viewportFit: "cover",
+  width: "device-width",
+  initialScale: 1,
+  // Color de la barra del navegador / del sistema según el tema
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4ede3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

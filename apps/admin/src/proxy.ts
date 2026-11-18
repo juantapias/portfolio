@@ -11,6 +11,6 @@ export const config = {
   matcher: [
     // Todo excepto estáticos, imágenes, endpoints de cron/OAuth/públicos (se validan aparte)
     // y los presupuestos públicos /p/<token>
-    "/((?!_next/static|_next/image|favicon.ico|robots.txt|api/cron|api/integrations|api/public|p/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|robots.txt|manifest.webmanifest|api/cron|api/integrations|api/public|p/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

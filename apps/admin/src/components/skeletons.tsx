@@ -70,9 +70,9 @@ export function StatSkeleton({ className }: { className?: string }) {
 }
 
 export function StatGridSkeleton({ count = 4, className }: { count?: number; className?: string }) {
-  const cols = count === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2 xl:grid-cols-4";
+  const cols = count === 3 ? "sm:grid-cols-3" : "grid-cols-2 xl:grid-cols-4";
   return (
-    <div className={cn("grid gap-4", cols, className)}>
+    <div className={cn("grid gap-3 sm:gap-4", cols, className)}>
       {Array.from({ length: count }, (_, i) => (
         <StatSkeleton key={i} />
       ))}
@@ -226,7 +226,7 @@ export function SegmentedSkeleton({ items = 3, small = false, className }: { ite
 /** Cuadrícula de miniaturas (publicaciones / videos). */
 export function MediaGridSkeleton({ count = 4, aspect = "aspect-[4/5]" }: { count?: number; aspect?: string }) {
   return (
-    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
       {Array.from({ length: count }, (_, i) => (
         <li key={i}>
           <Skeleton className={cn("rounded-xl", aspect)} />

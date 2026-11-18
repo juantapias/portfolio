@@ -83,7 +83,7 @@ export async function InstagramTab({ range }: { range: Range }) {
       </div>
 
       {/* KPIs principales */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Stat
           highlight
           icon={Users}
@@ -107,7 +107,7 @@ export async function InstagramTab({ range }: { range: Range }) {
 
       {/* Métricas secundarias */}
       {t && (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
           {secondary.map((s) => (
             <MiniStat key={s.key} icon={s.icon} label={s.label} value={n(t.current[s.key])}>
               <Delta current={t.current[s.key]} previous={t.previous[s.key]} />
@@ -151,7 +151,7 @@ export async function InstagramTab({ range }: { range: Range }) {
       >
         {posts.status === "fulfilled" ? (
           posts.value.top.length ? (
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
               {posts.value.top.map((post) => <PostCard key={post.id} post={post} />)}
             </ul>
           ) : (

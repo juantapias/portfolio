@@ -87,7 +87,7 @@ export async function TikTokTab({ range }: { range: Range }) {
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Stat highlight icon={Users} label="Seguidores" value={n(u.follower_count)} info="Total actual de seguidores de la cuenta.">
           {past?.followers != null && past.date !== todayISO() ? (
             <Delta current={u.follower_count} previous={past.followers} />
@@ -135,7 +135,7 @@ export async function TikTokTab({ range }: { range: Range }) {
         {videos.status === "rejected" ? (
           <SectionError reason={videos.reason} />
         ) : top.length ? (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {top.map((v) => <VideoCard key={v.id} video={v} />)}
           </ul>
         ) : (

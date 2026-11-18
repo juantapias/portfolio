@@ -190,6 +190,49 @@
     background: var(--primary);
     color: var(--primary-foreground);
   }
+
+  /* ─── Sensación de app nativa en táctil ─── */
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* Sin el recuadro gris/azul que pinta el navegador al tocar */
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Sin el retraso de 300 ms del doble toque para zoom */
+  a,
+  button,
+  [role="button"],
+  label,
+  summary,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+  /* Con la app instalada, el «rebote» al pasar del tope no arrastra toda la interfaz */
+  @media (display-mode: standalone) {
+    html,
+    body {
+      overscroll-behavior-y: none;
+    }
+  }
+}
+
+/* Respuesta al toque: se encoge un poco al presionar (solo en pantallas táctiles) */
+@utility pressable {
+  transition: transform 0.15s var(--ease-out-expo);
+  @media (hover: none) {
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+}
+
+/* Márgenes para el notch, la isla dinámica y la barra de inicio (viewport-fit=cover) */
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* ─── Patrones de la marca ──────────────────────────────────────────── */

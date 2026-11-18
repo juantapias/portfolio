@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 /** Superficie base del admin: borde fino, radio amplio y un brillo superior de 1px. */
 export const surfaceClass =
-  "rounded-2xl border border-border bg-card text-card-foreground shadow-[inset_0_1px_0_0_color-mix(in_oklab,var(--foreground)_5%,transparent)]";
+  "min-w-0 rounded-2xl border border-border bg-card text-card-foreground shadow-[inset_0_1px_0_0_color-mix(in_oklab,var(--foreground)_5%,transparent)]";
 
 export function IconChip({ icon: Icon, className }: { icon: LucideIcon; className?: string }) {
   return (
@@ -99,7 +99,8 @@ export function Stat({
     <section
       className={cn(
         surfaceClass,
-        "relative p-5",
+        "relative p-4 sm:p-5",
+        href && "pressable",
         highlight && "glow-brand border-primary/25",
         href &&
           "transition-[border-color,transform] duration-300 ease-out-expo has-[>a:hover]:-translate-y-0.5 has-[>a:hover]:border-ring/40 has-[>a:focus-visible]:outline-2 has-[>a:focus-visible]:outline-offset-2 has-[>a:focus-visible]:outline-ring",
@@ -108,9 +109,9 @@ export function Stat({
       {/* Enlace estirado: cubre la tarjeta sin anidar el botón del tooltip dentro de <a> */}
       {href && <Link href={href} aria-label={`${label}: ${value}`} className="absolute inset-0 rounded-2xl outline-none" />}
       <div className="flex items-center justify-between gap-2">
-        <p className="flex items-center gap-2 text-sm text-muted-foreground">
-          {icon && <IconChip icon={icon} className={highlight ? "border-primary/30 bg-primary/10 text-brand" : ""} />}
-          {label}
+        <p className="flex min-w-0 items-center gap-2 text-xs text-muted-foreground sm:text-sm">
+          {icon && <IconChip icon={icon} className={cn("size-7 sm:size-8", highlight && "border-primary/30 bg-primary/10 text-brand")} />}
+          <span className="line-clamp-2 leading-tight">{label}</span>
         </p>
         {info && (
           <span className="relative z-10">
@@ -118,9 +119,9 @@ export function Stat({
           </span>
         )}
       </div>
-      <p className="mt-4 text-3xl font-medium tracking-tight tabular-nums">{value}</p>
+      <p className="mt-3 text-2xl font-medium tracking-tight break-words tabular-nums sm:mt-4 sm:text-3xl">{value}</p>
       {children && <div className="mt-2">{children}</div>}
-      {hint && <p className="mt-1.5 text-xs text-muted-foreground">{hint}</p>}
+      {hint && <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground sm:text-xs">{hint}</p>}
     </section>
   );
 }

@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { modules } from "@/lib/modules";
 import { cn } from "@/lib/utils";
-import { Brand } from "./brand";
-import { headerButton } from "./header-button";
-import { Nav, type NavBadges } from "./nav";
+import type { NavBadges } from "./nav";
 import { NotificationsMenu, type NotificationPreview } from "./notifications-menu";
 import { ThemeMenu } from "./theme-menu";
 import { UserMenu } from "./user-menu";
@@ -17,8 +15,9 @@ function currentModule(pathname: string) {
 }
 
 /**
- * Header del panel: ubicación actual a la izquierda y acciones globales a la derecha
- * (tema, notificaciones y perfil). En móvil también abre el cajón de navegación.
+ * Header del panel. Escritorio: ubicación a la izquierda y acciones globales (tema,
+ * notificaciones, perfil). Móvil: barra de app con el título de la sección y respeto
+ * del notch; la navegación vive en la barra de pestañas inferior.
  */
 export function Header({
   badges,
@@ -32,96 +31,57 @@ export function Header({
   notifications: NotificationPreview[];
 }) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const closeRef = useRef<HTMLButtonElement>(null);
   const mod = currentModule(pathname);
 
-  // Cerrar el cajón al cambiar de ruta (también con atrás/adelante): ajuste de estado durante el render
-  const [lastPath, setLastPath] = useState(pathname);
-  if (pathname !== lastPath) {
-    setLastPath(pathname);
-    setOpen(false);
-  }
-
-  // Con el cajón abierto: sin scroll de fondo, foco en «cerrar» y Escape para salir
+  // Patrón iOS: el título grande vive en la página; el de la barra aparece al hacer scroll
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+    const onScroll = () => setScrolled(window.scrollY > 56);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
 
   return (
-    <>
-      <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-md md:top-4 md:rounded-3xl md:border md:bg-card/80 md:px-4 md:py-2.5 print:hidden">
-        {/* Izquierda: menú + marca (móvil) / ubicación (escritorio) */}
-        <div className="flex min-w-0 items-center gap-3">
-          <button
-            type="button"
-            className={cn(headerButton, "md:hidden")}
-            onClick={() => setOpen(true)}
-            aria-label="Abrir menú"
-            aria-expanded={open}
-          >
-            <Menu className="size-4" />
-          </button>
-          <div className="md:hidden">
-            <Brand />
-          </div>
-          {mod && (
-            <nav aria-label="Ubicación" className="hidden min-w-0 items-center gap-1.5 text-sm md:flex">
-              <span className="text-muted-foreground">{mod.group}</span>
-              <ChevronRight aria-hidden className="size-3.5 text-muted-foreground/60" />
-              <span aria-current="page" className="flex items-center gap-2 truncate font-medium">
-                <mod.icon aria-hidden className="size-4 text-brand" />
-                {mod.label}
-              </span>
-            </nav>
-          )}
-        </div>
-
-        {/* Derecha: acciones globales */}
-        <div className="flex shrink-0 items-center gap-2">
-          <ThemeMenu />
-          <NotificationsMenu items={notifications} unread={badges.notificaciones ?? 0} />
-          <span aria-hidden className="mx-1 hidden h-6 w-px bg-border sm:block" />
-          <UserMenu name={name} email={email} />
-        </div>
-      </header>
-
-      {/* Cajón de navegación (móvil) */}
-      <div
-        className={cn("fixed inset-0 z-40 md:hidden", open ? "visible" : "invisible")}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menú"
-        aria-hidden={!open}
+    <header
+      className={cn(
+        "sticky top-0 z-30 flex items-center justify-between gap-3 border-b px-4 pt-[calc(env(safe-area-inset-top)+0.5rem)] pb-2 backdrop-blur-xl transition-[background-color,border-color] duration-300 select-none",
+        scrolled ? "border-border bg-background/80" : "border-transparent bg-background/0",
+        "md:top-4 md:rounded-3xl md:border md:border-border md:bg-card/80 md:px-4 md:py-2.5 print:hidden",
+      )}
+    >
+      {/* Móvil: título de la sección, como la barra de navegación de una app */}
+      <p
+        aria-hidden={!scrolled}
+        className={cn(
+          "min-w-0 truncate text-base font-semibold transition-[opacity,transform] duration-300 ease-out-expo md:hidden",
+          scrolled ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0",
+        )}
       >
-        <div
-          className={cn("absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300", open ? "opacity-100" : "opacity-0")}
-          onClick={() => setOpen(false)}
-        />
-        <div
-          className={cn(
-            "absolute inset-y-0 left-0 flex w-[min(20rem,85vw)] flex-col gap-6 overflow-y-auto border-r border-border bg-sidebar p-4 transition-transform duration-300 ease-out-expo",
-            open ? "translate-x-0" : "-translate-x-full",
-          )}
-        >
-          <div className="flex items-center justify-between">
-            <Brand onNavigate={() => setOpen(false)} />
-            <button ref={closeRef} type="button" className={headerButton} onClick={() => setOpen(false)} aria-label="Cerrar menú">
-              <X className="size-4" />
-            </button>
-          </div>
-          <Nav badges={badges} onNavigate={() => setOpen(false)} />
+        {mod?.label ?? "Admin"}
+      </p>
+
+      {/* Escritorio: ubicación */}
+      {mod && (
+        <nav aria-label="Ubicación" className="hidden min-w-0 items-center gap-1.5 text-sm md:flex">
+          <span className="text-muted-foreground">{mod.group}</span>
+          <ChevronRight aria-hidden className="size-3.5 text-muted-foreground/60" />
+          <span aria-current="page" className="flex items-center gap-2 truncate font-medium">
+            <mod.icon aria-hidden className="size-4 text-brand" />
+            {mod.label}
+          </span>
+        </nav>
+      )}
+
+      <div className="flex shrink-0 items-center gap-2">
+        {/* En móvil el tema está en «Más» para dejar la barra limpia */}
+        <div className="hidden md:block">
+          <ThemeMenu />
         </div>
+        <NotificationsMenu items={notifications} unread={badges.notificaciones ?? 0} />
+        <span aria-hidden className="mx-1 hidden h-6 w-px bg-border md:block" />
+        <UserMenu name={name} email={email} />
       </div>
-    </>
+    </header>
   );
 }

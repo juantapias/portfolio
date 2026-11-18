@@ -67,7 +67,7 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
       />
 
       {/* ─── KPIs ─── */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Kpi label="Leads" value={n(f.leads)} delta={<Delta current={f.leads} previous={p.leads} />} />
         <Kpi
           label="Visitas → lead"

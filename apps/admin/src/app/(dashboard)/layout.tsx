@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/shell/header";
 import { Sidebar } from "@/components/shell/sidebar";
+import { TabBar } from "@/components/shell/tab-bar";
 import { SIDEBAR_COOKIE } from "@/lib/sidebar";
 import type { NotificationPreview } from "@/components/shell/notifications-menu";
 import { createClient } from "@/lib/supabase/server";
@@ -62,10 +63,17 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
       <div className="mx-auto w-full max-w-[1400px] min-w-0 flex-1">
         <Header badges={badges} name={name} email={email} notifications={notifications} />
-        <main id="contenido" className="px-4 py-6 md:px-2 md:py-8 lg:px-6 print:p-0">
+        {/* En móvil, espacio inferior para la barra de pestañas (más la barra de inicio del teléfono) */}
+        <main
+          id="contenido"
+          className="px-4 pt-5 pb-[calc(6rem+env(safe-area-inset-bottom))] md:px-2 md:py-8 lg:px-6 print:p-0"
+        >
           {children}
         </main>
       </div>
+
+      {/* Móvil: barra de pestañas inferior + hoja «Más» */}
+      <TabBar badges={badges} name={name} email={email} />
     </div>
   );
 }

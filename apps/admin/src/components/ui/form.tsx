@@ -4,7 +4,7 @@ import { buttonVariants } from "./button";
 
 /** Estilo común de los controles: misma altura que el botón, foco naranja visible. */
 export const controlClass =
-  "w-full rounded-xl border border-input bg-card px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow,border-color] placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-destructive dark:bg-input/20";
+  "w-full rounded-xl border border-input bg-card px-3 py-2 text-base shadow-xs md:text-sm outline-none transition-[color,box-shadow,border-color] placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-destructive dark:bg-input/20";
 
 export function Field({
   label,
@@ -27,7 +27,7 @@ export function Field({
 }
 
 export function Input(props: ComponentProps<"input">) {
-  return <input {...props} className={cn(controlClass, "h-9", props.className)} />;
+  return <input {...props} className={cn(controlClass, "h-11 md:h-9", props.className)} />;
 }
 
 export function Textarea(props: ComponentProps<"textarea">) {
@@ -35,7 +35,7 @@ export function Textarea(props: ComponentProps<"textarea">) {
 }
 
 export function Select(props: ComponentProps<"select">) {
-  return <select {...props} className={cn(controlClass, "h-9 pr-8", props.className)} />;
+  return <select {...props} className={cn(controlClass, "h-11 pr-8 md:h-9", props.className)} />;
 }
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";

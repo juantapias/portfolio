@@ -30,6 +30,11 @@ const mondayOf = (d: string) => {
 };
 const shortDay = (ms: number) =>
   new Date(ms).toLocaleDateString("es-CO", { day: "numeric", month: "short", timeZone: "UTC" });
+/** Etiqueta compacta del eje ("28/9"): cabe incluso con 8 columnas en un teléfono */
+const axisDay = (ms: number) => {
+  const d = new Date(ms);
+  return `${d.getUTCDate()}/${d.getUTCMonth() + 1}`;
+};
 
 /** Leads creados por semana (lunes a domingo), de la más antigua a la actual */
 function leadsPerWeek(leads: Lead[], today: string) {
@@ -42,7 +47,7 @@ function leadsPerWeek(leads: Lead[], today: string) {
   return counts.map((value, i) => {
     const start = thisMonday - (WEEKS - 1 - i) * 7 * DAY;
     return {
-      label: i === WEEKS - 1 ? "Esta sem." : shortDay(start),
+      label: i === WEEKS - 1 ? "Actual" : axisDay(start),
       value,
       detail: `Semana del ${shortDay(start)} al ${shortDay(start + 6 * DAY)}`,
     };
@@ -106,7 +111,7 @@ export default async function ResumenPage() {
       />
 
       {/* ─── KPIs ─── */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Stat
           highlight
           href="/crm"
