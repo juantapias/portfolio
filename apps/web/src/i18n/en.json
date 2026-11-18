@@ -1,0 +1,556 @@
+{
+  "Nav": {
+    "home": "Home",
+    "works": "Works",
+    "about": "About",
+    "contact": "Contact",
+    "services": "Services",
+    "cta": "Let's talk"
+  },
+  "Hero": {
+    "h1": "Tapias — Web design and development studio, UI/UX and branding for brands in Latin America and worldwide",
+    "subtitle": "I design and build digital products that help brands and businesses grow, combining strategy, design, and technology in every project.",
+    "btnCTA": "View my work",
+    "btnContact": "Let's talk about your project",
+    "eyebrow": "Design & development studio",
+    "available": "Available for new projects",
+    "scroll": "Scroll"
+  },
+  "Brands": {
+    "title": "Brands that already took the leap"
+  },
+  "Works": {
+    "services": [
+      {
+        "label": "Branding & Graphic Design",
+        "description": "I build strong, consistent brand identities that help your business stand out and earn trust from the first impression.",
+        "features": "Logo design, illustrations, visual identity, graphic systems, social media assets and brand materials."
+      },
+      {
+        "label": "Product Design (UI / UX)",
+        "description": "I design user-centered digital experiences built to drive conversion and build trust in your product.",
+        "features": "User research, wireframes, user flows, interactive prototypes, experience optimization."
+      },
+      {
+        "label": "Web Design & Development",
+        "description": "I design and build modern, interactive, strategic websites that communicate your brand's value and turn visitors into customers.",
+        "features": "Landing pages, creative portfolios, corporate websites, product pages, animations, and fully responsive high-fidelity prototypes."
+      },
+      {
+        "label": "App Design",
+        "description": "I design mobile-first experiences with intuitive navigation that make products easier to use and keep users coming back.",
+        "features": "iOS and Android prototypes, interface design, interaction systems, micro-interactions."
+      },
+      {
+        "label": "Design Systems",
+        "description": "I build scalable design systems that ensure consistency across your digital products, saving time and cost in the long run.",
+        "features": "Component libraries, design tokens, style guides, documentation."
+      },
+      {
+        "label": "Social Media Management",
+        "description": "I manage your brand's presence on social media with content strategy and consistent visual design, strengthening your connection with your audience and driving sales.",
+        "features": "Content planning, graphic asset design, editorial calendar, post management, metrics analysis, and community growth."
+      }
+    ]
+  },
+  "Projects": {
+    "title": "Real projects combining design, development, and strategy to deliver results.",
+    "content": "Every project starts with working closely with the client, understanding their business goals before writing a single line of code. \n\n I don't just design and build interfaces — I build complete digital solutions, from initial strategy to launch and ongoing support.",
+    "eyebrow": "Real cases",
+    "heading": "Works",
+    "script": "selected",
+    "viewCase": "View case",
+    "ctaCard": {
+      "title": "Is your project next?",
+      "text": "Tell me your idea and let's turn it into a digital product that works.",
+      "button": "Let's talk"
+    }
+  },
+  "About": {
+    "title": "About me",
+    "content": "I’m a digital product developer and UI/UX designer, and I help brands and businesses turn ideas into solid digital products — from strategy and design to full-stack development. \n\n I care about every detail: user experience, performance, technical architecture, and the small interactions that make a product feel reliable and professional. \n\n I work closely with every client, understanding their business goals to deliver solutions that don't just look good, but actually work and drive real results. \n\n If you're looking for a partner who combines design vision, technical depth, and real commitment to your project, I'm here to help you build it.",
+    "eyebrow": "Who's behind it"
+  },
+  "Ads": {
+    "line1": "Your digital product,",
+    "line2": "as solid",
+    "line3": "as your business",
+    "tags": [
+      "Strategy",
+      "UI/UX design",
+      "Custom development",
+      "Performance",
+      "SEO",
+      "Scalable"
+    ]
+  },
+  "Cookies": {
+    "title": "Your privacy matters",
+    "text": "I use analytics cookies (Google Analytics) to understand how the site is used and to improve it. They stay off until you accept.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "policy": "Privacy policy",
+    "settings": "Cookies"
+  },
+  "Privacy": {
+    "title": "Privacy & cookie policy",
+    "description": "How Tapias handles your personal data and uses analytics cookies on juantapias.dev, and how to accept, reject or withdraw your consent.",
+    "updated": "Last updated: November 18, 2026",
+    "back": "Back to home",
+    "sections": [
+      {
+        "title": "Data controller",
+        "body": "Juan Tapias is the controller of the data collected on this website. You can write to hola@juantapias.dev with any privacy question."
+      },
+      {
+        "title": "What data I collect",
+        "body": "If you fill in the proposal form, I store your name, your business name, your answers (what you need, stage, approximate budget and timeline), your comments and where your visit came from (for example, the campaign or social network that brought you). I also store an encrypted, irreversible fingerprint of your IP address, only to prevent automated submissions. I also process the data you send me when you contact me by email or WhatsApp and, if you accept cookies, anonymous browsing data: page views, link clicks, device type, browser, approximate country and language."
+      },
+      {
+        "title": "Cookies I use",
+        "body": "Google Analytics 4 (Google LLC) sets the _ga and _ga_* cookies, lasting up to 2 years, to tell visits apart and measure site usage. Analytics storage stays denied until you click Accept. If you reject, no analytics cookies are set. The site also stores your choice in your browser's local storage (cookie-consent)."
+      },
+      {
+        "title": "How I use the data",
+        "body": "I use the form data and your messages only to reply to you, prepare your proposal and follow up on our conversation. Browsing data is used to measure and improve the site. I keep contact data for as long as we have a business relationship and up to 2 years after our last contact, unless you ask me to delete it sooner. I do not sell data or use it for advertising."
+      },
+      {
+        "title": "Third parties",
+        "body": "Form data is stored with Supabase (Supabase Inc.) on servers located in the United States, with access restricted to me only. Google Analytics may transfer data to Google servers outside your country. Links to WhatsApp and social networks lead to third-party services with their own privacy policies."
+      },
+      {
+        "title": "Your rights",
+        "body": "You can access, update, correct or request deletion of your data, and withdraw your consent at any time (Colombian Law 1581 of 2012 and, where applicable, the GDPR). To exercise them, email hola@juantapias.dev."
+      },
+      {
+        "title": "Changing your choice",
+        "body": "You can change your cookie choice at any time using the \"Cookies\" link in the footer."
+      }
+    ]
+  },
+  "Footer": {
+    "social": "Connect with me",
+    "backToTop": "Back to top",
+    "ctaEyebrow": "Have a project in mind?",
+    "ctaLine1": "Let's build",
+    "ctaLine2": "something together.",
+    "write": "Write to me",
+    "location": "Colombia — Working with brands worldwide"
+  },
+  "project": {
+    "overview": {
+      "label": "Project summary",
+      "title": "An overview",
+      "cta": "View live site"
+    },
+    "challenge": {
+      "label": "The challenge"
+    },
+    "solution": {
+      "label": "The solution"
+    },
+    "features": {
+      "label": "Features"
+    },
+    "responsibilities": {
+      "label": "Responsibilities"
+    },
+    "cta": {
+      "title": "Have a project in mind?",
+      "subtitle": "Let's talk about your goals and build a solution tailored to your business.",
+      "contact": "Let's talk about your project",
+      "more": "View more projects"
+    },
+    "lightbox": {
+      "alt": "Expanded view"
+    },
+    "year": "Year",
+    "duration": "Duration",
+    "industry": "Industry",
+    "country": "Country",
+    "back": "All works",
+    "next": "Next project",
+    "techStack": "Tech stack",
+    "tags": "Tags",
+    "inProgress": "In progress",
+    "results": {
+      "label": "Results"
+    },
+    "testimonial": {
+      "label": "What the client says"
+    }
+  },
+  "Services": {
+    "eyebrow": "What I do",
+    "title": "Services"
+  },
+  "Studio": {
+    "label": "Tapias services",
+    "bg": "One studio",
+    "stickerA": "One studio.",
+    "stickerB": "Everything in one place.",
+    "text": "I'm Juan Tapias. Brand, design, web and apps: I do it myself, so everything fits together. Questions first, code after.",
+    "cursor": "Juan",
+    "track": [
+      {
+        "t": "shape",
+        "s": "star"
+      },
+      {
+        "t": "w",
+        "v": "First"
+      },
+      {
+        "t": "w",
+        "v": "the"
+      },
+      {
+        "t": "box",
+        "v": "brand.",
+        "service": 0,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "Then"
+      },
+      {
+        "t": "w",
+        "v": "the"
+      },
+      {
+        "t": "box",
+        "v": "experience.",
+        "service": 1,
+        "c": "amber"
+      },
+      {
+        "t": "shape",
+        "s": "pen"
+      },
+      {
+        "t": "w",
+        "v": "Next"
+      },
+      {
+        "t": "w",
+        "v": "a"
+      },
+      {
+        "t": "box",
+        "v": "website",
+        "service": 2,
+        "c": "cream"
+      },
+      {
+        "t": "w",
+        "v": "that"
+      },
+      {
+        "t": "w",
+        "v": "converts,"
+      },
+      {
+        "t": "shape",
+        "s": "half"
+      },
+      {
+        "t": "w",
+        "v": "an"
+      },
+      {
+        "t": "box",
+        "v": "app",
+        "service": 3,
+        "c": "brown"
+      },
+      {
+        "t": "w",
+        "v": "people"
+      },
+      {
+        "t": "w",
+        "v": "use,"
+      },
+      {
+        "t": "w",
+        "v": "a"
+      },
+      {
+        "t": "box",
+        "v": "system",
+        "service": 4,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "that"
+      },
+      {
+        "t": "w",
+        "v": "scales"
+      },
+      {
+        "t": "w",
+        "v": "and"
+      },
+      {
+        "t": "box",
+        "v": "socials",
+        "service": 5,
+        "c": "amber"
+      },
+      {
+        "t": "w",
+        "v": "that",
+        "strong": true
+      },
+      {
+        "t": "w",
+        "v": "connect.",
+        "strong": true
+      },
+      {
+        "t": "shape",
+        "s": "dot"
+      }
+    ]
+  },
+  "Faq": {
+    "eyebrow": "FAQ",
+    "title": "Before we start",
+    "items": [
+      {
+        "q": "What services does Tapias offer?",
+        "a": "Tapias is a design and development studio led by Juan Tapias. I offer branding and graphic design, product design (UI/UX), web design and development, app design, design systems and social media management. You can hire a single service or the full project, from brand to launch."
+      },
+      {
+        "q": "How long does a project take?",
+        "a": "It depends on the scope. The projects I've delivered have taken between 3 and 6 weeks: a corporate website is usually ready in about 3 weeks, while an ecommerce store, a SaaS platform or a site with a blog can take 4 to 6. At the start we agree on a timeline with clear dates."
+      },
+      {
+        "q": "How much does a website or an app cost?",
+        "a": "Every project is quoted individually based on its scope, features and timeline. Message me on WhatsApp or at hola@juantapias.dev with your idea and I'll send you a proposal with scope, timeline and price."
+      },
+      {
+        "q": "Do you work with clients outside Colombia?",
+        "a": "Yes. I work from Colombia with brands and businesses across Latin America and worldwide, in Spanish and English. The whole process is remote, with video calls and direct communication with me."
+      },
+      {
+        "q": "What technologies do you work with?",
+        "a": "I choose the stack for each project. For fast, optimized websites I use Astro and React; for products and ecommerce, Next.js with Supabase, Tailwind CSS and Vercel; and when the client needs to edit content on their own, WordPress with Elementor Pro. I design in Figma."
+      },
+      {
+        "q": "What is the process like?",
+        "a": "Questions first, code second. I start by understanding your business and goals, then define the structure and design the experience, and finally build, test and launch. Since I handle the brand, design and development myself, everything fits together with no middlemen."
+      }
+    ]
+  },
+  "Landing": {
+    "seo": {
+      "title": "Web Design That Turns Visitors into Clients",
+      "description": "Fast, SEO-ready websites and landing pages built to convert visitors into clients. Delivered in 3 to 6 weeks. Get your free proposal today."
+    },
+    "topCta": "Get a proposal",
+    "hero": {
+      "eyebrow": "Custom web design & development",
+      "line1": "A website that",
+      "line2": "brings you clients,",
+      "line3": "not just visits.",
+      "subtitle": "I design and build fast, SEO-ready websites and landing pages made to get your visitors to reach out. You work directly with me, from idea to launch.",
+      "cta": "Get my free proposal",
+      "ctaAlt": "Message on WhatsApp",
+      "proof": [
+        "Projects launched in Colombia and Argentina",
+        "Delivered in 3 to 6 weeks",
+        "No middlemen"
+      ]
+    },
+    "logos": "Brands that already trust Tapias",
+    "pains": {
+      "eyebrow": "Sound familiar?",
+      "title": "Your business grows. Your website doesn’t.",
+      "items": [
+        "Your website looks outdated and you’d rather not share it.",
+        "Your ads bring visits, but nobody gets in touch.",
+        "It loads slowly on phones and people leave before seeing it.",
+        "When people search for you on Google, they find your competitors."
+      ],
+      "closing": "Every visitor who leaves without contacting you is a client for someone else."
+    },
+    "benefits": {
+      "eyebrow": "What you get",
+      "title": "Everything your website needs to sell",
+      "items": [
+        {
+          "title": "Custom design",
+          "text": "No templates. A website that looks like your brand, designed for your customer."
+        },
+        {
+          "title": "Built for mobile",
+          "text": "Most of your visitors arrive on their phones. That’s where it looks best."
+        },
+        {
+          "title": "Genuinely fast",
+          "text": "Optimized images and code so it loads in seconds, even on a weak signal."
+        },
+        {
+          "title": "SEO from day one",
+          "text": "Structure, metadata and speed so Google can find you."
+        },
+        {
+          "title": "One-tap contact",
+          "text": "WhatsApp, forms and calls to action exactly where your customers look for them."
+        },
+        {
+          "title": "Analytics connected",
+          "text": "Google Analytics set up so you know where your clients come from and what works."
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Real projects",
+      "title": "Websites already at work",
+      "viewCase": "View case",
+      "cta": "I want one like this"
+    },
+    "process": {
+      "eyebrow": "How we work",
+      "title": "From idea to launch in 4 steps",
+      "steps": [
+        {
+          "title": "Intro call",
+          "text": "Tell me about your business and goals. Free, no strings attached."
+        },
+        {
+          "title": "Clear proposal",
+          "text": "You get the scope, timeline and price in writing."
+        },
+        {
+          "title": "Design & build",
+          "text": "You review the design before any code is written and give feedback at every stage."
+        },
+        {
+          "title": "Launch",
+          "text": "We go live and I connect analytics so you can measure results."
+        }
+      ]
+    },
+    "form": {
+      "eyebrow": "Free proposal",
+      "title": "Tell me about your project",
+      "subtitle": "Answer 4 quick questions and I’ll reach out on WhatsApp with next steps.",
+      "stepLabel": "Step",
+      "of": "of",
+      "back": "Back",
+      "next": "Continue",
+      "questions": [
+        {
+          "id": "service",
+          "label": "What do you need?",
+          "options": [
+            "Landing page",
+            "Business website",
+            "Online store",
+            "Redesign my website",
+            "Brand + website",
+            "Other"
+          ]
+        },
+        {
+          "id": "stage",
+          "label": "What stage is your business at?",
+          "options": [
+            "Just starting",
+            "Already selling, want to grow",
+            "Established company"
+          ]
+        },
+        {
+          "id": "budget",
+          "label": "What’s your approximate budget?",
+          "options": [
+            "Under USD 500",
+            "USD 500 to 1,500",
+            "USD 1,500 to 3,000",
+            "Over USD 3,000",
+            "Not sure yet"
+          ]
+        },
+        {
+          "id": "timeline",
+          "label": "When do you need it?",
+          "options": [
+            "As soon as possible",
+            "In 1 to 2 months",
+            "Just exploring"
+          ]
+        }
+      ],
+      "contact": {
+        "label": "What’s your name?",
+        "name": "Your name",
+        "business": "Your business or brand (optional)",
+        "message": "Anything else I should know (optional)",
+        "submit": "Send via WhatsApp",
+        "note": "WhatsApp will open with your message ready to send.",
+        "privacy": "By sending, I store this information only to reply to you. See the ",
+        "privacyLink": "privacy policy",
+        "required": "Please enter your name to continue."
+      },
+      "success": {
+        "title": "Thanks! Almost there.",
+        "text": "Send the message on WhatsApp and I’ll reply personally. Didn’t it open?",
+        "link": "Open WhatsApp"
+      },
+      "message": {
+        "greeting": "Hi Juan, I found your page and I’d like a proposal.",
+        "name": "Name",
+        "business": "Business",
+        "service": "I need",
+        "stage": "Stage",
+        "budget": "Budget",
+        "timeline": "Timeline",
+        "notes": "Notes",
+        "source": "Source",
+        "ref": "Ref"
+      }
+    },
+    "faq": {
+      "eyebrow": "Common questions",
+      "title": "Before you reach out",
+      "items": [
+        {
+          "q": "How much does a website cost?",
+          "a": "It depends on the scope: a landing page doesn’t cost the same as an online store. After our conversation I send you a written proposal with scope, timeline and price, so you can decide with all the facts."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "The projects I’ve delivered have taken between 3 and 6 weeks. A business website is usually ready in about 3 weeks; an online store or a site with a blog can take 4 to 6."
+        },
+        {
+          "q": "Will I be able to edit the website myself?",
+          "a": "Yes, if you need to. When you want to update content on your own, I work with WordPress and Elementor Pro. When speed is the priority, I use Astro and React."
+        },
+        {
+          "q": "Do you work with businesses outside Colombia?",
+          "a": "Yes. I work remotely with brands across Latin America and the rest of the world, in Spanish and English, with video calls and direct communication with me."
+        },
+        {
+          "q": "What do I need to get started?",
+          "a": "Just a conversation. If you already have a logo, copy or photos, great. If not, I can help with the brand and content too."
+        }
+      ]
+    },
+    "final": {
+      "title": "Your next website can start today.",
+      "text": "One no-strings conversation and you get your proposal.",
+      "cta": "Get my proposal"
+    },
+    "footer": {
+      "portfolio": "See full portfolio",
+      "privacy": "Privacy"
+    },
+    "sticky": "Get a free proposal"
+  }
+}

@@ -1,0 +1,90 @@
+---
+import ProjectDetail from '../../../components/project/ProjectDetail.astro'
+import { projects } from '../../../data/projects'
+import Layout from '../../../layouts/layout.astro'
+import type { Project } from '@portfolio/types'
+import { useTranslations } from '../../../utils/i18n'
+import { auditProjects, projectOgImage, resolveProjectView } from '../../../utils/project'
+
+export function getStaticPaths() {
+  // Avisa en consola si algún proyecto no cumple las reglas SEO
+  for (const warning of auditProjects(projects)) console.warn(`⚠ projects: ${warning}`)
+
+  const locales = ['es', 'en'] as const
+  return locales.flatMap(locale =>
+    projects.map(project => ({
+      params: { locale, slug: project.slug },
+      props: { project, locale },
+    }))
+  )
+}
+
+interface Props {
+  project: Project
+  locale: 'es' | 'en'
+}
+
+const { project, locale } = Astro.props
+const t = project.translations[locale]
+const nav = useTranslations(locale)
+const view = resolveProjectView(project, locale)
+const nextProject = projects[(projects.findIndex(p => p.slug === project.slug) + 1) % projects.length]
+const nextView = resolveProjectView(nextProject, locale)
+
+const siteUrl = new URL('/', Astro.site).toString().replace(/\/$/, '')
+const pageUrl = Astro.url.href
+const ogImage = new URL(projectOgImage(project), Astro.site).toString()
+const coverUrl = new URL(project.coverImage, Astro.site).toString()
+const countryCodes: Record<string, string> = { Colombia: 'CO', Argentina: 'AR' }
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  '@id': `${pageUrl}#case-study`,
+  url: pageUrl,
+  name: t.name,
+  headline: t.seo.title,
+  description: t.seo.description,
+  abstract: t.overview.short,
+  inLanguage: locale === 'es' ? 'es-CO' : 'en-US',
+  genre: t.category,
+  keywords: [t.seo.primaryKeyword, ...t.tags].join(', '),
+  dateCreated: project.launchedAt ?? String(project.year),
+  creativeWorkStatus: project.status === 'completed' ? 'Published' : 'Incomplete',
+  image: {
+    '@type': 'ImageObject',
+    url: coverUrl,
+    caption: t.coverAlt,
+  },
+  creator: { '@id': `${siteUrl}/#person` },
+  publisher: { '@id': `${siteUrl}/#service` },
+  about: {
+    '@type': 'Organization',
+    name: project.client,
+    ...(project.website && { url: project.website }),
+    address: { '@type': 'PostalAddress', addressCountry: countryCodes[project.country] ?? project.country },
+  },
+}
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Tapias', item: `${siteUrl}/${locale}/` },
+    { '@type': 'ListItem', position: 2, name: nav('Nav.works'), item: `${siteUrl}/${locale}/#works` },
+    { '@type': 'ListItem', position: 3, name: t.name, item: pageUrl },
+  ],
+}
+---
+
+<Layout
+  title={t.seo.title}
+  description={t.seo.description}
+  ogImage={ogImage}
+  ogType="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} slot="head" />
+
+  <ProjectDetail locale={locale} project={view} next={nextView} />
+</Layout>

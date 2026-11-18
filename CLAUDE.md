@@ -2,21 +2,29 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Monorepo layout
+
+npm workspaces. Run everything from the repo root.
+
+- `apps/web` — public portfolio (**Astro 6 + React 19 + Tailwind v4**, fully static SSG). Everything under "Architecture" below refers to this app; paths like `src/...` are relative to `apps/web`.
+- `apps/admin` — private admin panel (**Next.js 16 App Router + Supabase**). See `apps/admin/README.md` and `apps/admin/docs/integraciones.md`. Next 16 has breaking changes (e.g. `middleware.ts` → `proxy.ts`): read `node_modules/next/dist/docs/` before writing Next code. `cacheComponents` is intentionally disabled (admin is fully dynamic).
+- `packages/types` — shared TypeScript types (`@portfolio/types`), e.g. `Project`, `ProjectView`.
+
+Each app is a separate Vercel project (Root Directory `apps/web` / `apps/admin`).
+
 ## Commands
 
 ```bash
-npm run dev       # Dev server at localhost:4321
-npm run build     # Static build to ./dist/
-npm run preview   # Preview the production build locally
+npm run dev:web       # Portfolio at localhost:4321
+npm run build:web     # Static build to apps/web/dist/
+npm run check:web     # astro check (type-check)
+npm run dev:admin     # Admin at localhost:3000
+npm run build:admin
 ```
 
-There are no lint or test scripts. Type-check with:
+There are no test scripts.
 
-```bash
-npx astro check
-```
-
-## Architecture
+## Architecture (apps/web)
 
 This is a personal portfolio built with **Astro 6 + React 19 + Tailwind CSS v4**. It's a fully static site (SSG).
 
@@ -29,7 +37,7 @@ This is a personal portfolio built with **Astro 6 + React 19 + Tailwind CSS v4**
 
 ### Projects data flow
 
-Projects are defined as a single typed array in `src/data/projects.ts`. Each `Project` object contains locale-specific content nested under `translations.es` and `translations.en`.
+Projects are defined as a single typed array in `src/data/projects.ts` (types come from `@portfolio/types`). Each `Project` object contains locale-specific content nested under `translations.es` and `translations.en`.
 
 `src/utils/project.ts` exports `resolveProjectView(project, locale)` which flattens a `Project` into a `ProjectView` — a locale-resolved, flat object that is passed directly to UI components. Always use `ProjectView` in React components; never access `project.translations` directly in the UI layer.
 
