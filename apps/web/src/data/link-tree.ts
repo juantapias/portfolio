@@ -1,5 +1,18 @@
 // src/data/link-tree.ts
-export const linkTree = [
+
+/** Iconos disponibles (ver el mapa en components/link-tree). */
+export type LinkTreeIcon =
+  | 'IconBrandInstagram'
+  | 'IconBrandGithub'
+  | 'IconBrandTiktok'
+  | 'IconWorldWww'
+
+interface LinkTreeData {
+  userName: string
+  social: { name: string; url: string; icon: LinkTreeIcon }[]
+}
+
+export const linkTree: LinkTreeData[] = [
   {
     userName: 'tapias.dev',
     social: [

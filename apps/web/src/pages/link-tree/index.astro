@@ -6,6 +6,7 @@ import Layout from '../../layouts/layout-blank.astro'
 const data = linkTree[0]
 ---
 <Layout title='Juan Tapias — Links' description='Enlaces de Juan Tapias: portfolio, redes sociales y contacto.' noindex>
-  <LinkTree client:load />
+  {/* Sin client:* — son solo enlaces, se renderiza como HTML estático (0 KB de JS) */}
+  <LinkTree />
 </Layout>
 
