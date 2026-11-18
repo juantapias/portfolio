@@ -197,6 +197,30 @@ export async function getAnalytics(n: RangeDays) {
   return { overview, series, channels, campaigns, pages, funnel, devices };
 }
 
+/** Visitas y leads que llegan a la web desde redes sociales (según la fuente de la sesión en GA4) */
+export async function getSocialTraffic(n: number) {
+  const SOURCES = { instagram: "instagram|^ig$|l\\.instagram\\.com", tiktok: "tiktok" } as const;
+  const [sessions, leads] = await Promise.all([
+    runReport({
+      dateRanges: [current(n)],
+      dimensions: [{ name: "sessionSource" }],
+      metrics: [{ name: "sessions" }],
+    }),
+    leadsBy(n, [{ name: "sessionSource" }]),
+  ]);
+  const result = { instagram: { sessions: 0, leads: 0 }, tiktok: { sessions: 0, leads: 0 } };
+  for (const row of dims(sessions.rows)) {
+    const source = row.dimensionValues![0].value.toLowerCase();
+    for (const [key, re] of Object.entries(SOURCES) as [keyof typeof SOURCES, string][]) {
+      if (new RegExp(re).test(source)) {
+        result[key].sessions += num(row.metricValues![0].value);
+        result[key].leads += leads.get(row.dimensionValues![0].value) ?? 0;
+      }
+    }
+  }
+  return result;
+}
+
 /**
  * Search Console. Sus datos llegan con ~2 días de retraso, así que el periodo
  * termina hace 2 días (si no, los últimos días salen en cero y la comparación miente).
