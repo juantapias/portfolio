@@ -116,7 +116,7 @@
       },
       {
         "title": "Terceros",
-        "body": "Los datos del formulario se almacenan en Supabase (Supabase Inc.), en servidores ubicados en Estados Unidos, con acceso restringido solo a mí. Google Analytics puede transferir datos a servidores de Google fuera de tu país. Los enlaces a WhatsApp y redes sociales dirigen a servicios de terceros con sus propias políticas de privacidad."
+        "body": "Los datos del formulario se guardan en un proveedor de almacenamiento en la nube con servidores en Estados Unidos, con acceso restringido solo a mí. Google Analytics puede transferir datos a servidores de Google fuera de tu país. Los enlaces a WhatsApp y redes sociales dirigen a servicios de terceros con sus propias políticas de privacidad."
       },
       {
         "title": "Tus derechos",
