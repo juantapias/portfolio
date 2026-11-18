@@ -6,7 +6,7 @@ import { createAdminClient } from "@/lib/supabase/server";
 export const NOTIFICATION_TYPES = {
   "lead.nuevo": { label: "Lead nuevo", description: "Alguien envió el formulario de la web", icon: "🔔" },
   "presupuesto.visto": { label: "Presupuesto visto", description: "Un cliente abrió el enlace de su presupuesto", icon: "👀" },
-  "seguimiento.hoy": { label: "Seguimientos del día", description: "Resumen de las 7 a. m. con los leads a contactar", icon: "📋" },
+  "seguimiento.hoy": { label: "Seguimientos del día", description: "Resumen de las 6 a. m. con los leads a contactar", icon: "📋" },
   "presupuesto.vence": { label: "Presupuesto por vencer", description: "Un presupuesto enviado vence mañana", icon: "⏳" },
   "sistema.error": { label: "Problemas de conexión", description: "Falló la sincronización con Instagram o TikTok, o una conexión está por vencer", icon: "⚠️" },
 } as const;
