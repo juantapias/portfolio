@@ -197,6 +197,30 @@ export async function getAnalytics(n: RangeDays) {
   return { overview, series, channels, campaigns, pages, funnel, devices };
 }
 
+/** Sesiones por fuente / medio / campaña (actual) y totales actual vs anterior, para el módulo de Conversión */
+export async function getSessionBreakdown(n: number) {
+  const [rows, totals] = await Promise.all([
+    runReport({
+      dateRanges: [current(n)],
+      dimensions: [{ name: "sessionSource" }, { name: "sessionMedium" }, { name: "sessionCampaignName" }],
+      metrics: [{ name: "sessions" }],
+      limit: 500,
+    }),
+    runReport({ dateRanges: [current(n), previous(n)], metrics: [{ name: "sessions" }] }),
+  ]);
+  const byRange = new Map(dims(totals.rows).map((r) => [r.dimensionValues?.[0]?.value, num(r.metricValues?.[0]?.value)]));
+  return {
+    current: byRange.get("date_range_0") ?? 0,
+    previous: byRange.get("date_range_1") ?? 0,
+    rows: dims(rows.rows).map((r) => ({
+      source: r.dimensionValues![0].value,
+      medium: r.dimensionValues![1].value,
+      campaign: r.dimensionValues![2].value,
+      sessions: num(r.metricValues![0].value),
+    })),
+  };
+}
+
 /** Visitas y leads que llegan a la web desde redes sociales (según la fuente de la sesión en GA4) */
 export async function getSocialTraffic(n: number) {
   const SOURCES = { instagram: "instagram|^ig$|l\\.instagram\\.com", tiktok: "tiktok" } as const;

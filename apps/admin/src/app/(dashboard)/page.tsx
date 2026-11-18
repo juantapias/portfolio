@@ -76,7 +76,7 @@ export default async function ResumenPage() {
         <Card title="Próximamente">
           <ul className="divide-y divide-border">
             {modules
-              .filter((m) => ["conversion", "redes", "portfolio"].includes(m.key))
+              .filter((m) => ["portfolio"].includes(m.key))
               .map((m) => (
                 <li key={m.key}>
                   <Link href={m.href} className="flex items-center justify-between gap-4 py-2.5 text-sm hover:text-accent">
