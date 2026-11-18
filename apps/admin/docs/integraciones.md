@@ -33,42 +33,24 @@ Se usa una **service account**: un "usuario robot" con acceso de solo lectura a 
    - Pega el `client_email` del JSON (termina en `.iam.gserviceaccount.com`), rol **Lector**, desmarca "Notificar por correo".
 5. **Copia el ID de la propiedad**
    - *Administrar → Configuración de la propiedad* → **ID de propiedad** (solo números, no el `G-XXXX`).
-6. **Variables de entorno** (del JSON descargado):
+6. **Variables de entorno** (del JSON descargado). La misma cuenta sirve para Search Console
+   (actívale la *Google Search Console API* y añádela como usuario **Restringido** en Search Console):
    ```env
    GA4_PROPERTY_ID=123456789
-   GA4_CLIENT_EMAIL=admin-analytics@portfolio-admin.iam.gserviceaccount.com
-   GA4_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+   GSC_SITE_URL=sc-domain:juantapias.dev
+   GOOGLE_SA_CLIENT_EMAIL=admin-analytics@portfolio-admin.iam.gserviceaccount.com
+   GOOGLE_SA_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
    ```
    Después borra el JSON de tu equipo o guárdalo en un gestor de contraseñas.
 7. **Marca la conversión como evento clave**
    - En la web, envía un evento `generate_lead` al enviar el formulario o al hacer clic en WhatsApp.
    - GA4 → *Administrar → Eventos clave* → márcalo. Esto es lo que usa el módulo **Conversión**.
 
-### Código (cuando construyamos el módulo)
+### Implementación
 
-```bash
-npm i -w admin @google-analytics/data
-```
-
-```ts
-import { BetaAnalyticsDataClient } from "@google-analytics/data";
-
-const ga = new BetaAnalyticsDataClient({
-  credentials: {
-    client_email: process.env.GA4_CLIENT_EMAIL,
-    private_key: process.env.GA4_PRIVATE_KEY!.replace(/\\n/g, "\n"),
-  },
-});
-
-const [report] = await ga.runReport({
-  property: `properties/${process.env.GA4_PROPERTY_ID}`,
-  dateRanges: [{ startDate: "28daysAgo", endDate: "today" }],
-  dimensions: [{ name: "sessionSource" }, { name: "sessionCampaignName" }],
-  metrics: [{ name: "sessions" }, { name: "totalUsers" }, { name: "keyEvents" }],
-});
-```
-
-GA4 sí guarda histórico, así que este módulo **consulta en vivo** (con caché de unos minutos) y no necesita cron.
+`src/lib/google/client.ts` firma las peticiones con `google-auth-library` (JWT) y llama a las APIs REST de
+GA4 Data y Search Console, con caché en memoria de 10 minutos. `src/lib/analytics.ts` arma los reportes.
+GA4 y Search Console guardan histórico, así que el módulo **consulta en vivo** y no necesita cron.
 
 ---
 
