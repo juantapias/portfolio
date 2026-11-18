@@ -25,3 +25,8 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+
+# Next.js
+.next/
+
+!.env.example

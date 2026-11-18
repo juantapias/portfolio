@@ -1,0 +1,560 @@
+{
+  "Nav": {
+    "home": "Inicio",
+    "works": "Trabajos",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "services": "Servicios",
+    "cta": "Hablemos"
+  },
+  "Hero": {
+    "h1": "Tapias — Estudio de diseño y desarrollo web, UI/UX y branding para marcas de Latinoamérica y el mundo",
+    "subtitle": "Diseño y desarrollo productos digitales que ayudan a marcas y negocios a crecer, combinando estrategia, diseño y tecnología en cada proyecto.",
+    "btnCTA": "Ver mi trabajo",
+    "btnContact": "Hablemos de tu proyecto",
+    "eyebrow": "Estudio de diseño y desarrollo",
+    "available": "Disponible para nuevos proyectos",
+    "scroll": "Desliza"
+  },
+  "Brands": {
+    "title": "Marcas que ya dieron el salto"
+  },
+  "Works": {
+    "services": [
+      {
+        "label": "Branding y Diseño Gráfico",
+        "description": "Construyo identidades de marca sólidas y coherentes que ayudan a tu negocio a destacar y generar confianza desde el primer contacto.",
+        "features": "Diseño de logotipos, ilustraciones, identidad visual, sistemas gráficos, piezas para redes sociales y material de marca."
+      },
+      {
+        "label": "Diseño de Producto (UI / UX)",
+        "description": "Diseño experiencias digitales centradas en el usuario, pensadas para facilitar la conversión y generar confianza en tu producto.",
+        "features": "Investigación de usuario, wireframes, trayectorias de usuario, prototipos interactivos, optimización de experiencia."
+      },
+      {
+        "label": "Diseño y Desarrollo Web",
+        "description": "Diseño y desarrollo sitios web modernos, interactivos y estratégicos que comunican el valor de tu marca y convierten visitantes en clientes.",
+        "features": "Landing pages, portafolios creativos, sitios corporativos, páginas de producto, animaciones y prototipos de alta fidelidad completamente responsivos."
+      },
+      {
+        "label": "Diseño de Aplicaciones",
+        "description": "Diseño experiencias mobile-first con navegación intuitiva que facilitan el uso y mejoran la retención de tus usuarios.",
+        "features": "Prototipos iOS y Android, diseño de interfaces, sistemas de interacción, microinteracciones."
+      },
+      {
+        "label": "Sistemas de Diseño",
+        "description": "Construyo sistemas de diseño escalables que garantizan consistencia entre tus productos digitales, ahorrando tiempo y costos a largo plazo.",
+        "features": "Bibliotecas de componentes, design tokens, guías de estilo, documentación."
+      },
+      {
+        "label": "Gestión de Redes Sociales",
+        "description": "Gestiono la presencia de tu marca en redes sociales con estrategia de contenido y diseño visual coherente, fortaleciendo tu conexión con la audiencia y tus ventas.",
+        "features": "Planeación de contenido, diseño de piezas gráficas, calendario editorial, gestión de publicaciones, análisis de métricas y crecimiento de comunidad."
+      }
+    ]
+  },
+  "Projects": {
+    "title": "Proyectos reales que combinan diseño, desarrollo y estrategia para generar resultados.",
+    "content": "Cada proyecto nace de trabajar de cerca con el cliente, entendiendo sus objetivos de negocio antes de escribir una sola línea de código. \n\n No solo diseño y desarrollo interfaces — construyo soluciones digitales completas, desde la estrategia inicial hasta el lanzamiento y el soporte posterior.",
+    "eyebrow": "Casos reales",
+    "heading": "Trabajos",
+    "script": "seleccionados",
+    "viewCase": "Ver caso",
+    "ctaCard": {
+      "title": "¿Tu proyecto es el siguiente?",
+      "text": "Cuéntame tu idea y la convertimos en un producto digital que funcione.",
+      "button": "Hablemos"
+    }
+  },
+  "About": {
+    "title": "Sobre mí",
+    "content": "Soy desarrollador de producto digital y diseñador UI/UX, y ayudo a marcas y negocios a convertir ideas en productos digitales sólidos — desde la estrategia y el diseño hasta el desarrollo completo. \n\n Me involucro en cada detalle: la experiencia de usuario, el rendimiento, la arquitectura técnica y las pequeñas interacciones que hacen que un producto se sienta confiable y profesional. \n\n Trabajo de cerca con cada cliente, entendiendo sus objetivos de negocio para entregar soluciones que no solo se ven bien, sino que funcionan y generan resultados reales. \n\n Si buscas un aliado que combine visión de diseño, solidez técnica y compromiso real con tu proyecto, estoy aquí para ayudarte a construirlo.",
+    "eyebrow": "Quién está detrás"
+  },
+  "Ads": {
+    "line1": "Tu producto digital,",
+    "line2": "tan sólido",
+    "line3": "como tu negocio",
+    "tags": [
+      "Estrategia",
+      "Diseño UI/UX",
+      "Desarrollo a medida",
+      "Rendimiento",
+      "SEO",
+      "Escalable"
+    ]
+  },
+  "Cookies": {
+    "title": "Tu privacidad importa",
+    "text": "Uso cookies de analítica (Google Analytics) para entender cómo se usa el sitio y mejorarlo. No se activan hasta que las aceptes.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "policy": "Política de privacidad",
+    "settings": "Cookies"
+  },
+  "Privacy": {
+    "title": "Política de privacidad y cookies",
+    "description": "Cómo Tapias trata tus datos personales y usa cookies de analítica en juantapias.dev, y cómo aceptar, rechazar o retirar tu consentimiento.",
+    "updated": "Última actualización: 18 de noviembre de 2026",
+    "back": "Volver al inicio",
+    "sections": [
+      {
+        "title": "Responsable",
+        "body": "Juan Tapias es el responsable del tratamiento de los datos recogidos en este sitio. Puedes escribirme a hola@juantapias.dev para cualquier consulta sobre privacidad."
+      },
+      {
+        "title": "Qué datos recojo",
+        "body": "Si completas el formulario de propuesta, guardo tu nombre, el nombre de tu negocio, tus respuestas (qué necesitas, etapa, presupuesto aproximado y plazo), tus comentarios y el origen de la visita (por ejemplo, la campaña o red social desde la que llegaste). También guardo una huella cifrada e irreversible de tu dirección IP, solo para evitar envíos automatizados. Además, trato los datos que me envías al contactarme por correo o WhatsApp y, si aceptas las cookies, datos de navegación anónimos: páginas vistas, clics en enlaces, tipo de dispositivo, navegador, país aproximado e idioma."
+      },
+      {
+        "title": "Cookies que utilizo",
+        "body": "Google Analytics 4 (Google LLC) instala las cookies _ga y _ga_*, con una duración de hasta 2 años, para distinguir visitas y medir el uso del sitio. El almacenamiento de analítica permanece denegado hasta que pulses Aceptar. Si rechazas, no se instalan cookies de analítica. El sitio también guarda tu elección en el almacenamiento local de tu navegador (cookie-consent)."
+      },
+      {
+        "title": "Para qué uso los datos",
+        "body": "Los datos del formulario y de tus mensajes los uso únicamente para responderte, preparar tu propuesta y hacer seguimiento a nuestra conversación. Los datos de navegación, para medir y mejorar el sitio. Conservo los datos de contacto mientras dure la relación comercial y hasta 2 años después del último contacto, salvo que me pidas borrarlos antes. No vendo datos ni los uso para publicidad."
+      },
+      {
+        "title": "Terceros",
+        "body": "Los datos del formulario se almacenan en Supabase (Supabase Inc.), en servidores ubicados en Estados Unidos, con acceso restringido solo a mí. Google Analytics puede transferir datos a servidores de Google fuera de tu país. Los enlaces a WhatsApp y redes sociales dirigen a servicios de terceros con sus propias políticas de privacidad."
+      },
+      {
+        "title": "Tus derechos",
+        "body": "Puedes conocer, actualizar, rectificar o solicitar la supresión de tus datos, y revocar tu consentimiento en cualquier momento (Ley 1581 de 2012 en Colombia y, si aplica, el RGPD). Para ejercerlos, escríbeme a hola@juantapias.dev."
+      },
+      {
+        "title": "Cambiar tu elección",
+        "body": "Puedes modificar tu decisión sobre las cookies en cualquier momento con el enlace \"Cookies\" del pie de página."
+      }
+    ]
+  },
+  "Footer": {
+    "social": "Conéctate conmigo",
+    "backToTop": "Volver arriba",
+    "ctaEyebrow": "¿Tienes un proyecto en mente?",
+    "ctaLine1": "Construyamos",
+    "ctaLine2": "algo juntos.",
+    "write": "Escríbeme",
+    "location": "Colombia — Trabajo con marcas de todo el mundo"
+  },
+  "project": {
+    "year": "Año",
+    "duration": "Duración",
+    "industry": "Industria",
+    "country": "País",
+    "overview": {
+      "label": "Resumen del proyecto",
+      "title": "Una visión general",
+      "cta": "Ver sitio live"
+    },
+    "challenge": {
+      "label": "El reto"
+    },
+    "solution": {
+      "label": "La solución"
+    },
+    "features": {
+      "label": "Funcionalidades"
+    },
+    "responsibilities": {
+      "label": "Responsabilidades"
+    },
+    "cta": {
+      "title": "¿Tienes un proyecto en mente?",
+      "subtitle": "Hablemos de tus objetivos y construyamos juntos una solución a la medida de tu negocio.",
+      "contact": "Hablemos de tu proyecto",
+      "more": "Ver más proyectos"
+    },
+    "lightbox": {
+      "alt": "Vista ampliada"
+    },
+    "back": "Todos los trabajos",
+    "next": "Siguiente proyecto",
+    "techStack": "Tecnologías",
+    "tags": "Etiquetas",
+    "inProgress": "En curso",
+    "results": {
+      "label": "Resultados"
+    },
+    "testimonial": {
+      "label": "Lo que dice el cliente"
+    }
+  },
+  "Services": {
+    "eyebrow": "Lo que hago",
+    "title": "Servicios"
+  },
+  "Studio": {
+    "label": "Servicios de Tapias",
+    "bg": "Un estudio",
+    "stickerA": "Un estudio.",
+    "stickerB": "Todo en un solo lugar.",
+    "text": "Soy Juan Tapias. Marca, diseño, web y apps: lo hago yo mismo, para que todo encaje. Primero las preguntas, después el código.",
+    "cursor": "Juan",
+    "track": [
+      {
+        "t": "shape",
+        "s": "star"
+      },
+      {
+        "t": "w",
+        "v": "Primero"
+      },
+      {
+        "t": "w",
+        "v": "la"
+      },
+      {
+        "t": "box",
+        "v": "marca.",
+        "service": 0,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "Luego"
+      },
+      {
+        "t": "w",
+        "v": "la"
+      },
+      {
+        "t": "box",
+        "v": "experiencia.",
+        "service": 1,
+        "c": "amber"
+      },
+      {
+        "t": "shape",
+        "s": "pen"
+      },
+      {
+        "t": "w",
+        "v": "Después"
+      },
+      {
+        "t": "w",
+        "v": "una"
+      },
+      {
+        "t": "box",
+        "v": "web",
+        "service": 2,
+        "c": "cream"
+      },
+      {
+        "t": "w",
+        "v": "que"
+      },
+      {
+        "t": "w",
+        "v": "convierte,"
+      },
+      {
+        "t": "shape",
+        "s": "half"
+      },
+      {
+        "t": "w",
+        "v": "una"
+      },
+      {
+        "t": "box",
+        "v": "app",
+        "service": 3,
+        "c": "brown"
+      },
+      {
+        "t": "w",
+        "v": "que"
+      },
+      {
+        "t": "w",
+        "v": "se"
+      },
+      {
+        "t": "w",
+        "v": "usa,"
+      },
+      {
+        "t": "w",
+        "v": "un"
+      },
+      {
+        "t": "box",
+        "v": "sistema",
+        "service": 4,
+        "c": "orange"
+      },
+      {
+        "t": "w",
+        "v": "que"
+      },
+      {
+        "t": "w",
+        "v": "escala"
+      },
+      {
+        "t": "w",
+        "v": "y"
+      },
+      {
+        "t": "box",
+        "v": "redes",
+        "service": 5,
+        "c": "amber"
+      },
+      {
+        "t": "w",
+        "v": "que",
+        "strong": true
+      },
+      {
+        "t": "w",
+        "v": "conectan.",
+        "strong": true
+      },
+      {
+        "t": "shape",
+        "s": "dot"
+      }
+    ]
+  },
+  "Faq": {
+    "eyebrow": "Preguntas frecuentes",
+    "title": "Antes de empezar",
+    "items": [
+      {
+        "q": "¿Qué servicios ofrece Tapias?",
+        "a": "Tapias es un estudio de diseño y desarrollo dirigido por Juan Tapias. Ofrezco branding y diseño gráfico, diseño de producto (UI/UX), diseño y desarrollo web, diseño de aplicaciones, sistemas de diseño y gestión de redes sociales. Puedes contratar un servicio puntual o el proyecto completo, desde la marca hasta el lanzamiento."
+      },
+      {
+        "q": "¿Cuánto tarda un proyecto?",
+        "a": "Depende del alcance. Los proyectos que he entregado han tomado entre 3 y 6 semanas: un sitio corporativo suele estar listo en unas 3 semanas, mientras que un ecommerce, una plataforma SaaS o un sitio con blog pueden tomar de 4 a 6. Al inicio defino contigo un cronograma con fechas claras."
+      },
+      {
+        "q": "¿Cuánto cuesta un sitio web o una app?",
+        "a": "Cada proyecto se cotiza a medida según su alcance, funcionalidades y plazos. Escríbeme por WhatsApp o a hola@juantapias.dev contándome tu idea y te envío una propuesta con alcance, tiempos y precio."
+      },
+      {
+        "q": "¿Trabajas con clientes fuera de Colombia?",
+        "a": "Sí. Trabajo desde Colombia con marcas y negocios de toda Latinoamérica y del resto del mundo, en español e inglés. Todo el proceso es remoto, con reuniones por videollamada y comunicación directa conmigo."
+      },
+      {
+        "q": "¿Con qué tecnologías trabajas?",
+        "a": "Elijo la tecnología según el proyecto. Para sitios rápidos y optimizados uso Astro y React; para productos y ecommerce, Next.js con Supabase, Tailwind CSS y Vercel; y cuando el cliente necesita editar el contenido por su cuenta, WordPress con Elementor Pro. El diseño lo hago en Figma."
+      },
+      {
+        "q": "¿Cómo es el proceso de trabajo?",
+        "a": "Primero las preguntas, después el código. Empiezo entendiendo tu negocio y tus objetivos; luego defino la estructura y diseño la experiencia; después desarrollo, pruebo y lanzo. Como hago yo mismo la marca, el diseño y el desarrollo, todo encaja y no hay intermediarios."
+      }
+    ]
+  },
+  "Landing": {
+    "seo": {
+      "title": "Diseño web que convierte visitas en clientes",
+      "description": "Diseño y desarrollo de sitios web y landing pages rápidos, con SEO y pensados para vender. Entrega en 3 a 6 semanas. Pide tu propuesta gratis."
+    },
+    "topCta": "Pedir propuesta",
+    "hero": {
+      "eyebrow": "Diseño y desarrollo web a medida",
+      "line1": "Una web que",
+      "line2": "te trae clientes,",
+      "line3": "no solo visitas.",
+      "subtitle": "Diseño y desarrollo sitios web y landing pages rápidos, con SEO y pensados para que tus visitantes te escriban. Hablas directo conmigo, de la idea al lanzamiento.",
+      "cta": "Quiero mi propuesta gratis",
+      "ctaAlt": "Escribir por WhatsApp",
+      "proof": [
+        "Proyectos lanzados en Colombia y Argentina",
+        "Entrega en 3 a 6 semanas",
+        "Sin intermediarios"
+      ]
+    },
+    "logos": "Marcas que ya confían en Tapias",
+    "pains": {
+      "eyebrow": "¿Te suena?",
+      "title": "Tu negocio crece. Tu web, no.",
+      "items": [
+        "Tu web se ve desactualizada y prefieres no compartirla.",
+        "Te llegan visitas de los anuncios, pero nadie te escribe.",
+        "Carga lento en el celular y la gente se va antes de verla.",
+        "Cuando te buscan en Google, aparece tu competencia."
+      ],
+      "closing": "Cada visita que se va sin escribirte es un cliente para otro."
+    },
+    "benefits": {
+      "eyebrow": "Lo que recibes",
+      "title": "Todo lo que tu web necesita para vender",
+      "items": [
+        {
+          "title": "Diseño a medida",
+          "text": "Nada de plantillas. Una web con la cara de tu marca, pensada para tu cliente."
+        },
+        {
+          "title": "Hecha para el celular",
+          "text": "La mayoría de tus visitas llegan desde el móvil. Ahí es donde mejor se ve."
+        },
+        {
+          "title": "Rápida de verdad",
+          "text": "Imágenes y código optimizados para que cargue en segundos, también con mala señal."
+        },
+        {
+          "title": "SEO desde el día uno",
+          "text": "Estructura, metadatos y velocidad para que Google te encuentre."
+        },
+        {
+          "title": "Contacto en un toque",
+          "text": "WhatsApp, formularios y botones de acción justo donde tu cliente los busca."
+        },
+        {
+          "title": "Analítica conectada",
+          "text": "Google Analytics listo para saber de dónde llegan tus clientes y qué funciona."
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Casos reales",
+      "title": "Webs que ya están trabajando",
+      "viewCase": "Ver caso",
+      "cta": "Quiero una así"
+    },
+    "process": {
+      "eyebrow": "Cómo trabajamos",
+      "title": "De la idea al lanzamiento en 4 pasos",
+      "steps": [
+        {
+          "title": "Conversación inicial",
+          "text": "Me cuentas tu negocio y tus objetivos. Sin costo y sin compromiso."
+        },
+        {
+          "title": "Propuesta clara",
+          "text": "Recibes por escrito el alcance, los tiempos y el precio."
+        },
+        {
+          "title": "Diseño y desarrollo",
+          "text": "Revisas el diseño antes de pasar al código y opinas en cada etapa."
+        },
+        {
+          "title": "Lanzamiento",
+          "text": "Publicamos tu web y conecto la analítica para medir resultados."
+        }
+      ]
+    },
+    "form": {
+      "eyebrow": "Propuesta gratis",
+      "title": "Cuéntame de tu proyecto",
+      "subtitle": "Responde 4 preguntas rápidas y te escribo por WhatsApp con los siguientes pasos.",
+      "stepLabel": "Paso",
+      "of": "de",
+      "back": "Atrás",
+      "next": "Continuar",
+      "questions": [
+        {
+          "id": "service",
+          "label": "¿Qué necesitas?",
+          "options": [
+            "Landing page",
+            "Sitio web corporativo",
+            "Tienda online",
+            "Rediseño de mi web",
+            "Marca + web",
+            "Otro"
+          ]
+        },
+        {
+          "id": "stage",
+          "label": "¿En qué etapa está tu negocio?",
+          "options": [
+            "Estoy empezando",
+            "Ya vendo y quiero crecer",
+            "Empresa establecida"
+          ]
+        },
+        {
+          "id": "budget",
+          "label": "¿Cuál es tu presupuesto aproximado?",
+          "options": [
+            "Menos de USD 500",
+            "USD 500 a 1.500",
+            "USD 1.500 a 3.000",
+            "Más de USD 3.000",
+            "Aún no lo sé"
+          ]
+        },
+        {
+          "id": "timeline",
+          "label": "¿Para cuándo lo necesitas?",
+          "options": [
+            "Lo antes posible",
+            "En 1 a 2 meses",
+            "Solo estoy explorando"
+          ]
+        }
+      ],
+      "contact": {
+        "label": "¿Cómo te llamas?",
+        "name": "Tu nombre",
+        "business": "Tu negocio o marca (opcional)",
+        "message": "Algo más que deba saber (opcional)",
+        "submit": "Enviar por WhatsApp",
+        "note": "Se abrirá WhatsApp con tu mensaje listo para enviar.",
+        "privacy": "Al enviar, guardo estos datos solo para responderte. Más en la ",
+        "privacyLink": "política de privacidad",
+        "required": "Escribe tu nombre para continuar."
+      },
+      "success": {
+        "title": "¡Gracias! Ya casi está.",
+        "text": "Envía el mensaje en WhatsApp y te respondo personalmente. ¿No se abrió?",
+        "link": "Abrir WhatsApp"
+      },
+      "message": {
+        "greeting": "Hola Juan, vengo de tu página y quiero una propuesta.",
+        "name": "Nombre",
+        "business": "Negocio",
+        "service": "Necesito",
+        "stage": "Etapa",
+        "budget": "Presupuesto",
+        "timeline": "Para cuándo",
+        "notes": "Comentarios",
+        "source": "Origen",
+        "ref": "Ref"
+      }
+    },
+    "faq": {
+      "eyebrow": "Dudas frecuentes",
+      "title": "Antes de escribirme",
+      "items": [
+        {
+          "q": "¿Cuánto cuesta una web?",
+          "a": "Depende del alcance: una landing page no cuesta lo mismo que una tienda online. Después de nuestra conversación te envío una propuesta con alcance, tiempos y precio por escrito, para que decidas con toda la información."
+        },
+        {
+          "q": "¿Cuánto tiempo tarda?",
+          "a": "Los proyectos que he entregado han tomado entre 3 y 6 semanas. Un sitio corporativo suele estar listo en unas 3 semanas; una tienda online o un sitio con blog puede tomar de 4 a 6."
+        },
+        {
+          "q": "¿Podré editar la web yo mismo?",
+          "a": "Sí, si lo necesitas. Cuando quieres actualizar el contenido por tu cuenta, trabajo con WordPress y Elementor Pro. Si lo prioritario es la velocidad, uso Astro y React."
+        },
+        {
+          "q": "¿Trabajas con negocios fuera de Colombia?",
+          "a": "Sí. Trabajo de forma remota con marcas de toda Latinoamérica y del resto del mundo, en español e inglés, con reuniones por videollamada y comunicación directa conmigo."
+        },
+        {
+          "q": "¿Qué necesito para empezar?",
+          "a": "Solo una conversación. Si ya tienes logo, textos o fotos, perfecto. Si no, también te ayudo con la marca y el contenido."
+        }
+      ]
+    },
+    "final": {
+      "title": "Tu próxima web puede empezar hoy.",
+      "text": "Una conversación sin compromiso y recibes tu propuesta.",
+      "cta": "Pedir mi propuesta"
+    },
+    "footer": {
+      "portfolio": "Ver portafolio completo",
+      "privacy": "Privacidad"
+    },
+    "sticky": "Pedir propuesta gratis"
+  }
+}
