@@ -268,7 +268,13 @@ async function TikTokSection({ range }: { range: Range }) {
   const u = user.value;
   const since = new Date(daysAgoISO(range)).getTime() / 1000;
   const inRange = videos.status === "fulfilled" ? videos.value.filter((v) => v.create_time >= since) : [];
-  const top = [...inRange].sort((a, b) => (b.view_count ?? 0) - (a.view_count ?? 0)).slice(0, 8);
+  const all = videos.status === "fulfilled" ? videos.value : [];
+  const byViews = (list: TtVideo[]) => [...list].sort((a, b) => (b.view_count ?? 0) - (a.view_count ?? 0)).slice(0, 8);
+  // Si no hubo videos en el periodo, se muestran los más vistos de siempre
+  const recent = inRange.length > 0;
+  const top = byViews(recent ? inRange : all);
+  const lastPost = all.length ? Math.max(...all.map((v) => v.create_time)) : null;
+  const daysSinceLast = lastPost ? Math.floor((new Date(todayISO()).getTime() / 1000 - lastPost) / 86400) : null;
   const rangeViews = inRange.reduce((s, v) => s + (v.view_count ?? 0), 0);
   const followerHistory = history.status === "fulfilled" ? history.value.filter((h) => h.followers != null) : [];
   const past = followerHistory.find((h) => h.date >= daysAgoISO(range).slice(0, 10));
@@ -327,7 +333,14 @@ async function TikTokSection({ range }: { range: Range }) {
         </Card>
       )}
 
-      <Card title={`Mejores videos (${range} días)`} className="mt-6">
+      <Card title={recent ? `Mejores videos (${range} días)` : "Tus videos más vistos"} className="mt-6">
+        {!recent && daysSinceLast != null && (
+          <p className="mb-4 rounded-md border border-border bg-background px-3 py-2 text-sm">
+            No has publicado en TikTok en los últimos {range} días. Tu último video fue hace{" "}
+            <span className="font-semibold">{daysSinceLast} días</span>
+            {lastPost && <> ({formatDate(new Date(lastPost * 1000).toISOString())})</>}. Estos son tus más vistos de siempre.
+          </p>
+        )}
         {videos.status === "rejected" ? (
           <SectionError reason={videos.reason} />
         ) : top.length ? (
@@ -335,7 +348,7 @@ async function TikTokSection({ range }: { range: Range }) {
             {top.map((v) => <VideoCard key={v.id} video={v} />)}
           </ul>
         ) : (
-          <p className="text-sm text-muted">Sin videos publicados en este periodo.</p>
+          <p className="text-sm text-muted">Todavía no hay videos en la cuenta.</p>
         )}
         <p className="mt-3 text-xs text-muted">
           TikTok solo entrega totales acumulados por video (no alcance por día), por eso se ordenan por vistas totales.

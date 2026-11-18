@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Suspense } from "react";
+import { MarketingSummary, MarketingSummarySkeleton } from "./marketing-summary";
 import { createClient } from "@/lib/supabase/server";
 import { getQuoteTotals } from "@/lib/quote-data";
 import { PageHeader } from "@/components/ui/page-header";
@@ -43,6 +45,10 @@ export default async function ResumenPage() {
         <Stat label="Presupuestos por responder" value={formatMoney(cop(pending), "COP")} hint={`${pending.length} enviado${pending.length === 1 ? "" : "s"}`} />
         <Stat label={`Cerrado en ${year}`} value={formatMoney(cop(won), "COP")} hint={`${won.length} aceptado${won.length === 1 ? "" : "s"}`} />
       </div>
+
+      <Suspense fallback={<MarketingSummarySkeleton />}>
+        <MarketingSummary />
+      </Suspense>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <Card title="Seguimientos">
