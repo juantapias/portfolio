@@ -116,7 +116,7 @@
       },
       {
         "title": "Third parties",
-        "body": "Form data is stored with Supabase (Supabase Inc.) on servers located in the United States, with access restricted to me only. Google Analytics may transfer data to Google servers outside your country. Links to WhatsApp and social networks lead to third-party services with their own privacy policies."
+        "body": "Form data is stored with a cloud storage provider on servers located in the United States, with access restricted to me only. Google Analytics may transfer data to Google servers outside your country. Links to WhatsApp and social networks lead to third-party services with their own privacy policies."
       },
       {
         "title": "Your rights",
