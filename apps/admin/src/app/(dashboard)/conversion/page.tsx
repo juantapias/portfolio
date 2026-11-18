@@ -6,6 +6,7 @@ import { Delta } from "@/components/ui/delta";
 import { createClient } from "@/lib/supabase/server";
 import { getConversion } from "@/lib/conversion";
 import { formatMoney } from "@/lib/format";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = { title: "Conversión" };
 
@@ -50,13 +51,13 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
         title="Conversión"
         description="De la primera vista en redes hasta el dinero cerrado"
         actions={
-          <nav aria-label="Periodo" className="flex rounded-md border border-border bg-surface p-0.5 text-sm">
+          <nav aria-label="Periodo" className="flex rounded-md border border-border bg-card p-0.5 text-sm">
             {RANGES.map((v) => (
               <Link
                 key={v}
                 href={`/conversion?rango=${v}`}
                 aria-current={v === range ? "page" : undefined}
-                className={`rounded px-3 py-1.5 ${v === range ? "bg-foreground text-background" : "text-muted hover:text-foreground"}`}
+                className={`rounded px-3 py-1.5 ${v === range ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
               >
                 {v} días
               </Link>
@@ -71,7 +72,7 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
         <Kpi
           label="Visitas → lead"
           value={pct(f.leads, f.sessions)}
-          delta={leadRate != null && prevLeadRate != null ? <Delta current={leadRate} previous={prevLeadRate} /> : <span className="text-xs text-muted">Leads del CRM ÷ sesiones de GA4</span>}
+          delta={leadRate != null && prevLeadRate != null ? <Delta current={leadRate} previous={prevLeadRate} /> : <span className="text-xs text-muted-foreground">Leads del CRM ÷ sesiones de GA4</span>}
         />
         <Kpi
           label="Cerrado"
@@ -82,7 +83,7 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
           label="Venta media · días al cierre"
           value={data.avgDeal != null ? formatMoney(data.avgDeal, "COP") : "—"}
           delta={
-            <span className="text-xs text-muted">
+            <span className="text-xs text-muted-foreground">
               {data.avgCloseDays != null ? `${Math.round(data.avgCloseDays)} días desde el primer contacto` : "Sin ventas en el periodo"}
             </span>
           }
@@ -99,20 +100,21 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
             return (
               <li key={s.label} className="relative">
                 {i > 0 && (
-                  <p className="mb-1 text-xs font-medium tabular-nums text-accent md:absolute md:-left-3 md:-top-5 md:mb-0" title={rateTitle}>
-                    → {rate}
+                  <p className="mb-1 flex items-center gap-0.5 text-xs font-medium tabular-nums text-brand md:absolute md:-left-3 md:-top-5 md:mb-0" title={rateTitle}>
+                    <ArrowRight aria-hidden className="size-3" />
+                    {rate}
                   </p>
                 )}
                 <div className="h-full rounded-md border border-border bg-background p-3">
-                  <p className="text-xs text-muted">{s.label}</p>
+                  <p className="text-xs text-muted-foreground">{s.label}</p>
                   <p className="mt-1 text-2xl font-semibold tabular-nums">{s.value == null ? "—" : n(s.value)}</p>
-                  {s.note && <p className="mt-1 text-[11px] leading-tight text-muted">{s.note}</p>}
+                  {s.note && <p className="mt-1 text-[11px] leading-tight text-muted-foreground">{s.note}</p>}
                 </div>
               </li>
             );
           })}
         </ol>
-        <p className="mt-4 text-xs text-muted">
+        <p className="mt-4 text-xs text-muted-foreground">
           El % de cada paso es sobre el anterior. GA4 cuenta de menos (consentimiento de cookies), así que «visitas → lead»
           sale más alto que la realidad; los leads, presupuestos y ventas son exactos.
           {range === 90 && " La API de Instagram no da alcance de más de 30 días: elige 7 o 28 días para ver el embudo completo."}
@@ -127,9 +129,9 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
             rows={data.channels.map((c) => ({ ...c, name: c.label }))}
           />
         ) : (
-          <p className="text-sm text-muted">Sin visitas ni leads en este periodo.</p>
+          <p className="text-sm text-muted-foreground">Sin visitas ni leads en este periodo.</p>
         )}
-        <p className="mt-3 text-xs text-muted">
+        <p className="mt-3 text-xs text-muted-foreground">
           Los leads se atribuyen por la UTM con la que llegaron (o por el origen que elegiste en el CRM). Presupuestos y
           ventas heredan el canal de su lead.
         </p>
@@ -140,7 +142,7 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
         {data.campaigns.length ? (
           <Table first="Campaña" rows={data.campaigns.map((c) => ({ key: c.name, ...c }))} />
         ) : (
-          <p className="text-sm text-muted">Ninguna visita ni lead con utm_campaign en este periodo.</p>
+          <p className="text-sm text-muted-foreground">Ninguna visita ni lead con utm_campaign en este periodo.</p>
         )}
       </Card>
     </>
@@ -150,7 +152,7 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
 function Kpi({ label, value, delta }: { label: string; value: string; delta: React.ReactNode }) {
   return (
     <Card>
-      <p className="text-sm text-muted">{label}</p>
+      <p className="text-sm text-muted-foreground">{label}</p>
       <p className="mt-2 text-3xl font-semibold tabular-nums">{value}</p>
       <p className="mt-1">{delta}</p>
     </Card>
@@ -167,7 +169,7 @@ function Table({
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[560px] text-sm">
-        <thead className="text-left text-xs text-muted">
+        <thead className="text-left text-xs text-muted-foreground">
           <tr>
             <th className="pb-2 font-medium">{first}</th>
             <th className="pb-2 text-right font-medium">Visitas</th>
@@ -184,7 +186,7 @@ function Table({
               <td className="py-2 pr-3">{r.name}</td>
               <td className="py-2 text-right tabular-nums">{n(r.sessions)}</td>
               <td className="py-2 text-right tabular-nums">{n(r.leads)}</td>
-              <td className="py-2 text-right tabular-nums text-muted">{r.sessions ? pct(r.leads, r.sessions) : "—"}</td>
+              <td className="py-2 text-right tabular-nums text-muted-foreground">{r.sessions ? pct(r.leads, r.sessions) : "—"}</td>
               <td className="py-2 text-right tabular-nums">{n(r.quotesSent)}</td>
               <td className="py-2 text-right tabular-nums">{n(r.won)}</td>
               <td className="py-2 text-right tabular-nums">{r.wonCop ? formatMoney(r.wonCop, "COP") : "—"}</td>

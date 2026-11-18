@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/ui/page-header";
 import { EmptyState } from "@/components/ui/empty-state";
+import { SegmentedNav } from "@/components/ui/segmented-nav";
+import { NOTIFICATION_ICONS, NotificationIcon } from "@/components/notification-icon";
+import { BellOff, Inbox } from "lucide-react";
 import { Button } from "@/components/ui/form";
 import { NOTIFICATION_TYPES, type NotificationType } from "@/lib/notifications";
 import { formatDate } from "@/lib/format";
@@ -57,15 +59,22 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
         }
       />
 
-      <nav className="mb-6 flex flex-wrap gap-1 text-sm" aria-label="Filtrar por tipo">
-        <Chip href="/notificaciones" active={!filter} label="Todas" />
-        {(Object.keys(NOTIFICATION_TYPES) as NotificationType[]).map((t) => (
-          <Chip key={t} href={`/notificaciones?tipo=${t}`} active={filter === t} label={`${NOTIFICATION_TYPES[t].icon} ${NOTIFICATION_TYPES[t].label}`} />
-        ))}
-      </nav>
+      <SegmentedNav
+        label="Filtrar por tipo"
+        active={filter ?? "todas"}
+        className="mb-6"
+        items={[
+          { key: "todas", href: "/notificaciones", label: "Todas", icon: <Inbox /> },
+          ...(Object.keys(NOTIFICATION_TYPES) as NotificationType[]).map((t) => {
+            const Icon = NOTIFICATION_ICONS[t].icon;
+            return { key: t, href: `/notificaciones?tipo=${t}`, label: NOTIFICATION_TYPES[t].label, icon: <Icon /> };
+          }),
+        ]}
+      />
 
       {items.length === 0 ? (
         <EmptyState
+          icon={BellOff}
           title="Sin notificaciones"
           description="Aquí verás los leads nuevos, cuándo un cliente abre su presupuesto, tus seguimientos del día y cualquier problema con las conexiones."
         />
@@ -73,27 +82,27 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
         <div className="space-y-8">
           {[...groups.entries()].map(([day, list]) => (
             <section key={day}>
-              <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-muted">{formatDate(day)}</h2>
-              <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+              <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">{formatDate(day)}</h2>
+              <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-card">
                 {list.map((n) => (
                   <li key={n.id}>
                     <form action={openNotification}>
                       <input type="hidden" name="id" value={n.id} />
                       <input type="hidden" name="link" value={n.link ?? ""} />
                       <button
-                        className={`flex w-full gap-3 px-4 py-3 text-left transition-colors hover:bg-background ${n.read_at ? "" : "bg-accent/5"}`}
+                        className={`flex w-full gap-3 px-4 py-3 text-left transition-colors hover:bg-accent ${n.read_at ? "" : "bg-primary/5"}`}
                       >
-                        <span aria-hidden className="text-lg leading-6">{NOTIFICATION_TYPES[n.type]?.icon ?? "🔔"}</span>
+                        <NotificationIcon type={n.type} />
                         <span className="min-w-0 flex-1">
                           <span className="flex items-start justify-between gap-3">
                             <span className={`text-sm ${n.read_at ? "" : "font-semibold"}`}>{n.title}</span>
-                            <span className="shrink-0 text-xs text-muted tabular-nums">{time(n.created_at)}</span>
+                            <span className="shrink-0 text-xs text-muted-foreground tabular-nums">{time(n.created_at)}</span>
                           </span>
-                          {n.body && <span className="mt-0.5 block whitespace-pre-line text-sm text-muted">{n.body}</span>}
-                          <span className="mt-1 flex items-center gap-2 text-[11px] text-muted">
-                            {!n.read_at && <span className="size-1.5 rounded-full bg-accent" aria-label="Sin leer" />}
+                          {n.body && <span className="mt-0.5 block whitespace-pre-line text-sm text-muted-foreground">{n.body}</span>}
+                          <span className="mt-1 flex items-center gap-2 text-[11px] text-muted-foreground">
+                            {!n.read_at && <span className="size-1.5 rounded-full bg-primary" aria-label="Sin leer" />}
                             {n.telegram === "enviado" && <span>Enviado a Telegram</span>}
-                            {n.telegram?.startsWith("error") && <span className="text-red-600 dark:text-red-400">Telegram: {n.telegram.slice(7)}</span>}
+                            {n.telegram?.startsWith("error") && <span className="text-destructive">Telegram: {n.telegram.slice(7)}</span>}
                           </span>
                         </span>
                       </button>
@@ -109,13 +118,3 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
   );
 }
 
-function Chip({ href, active, label }: { href: string; active: boolean; label: string }) {
-  return (
-    <Link
-      href={href}
-      className={`rounded-md px-3 py-1.5 ${active ? "bg-foreground text-background" : "text-muted hover:bg-surface hover:text-foreground"}`}
-    >
-      {label}
-    </Link>
-  );
-}

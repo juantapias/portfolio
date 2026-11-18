@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { saveLead, type FormState } from "./actions";
 import { Button, Field, FormError, Input, Select, Textarea, buttonClass } from "@/components/ui/form";
+import { DatePicker } from "@/components/ui/date-picker";
 import { LEAD_SOURCES, LEAD_STATUSES } from "@/lib/crm";
 import { CURRENCIES } from "@/lib/quotes";
 import type { Lead } from "@/lib/types";
@@ -57,7 +58,7 @@ export function LeadForm({ lead }: { lead?: Lead }) {
           </div>
         </Field>
         <Field label="Próximo seguimiento">
-          <Input name="next_follow_up" type="date" defaultValue={lead?.next_follow_up ?? ""} />
+          <DatePicker name="next_follow_up" defaultValue={lead?.next_follow_up} placeholder="Sin seguimiento" presets />
         </Field>
         <Field label="Necesidad / mensaje" className="sm:col-span-2">
           <Textarea name="message" rows={4} defaultValue={lead?.message ?? ""} placeholder="¿Qué necesita? ¿Para cuándo?" />

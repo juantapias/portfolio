@@ -105,7 +105,7 @@ export function LineChart({
         {ticks.map((t) => (
           <g key={t}>
             <line x1={PAD.left} x2={W - PAD.right} y1={y(t)} y2={y(t)} stroke="var(--chart-grid)" strokeWidth={1} />
-            <text x={PAD.left - 8} y={y(t)} dy="0.32em" textAnchor="end" className="fill-muted text-[11px] tabular-nums">
+            <text x={PAD.left - 8} y={y(t)} dy="0.32em" textAnchor="end" className="fill-muted-foreground text-[11px] tabular-nums">
               {format(t)}
             </text>
           </g>
@@ -116,7 +116,7 @@ export function LineChart({
             x={x(i)}
             y={H - 8}
             textAnchor={i === 0 ? "start" : i === data.length - 1 ? "end" : "middle"}
-            className="fill-muted text-[11px]"
+            className="fill-muted-foreground text-[11px]"
           >
             {fmtDay(d.date, { day: "numeric", month: "short" })}
           </text>
@@ -128,28 +128,28 @@ export function LineChart({
         {active && hover !== null && (
           <g pointerEvents="none">
             <line x1={x(hover)} x2={x(hover)} y1={PAD.top} y2={y(0)} stroke="var(--muted)" strokeWidth={1} strokeDasharray="3 3" />
-            <circle cx={x(hover)} cy={y(active.value)} r={5} fill="var(--chart)" stroke="var(--surface)" strokeWidth={2} />
+            <circle cx={x(hover)} cy={y(active.value)} r={5} fill="var(--chart)" stroke="var(--card)" strokeWidth={2} />
           </g>
         )}
       </svg>
 
       {active && hover !== null && (
         <div
-          className="pointer-events-none absolute top-0 whitespace-nowrap rounded-md border border-border bg-surface px-3 py-2 text-xs shadow-sm"
+          className="pointer-events-none absolute top-0 whitespace-nowrap rounded-md border border-border bg-card px-3 py-2 text-xs shadow-sm"
           style={{
             left: `${(x(hover) / W) * 100}%`,
             transform: `translateX(${hover > data.length / 2 ? "calc(-100% - 12px)" : "12px"})`,
           }}
         >
           <p className="text-base font-semibold tabular-nums">{format(active.value)}</p>
-          <p className="flex items-center gap-1.5 text-muted">
+          <p className="flex items-center gap-1.5 text-muted-foreground">
             <span className="inline-block h-0.5 w-3 rounded bg-chart" aria-hidden />
             {label} · {fmtDay(active.date, { weekday: "short", day: "numeric", month: "short" })}
           </p>
         </div>
       )}
 
-      <details className="mt-2 text-xs text-muted">
+      <details className="mt-2 text-xs text-muted-foreground">
         <summary className="cursor-pointer hover:text-foreground">Ver tabla</summary>
         <table className="mt-2 w-full max-w-sm">
           <tbody>

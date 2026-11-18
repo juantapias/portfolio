@@ -80,9 +80,9 @@ export default async function QuotesPage({ searchParams }: PageProps<"/presupues
             ))}
           </nav>
 
-          <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+          <div className="overflow-x-auto rounded-lg border border-border bg-card">
             <table className="w-full min-w-[640px] text-sm">
-              <thead className="border-b border-border text-left text-xs text-muted">
+              <thead className="border-b border-border text-left text-xs text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3 font-medium">Número</th>
                   <th className="px-4 py-3 font-medium">Presupuesto</th>
@@ -97,25 +97,25 @@ export default async function QuotesPage({ searchParams }: PageProps<"/presupues
                   const st = quoteStatus(q.effective);
                   const t = totals.get(q.id);
                   return (
-                    <tr key={q.id} className="hover:bg-background">
-                      <td className="px-4 py-3 tabular-nums text-muted">
+                    <tr key={q.id} className="hover:bg-accent">
+                      <td className="px-4 py-3 tabular-nums text-muted-foreground">
                         <Link href={`/presupuestos/${q.id}`} className="hover:text-foreground">{q.number}</Link>
                       </td>
                       <td className="px-4 py-3">
-                        <Link href={`/presupuestos/${q.id}`} className="font-medium hover:text-accent">{q.title}</Link>
-                        {lead && <p className="text-xs text-muted">{lead.company || lead.name}</p>}
+                        <Link href={`/presupuestos/${q.id}`} className="font-medium hover:text-brand">{q.title}</Link>
+                        {lead && <p className="text-xs text-muted-foreground">{lead.company || lead.name}</p>}
                       </td>
                       <td className="px-4 py-3"><Badge tone={st.tone}>{st.label}</Badge></td>
-                      <td className="px-4 py-3 text-muted">{formatDate(q.valid_until)}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{formatDate(q.valid_until)}</td>
                       <td className="px-4 py-3 text-right tabular-nums">
                         {formatMoney(t?.total, q.currency)}
-                        {q.currency !== "COP" && <p className="text-xs text-muted">≈ {formatMoney(t?.total_cop, "COP")}</p>}
+                        {q.currency !== "COP" && <p className="text-xs text-muted-foreground">≈ {formatMoney(t?.total_cop, "COP")}</p>}
                       </td>
                     </tr>
                   );
                 })}
                 {quotes.length === 0 && (
-                  <tr><td colSpan={5} className="px-4 py-8 text-center text-muted">Nada con este estado.</td></tr>
+                  <tr><td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">Nada con este estado.</td></tr>
                 )}
               </tbody>
             </table>
@@ -130,7 +130,7 @@ function FilterLink({ href, active, label, count }: { href: string; active: bool
   return (
     <Link
       href={href}
-      className={`rounded-md px-3 py-1.5 ${active ? "bg-foreground text-background" : "text-muted hover:bg-surface hover:text-foreground"}`}
+      className={`rounded-md px-3 py-1.5 ${active ? "bg-foreground text-background" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
     >
       {label} <span className="tabular-nums opacity-60">{count}</span>
     </Link>

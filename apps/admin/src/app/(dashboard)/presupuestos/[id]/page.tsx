@@ -13,6 +13,7 @@ import { effectiveQuoteStatus, quoteStatus } from "@/lib/quotes";
 import { formatMoney } from "@/lib/format";
 import { deleteQuote, duplicateQuote, setQuoteStatus } from "../actions";
 import type { QuoteStatus } from "@/lib/types";
+import { ArrowLeft } from "lucide-react";
 
 export async function generateMetadata({ params }: PageProps<"/presupuestos/[id]">): Promise<Metadata> {
   const { id } = await params;
@@ -34,7 +35,7 @@ export default async function QuotePage({ params }: PageProps<"/presupuestos/[id
   return (
     <>
       <div className="print:hidden">
-        <Link href="/presupuestos" className="text-sm text-muted hover:text-foreground">← Presupuestos</Link>
+        <Link href="/presupuestos" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft aria-hidden className="size-4" />Presupuestos</Link>
 
         <header className="mb-6 mt-3 flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -42,12 +43,12 @@ export default async function QuotePage({ params }: PageProps<"/presupuestos/[id
               <h1 className="text-2xl font-semibold tracking-tight">{quote.number}</h1>
               <Badge tone={st.tone}>{st.label}</Badge>
             </div>
-            <p className="mt-1 text-muted">
+            <p className="mt-1 text-muted-foreground">
               {quote.title}
               {client && (
                 <>
                   {" · "}
-                  <Link href={`/crm/${client.id}`} className="hover:text-accent">{client.company || client.name}</Link>
+                  <Link href={`/crm/${client.id}`} className="hover:text-brand">{client.company || client.name}</Link>
                 </>
               )}
             </p>
@@ -62,7 +63,7 @@ export default async function QuotePage({ params }: PageProps<"/presupuestos/[id
         <StatusActions id={quote.id} status={quote.status} effective={effective} />
 
         {quote.currency !== "COP" && totals && (
-          <p className="mb-4 text-sm text-muted">
+          <p className="mb-4 text-sm text-muted-foreground">
             Equivale a <span className="font-medium text-foreground">{formatMoney(totals.total_cop, "COP")}</span> a una tasa de{" "}
             {Number(quote.fx_rate_cop).toLocaleString("es-CO")} COP/{quote.currency}.
           </p>
@@ -100,7 +101,7 @@ function StatusActions({ id, status, effective }: { id: string; status: QuoteSta
   const hint = actions.find((a) => a.hint)?.hint;
 
   return (
-    <div className="mb-6 flex flex-wrap items-center gap-2 rounded-lg border border-border bg-surface p-3">
+    <div className="mb-6 flex flex-wrap items-center gap-2 rounded-lg border border-border bg-card p-3">
       {actions.map((a) => (
         <form key={a.to} action={setQuoteStatus}>
           <input type="hidden" name="id" value={id} />
@@ -108,7 +109,7 @@ function StatusActions({ id, status, effective }: { id: string; status: QuoteSta
           <Button variant={a.variant}>{a.label}</Button>
         </form>
       ))}
-      {hint && <p className="text-xs text-muted">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }
