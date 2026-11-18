@@ -1,18 +1,11 @@
+import "server-only";
 import { createAdminClient } from "@/lib/supabase/server";
 import { getProfile, getTotals, isInstagramConfigured } from "@/lib/social/instagram";
 import { getConnection, getUser, getVideos, isTikTokConfigured } from "@/lib/social/tiktok";
 import { todayISO } from "@/lib/format";
 
-/**
- * Copia diaria de métricas de redes en `social_metrics_daily`.
- * La ejecuta Vercel Cron (ver vercel.json), que envía `Authorization: Bearer <CRON_SECRET>`.
- */
-export async function GET(request: Request) {
-  const secret = process.env.CRON_SECRET;
-  if (!secret || request.headers.get("authorization") !== `Bearer ${secret}`) {
-    return Response.json({ error: "unauthorized" }, { status: 401 });
-  }
-
+/** Copia diaria de métricas de Instagram y TikTok en `social_metrics_daily` y `social_posts`. */
+export async function syncSocial() {
   const supabase = createAdminClient();
   const results: Record<string, unknown> = {};
 
@@ -73,6 +66,5 @@ export async function GET(request: Request) {
     }
   }
 
-  const failed = Object.values(results).some((r) => (r as { error?: string }).error);
-  return Response.json(results, { status: failed ? 500 : 200 });
+  return results;
 }

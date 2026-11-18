@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { modules } from "@/lib/modules";
 
-export function Sidebar() {
+export function Sidebar({ badges = {} }: { badges?: Partial<Record<string, number>> }) {
   const pathname = usePathname();
 
   return (
@@ -16,13 +16,21 @@ export function Sidebar() {
           <Link
             key={m.key}
             href={m.href}
-            className={`whitespace-nowrap rounded-md px-3 py-2 text-sm transition-colors ${
+            className={`flex items-center justify-between gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm transition-colors ${
               active
                 ? "bg-foreground text-background"
                 : "text-muted hover:bg-surface hover:text-foreground"
             }`}
           >
             {m.label}
+            {!!badges[m.key] && (
+              <span
+                className="min-w-5 rounded-full bg-accent px-1.5 text-center text-[11px] font-semibold leading-5 text-white tabular-nums"
+                aria-label={`${badges[m.key]} sin leer`}
+              >
+                {badges[m.key]! > 99 ? "99+" : badges[m.key]}
+              </span>
+            )}
           </Link>
         );
       })}

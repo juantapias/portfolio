@@ -10,6 +10,8 @@ import { isInstagramConfigured } from "@/lib/social/instagram";
 import { getConnection, isTikTokConfigured } from "@/lib/social/tiktok";
 import { buttonClass } from "@/components/ui/form";
 import { formatDate } from "@/lib/format";
+import { NOTIFICATION_TYPES, isTelegramConfigured, type NotificationType } from "@/lib/notifications";
+import { TestTelegramButton, TypeToggle } from "./telegram-settings";
 
 export const metadata: Metadata = { title: "Ajustes" };
 
@@ -24,10 +26,13 @@ const TIKTOK_MESSAGES: Record<string, { tone: "green" | "red"; text: string }> =
 export default async function SettingsPage({ searchParams }: PageProps<"/ajustes">) {
   const { tiktok: tiktokStatus } = await searchParams;
   const supabase = await createClient();
-  const [profile, tiktok] = await Promise.all([
+  const [profile, tiktok, { data: settings }] = await Promise.all([
     getBusinessProfile(supabase),
     isTikTokConfigured() ? getConnection() : Promise.resolve(null),
+    supabase.from("notification_settings").select("type, telegram"),
   ]);
+  const telegramOff = new Set((settings ?? []).filter((s) => s.telegram === false).map((s) => s.type as string));
+  const telegram = isTelegramConfigured();
   const message = typeof tiktokStatus === "string" ? TIKTOK_MESSAGES[tiktokStatus] : undefined;
 
   return (
@@ -37,6 +42,32 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
       <Card title="Perfil del emisor" className="mb-6">
         <p className="-mt-1 mb-5 text-sm text-muted">Aparece en el encabezado de tus presupuestos.</p>
         <ProfileForm profile={profile} />
+      </Card>
+
+      <Card title="Notificaciones" className="mb-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-sm">
+          <span>
+            Telegram{" "}
+            <Badge tone={telegram ? "green" : "neutral"}>{telegram ? "Conectado" : "Sin configurar"}</Badge>
+          </span>
+          {telegram ? (
+            <TestTelegramButton />
+          ) : (
+            <span className="text-xs text-muted">Faltan TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID</span>
+          )}
+        </div>
+        <ul className="divide-y divide-border text-sm">
+          {(Object.keys(NOTIFICATION_TYPES) as NotificationType[]).map((t) => (
+            <li key={t} className="flex items-center justify-between gap-4 py-2.5">
+              <span>
+                <span aria-hidden>{NOTIFICATION_TYPES[t].icon}</span> {NOTIFICATION_TYPES[t].label}
+                <span className="block text-xs text-muted">{NOTIFICATION_TYPES[t].description}</span>
+              </span>
+              <TypeToggle type={t} enabled={!telegramOff.has(t)} disabled={!telegram} />
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-xs text-muted">Todas quedan siempre en la campana de Notificaciones; aquí eliges cuáles llegan también a Telegram.</p>
       </Card>
 
       <Card title="Integraciones">
