@@ -7,7 +7,8 @@ import { ScheduleTab } from "./horarios";
 import { InstagramTab } from "./instagram";
 import { OverviewTab } from "./overview";
 import { TikTokTab } from "./tiktok";
-import { RANGES, TABS, TabSkeleton, type Range, type Tab } from "./shared";
+import { RANGES, TABS, type Range, type Tab } from "./shared";
+import { TabSkeleton } from "./skeletons";
 
 export const metadata: Metadata = { title: "Redes sociales" };
 
@@ -99,7 +100,7 @@ export default async function SocialPage({
       />
 
       {/* Cada pestaña solo pide los datos que muestra; el esqueleto aparece al instante al cambiar */}
-      <Suspense key={`${tab}-${range}`} fallback={<TabSkeleton />}>
+      <Suspense key={`${tab}-${range}`} fallback={<TabSkeleton tab={tab} />}>
         {tab === "instagram" ? (
           <InstagramTab range={range} />
         ) : tab === "tiktok" ? (
