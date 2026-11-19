@@ -4,6 +4,7 @@ import { CalendarClock, ChartColumn, CircleCheck, FileText, Send, Trophy, Users,
 import { MarketingSummary, MarketingSummarySkeleton } from "./marketing-summary";
 import { createClient } from "@/lib/supabase/server";
 import { getQuoteTotals } from "@/lib/quote-data";
+import { manualRevenueCop, manualSales } from "@/lib/clients";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardLink, Stat } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -79,6 +80,11 @@ export default async function ResumenPage() {
     .sort((a, b) => a.valid_until.localeCompare(b.valid_until));
   const won = quotes.filter((q) => q.status === "aceptado" && (q.accepted_at ?? q.issue_date).startsWith(year));
   const cop = (list: Quote[]) => list.reduce((s, q) => s + Number(totals.get(q.id)?.total_cop ?? 0), 0);
+  // Clientes con cobro registrado a mano (sin presupuesto aceptado en el admin), entregados este año
+  const acceptedLeads = new Set(quotes.filter((q) => q.status === "aceptado" && q.lead_id).map((q) => q.lead_id!));
+  const manualWon = manualSales(leads, acceptedLeads).filter((l) => l.delivered_at!.startsWith(year));
+  const wonCop = cop(won) + manualWon.reduce((s, l) => s + manualRevenueCop(l), 0);
+  const wonCount = won.length + manualWon.length;
   const leadName = new Map(leads.map((l) => [l.id, l.company ? `${l.name} · ${l.company}` : l.name]));
 
   const weekly = leadsPerWeek(leads, today);
@@ -146,9 +152,9 @@ export default async function ResumenPage() {
           href="/presupuestos"
           icon={Trophy}
           label={`Cerrado en ${year}`}
-          value={formatMoney(cop(won), "COP")}
-          info="Valor en COP de los presupuestos aceptados este año."
-          hint={`${won.length} aceptado${plural(won.length)}`}
+          value={formatMoney(wonCop, "COP")}
+          info="Valor en COP de los presupuestos aceptados este año, más los cobros registrados a mano en clientes sin presupuesto en el admin."
+          hint={`${wonCount} venta${plural(wonCount)}`}
         />
       </div>
 

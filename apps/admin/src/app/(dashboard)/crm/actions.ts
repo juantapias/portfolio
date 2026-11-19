@@ -25,6 +25,27 @@ export async function saveLead(_prev: FormState, fd: FormData): Promise<FormStat
   const status = (text(fd, "status") ?? "nuevo") as LeadStatus;
   if (!LEAD_STATUSES.some((s) => s.value === status)) return { error: "Estado inválido." };
 
+  // Cliente: proyecto entregado y cobro registrado a mano
+  const paidRaw = text(fd, "paid_amount");
+  const paidAmount = paidRaw ? Number(paidRaw.replace(/[^\d.]/g, "")) : null;
+  if (paidAmount !== null && Number.isNaN(paidAmount)) return { error: "Monto cobrado inválido." };
+  const paidCurrency = (text(fd, "paid_currency") ?? "COP").toUpperCase();
+  const fxRaw = Number(String(fd.get("paid_fx_rate_cop") ?? "").replace(",", "."));
+  const paidFx = paidCurrency === "COP" ? 1 : fxRaw;
+  if (paidAmount && paidCurrency !== "COP" && !(paidFx > 0)) {
+    return { error: `Indica cuántos COP vale 1 ${paidCurrency} para el monto cobrado.` };
+  }
+  const deliveredUrl = text(fd, "delivered_url");
+  if (deliveredUrl && !/^https?:\/\//.test(deliveredUrl)) return { error: "El sitio entregado debe empezar por https://" };
+
+  // Primer contacto: fecha real en que llegó (para que un cliente antiguo no cuente como lead nuevo)
+  // Solo se guarda si cambió: así editar un lead de la landing no le borra la hora exacta de llegada
+  const firstContactInput = text(fd, "first_contact");
+  const firstContact = firstContactInput !== text(fd, "first_contact_original") ? firstContactInput : null;
+  if (firstContact && firstContact > new Date().toISOString().slice(0, 10)) {
+    return { error: "El primer contacto no puede ser una fecha futura." };
+  }
+
   const lead = {
     name,
     company: text(fd, "company"),
@@ -36,6 +57,13 @@ export async function saveLead(_prev: FormState, fd: FormData): Promise<FormStat
     estimated_value: estimated,
     currency: text(fd, "currency") ?? "COP",
     next_follow_up: text(fd, "next_follow_up"),
+    delivered_at: text(fd, "delivered_at"),
+    delivered_url: deliveredUrl,
+    paid_amount: paidAmount,
+    paid_currency: paidCurrency,
+    paid_fx_rate_cop: paidFx > 0 ? paidFx : 1,
+    // Mediodía en Colombia: evita que la fecha cambie de día por la zona horaria
+    ...(firstContact && { created_at: `${firstContact}T12:00:00-05:00` }),
   };
 
   const supabase = await createClient();
@@ -49,7 +77,11 @@ export async function saveLead(_prev: FormState, fd: FormData): Promise<FormStat
 
   const { data, error } = await supabase.from("leads").insert(lead).select("id").single();
   if (error) return { error: error.message };
-  await supabase.from("lead_activities").insert({ lead_id: data.id, type: "nota", content: "Lead creado" });
+  await supabase.from("lead_activities").insert({
+    lead_id: data.id,
+    type: "nota",
+    content: status === "ganado" && (lead.delivered_at || lead.paid_amount) ? "Cliente registrado" : "Lead creado",
+  });
   revalidatePath("/crm", "layout");
   redirect(`/crm/${data.id}`);
 }

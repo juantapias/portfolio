@@ -9,10 +9,11 @@ import { FORM_FIELDS, activityLabel, sourceLabel } from "@/lib/crm";
 import { effectiveQuoteStatus, quoteStatus } from "@/lib/quotes";
 import { formatDate, formatDateTime, formatMoney, todayISO } from "@/lib/format";
 import { getQuoteTotals } from "@/lib/quote-data";
+import { manualRevenueCop } from "@/lib/clients";
 import type { Lead, LeadActivity, Quote } from "@/lib/types";
 import { StatusSelect } from "./status-select";
 import { ActivityForm } from "./activity-form";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, PackageCheck } from "lucide-react";
 
 export async function generateMetadata({ params }: PageProps<"/crm/[id]">): Promise<Metadata> {
   const { id } = await params;
@@ -96,6 +97,40 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
         </div>
 
         <div className="space-y-6">
+          {lead.status === "ganado" && (lead.delivered_at || lead.delivered_url || lead.paid_amount) && (
+            <Card title="Proyecto entregado">
+              <dl className="space-y-3 text-sm">
+                <Row label="Entregado">
+                  <span className="inline-flex items-center gap-1.5">
+                    <PackageCheck aria-hidden className="size-4 text-success" />
+                    {formatDate(lead.delivered_at)}
+                  </span>
+                </Row>
+                {lead.delivered_url && (
+                  <Row label="Sitio">
+                    <a href={lead.delivered_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-brand">
+                      {lead.delivered_url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                      <ArrowUpRight aria-hidden className="size-3.5" />
+                    </a>
+                  </Row>
+                )}
+                {lead.paid_amount != null && (
+                  <Row label="Cobrado">
+                    {formatMoney(lead.paid_amount, lead.paid_currency ?? "COP")}
+                    {lead.paid_currency && lead.paid_currency !== "COP" && (
+                      <span className="block text-xs text-muted-foreground">≈ {formatMoney(manualRevenueCop(lead), "COP")}</span>
+                    )}
+                    {quotes?.some((q) => q.status === "aceptado") && (
+                      <span className="block text-xs text-muted-foreground">
+                        No suma en las métricas: ya cuenta su presupuesto aceptado.
+                      </span>
+                    )}
+                  </Row>
+                )}
+              </dl>
+            </Card>
+          )}
+
           <Card title="Datos">
             <dl className="space-y-3 text-sm">
               <Row label="Email">
@@ -126,7 +161,7 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
               {lead.landing_page && <Row label="Landing">{lead.landing_page}</Row>}
               {lead.form_data?.gclid && <Row label="Google Ads"><span className="inline-flex items-center gap-1">gclid<Check aria-label="detectado" className="size-3.5 text-success" /></span></Row>}
               {lead.form_data?.fbclid && <Row label="Meta Ads"><span className="inline-flex items-center gap-1">fbclid<Check aria-label="detectado" className="size-3.5 text-success" /></span></Row>}
-              <Row label="Creado">{formatDate(lead.created_at)}</Row>
+              <Row label="Primer contacto">{formatDate(lead.created_at)}</Row>
             </dl>
           </Card>
 

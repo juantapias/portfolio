@@ -5,6 +5,7 @@ import { getQuoteTotals } from "./quote-data";
 import { getTotals as getInstagramTotals, isInstagramConfigured } from "./social/instagram";
 import { isGoogleConfigured } from "./google/client";
 import type { Lead, Quote } from "./types";
+import { manualRevenueCop, manualSales } from "./clients";
 
 // ─── Canales ───────────────────────────────────────────────────────
 
@@ -74,11 +75,17 @@ export async function getConversion(supabase: SupabaseClient, days: number) {
   const prevSince = new Date(now - 2 * days * 864e5).toISOString();
   const inRange = (iso: string | null, from = since, to = new Date(now).toISOString()) => !!iso && iso >= from && iso < to;
 
-  const [ga, ig, leadsRes, quotesRes] = await Promise.allSettled([
+  const [ga, ig, leadsRes, clientsRes, quotesRes] = await Promise.allSettled([
     isGoogleConfigured() ? getSessionBreakdown(days) : Promise.reject(new Error("GA4 sin conectar")),
     // La API de Instagram solo acepta ventanas de hasta 30 días
     isInstagramConfigured() && days <= 30 ? getInstagramTotals(days) : Promise.reject(new Error("Solo disponible hasta 28 días")),
     supabase.from("leads").select("id, created_at, source, utm_source, utm_medium, utm_campaign, status").gte("created_at", prevSince),
+    // Clientes con cobro registrado a mano (sin importar cuándo llegaron)
+    supabase
+      .from("leads")
+      .select("id, created_at, source, utm_source, utm_medium, utm_campaign, status, delivered_at, paid_amount, paid_fx_rate_cop")
+      .eq("status", "ganado")
+      .not("paid_amount", "is", null),
     supabase.from("quotes").select("id, lead_id, status, created_at, sent_at, accepted_at, valid_until, currency"),
   ]);
 
@@ -99,6 +106,18 @@ export async function getConversion(supabase: SupabaseClient, days: number) {
   const sent = quotes.filter((q) => inRange(q.sent_at));
   const won = quotes.filter((q) => q.status === "aceptado" && inRange(q.accepted_at));
   const prevWon = quotes.filter((q) => q.status === "aceptado" && inRange(q.accepted_at, prevSince, since));
+
+  // Ventas registradas a mano: cuentan por fecha de entrega, solo si no hay presupuesto aceptado
+  const clients = (clientsRes.status === "fulfilled" ? clientsRes.value.data ?? [] : []) as Lead[];
+  const acceptedLeads = new Set(quotes.filter((q) => q.status === "aceptado" && q.lead_id).map((q) => q.lead_id!));
+  const manual = manualSales(clients, acceptedLeads);
+  const deliveredIn = (l: Lead, from: string, to: string) => {
+    const d = `${l.delivered_at}T12:00:00-05:00`;
+    return d >= from && d < to;
+  };
+  const nowIso = new Date(now).toISOString();
+  const manualWon = manual.filter((l) => deliveredIn(l, since, nowIso));
+  const manualPrevWon = manual.filter((l) => deliveredIn(l, prevSince, since));
 
   // ─── Por canal
   const byChannel = new Map<Channel, Row>(CHANNELS.map((c) => [c.key, emptyRow()]));
@@ -125,6 +144,11 @@ export async function getConversion(supabase: SupabaseClient, days: number) {
   };
   for (const q of sent) attribute(q, (r) => r.quotesSent++);
   for (const q of won) attribute(q, (r) => { r.won++; r.wonCop += cop(q); });
+  for (const l of manualWon) {
+    const apply = (r: Row) => { r.won++; r.wonCop += manualRevenueCop(l); };
+    apply(byChannel.get(channelFromLead(l))!);
+    if (l.utm_campaign) apply(campaignRow(l.utm_campaign));
+  }
 
   // ─── Velocidad de cierre: días entre la creación del lead y la aceptación
   const closeDays = won
@@ -132,10 +156,12 @@ export async function getConversion(supabase: SupabaseClient, days: number) {
       const lead = q.lead_id ? leadById.get(q.lead_id) : undefined;
       return lead && q.accepted_at ? (new Date(q.accepted_at).getTime() - new Date(lead.created_at).getTime()) / 864e5 : null;
     })
-    .filter((d): d is number => d !== null);
+    .filter((d): d is number => d !== null)
+    .concat(manualWon.map((l) => (new Date(`${l.delivered_at}T12:00:00-05:00`).getTime() - new Date(l.created_at).getTime()) / 864e5));
 
   const sessions = ga.status === "fulfilled" ? ga.value : null;
-  const wonCop = won.reduce((s, q) => s + cop(q), 0);
+  const wonCop = won.reduce((s, q) => s + cop(q), 0) + manualWon.reduce((s, l) => s + manualRevenueCop(l), 0);
+  const wonCount = won.length + manualWon.length;
 
   return {
     sources: {
@@ -148,16 +174,16 @@ export async function getConversion(supabase: SupabaseClient, days: number) {
       sessions: sessions?.current ?? null,
       leads: currentLeads.length,
       quotesSent: sent.length,
-      won: won.length,
+      won: wonCount,
       wonCop,
     },
     previous: {
       sessions: sessions?.previous ?? null,
       leads: previousLeads.length,
-      won: prevWon.length,
-      wonCop: prevWon.reduce((s, q) => s + cop(q), 0),
+      won: prevWon.length + manualPrevWon.length,
+      wonCop: prevWon.reduce((s, q) => s + cop(q), 0) + manualPrevWon.reduce((s, l) => s + manualRevenueCop(l), 0),
     },
-    avgDeal: won.length ? wonCop / won.length : null,
+    avgDeal: wonCount ? wonCop / wonCount : null,
     avgCloseDays: closeDays.length ? closeDays.reduce((a, b) => a + b, 0) / closeDays.length : null,
     channels: CHANNELS.map((c) => ({ ...c, ...byChannel.get(c.key)! })).filter((c) => c.sessions || c.leads || c.quotesSent || c.won),
     campaigns: [...byCampaign.entries()]
