@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
 import { TemplateForm } from "./template-form";
 import { TemplateRow } from "./template-row";
 import type { ServiceTemplate } from "@/lib/types";
-import { ArrowLeft } from "lucide-react";
+import { BackLink } from "@/components/ui/mobile";
 
 export const metadata: Metadata = { title: "Servicios" };
 
@@ -20,8 +19,8 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <Link href="/presupuestos" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft aria-hidden className="size-4" />Presupuestos</Link>
-      <div className="mt-3">
+      <BackLink href="/presupuestos" label="Presupuestos" />
+      <div className="mt-2">
         <PageHeader title="Servicios" description="Tu catálogo con precios por moneda. Se añaden a un presupuesto con un clic." />
       </div>
 
@@ -30,7 +29,7 @@ export default async function ServicesPage() {
       </Card>
 
       {templates.length > 0 && (
-        <ul className="divide-y divide-border rounded-lg border border-border bg-card">
+        <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
           {templates.map((t) => <TemplateRow key={t.id} template={t} />)}
         </ul>
       )}

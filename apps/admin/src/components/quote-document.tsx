@@ -17,7 +17,7 @@ export function QuoteDocument({ quote, items, totals, profile, client }: Props) 
   const issuer = profile?.trade_name || profile?.legal_name || "Tu nombre";
 
   return (
-    <article className="quote-paper mx-auto max-w-3xl rounded-lg bg-white p-8 text-[13px] leading-relaxed text-neutral-800 shadow-sm ring-1 ring-black/5 sm:p-12 print:max-w-none print:rounded-none print:p-0 print:shadow-none print:ring-0">
+    <article className="quote-paper mx-auto max-w-3xl rounded-lg bg-white p-5 text-[13px] leading-relaxed text-neutral-800 shadow-sm ring-1 ring-black/5 sm:p-12 print:max-w-none print:rounded-none print:p-0 print:shadow-none print:ring-0">
       <header className="flex flex-wrap items-start justify-between gap-6 border-b border-neutral-200 pb-8">
         <div>
           <p className="text-xl font-semibold tracking-tight text-neutral-950">{issuer}</p>
@@ -72,9 +72,9 @@ export function QuoteDocument({ quote, items, totals, profile, client }: Props) 
         <thead>
           <tr className="border-b border-neutral-300 text-left text-xs uppercase tracking-wider text-neutral-400">
             <th className="py-2 font-medium">Descripción</th>
-            <th className="w-16 py-2 text-right font-medium">Cant.</th>
-            <th className="w-32 py-2 text-right font-medium">Precio</th>
-            <th className="w-32 py-2 text-right font-medium">Importe</th>
+            <th className="w-16 py-2 text-right font-medium max-sm:hidden">Cant.</th>
+            <th className="w-32 py-2 text-right font-medium max-sm:hidden">Precio</th>
+            <th className="w-28 py-2 text-right font-medium sm:w-32">Importe</th>
           </tr>
         </thead>
         <tbody>
@@ -83,9 +83,13 @@ export function QuoteDocument({ quote, items, totals, profile, client }: Props) 
               <td className="py-3 pr-4">
                 <p className="font-medium text-neutral-950">{item.description}</p>
                 {item.details && <p className="mt-0.5 whitespace-pre-line text-neutral-500">{item.details}</p>}
+                {/* Teléfono: cantidad y precio unitario bajo la descripción (las columnas no caben) */}
+                <p className="mt-1 text-xs text-neutral-500 tabular-nums sm:hidden">
+                  {Number(item.quantity).toLocaleString("es-CO")} × {formatMoney(item.unit_price, quote.currency)}
+                </p>
               </td>
-              <td className="py-3 text-right tabular-nums">{Number(item.quantity).toLocaleString("es-CO")}</td>
-              <td className="py-3 text-right tabular-nums">{formatMoney(item.unit_price, quote.currency)}</td>
+              <td className="py-3 text-right tabular-nums max-sm:hidden">{Number(item.quantity).toLocaleString("es-CO")}</td>
+              <td className="py-3 text-right tabular-nums max-sm:hidden">{formatMoney(item.unit_price, quote.currency)}</td>
               <td className="py-3 text-right tabular-nums">{formatMoney(item.quantity * item.unit_price, quote.currency)}</td>
             </tr>
           ))}

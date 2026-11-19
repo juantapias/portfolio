@@ -10,6 +10,9 @@ import { buttonClass } from "@/components/ui/form";
 import { QUOTE_STATUSES, effectiveQuoteStatus, quoteStatus } from "@/lib/quotes";
 import { formatDate, formatMoney } from "@/lib/format";
 import type { Quote, QuoteStatus } from "@/lib/types";
+import { ChevronRight, Plus } from "lucide-react";
+import { Fab } from "@/components/ui/mobile";
+import { SegmentedNav } from "@/components/ui/segmented-nav";
 
 export const metadata: Metadata = { title: "Presupuestos" };
 
@@ -43,10 +46,11 @@ export default async function QuotesPage({ searchParams }: PageProps<"/presupues
         actions={
           <div className="flex gap-2">
             <Link href="/presupuestos/servicios" className={buttonClass("secondary")}>Servicios</Link>
-            <Link href="/presupuestos/nuevo" className={buttonClass()}>Nuevo presupuesto</Link>
+            <Link href="/presupuestos/nuevo" className={buttonClass("primary", "hidden md:inline-flex")}>Nuevo presupuesto</Link>
           </div>
         }
       />
+      {all.length > 0 && <Fab href="/presupuestos/nuevo" label="Nuevo presupuesto" icon={Plus} />}
 
       {all.length === 0 ? (
         <EmptyState
@@ -61,26 +65,62 @@ export default async function QuotesPage({ searchParams }: PageProps<"/presupues
         />
       ) : (
         <>
-          <div className="mb-8 grid gap-4 sm:grid-cols-3">
+          <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 [&>*:last-child]:col-span-2 sm:[&>*:last-child]:col-span-1">
             <Stat label="Pendientes de respuesta" value={formatMoney(sumCop(pending), "COP")} hint={`${pending.length} enviado${pending.length === 1 ? "" : "s"}`} />
             <Stat label={`Aceptado en ${year}`} value={formatMoney(sumCop(won), "COP")} hint={`${won.length} presupuesto${won.length === 1 ? "" : "s"}`} />
             <Stat label="Tasa de cierre" value={winRate === null ? "—" : `${winRate}%`} hint="Aceptados ÷ (aceptados + rechazados + vencidos)" />
           </div>
 
-          <nav className="mb-4 flex flex-wrap gap-1 text-sm" aria-label="Filtrar por estado">
-            <FilterLink href="/presupuestos" active={!filter} label="Todos" count={all.length} />
-            {QUOTE_STATUSES.map((s) => (
-              <FilterLink
-                key={s.value}
-                href={`/presupuestos?estado=${s.value}`}
-                active={filter === s.value}
-                label={s.label}
-                count={all.filter((q) => q.effective === s.value).length}
-              />
-            ))}
-          </nav>
+          <SegmentedNav
+            label="Filtrar por estado"
+            size="sm"
+            active={filter ?? "todos"}
+            className="mb-4"
+            items={[
+              { key: "todos", href: "/presupuestos", label: `Todos · ${all.length}` },
+              ...QUOTE_STATUSES.map((s) => ({
+                key: s.value,
+                href: `/presupuestos?estado=${s.value}`,
+                label: `${s.label} · ${all.filter((q) => q.effective === s.value).length}`,
+              })),
+            ]}
+          />
 
-          <div className="overflow-x-auto rounded-lg border border-border bg-card">
+          {/* Móvil: lista de tarjetas */}
+          <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card md:hidden">
+            {quotes.map((q) => {
+              const lead = q.lead_id ? leadById.get(q.lead_id) : null;
+              const st = quoteStatus(q.effective);
+              const t = totals.get(q.id);
+              return (
+                <li key={q.id}>
+                  <Link href={`/presupuestos/${q.id}`} className="flex items-center gap-3 px-4 py-3.5 active:bg-accent">
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-medium">{q.title}</span>
+                      <span className="mt-0.5 block truncate text-xs text-muted-foreground">
+                        {q.number}
+                        {lead && ` · ${lead.company || lead.name}`}
+                      </span>
+                      <span className="mt-1.5 flex items-center gap-2">
+                        <Badge tone={st.tone}>{st.label}</Badge>
+                        <span className="text-[11px] text-muted-foreground">hasta {formatDate(q.valid_until)}</span>
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-right">
+                      <span className="block text-sm font-medium tabular-nums">{formatMoney(t?.total, q.currency)}</span>
+                      {q.currency !== "COP" && (
+                        <span className="block text-[11px] text-muted-foreground tabular-nums">≈ {formatMoney(t?.total_cop, "COP")}</span>
+                      )}
+                    </span>
+                    <ChevronRight aria-hidden className="size-4 shrink-0 text-muted-foreground" />
+                  </Link>
+                </li>
+              );
+            })}
+            {quotes.length === 0 && <li className="px-4 py-8 text-center text-sm text-muted-foreground">Nada con este estado.</li>}
+          </ul>
+
+          <div className="hidden overflow-x-auto rounded-xl border border-border bg-card md:block">
             <table className="w-full min-w-[640px] text-sm">
               <thead className="border-b border-border text-left text-xs text-muted-foreground">
                 <tr>
@@ -126,13 +166,3 @@ export default async function QuotesPage({ searchParams }: PageProps<"/presupues
   );
 }
 
-function FilterLink({ href, active, label, count }: { href: string; active: boolean; label: string; count: number }) {
-  return (
-    <Link
-      href={href}
-      className={`rounded-md px-3 py-1.5 ${active ? "bg-foreground text-background" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
-    >
-      {label} <span className="tabular-nums opacity-60">{count}</span>
-    </Link>
-  );
-}

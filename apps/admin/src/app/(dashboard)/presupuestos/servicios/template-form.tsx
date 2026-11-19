@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { saveTemplate, type FormState } from "../actions";
 import { Button, Field, FormError, Input, Textarea } from "@/components/ui/form";
 import { CURRENCIES } from "@/lib/quotes";
+import { MoneyInput } from "@/components/ui/money-input";
 import type { ServiceTemplate } from "@/lib/types";
 
 export function TemplateForm({ template, onDone }: { template?: ServiceTemplate; onDone?: () => void }) {
@@ -37,22 +38,22 @@ export function TemplateForm({ template, onDone }: { template?: ServiceTemplate;
         <p className="mb-1.5 text-sm font-medium">Precios <span className="font-normal text-muted-foreground">· deja vacío si no lo ofreces en esa moneda</span></p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
           {CURRENCIES.map((c) => (
-            <label key={c} className="flex items-center gap-2 rounded-md border border-border bg-background pl-3 text-sm focus-within:border-ring">
+            <label key={c} className="flex h-11 items-center gap-2 rounded-xl border border-input bg-card pl-3 text-sm focus-within:border-ring md:h-9">
               <span className="w-9 text-xs text-muted-foreground">{c}</span>
-              <input
+              <MoneyInput
+                bare
                 name={`price_${c}`}
-                type="number"
-                min="0"
-                step="0.01"
                 defaultValue={price(c)}
-                className="w-full min-w-0 bg-transparent py-2 pr-3 text-right outline-none"
+                aria-label={`Precio en ${c}`}
+                placeholder="—"
+                className="w-full min-w-0 bg-transparent py-2 pr-3 text-right text-base tabular-nums outline-none placeholder:text-muted-foreground/50 md:text-sm"
               />
             </label>
           ))}
         </div>
       </div>
       <FormError message={state.error} />
-      <Button disabled={pending}>{pending ? "Guardando…" : template ? "Guardar" : "Añadir servicio"}</Button>
+      <Button disabled={pending} className="h-11 w-full sm:h-9 sm:w-auto">{pending ? "Guardando…" : template ? "Guardar" : "Añadir servicio"}</Button>
     </form>
   );
 }

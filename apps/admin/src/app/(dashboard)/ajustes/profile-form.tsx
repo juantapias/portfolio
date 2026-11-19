@@ -57,8 +57,8 @@ export function ProfileForm({ profile }: { profile: BusinessProfile | null }) {
         </Field>
       </div>
       <FormError message={state.error} />
-      <div className="flex items-center gap-3">
-        <Button disabled={pending}>{pending ? "Guardando…" : "Guardar perfil"}</Button>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button disabled={pending} className="h-11 w-full sm:h-9 sm:w-auto">{pending ? "Guardando…" : "Guardar perfil"}</Button>
         {state.ok && !pending && <span className="inline-flex items-center gap-1 text-sm text-success"><Check aria-hidden className="size-4" />Guardado</span>}
       </div>
     </form>

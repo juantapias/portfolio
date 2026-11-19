@@ -66,7 +66,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         {/* En móvil, espacio inferior para la barra de pestañas (más la barra de inicio del teléfono) */}
         <main
           id="contenido"
-          className="px-4 pt-5 pb-[calc(6rem+env(safe-area-inset-bottom))] md:px-2 md:py-8 lg:px-6 print:p-0"
+          className="px-4 pt-5 pb-[calc(8.5rem+env(safe-area-inset-bottom))] md:px-2 md:py-8 lg:px-6 print:p-0"
         >
           {children}
         </main>

@@ -61,7 +61,7 @@ export async function OverviewTab({ range }: { range: Range }) {
                 href={`https://www.instagram.com/${igProfile.value.username}/`}
                 action={<CardLink href={tab("instagram")}>Ver detalle</CardLink>}
               />
-              <dl className="mt-5 grid flex-1 gap-3 sm:grid-cols-3">
+              <dl className="mt-5 grid flex-1 grid-cols-3 gap-2 sm:gap-3">
                 <Figure icon={Users} label="Seguidores" value={n(igProfile.value.followers_count)}>
                   {igFollows.status === "fulfilled" && (
                     <span className="text-xs text-muted-foreground">
@@ -94,7 +94,7 @@ export async function OverviewTab({ range }: { range: Range }) {
                 href={ttUser.value.profile_deep_link ?? `https://www.tiktok.com/@${ttUser.value.username}`}
                 action={<CardLink href={tab("tiktok")}>Ver detalle</CardLink>}
               />
-              <dl className="mt-5 grid flex-1 gap-3 sm:grid-cols-3">
+              <dl className="mt-5 grid flex-1 grid-cols-3 gap-2 sm:gap-3">
                 <Figure icon={Users} label="Seguidores" value={n(ttUser.value.follower_count)}>
                   {ttPast?.followers != null && ttPast.date !== todayISO() ? (
                     <Delta current={ttUser.value.follower_count} previous={ttPast.followers} />
@@ -154,12 +154,12 @@ const rate = (a: number, b: number) => `${((a / b) * 100).toLocaleString("es-CO"
 
 function Figure({ icon: Icon, label, value, children }: { icon: LucideIcon; label: string; value: string; children?: React.ReactNode }) {
   return (
-    <div className="rounded-xl bg-muted/50 p-3">
-      <dt className="flex items-center gap-1.5 text-xs text-muted-foreground">
+    <div className="min-w-0 rounded-xl bg-muted/50 p-2.5 sm:p-3">
+      <dt className="flex items-start gap-1.5 text-[11px] leading-tight text-muted-foreground sm:text-xs">
         <Icon aria-hidden className="size-3.5" />
         {label}
       </dt>
-      <dd className="mt-1 text-2xl font-medium tabular-nums">{value}</dd>
+      <dd className="mt-1 text-lg font-medium tabular-nums sm:text-2xl">{value}</dd>
       {children && <dd className="mt-1">{children}</dd>}
     </div>
   );

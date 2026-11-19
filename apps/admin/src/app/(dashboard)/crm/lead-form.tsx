@@ -5,6 +5,8 @@ import Link from "next/link";
 import { saveLead, type FormState } from "./actions";
 import { Button, Field, FormError, Input, Select, Textarea, buttonClass } from "@/components/ui/form";
 import { DatePicker } from "@/components/ui/date-picker";
+import { MoneyInput } from "@/components/ui/money-input";
+import { FormActions } from "@/components/ui/mobile";
 import { LEAD_SOURCES, LEAD_STATUSES } from "@/lib/crm";
 import { CURRENCIES } from "@/lib/quotes";
 import type { Lead } from "@/lib/types";
@@ -34,7 +36,7 @@ export function LeadForm({
   }
 
   return (
-    <form action={action} className="max-w-3xl space-y-6">
+    <form action={action} className="space-y-6">
       {lead && <input type="hidden" name="id" value={lead.id} />}
       {lead && <input type="hidden" name="first_contact_original" value={lead.created_at.slice(0, 10)} />}
 
@@ -76,7 +78,7 @@ export function LeadForm({
             <Select name="currency" defaultValue={lead?.currency ?? "COP"} className="w-24 shrink-0">
               {CURRENCIES.map((c) => <option key={c}>{c}</option>)}
             </Select>
-            <Input name="estimated_value" inputMode="decimal" defaultValue={lead?.estimated_value ?? ""} placeholder="0" />
+            <MoneyInput name="estimated_value" defaultValue={lead?.estimated_value} placeholder="0" aria-label="Valor estimado" />
           </div>
         </Field>
         <Field label="Próximo seguimiento">
@@ -121,12 +123,11 @@ export function LeadForm({
               >
                 {CURRENCIES.map((c) => <option key={c}>{c}</option>)}
               </Select>
-              <Input
+              <MoneyInput
                 name="paid_amount"
-                inputMode="decimal"
-                defaultValue={lead?.paid_amount ?? ""}
+                defaultValue={lead?.paid_amount}
                 placeholder="0"
-                className="min-w-32 flex-1"
+                className="w-auto min-w-32 flex-1"
                 aria-label="Monto cobrado"
               />
               {paidCurrency !== "COP" && (
@@ -149,10 +150,10 @@ export function LeadForm({
 
       <FormError message={state.error} />
 
-      <div className="flex gap-2">
+      <FormActions>
         <Button disabled={pending}>{pending ? "Guardando…" : lead ? "Guardar cambios" : asClient ? "Registrar cliente" : "Crear lead"}</Button>
-        <Link href={lead ? `/crm/${lead.id}` : "/crm"} className={buttonClass("ghost")}>Cancelar</Link>
-      </div>
+        <Link href={lead ? `/crm/${lead.id}` : "/crm"} className={buttonClass("ghost", "h-11 md:h-9")}>Cancelar</Link>
+      </FormActions>
     </form>
   );
 }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
 import { Delta } from "@/components/ui/delta";
@@ -7,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getConversion } from "@/lib/conversion";
 import { formatMoney } from "@/lib/format";
 import { ArrowRight } from "lucide-react";
+import { SegmentedNav } from "@/components/ui/segmented-nav";
 
 export const metadata: Metadata = { title: "Conversión" };
 
@@ -51,18 +51,12 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
         title="Conversión"
         description="De la primera vista en redes hasta el dinero cerrado"
         actions={
-          <nav aria-label="Periodo" className="flex rounded-md border border-border bg-card p-0.5 text-sm">
-            {RANGES.map((v) => (
-              <Link
-                key={v}
-                href={`/conversion?rango=${v}`}
-                aria-current={v === range ? "page" : undefined}
-                className={`rounded px-3 py-1.5 ${v === range ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                {v} días
-              </Link>
-            ))}
-          </nav>
+          <SegmentedNav
+            label="Periodo"
+            size="sm"
+            active={String(range)}
+            items={RANGES.map((v) => ({ key: String(v), href: `/conversion?rango=${v}`, label: `${v} días` }))}
+          />
         }
       />
 
@@ -92,7 +86,7 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
 
       {/* ─── Embudo ─── */}
       <Card title="Embudo" className="mt-6">
-        <ol className="grid gap-3 md:grid-cols-6">
+        <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
           {steps.map((s, i) => {
             const prev = i > 0 ? steps[i - 1].value : null;
             const rate = s.rate ? pct(s.rate.value, s.rate.base) : pct(s.value, prev);
@@ -100,12 +94,12 @@ export default async function ConversionPage({ searchParams }: PageProps<"/conve
             return (
               <li key={s.label} className="relative">
                 {i > 0 && (
-                  <p className="mb-1 flex items-center gap-0.5 text-xs font-medium tabular-nums text-brand md:absolute md:-left-3 md:-top-5 md:mb-0" title={rateTitle}>
+                  <p className="absolute top-2.5 right-2.5 z-10 flex items-center gap-0.5 text-[11px] font-medium tabular-nums text-brand md:top-[-1.25rem] md:right-auto md:-left-3 md:text-xs" title={rateTitle}>
                     <ArrowRight aria-hidden className="size-3" />
                     {rate}
                   </p>
                 )}
-                <div className="h-full rounded-md border border-border bg-background p-3">
+                <div className="h-full rounded-xl border border-border bg-background p-3 max-md:pt-8">
                   <p className="text-xs text-muted-foreground">{s.label}</p>
                   <p className="mt-1 text-2xl font-semibold tabular-nums">{s.value == null ? "—" : n(s.value)}</p>
                   {s.note && <p className="mt-1 text-[11px] leading-tight text-muted-foreground">{s.note}</p>}
@@ -167,7 +161,27 @@ function Table({
   rows: { key: string; name: string; sessions: number; leads: number; quotesSent: number; won: number; wonCop: number }[];
 }) {
   return (
-    <div className="overflow-x-auto">
+    <>
+      {/* Móvil: una tarjeta por fila con sus métricas en cuadrícula (sin scroll horizontal) */}
+      <ul className="space-y-2.5 md:hidden">
+        {rows.map((r) => (
+          <li key={r.key} className="rounded-xl border border-border bg-background/50 p-3.5">
+            <p className="flex items-baseline justify-between gap-3">
+              <span className="min-w-0 truncate font-medium">{r.name}</span>
+              <span className="shrink-0 text-sm font-medium tabular-nums">{r.wonCop ? formatMoney(r.wonCop, "COP") : "—"}</span>
+            </p>
+            <dl className="mt-3 grid grid-cols-3 gap-x-3 gap-y-2.5 text-sm">
+              <Metric label="Visitas" value={n(r.sessions)} />
+              <Metric label="Leads" value={n(r.leads)} />
+              <Metric label="Visita → lead" value={r.sessions ? pct(r.leads, r.sessions) : "—"} />
+              <Metric label="Presup." value={n(r.quotesSent)} />
+              <Metric label="Ventas" value={n(r.won)} />
+            </dl>
+          </li>
+        ))}
+      </ul>
+
+    <div className="hidden overflow-x-auto md:block">
       <table className="w-full min-w-[560px] text-sm">
         <thead className="text-left text-xs text-muted-foreground">
           <tr>
@@ -194,6 +208,16 @@ function Table({
           ))}
         </tbody>
       </table>
+    </div>
+    </>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="min-w-0">
+      <dt className="truncate text-[11px] text-muted-foreground">{label}</dt>
+      <dd className="font-medium tabular-nums">{value}</dd>
     </div>
   );
 }

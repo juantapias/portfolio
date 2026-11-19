@@ -13,7 +13,8 @@ import { manualRevenueCop } from "@/lib/clients";
 import type { Lead, LeadActivity, Quote } from "@/lib/types";
 import { StatusSelect } from "./status-select";
 import { ActivityForm } from "./activity-form";
-import { ArrowLeft, ArrowUpRight, Check, PackageCheck } from "lucide-react";
+import { ArrowUpRight, Check, Mail, MessageCircle, PackageCheck, Phone, type LucideIcon } from "lucide-react";
+import { BackLink } from "@/components/ui/mobile";
 
 export async function generateMetadata({ params }: PageProps<"/crm/[id]">): Promise<Metadata> {
   const { id } = await params;
@@ -40,19 +41,31 @@ export default async function LeadPage({ params }: PageProps<"/crm/[id]">) {
 
   return (
     <>
-      <Link href="/crm" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft aria-hidden className="size-4" />CRM</Link>
+      <BackLink href="/crm" label="CRM" />
 
-      <header className="mb-8 mt-3 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{lead.name}</h1>
+      <header className="mt-2 mb-6 flex flex-wrap items-start justify-between gap-4 md:mb-8">
+        <div className="min-w-0">
+          <h1 className="font-heading text-3xl leading-tight text-balance md:text-4xl">{lead.name}</h1>
           {lead.company && <p className="mt-1 text-muted-foreground">{lead.company}</p>}
         </div>
-        <div className="flex flex-wrap gap-2">
-          <StatusSelect id={lead.id} status={lead.status} />
-          <Link href={`/crm/${lead.id}/editar`} className={buttonClass("secondary")}>Editar</Link>
-          <Link href={`/presupuestos/nuevo?lead=${lead.id}`} className={buttonClass()}>Crear presupuesto</Link>
+        {/* Móvil: acciones a todo el ancho en cuadrícula; escritorio: en línea */}
+        <div className="grid w-full grid-cols-2 gap-2 md:flex md:w-auto md:flex-wrap">
+          <div className="col-span-2 md:col-span-1">
+            <StatusSelect id={lead.id} status={lead.status} />
+          </div>
+          <Link href={`/crm/${lead.id}/editar`} className={buttonClass("secondary", "h-11 md:h-9")}>Editar</Link>
+          <Link href={`/presupuestos/nuevo?lead=${lead.id}`} className={buttonClass("primary", "h-11 md:h-9")}>Crear presupuesto</Link>
         </div>
       </header>
+
+      {/* Contacto rápido (móvil): un toque para llamar, escribir por WhatsApp o enviar un correo */}
+      {(lead.phone || lead.email) && (
+        <nav aria-label="Contactar" className="mb-6 grid grid-cols-3 gap-2 md:hidden">
+          <QuickAction icon={Phone} label="Llamar" href={lead.phone ? `tel:${lead.phone}` : null} />
+          <QuickAction icon={MessageCircle} label="WhatsApp" href={whatsapp} external />
+          <QuickAction icon={Mail} label="Email" href={lead.email ? `mailto:${lead.email}` : null} />
+        </nav>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
@@ -202,5 +215,29 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
       <dt className="text-xs text-muted-foreground">{label}</dt>
       <dd className="mt-0.5 break-words">{children}</dd>
     </div>
+  );
+}
+
+function QuickAction({ icon: Icon, label, href, external = false }: { icon: LucideIcon; label: string; href: string | null; external?: boolean }) {
+  const content = (
+    <>
+      <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-primary/12 text-brand">
+        <Icon className="size-5" />
+      </span>
+      {label}
+    </>
+  );
+  const cls = "pressable flex flex-col items-center gap-1.5 rounded-2xl border border-border bg-card py-3 text-xs font-medium";
+  if (!href) {
+    return (
+      <span aria-disabled className={`${cls} opacity-40`}>
+        {content}
+      </span>
+    );
+  }
+  return (
+    <a href={href} className={cls} {...(external && { target: "_blank", rel: "noreferrer" })}>
+      {content}
+    </a>
   );
 }

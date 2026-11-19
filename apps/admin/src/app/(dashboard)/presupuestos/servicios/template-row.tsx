@@ -31,8 +31,8 @@ export function TemplateRow({ template }: { template: ServiceTemplate }) {
             : <span className="text-muted-foreground">Sin precios</span>}
         </p>
       </div>
-      <div className="flex gap-1">
-        <Button variant="ghost" onClick={() => setEditing(true)}>Editar</Button>
+      <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:gap-1 max-sm:[&_button]:h-11 max-sm:[&_button]:w-full">
+        <Button variant="secondary" className="sm:border-transparent sm:bg-transparent" onClick={() => setEditing(true)}>Editar</Button>
         <form action={deleteTemplate}>
           <input type="hidden" name="id" value={template.id} />
           <ConfirmButton variant="danger" message={`¿Eliminar «${template.name}»? Los presupuestos existentes no cambian.`}>

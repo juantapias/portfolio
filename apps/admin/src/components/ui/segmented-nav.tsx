@@ -64,7 +64,7 @@ export function SegmentedNav({
       ref={navRef}
       aria-label={label}
       className={cn(
-        "group/seg relative inline-flex max-w-full items-center gap-0.5 overflow-x-auto rounded-full border border-border bg-card p-1",
+        "group/seg scrollbar-none relative inline-flex max-w-full items-center gap-0.5 overflow-x-auto rounded-full border border-border bg-card p-1",
         className,
       )}
     >

@@ -227,6 +227,14 @@
   }
 }
 
+/* Desplazadores horizontales (filtros, carruseles) sin barra visible, como en apps nativas */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Márgenes para el notch, la isla dinámica y la barra de inicio (viewport-fit=cover) */
 @utility pt-safe {
   padding-top: env(safe-area-inset-top);

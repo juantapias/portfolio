@@ -25,6 +25,8 @@ export function Sidebar({ badges, defaultCollapsed }: { badges: NavBadges; defau
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // `key` puede venir vacío: Chrome emite keydown sin tecla al autocompletar formularios
+      if (typeof e.key !== "string") return;
       if (e.key.toLowerCase() === "b" && (e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey) {
         e.preventDefault();
         toggle();

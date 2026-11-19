@@ -5,6 +5,8 @@ import Link from "next/link";
 import { saveQuote, type FormState, type ItemInput } from "./actions";
 import { Button, Field, FormError, Input, Select, Textarea, buttonClass } from "@/components/ui/form";
 import { DatePicker } from "@/components/ui/date-picker";
+import { MoneyInput } from "@/components/ui/money-input";
+import { FormActions } from "@/components/ui/mobile";
 import { CURRENCIES, computeTotals } from "@/lib/quotes";
 import { formatMoney } from "@/lib/format";
 import type { Quote, QuoteItem, ServiceTemplate } from "@/lib/types";
@@ -142,7 +144,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
               aria-label="Añadir servicio"
               value=""
               onChange={(e) => addTemplate(e.target.value)}
-              className="w-auto"
+              className="w-full sm:w-auto"
             >
               <option value="">+ Añadir servicio…</option>
               {templates.map((t) => {
@@ -168,6 +170,7 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
           <ul className="divide-y divide-border">
             {items.map((item, index) => (
               <li key={item.id} className="grid gap-2 bg-card p-3 md:grid-cols-[1fr_90px_160px_140px_72px] md:items-start md:gap-3">
+                <p className="text-xs font-medium text-muted-foreground md:hidden">Ítem {index + 1}</p>
                 <div className="space-y-2">
                   <Input
                     aria-label="Descripción"
@@ -181,10 +184,12 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
                     value={item.details}
                     onChange={(e) => update(item.id, { details: e.target.value })}
                     placeholder="Detalle opcional (entregables, alcance…)"
-                    className="text-xs"
+                    className="md:text-xs"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2 md:contents">
+                  <span className="-mb-1 text-xs text-muted-foreground md:hidden">Cantidad</span>
+                  <span className="-mb-1 text-xs text-muted-foreground md:hidden">Precio unitario</span>
                   <Input
                     aria-label="Cantidad"
                     type="number"
@@ -194,21 +199,20 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
                     onChange={(e) => update(item.id, { quantity: Number(e.target.value) })}
                     className="text-right"
                   />
-                  <Input
+                  <MoneyInput
                     aria-label="Precio unitario"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={item.unit_price || ""}
-                    onChange={(e) => update(item.id, { unit_price: Number(e.target.value) })}
+                    value={item.unit_price || null}
+                    onValueChange={(v) => update(item.id, { unit_price: v })}
                     placeholder="0"
                     className="text-right"
                   />
                 </div>
-                <p className="py-2 text-right text-sm tabular-nums">
+                <div className="flex items-center justify-between gap-2 md:contents">
+                <p className="py-2 text-right text-sm font-medium tabular-nums max-md:order-2">
+                  <span className="mr-1.5 font-normal text-muted-foreground md:hidden">Importe</span>
                   {formatMoney(item.quantity * item.unit_price, currency)}
                 </p>
-                <div className="flex justify-end gap-0.5 text-muted-foreground">
+                <div className="flex justify-end gap-0.5 text-muted-foreground max-md:order-1">
                   <IconButton label="Subir" onClick={() => move(index, -1)} disabled={index === 0}><ChevronUp className="size-4" /></IconButton>
                   <IconButton label="Bajar" onClick={() => move(index, 1)} disabled={index === items.length - 1}><ChevronDown className="size-4" /></IconButton>
                   <IconButton
@@ -218,11 +222,12 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
                     <X className="size-4" />
                   </IconButton>
                 </div>
+                </div>
               </li>
             ))}
           </ul>
         </div>
-        <Button type="button" variant="ghost" className="mt-2" onClick={() => setItems((prev) => [...prev, newItem()])}>
+        <Button type="button" variant="secondary" className="mt-3 h-11 w-full md:h-9 md:w-auto" onClick={() => setItems((prev) => [...prev, newItem()])}>
           + Añadir ítem
         </Button>
       </section>
@@ -232,14 +237,11 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
         <Line label="Subtotal" value={formatMoney(totals.subtotal, currency)} />
         <div className="flex items-center justify-between gap-4">
           <label htmlFor="discount" className="text-muted-foreground">Descuento</label>
-          <Input
+          <MoneyInput
             id="discount"
             name="discount"
-            type="number"
-            min="0"
-            step="0.01"
-            value={discount || ""}
-            onChange={(e) => setDiscount(Number(e.target.value))}
+            value={discount || null}
+            onValueChange={setDiscount}
             placeholder="0"
             className="w-40 text-right"
           />
@@ -287,10 +289,18 @@ export function QuoteForm({ quote, items: initialItems, leads, templates, defaul
 
       <FormError message={state.error} />
 
-      <div className="flex gap-2">
+      {/* Móvil: barra fija con el total en vivo; así se ve el efecto de cada cambio sin bajar */}
+      <FormActions
+        summary={
+          <p className="flex items-baseline justify-between text-sm">
+            <span className="text-muted-foreground">Total</span>
+            <span className="text-lg font-semibold tabular-nums">{formatMoney(totals.total, currency)}</span>
+          </p>
+        }
+      >
         <Button disabled={pending}>{pending ? "Guardando…" : quote ? "Guardar cambios" : "Crear presupuesto"}</Button>
-        <Link href={quote ? `/presupuestos/${quote.id}` : "/presupuestos"} className={buttonClass("ghost")}>Cancelar</Link>
-      </div>
+        <Link href={quote ? `/presupuestos/${quote.id}` : "/presupuestos"} className={buttonClass("ghost", "h-11 md:h-9")}>Cancelar</Link>
+      </FormActions>
     </form>
   );
 }
@@ -311,7 +321,7 @@ function IconButton({ label, children, ...props }: React.ComponentProps<"button"
       aria-label={label}
       title={label}
       {...props}
-      className="flex size-8 items-center justify-center rounded-md hover:bg-accent hover:text-foreground disabled:opacity-30"
+      className="pressable flex size-10 items-center justify-center rounded-full hover:bg-accent hover:text-foreground disabled:opacity-30 md:size-8 md:rounded-md"
     >
       {children}
     </button>
