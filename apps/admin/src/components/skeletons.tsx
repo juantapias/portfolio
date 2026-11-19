@@ -213,11 +213,22 @@ export function FormSkeleton({ fields = 8, textareas = 1, className }: { fields?
 }
 
 /** Pestañas segmentadas (como <SegmentedNav>). */
-export function SegmentedSkeleton({ items = 3, small = false, className }: { items?: number; small?: boolean; className?: string }) {
+export function SegmentedSkeleton({
+  items = 3,
+  active = 0,
+  small = false,
+  className,
+}: {
+  items?: number;
+  /** Índice de la pestaña activa (resaltada) */
+  active?: number;
+  small?: boolean;
+  className?: string;
+}) {
   return (
     <div className={cn("inline-flex gap-1 rounded-full border border-border bg-card p-1", className)}>
       {Array.from({ length: items }, (_, i) => (
-        <Skeleton key={i} className={cn("rounded-full", small ? "h-7 w-16" : "h-8 w-24", i === 0 && "bg-foreground/15")} />
+        <Skeleton key={i} className={cn("rounded-full", small ? "h-7 w-16" : "h-8 w-24", i === active && "bg-foreground/15")} />
       ))}
     </div>
   );

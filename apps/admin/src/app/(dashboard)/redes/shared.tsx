@@ -1,8 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ExternalLink, TriangleAlert } from "lucide-react";
 import { surfaceClass } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { CardSkeleton, ChartSkeleton, LoadingRegion, MediaGridSkeleton, StatGridSkeleton } from "@/components/skeletons";
 import { InfoTip } from "@/components/ui/info-tip";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -151,32 +149,5 @@ export function SectionError({ reason }: { reason: unknown }) {
       <TriangleAlert aria-hidden className="mt-0.5 size-4 shrink-0" />
       <span>No se pudo cargar: {reason instanceof Error ? reason.message : String(reason)}</span>
     </p>
-  );
-}
-
-/** Esqueleto mientras cargan las APIs (Instagram y TikTok pueden tardar varios segundos). */
-export function TabSkeleton() {
-  return (
-    <LoadingRegion label="Cargando métricas" className="space-y-4">
-      <div className={cn(surfaceClass, "flex items-center gap-3 p-4")}>
-        <Skeleton className="size-11 rounded-full" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-28 rounded-full" />
-          <Skeleton className="h-3 w-44 rounded-full" />
-        </div>
-      </div>
-      <StatGridSkeleton />
-      <div className="grid gap-4 lg:grid-cols-2">
-        <CardSkeleton>
-          <ChartSkeleton bars={14} />
-        </CardSkeleton>
-        <CardSkeleton>
-          <ChartSkeleton bars={14} />
-        </CardSkeleton>
-      </div>
-      <CardSkeleton>
-        <MediaGridSkeleton />
-      </CardSkeleton>
-    </LoadingRegion>
   );
 }
