@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export const RANGES = [7, 28] as const;
 export type Range = (typeof RANGES)[number];
 
-export const TABS = ["general", "instagram", "tiktok"] as const;
+export const TABS = ["general", "instagram", "tiktok", "horarios"] as const;
 export type Tab = (typeof TABS)[number];
 
 export const n = (v: number) => v.toLocaleString("es-CO");
