@@ -12,6 +12,7 @@ import { buttonClass } from "@/components/ui/form";
 import { formatDate } from "@/lib/format";
 import { NOTIFICATION_TYPES, isTelegramConfigured, type NotificationType } from "@/lib/notifications";
 import { TestTelegramButton, TypeToggle } from "./telegram-settings";
+import { NotificationIcon } from "@/components/notification-icon";
 
 export const metadata: Metadata = { title: "Ajustes" };
 
@@ -58,12 +59,15 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
         </div>
         <ul className="divide-y divide-border text-sm">
           {(Object.keys(NOTIFICATION_TYPES) as NotificationType[]).map((t) => (
-            <li key={t} className="flex items-center justify-between gap-4 py-2.5">
-              <span>
-                <span aria-hidden>{NOTIFICATION_TYPES[t].icon}</span> {NOTIFICATION_TYPES[t].label}
-                <span className="block text-xs text-muted-foreground">{NOTIFICATION_TYPES[t].description}</span>
+            <li key={t} className="flex items-center justify-between gap-3 py-3">
+              <span className="flex min-w-0 items-start gap-3">
+                <NotificationIcon type={t} />
+                <span className="min-w-0">
+                  {NOTIFICATION_TYPES[t].label}
+                  <span className="block text-xs text-muted-foreground">{NOTIFICATION_TYPES[t].description}</span>
+                </span>
               </span>
-              <TypeToggle type={t} enabled={!telegramOff.has(t)} disabled={!telegram} />
+              <TypeToggle type={t} label={NOTIFICATION_TYPES[t].label} enabled={!telegramOff.has(t)} disabled={!telegram} />
             </li>
           ))}
         </ul>
@@ -101,9 +105,9 @@ export default async function SettingsPage({ searchParams }: PageProps<"/ajustes
             {!isTikTokConfigured() ? (
               <Badge tone="neutral">Sin credenciales</Badge>
             ) : (
-              <span className="flex items-center gap-2">
+              <span className="flex w-full items-center gap-2 sm:w-auto">
                 {tiktok && <Badge tone="green">Conectado</Badge>}
-                <a href="/api/integrations/tiktok/connect" className={buttonClass(tiktok ? "ghost" : "primary")}>
+                <a href="/api/integrations/tiktok/connect" className={buttonClass(tiktok ? "secondary" : "primary", "ml-auto h-11 sm:ml-0 sm:h-9")}>
                   {tiktok ? "Reconectar" : "Conectar TikTok"}
                 </a>
               </span>

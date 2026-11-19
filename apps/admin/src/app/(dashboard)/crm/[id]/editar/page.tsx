@@ -24,7 +24,7 @@ export default async function EditLeadPage({ params }: PageProps<"/crm/[id]/edit
       <PageHeader title={`Editar · ${lead.name}`} />
       <LeadForm lead={lead} trm={trm} />
 
-      <Card title="Zona de peligro" className="mt-10 max-w-3xl">
+      <Card title="Zona de peligro" className="mt-10">
         <form action={deleteLead} className="flex flex-wrap items-center justify-between gap-3">
           <input type="hidden" name="id" value={lead.id} />
           <p className="text-sm text-muted-foreground">

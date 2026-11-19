@@ -104,13 +104,13 @@ export function DatePicker({
         <PopoverContent align="start" className="w-auto p-0">
           <div className="flex flex-col sm:flex-row">
             {presets && (
-              <ul className="flex flex-wrap gap-1 border-b border-border p-2 sm:w-32 sm:flex-col sm:border-r sm:border-b-0">
+              <ul className="scrollbar-none flex gap-1 overflow-x-auto border-b border-border p-2 sm:w-32 sm:flex-col sm:overflow-visible sm:border-r sm:border-b-0">
                 {PRESETS.map((p) => (
                   <li key={p.label}>
                     <button
                       type="button"
                       onClick={() => pick(addDays(p.days))}
-                      className="w-full rounded-lg px-2.5 py-1.5 text-left text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                      className="w-full rounded-full bg-muted px-3 py-2 text-left text-xs whitespace-nowrap text-muted-foreground transition-colors hover:bg-accent hover:text-foreground sm:rounded-lg sm:bg-transparent sm:px-2.5 sm:py-1.5"
                     >
                       {p.label}
                     </button>
@@ -126,6 +126,8 @@ export function DatePicker({
               onSelect={(d: Date | undefined) => pick(d)}
               required={required}
               autoFocus
+              // Celdas de 40 px en táctil (mínimo cómodo para el dedo), 32 px en escritorio
+              className="[--cell-size:--spacing(10)] sm:[--cell-size:--spacing(8)]"
             />
           </div>
         </PopoverContent>

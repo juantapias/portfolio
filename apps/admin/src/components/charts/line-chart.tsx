@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 export interface Point {
   date: string; // YYYY-MM-DD
@@ -29,16 +29,31 @@ export function LineChart({
   data,
   label,
   format = (v) => v.toLocaleString("es-CO"),
-  width: W = 720,
+  width = 720,
 }: {
   data: Point[];
   label: string;
   format?: (v: number) => string;
-  /** Ancho del lienzo SVG: más pequeño en tarjetas estrechas para que el texto no se encoja */
+  /** Ancho inicial del lienzo SVG (antes de medir el contenedor) */
   width?: number;
 }) {
   const [hover, setHover] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const figureRef = useRef<HTMLElement>(null);
+
+  // El lienzo toma el ancho real del contenedor: así el texto conserva su tamaño en
+  // un teléfono en lugar de encogerse al escalar un lienzo pensado para escritorio
+  const [W, setW] = useState(width);
+  useEffect(() => {
+    const el = figureRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const w = Math.round(entry.contentRect.width);
+      if (w > 0) setW(Math.max(260, w));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const gradientId = useId();
 
   const { ticks, x, y, line, area } = useMemo(() => {
@@ -56,7 +71,7 @@ export function LineChart({
 
   // Etiquetas del eje X: ~6 fechas repartidas; la última siempre, sin pisar a la anterior
   const xLabels = useMemo(() => {
-    const every = Math.max(1, Math.ceil(data.length / (W < 600 ? 4 : 6)));
+    const every = Math.max(1, Math.ceil(data.length / (W < 420 ? 3 : W < 600 ? 4 : 6)));
     const last = data.length - 1;
     const idx = data.map((_, i) => i).filter((i) => i % every === 0);
     if (idx.at(-1) !== last) {
@@ -77,7 +92,7 @@ export function LineChart({
   const active = hover !== null ? data[hover] : null;
 
   return (
-    <figure className="relative">
+    <figure ref={figureRef} className="relative min-w-0">
       <svg
         ref={svgRef}
         viewBox={`0 0 ${W} ${H}`}
@@ -118,7 +133,7 @@ export function LineChart({
             textAnchor={i === 0 ? "start" : i === data.length - 1 ? "end" : "middle"}
             className="fill-muted-foreground text-[11px]"
           >
-            {fmtDay(d.date, { day: "numeric", month: "short" })}
+            {W < 420 ? fmtDay(d.date, { day: "numeric", month: "numeric" }) : fmtDay(d.date, { day: "numeric", month: "short" })}
           </text>
         ))}
 

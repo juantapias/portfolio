@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card } from "@/components/ui/card";
 import { Delta } from "@/components/ui/delta";
@@ -9,6 +8,7 @@ import { BarList } from "@/components/charts/bar-list";
 import { isGoogleConfigured } from "@/lib/google/client";
 import { RANGES, getAnalytics, getSearch, parseRange, type RangeDays } from "@/lib/analytics";
 import { formatDate } from "@/lib/format";
+import { SegmentedNav } from "@/components/ui/segmented-nav";
 
 export const metadata: Metadata = { title: "Analítica web" };
 
@@ -55,7 +55,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
         actions={<RangeFilter range={range} />}
       />
 
-      <p className="mb-6 rounded-md border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
+      <p className="mb-6 rounded-xl border border-border bg-card px-3 py-2 text-xs text-muted-foreground">
         GA4 solo mide a quien acepta las cookies, así que sus cifras están por debajo de la realidad. Los leads
         exactos están en el CRM.
       </p>
@@ -216,18 +216,12 @@ export default async function AnalyticsPage({ searchParams }: PageProps<"/analit
 
 function RangeFilter({ range }: { range: RangeDays }) {
   return (
-    <nav aria-label="Periodo" className="flex rounded-md border border-border bg-card p-0.5 text-sm">
-      {RANGES.map((r) => (
-        <Link
-          key={r.value}
-          href={`/analitica?rango=${r.value}`}
-          aria-current={r.value === range ? "page" : undefined}
-          className={`rounded px-3 py-1.5 ${r.value === range ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
-        >
-          {r.label}
-        </Link>
-      ))}
-    </nav>
+    <SegmentedNav
+      label="Periodo"
+      size="sm"
+      active={String(range)}
+      items={RANGES.map((r) => ({ key: String(r.value), href: `/analitica?rango=${r.value}`, label: r.label }))}
+    />
   );
 }
 

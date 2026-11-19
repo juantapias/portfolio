@@ -13,7 +13,7 @@ import { effectiveQuoteStatus, quoteStatus } from "@/lib/quotes";
 import { formatMoney } from "@/lib/format";
 import { deleteQuote, duplicateQuote, setQuoteStatus } from "../actions";
 import type { QuoteStatus } from "@/lib/types";
-import { ArrowLeft } from "lucide-react";
+import { BackLink } from "@/components/ui/mobile";
 
 export async function generateMetadata({ params }: PageProps<"/presupuestos/[id]">): Promise<Metadata> {
   const { id } = await params;
@@ -35,12 +35,12 @@ export default async function QuotePage({ params }: PageProps<"/presupuestos/[id
   return (
     <>
       <div className="print:hidden">
-        <Link href="/presupuestos" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft aria-hidden className="size-4" />Presupuestos</Link>
+        <BackLink href="/presupuestos" label="Presupuestos" />
 
-        <header className="mb-6 mt-3 flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-semibold tracking-tight">{quote.number}</h1>
+        <header className="mt-2 mb-6 flex flex-wrap items-start justify-between gap-4">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="font-heading text-3xl leading-tight md:text-4xl">{quote.number}</h1>
               <Badge tone={st.tone}>{st.label}</Badge>
             </div>
             <p className="mt-1 text-muted-foreground">
@@ -53,7 +53,8 @@ export default async function QuotePage({ params }: PageProps<"/presupuestos/[id
               )}
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          {/* Móvil: cuadrícula de botones iguales a todo el ancho */}
+          <div className="grid w-full auto-cols-fr grid-flow-col gap-2 md:flex md:w-auto md:flex-wrap [&_button]:w-full max-md:[&_a]:h-11 max-md:[&_button]:h-11">
             <Link href={`/presupuestos/${quote.id}/editar`} className={buttonClass("secondary")}>Editar</Link>
             <PrintButton />
             {quote.status !== "borrador" && <CopyLinkButton path={`/p/${quote.public_token}`} label="Copiar enlace" />}
@@ -72,7 +73,7 @@ export default async function QuotePage({ params }: PageProps<"/presupuestos/[id
 
       <QuoteDocument {...bundle} />
 
-      <div className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-between gap-2 print:hidden">
+      <div className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-between gap-2 print:hidden [&_button]:h-11 md:[&_button]:h-9">
         <form action={duplicateQuote}>
           <input type="hidden" name="id" value={quote.id} />
           <Button variant="ghost">Duplicar</Button>
@@ -101,15 +102,15 @@ function StatusActions({ id, status, effective }: { id: string; status: QuoteSta
   const hint = actions.find((a) => a.hint)?.hint;
 
   return (
-    <div className="mb-6 flex flex-wrap items-center gap-2 rounded-lg border border-border bg-card p-3">
+    <div className="mb-6 grid gap-2 rounded-2xl border border-border bg-card p-3 md:flex md:flex-wrap md:items-center">
       {actions.map((a) => (
         <form key={a.to} action={setQuoteStatus}>
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="status" value={a.to} />
-          <Button variant={a.variant}>{a.label}</Button>
+          <Button variant={a.variant} className="h-11 w-full md:h-9 md:w-auto">{a.label}</Button>
         </form>
       ))}
-      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
+      {hint && <p className="px-1 text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }

@@ -165,7 +165,19 @@ export function ListSkeleton({ rows = 5, avatar = true }: { rows?: number; avata
 /** Tabla: cabecera y filas con columnas de ancho estable. */
 export function TableSkeleton({ rows = 6, cols = 5 }: { rows?: number; cols?: number }) {
   return (
-    <div className={cn(surfaceClass, "overflow-hidden")}>
+    <>
+      {/* Móvil: las tablas se muestran como lista de tarjetas */}
+      <div className={cn(surfaceClass, "px-4 md:hidden")}>
+        <ListSkeleton rows={rows} avatar={false} />
+      </div>
+      <TableRowsSkeleton rows={rows} cols={cols} />
+    </>
+  );
+}
+
+function TableRowsSkeleton({ rows, cols }: { rows: number; cols: number }) {
+  return (
+    <div className={cn(surfaceClass, "hidden overflow-hidden md:block")}>
       <div className="flex gap-4 border-b border-border px-4 py-3">
         {Array.from({ length: cols }, (_, c) => (
           <Skeleton key={c} className={cn("h-3 rounded-full", c === 0 ? "w-20" : "flex-1")} />
@@ -294,7 +306,7 @@ export function BoardSkeleton({ columns = 5 }: { columns?: number }) {
   return (
     <div className="-mx-4 flex gap-4 overflow-hidden px-4 pb-4 md:mx-0 md:px-0">
       {Array.from({ length: columns }, (_, c) => (
-        <div key={c} className="w-72 shrink-0">
+        <div key={c} className="w-[82vw] max-w-sm shrink-0 md:w-72">
           <div className="mb-3 flex items-center justify-between px-1">
             <Skeleton className="h-5 w-24 rounded-full" />
             <Skeleton className="h-3 w-4 rounded-full" />

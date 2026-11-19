@@ -103,6 +103,22 @@ export async function updateLeadStatus(fd: FormData) {
   revalidatePath("/crm", "layout");
 }
 
+/** Mover un lead de columna desde el tablero (arrastrar y soltar). */
+export async function moveLead(id: string, status: LeadStatus): Promise<FormState> {
+  if (!LEAD_STATUSES.some((s) => s.value === status)) return { error: "Estado inválido." };
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("leads").update({ status }).eq("id", id);
+  if (error) return { error: error.message };
+  await supabase.from("lead_activities").insert({
+    lead_id: id,
+    type: "cambio_estado",
+    content: `Estado: ${leadStatus(status).label}`,
+  });
+  revalidatePath("/crm", "layout");
+  return {};
+}
+
 export async function addActivity(_prev: FormState, fd: FormData): Promise<FormState> {
   const leadId = String(fd.get("lead_id"));
   const content = text(fd, "content");
