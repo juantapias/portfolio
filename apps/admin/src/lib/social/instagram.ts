@@ -131,3 +131,35 @@ export async function getTopPosts(days: number, limit = 8) {
     top: withInsights.sort((a, b) => (b.insights?.views ?? 0) - (a.insights?.views ?? 0)).slice(0, limit),
   };
 }
+
+// ─── Horarios ──────────────────────────────────────────────────────
+
+/**
+ * Seguidores conectados por hora, día a día, de los últimos ~30 días.
+ * Meta entrega cada día con 24 claves ("0"…"23") en hora del Pacífico; `start`
+ * es el inicio de ese día en UTC (end_time − 24 h) para convertirlo a otra zona.
+ */
+export async function getOnlineFollowers() {
+  const now = unix(new Date());
+  const r = await graph<{ data: { values: { value: Record<string, number>; end_time: string }[] }[] }>(
+    `${process.env.INSTAGRAM_USER_ID}/insights`,
+    { metric: "online_followers", period: "lifetime", since: now - 29 * 86400, until: now },
+  );
+  return (r.data[0]?.values ?? [])
+    .filter((v) => v.value && Object.keys(v.value).length === 24)
+    .map((v) => ({ start: new Date(v.end_time).getTime() - 864e5, hours: v.value }));
+}
+
+/** Fecha de publicación y resultados de las últimas publicaciones (una sola llamada) */
+export async function getPostTimings(limit = 50) {
+  const r = await graph<{
+    data: { id: string; timestamp: string; insights?: { data: { name: string; values: { value: number }[] }[] } }[];
+  }>(`${process.env.INSTAGRAM_USER_ID}/media`, {
+    fields: "id,timestamp,insights.metric(reach,total_interactions)",
+    limit,
+  });
+  return r.data.map((p) => {
+    const v = Object.fromEntries((p.insights?.data ?? []).map((m) => [m.name, m.values[0]?.value ?? 0]));
+    return { timestamp: new Date(p.timestamp).getTime(), reach: v.reach ?? 0, interactions: v.total_interactions ?? 0 };
+  });
+}
