@@ -3,7 +3,9 @@ import { PageHeader } from "@/components/ui/page-header";
 import { getTRM } from "@/lib/trm";
 import { LeadForm } from "../lead-form";
 
-export const metadata: Metadata = { title: "Nuevo lead" };
+export async function generateMetadata({ searchParams }: PageProps<"/crm/nuevo">): Promise<Metadata> {
+  return { title: (await searchParams).tipo === "cliente" ? "Nuevo cliente" : "Nuevo lead" };
+}
 
 export default async function NewLeadPage({ searchParams }: PageProps<"/crm/nuevo">) {
   const asClient = (await searchParams).tipo === "cliente";
