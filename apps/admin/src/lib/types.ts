@@ -25,6 +25,12 @@ export interface Lead {
   form_data: Record<string, string> | null;
   /** Código corto que aparece en el mensaje de WhatsApp */
   ref: string | null;
+  /** Cliente: proyecto entregado y cobro registrado a mano */
+  delivered_at?: string | null;
+  delivered_url?: string | null;
+  paid_amount?: number | null;
+  paid_currency?: string;
+  paid_fx_rate_cop?: number;
 }
 
 export interface LeadActivity {

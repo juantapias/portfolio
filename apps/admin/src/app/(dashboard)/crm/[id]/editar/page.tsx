@@ -7,6 +7,7 @@ import { ConfirmButton } from "@/components/ui/confirm-button";
 import { LeadForm } from "../../lead-form";
 import { deleteLead } from "../../actions";
 import type { Lead } from "@/lib/types";
+import { getTRM } from "@/lib/trm";
 
 export const metadata: Metadata = { title: "Editar lead" };
 
@@ -16,11 +17,12 @@ export default async function EditLeadPage({ params }: PageProps<"/crm/[id]/edit
   const { data } = await supabase.from("leads").select("*").eq("id", id).maybeSingle();
   if (!data) notFound();
   const lead = data as Lead;
+  const trm = await getTRM(); // por si cambias el estado a «Ganado» y registras un cobro en USD
 
   return (
     <>
       <PageHeader title={`Editar · ${lead.name}`} />
-      <LeadForm lead={lead} />
+      <LeadForm lead={lead} trm={trm} />
 
       <Card title="Zona de peligro" className="mt-10 max-w-3xl">
         <form action={deleteLead} className="flex flex-wrap items-center justify-between gap-3">
